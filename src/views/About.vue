@@ -1,0 +1,42 @@
+<template>
+  <div class="about container">
+    <h1>About</h1>
+    <ul>
+      <li>Web interface: <router-link to="/" replace>{{rootUrl}}</router-link></li>
+      <li>Server API: <a :href="apiUrl">{{apiUrl}}</a></li>
+    </ul>
+    <p>OnMyShelf is a powerful open source collection manager.</p>
+    <p>OnMyShelf official website: <a href="https://onmyshelf.cm">https://onmyshelf.cm</a></p>
+  </div>
+</template>
+
+
+<script>
+export default {
+  computed: {
+    // return the root URL
+    rootUrl() {
+      // get current URL without /about
+      let currentURL = window.location.href
+      currentURL = currentURL.substring(0, currentURL.lastIndexOf( "/" ) + 1)
+
+      // ignore last "/"
+      if (currentURL.substr(-1) == '/') {
+        return currentURL.substring(0, currentURL.length-1)
+      }
+
+      return currentURL
+    },
+
+    // return the API URL
+    apiUrl() {
+      // return external API address
+      if (process.env.VUE_APP_API_URL.substring(0,4) == 'http') {
+        return process.env.VUE_APP_API_URL
+      }
+      // return same URL + API path
+      return this.rootUrl + process.env.VUE_APP_API_URL
+    }
+  }
+}
+</script>

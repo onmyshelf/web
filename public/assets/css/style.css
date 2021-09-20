@@ -1,0 +1,48 @@
+/*
+ *  Main design
+ */
+
+.item-cover {
+  text-align: center;
+}
+
+img.cover {
+  max-height: 200px;
+}
+
+img {
+  max-height: 300px;
+}
+
+.items h1 {
+  font-size: 2em;
+}
+
+.list-empty {
+  text-align: center;
+}
+
+.row {
+  margin: 2em 0;
+  padding: 0.5em;
+}
+
+.field-label {
+  display: inline;
+  margin-right: 10px;
+  vertical-align: top;
+}
+
+.field-value {
+  display: inline-block;
+}
+
+.gallery img {
+  margin: 1em 0.2em;
+  max-height: 80px;
+}
+
+.error {
+  text-align: center;
+}
+

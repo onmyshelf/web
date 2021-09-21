@@ -23,6 +23,10 @@ const routes = [
         component: () => import('../components/admin/Collection.vue'),
       },
       {
+        path: 'manage/delete',
+        component: () => import('../components/admin/CollectionDelete.vue'),
+      },
+      {
         path: 'manage/edit',
         component: () => import('../components/admin/CollectionEdit.vue'),
       },
@@ -35,8 +39,12 @@ const routes = [
         component: () => import('../components/admin/FieldEdit.vue'),
       },
       {
+        path: 'manage/field/:id/delete',
+        component: () => import('../components/admin/FieldDelete.vue'),
+      },
+      {
         path: 'item/new',
-        component: () => import('../components/admin/Item.vue'),
+        component: () => import('../components/admin/ItemEdit.vue'),
       },
       {
         path: 'item/:id',
@@ -44,8 +52,12 @@ const routes = [
       },
       {
         path: 'item/:id/edit',
-        component: () => import('../components/admin/Item.vue'),
+        component: () => import('../components/admin/ItemEdit.vue'),
       },
+      {
+        path: 'item/:id/delete',
+        component: () => import('../components/admin/ItemDelete.vue'),
+      }
     ]
   },
   {

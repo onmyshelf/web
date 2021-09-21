@@ -1,17 +1,30 @@
 <template>
-  <select class="form-select" aria-label="Default select example">
-    <option v-for="(name,key) in visibility" :key="key" :value="key">{{name.label}}</option>
+  <select v-model="level" class="form-select" aria-label="Visibility">
+    <template v-for="(name,key) in visibilityLevels" :key="key">
+      <option v-if="key <= max" :value="key">{{name.label}}</option>
+    </template>
   </select>
 </template>
 
 <script>
 export default {
   props: {
-    level: {
-      type: Number,
-      default: 3
+    modelValue: {},
+    max: {
+      type: String,
+      default: "4"
     }
   },
-  inject: ['visibility']
+  inject: ['visibilityLevels'],
+  computed: {
+    level: {
+      get() {
+        return this.modelValue
+      },
+      set(value) {
+        this.$emit('update:modelValue', value)
+      }
+    }
+  }
 }
 </script>

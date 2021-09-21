@@ -54,7 +54,7 @@ export default {
       fieldTypes: {
         text: {
           label: 'Text',
-          description: 'Used in most cases'
+          description: 'used in most cases'
         },
         image: {
           label: 'Image'
@@ -74,7 +74,7 @@ export default {
         },
         longtext: {
           label: 'Long text',
-          description: 'Used for descriptions, comments, ...'
+          description: 'used for descriptions, comments, ...'
         },
         datetime: {
           label: 'Date and time'

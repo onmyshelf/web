@@ -54,7 +54,7 @@
                 </td>
                 <td>
                   <a :href="'field/'+name" class="btn btn-primary">Edit</a>&nbsp;
-                  <button @click="deleteField(name)" class="btn btn-danger">Delete</button>
+                  <a :href="'field/'+name+'/delete'" class="btn btn-danger">Delete</a>
                 </td>
               </tr>
             </tbody>
@@ -90,7 +90,7 @@
                   <td>
                     <a :href="'/collection/'+id+'/item/'+item.id+'/'" class="btn btn-outline-primary">See</a>&nbsp;
                     <a :href="'/collection/'+id+'/item/'+item.id+'/edit'" class="btn btn-primary">Edit</a>&nbsp;
-                    <button @click="deleteItem(item.id)" class="btn btn-danger">Delete</button>
+                    <a :href="'/collection/'+id+'/item/'+item.id+'/delete'" class="btn btn-danger">Delete</a>
                   </td>
                 </tr>
               </tbody>
@@ -120,7 +120,7 @@
               <p class="card-text">
                 Delete entire collection.
               </p>
-              <a href="#" @click="deleteCollection" class="btn btn-danger">Delete collection</a>
+              <a href="delete" class="btn btn-danger">Delete collection</a>
             </div>
           </div><!-- card -->
         </div><!-- end of advanced section -->
@@ -155,9 +155,7 @@ export default {
       fields: null,
       items: null,
       errors: [],
-      titleField: null,
-      coverField: null,
-      displayMode: 'list'
+      titleField: null
     }
   },
   inject: ['fieldTypes'],
@@ -182,9 +180,6 @@ export default {
         for (let key in response.data.fields) {
           if (response.data.fields[key].isTitle) {
             this.titleField = key
-          }
-          if (response.data.fields[key].isCover) {
-            this.coverField = key
           }
         }
       }
@@ -264,39 +259,6 @@ export default {
         // quit loop
         return
       }
-    },
-    deleteField(id) {
-      // API call to delete field
-      axios.delete(process.env.VUE_APP_API_URL + '/collections/' + this.id + '/fields/' + id, this.$apiConfig())
-      .then(() => {
-        document.location.reload()
-      })
-      .catch(e => {
-        console.log(e)
-        alert('Error')
-      })
-    },
-    deleteItem(id) {
-      // API call to delete collection
-      axios.delete(process.env.VUE_APP_API_URL + '/collections/' + this.id + '/items/' + id, this.$apiConfig())
-      .then(() => {
-        document.location.reload()
-      })
-      .catch(e => {
-        console.log(e)
-        alert('Error')
-      })
-    },
-    deleteCollection() {
-      // API call to delete collection
-      axios.delete(process.env.VUE_APP_API_URL + '/collections/' + this.id, this.$apiConfig())
-      .then(() => {
-        document.location.href = '/'
-      })
-      .catch(e => {
-        console.log(e)
-        alert('Error')
-      })
     }
   }
 }

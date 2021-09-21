@@ -1,26 +1,26 @@
 <template>
   <div class="card">
     <div class="btn-group card-body" role="group" aria-label="Basic radio toggle button group">
-      <input type="radio" :name="name+'-mediaSource'" class="btn-check" :id="name+'-mediaLibrary'" autocomplete="off"
+      <input type="radio" :name="'mediaSource-'+cptId" class="btn-check" :id="'mediaLibrary-'+cptId" autocomplete="off"
             @change="toggleSource('media')" :checked="source == 'media'">
-      <label class="btn btn-outline-primary" :for="name+'-mediaLibrary'">Media library</label>
+      <label class="btn btn-outline-primary" :for="'mediaLibrary-'+cptId">Media library</label>
 
-      <input type="radio" :name="name+'-mediaSource'" class="btn-check" :id="name+'-mediaUrl'" autocomplete="off"
+      <input type="radio" :name="'mediaSource-'+cptId" class="btn-check" :id="'mediaUrl-'+cptId" autocomplete="off"
             @change="toggleSource('url')" :checked="source == 'url'">
-      <label class="btn btn-outline-primary" :for="name+'-mediaUrl'">External URL</label>
+      <label class="btn btn-outline-primary" :for="'mediaUrl-'+cptId">External URL</label>
 
-      <input type="radio" :name="name+'-mediaSource'" class="btn-check" :id="name+'-mediaNone'" autocomplete="off"
+      <input type="radio" :name="'mediaSource-'+cptId" class="btn-check" :id="'mediaNone-'+cptId" autocomplete="off"
             @change="toggleSource('none')" :checked="source == 'none'">
-      <label class="btn btn-outline-primary" :for="name+'-mediaNone'">None</label>
+      <label class="btn btn-outline-primary" :for="'mediaNone-'+cptId">None</label>
     </div>
   </div>
 
   <div v-if="source != 'none'" class="card mb-3">
     <div v-if="source == 'media'" class="card-body">
       <div class="input-group">
-        <span class="input-group-text" :id="name+'-mediaInfo'">Media URL:</span>
+        <span class="input-group-text" :id="'mediaInfo-'+cptId">Media URL:</span>
         <input type="text"
-            class="form-control" :aria-describedby="name+'-mediaInfo'" placeholder="Click on Upload button to send a new file"
+            class="form-control" :aria-describedby="'mediaInfo-'+cptId" placeholder="Click on Upload button to send a new file"
             v-model="mediaUrl" disabled>
         <a class="btn btn-primary" @click="uploadField = !uploadField">Upload a new file</a>
       </div>
@@ -28,7 +28,7 @@
       <div v-if="uploadField" class="mt-3">
         <label class="form-label">Choose a file then click on upload:</label>
         <div class="input-group">
-          <input :id="name+'-uploadFile'" type="file" class="form-control" placeholder="">
+          <input :id="'uploadFile-'+cptId" type="file" class="form-control" placeholder="">
           <a class="btn btn-primary" @click="upload" :disabled="loading">Upload</a>
         </div>
         <Loading v-if="loading"/>
@@ -40,13 +40,13 @@
     </div>
 
     <div v-else-if="source == 'url'" class="input-group card-body">
-      <span class="input-group-text" :id="name+'-mediaInfo'">Enter a valid URL:</span>
-      <input type="text" class="form-control" :aria-describedby="name+'-mediaInfo'" :placeholder="exampleUrl"
+      <span class="input-group-text" :id="'mediaInfo-'+cptId">Enter a valid URL:</span>
+      <input type="text" class="form-control" :aria-describedby="'mediaInfo-'+cptId" :placeholder="exampleUrl"
         v-model="externalUrl" @input="chosenUrl = externalUrl">
     </div>
   </div>
 
-  <input :id="name+'-chosenUrl'" type="hidden" v-model="chosenUrl" disabled>
+  <input type="hidden" v-model="chosenUrl" disabled>
 </template>
 
 <script>
@@ -58,42 +58,44 @@ export default {
     Loading
   },
   props: {
-    name: {
-      type: String,
-      required: true
-    },
-    url: {
-      type: String,
-      default: ''
-    },
+    modelValue: {},
     type: {
       type: String,
       default: ''
     }
   },
+  emits: ['update:modelValue'],
   data() {
     return {
       loading: false,
       source: 'none',
       externalUrl: '',
       mediaUrl: '',
-      chosenUrl: this.url,
       uploadField: false,
-      fileUploaded: false
+      fileUploaded: false,
+      cptId: Date.now().toString().substr(7)
     }
   },
   created() {
-    if (this.url && this.url != '') {
-      if (this.$isMediaUrl(this.url)) {
+    if (this.modelValue && this.modelValue != '') {
+      if (this.$isMediaUrl(this.modelValue)) {
         this.source = 'media'
-        this.mediaUrl = this.url
+        this.mediaUrl = this.modelValue
       } else {
         this.source = 'url'
-        this.externalUrl = this.url
+        this.externalUrl = this.modelValue
       }
     }
   },
   computed: {
+    chosenUrl: {
+      get() {
+        return this.modelValue
+      },
+      set(value) {
+        this.$emit('update:modelValue', value)
+      }
+    },
     exampleUrl() {
       switch (this.type) {
         case 'image':
@@ -101,7 +103,7 @@ export default {
 
         case 'video':
           return "e.g. https://www.youtube.com/watch?v=123456"
-      
+
         default:
           return "e.g. https://mysite.com/file.pdf"
       }
@@ -120,7 +122,7 @@ export default {
     },
     upload() {
       // upload a file
-      let file = document.querySelector('#'+this.name+'-uploadFile').files[0]
+      let file = document.querySelector('#uploadFile-'+this.cptId).files[0]
 
       if (!file || file == '') {
         return
@@ -132,7 +134,7 @@ export default {
 
       let data = new FormData()
       data.append("file", file)
-      
+
       // API call
       // TODO TEST
       axios.post(process.env.VUE_APP_API_URL + '/upload', data, this.$apiConfig({

@@ -29,10 +29,8 @@
               <input v-model="edit[name]" class="form-check-input" type="checkbox">
             </div>
           </template>
-          <MediaSelector v-else-if="field.type == 'image'"
-            type="image" :name="name" :url="edit[name]" />
-          <MediaSelector v-else-if="field.type == 'video'"
-            type="video" :name="name" :url="edit[name]" />
+          <MediaSelector v-else-if="field.type == 'image'" type="image" v-model="edit[name]" />
+          <MediaSelector v-else-if="field.type == 'video'" type="video" v-model="edit[name]" />
           <input v-else-if="field.type == 'url'" v-model="edit[name]" :required=field.required
             type="text" class="form-control" placeholder="e.g. https://mywebsite.com">
           <input v-else v-model="edit[name]" :type="field.type" class="form-control" :required=field.required>

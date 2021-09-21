@@ -17,16 +17,12 @@
 
       <div class="mb-3">
         <label class="form-label">Who can see this collection?</label>
-        <select v-model="edit.visibility" class="form-select" aria-label="Visibility">
-          <template v-for="(name,key) in visibilityLevels" :key="key">
-            <option v-if="key < 4" :value="key">{{name.label}}</option>
-          </template>
-        </select>
+        <Visibility v-model="edit.visibility" max="3" />
       </div>
 
       <div class="mb-3">
         <label class="form-label">Collection image</label>
-        <MediaSelector type="image" name="cover" :url="edit.cover" />
+        <MediaSelector type="image" v-model="edit.cover" />
       </div>
 
       <div class="mt-3">
@@ -44,12 +40,14 @@
 <script>
 import axios from 'axios'
 import Loading from '@/components/Loading.vue'
-import MediaSelector from '@/components/admin/fields/MediaSelector.vue'
+import MediaSelector from './fields/MediaSelector.vue'
+import Visibility from './fields/Visibility.vue'
 
 export default {
   components: {
     Loading,
-    MediaSelector
+    MediaSelector,
+    Visibility
   },
   data() {
     return {
@@ -101,9 +99,6 @@ export default {
         data.description = this.$i18nObject(data.description)
       }
 
-      // get cover
-      data.cover = document.querySelector('#cover-chosenUrl').value
-      
       // API call
       axios[protocol](url, data, this.$apiConfig())
       .then(response => {

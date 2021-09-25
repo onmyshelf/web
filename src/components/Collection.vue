@@ -43,11 +43,11 @@
               </template>
               <template v-else-if="this.displayMode == 'shop'">
                 <div class="row">
-                  <PreviewShop v-for="item of items" :key="item.id" :fields=fields :item=item />
+                  <PreviewShop v-for="item of items" :key="item.id" :item=item />
                 </div>
               </template>
               <template v-else>
-                <PreviewList v-for="item of items" :key="item.id" :fields=fields :item=item />
+                <PreviewList v-for="item of items" :key="item.id" :item=item />
               </template>
             </template>
           </div><!-- .container .items -->

@@ -7,7 +7,7 @@
         <template v-if="id">Edit field {{id}}</template>
         <template v-else>New field</template>
       </h1>
-      <form>
+      <form @submit="validate">
         <div class="mb-3">
           <label class="form-label">Label</label>
           <input v-model="edit.label" type="text" placeholder="e.g. Name" class="form-control"
@@ -89,15 +89,10 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Suffix to display after value (e.g. min, kg, m², ...)</label>
-          <input v-model="edit.suffix" type="text" class="form-control">
+          <label class="form-label">Suffix to display after value</label>
+          <input v-model="edit.suffix" type="text" class="form-control" placeholder="e.g. min, kg, m², ...">
         </div>
 
-        <div class="mb-3">
-          <label class="form-label">Order</label>
-          <input v-model="edit.order" type="number" class="form-control"
-            min=0 step=1>
-        </div>
 
         <div class="mb-3">
           <button class="btn btn-primary" type="submit">Save changes</button>&nbsp;
@@ -135,7 +130,7 @@ export default {
       // default form values
       edit: {
         type: 'text',
-        showLabel: true,
+        showLabel: false,
         visibility: 0
       },
       errors: [],
@@ -223,7 +218,7 @@ export default {
         newId = newId.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
       }
 
-      newId = newId.replace(/[^a-z0-9_]/g, '').substring(0,20) // remove invalid chars
+      newId = newId.replace(/[^a-z0-9]/g, '').substring(0,20) // remove invalid chars
       
       this.newId = newId
     },
@@ -231,6 +226,41 @@ export default {
       if (this.edit.isCover || this.edit.isTitle || this.edit.isSubTitle) {
         this.edit.preview = true
       }
+    },
+    validate(e) {
+      // prevent form to reload page
+      e.preventDefault()
+
+      // create/update field
+      let url = process.env.VUE_APP_API_URL + '/collections/' + this.$route.params.cid + '/fields'
+      let protocol = 'post'
+      if (this.id) {
+          protocol = 'patch'
+          url += '/' + this.id
+      }
+
+      // copy edit object (to avoid cloning events)
+      let data = Object.assign({}, this.edit)
+
+      // new field: add id name
+      if (!this.id) {
+          data.name = this.newId
+      }
+
+      if (data.label) {
+        data.label = this.$i18nObject(data.label)
+      }
+      if (data.description) {
+        data.description = this.$i18nObject(data.description)
+      }
+      // invert showLabel
+      data.showLabel = !data.showLabel
+
+      // API call
+      axios[protocol](url, data, this.$apiConfig())
+      .then(() => {
+        document.location.href = '/collection/'+this.$route.params.cid+'/manage/'
+      })
     }
   }
 }

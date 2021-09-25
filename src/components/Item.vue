@@ -22,8 +22,8 @@
             <i class="bi-pencil"></i> Edit
           </a>
           <template v-if="item.fields">
-            <div v-for="(value, name) in collection.fields" :key="name" class="item-preview">
-              <template v-if="collection.fields[name].shown != true">
+            <div v-for="(field, name) in collection.fields" :key="name" class="item-preview">
+              <template v-if="field.shown != true">
                 <Field v-if="item.fields[name]" :name="name" :value=item.fields[name] />
               </template><!-- if !shown -->
             </div>

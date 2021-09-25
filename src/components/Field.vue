@@ -1,13 +1,11 @@
 <template>
-  <div v-if="name && value" :class="'field field-'+name">
+  <div v-if="name && value && !type.isTitle && !type.isCover" :class="'field field-'+name">
     <div v-if="type && type.showLabel" class="field-label">
       <Translation v-if="type.label && Object.keys(type.label).length > 0" :text=type.label />
       <template v-else>{{name}}</template>:
     </div>
     <div class="field-value">
-      <h1 v-if="type && type.isTitle">{{value}}</h1>
-      <h2 v-else-if="type && type.isSubTitle">{{value}}</h2>
-      <Image v-else-if="type && type.type == 'image'" :url="value" />
+      <Image v-if="type && type.type == 'image'" :url="value" />
       <Video v-else-if="type && type.type == 'video'" :url="value" />
       <Url v-else-if="type && type.type == 'url'" :url="value" />
       <YesNo v-else-if="type && type.type == 'yesno'" :label="name" :value=value />

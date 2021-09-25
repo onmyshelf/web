@@ -16,8 +16,8 @@
         <i class="bi-pencil"></i> Edit item
       </a>
       <template v-if="item.fields" class="item-preview">
-        <template v-for="(value, name) in item.fields" :key="name">
-          <Field v-if="fields[name].preview" :name="name" :value=value />
+        <template v-for="(field, name) in collection.fields" :key="name">
+          <Field v-if="item.fields[name]" :name="name" :value=item.fields[name] />
         </template>
       </template>
     </div>
@@ -34,10 +34,6 @@ export default {
     Field
   },
   props: {
-    fields: {
-      type: Object,
-      required: true
-    },
     item: {
       type: Object,
       required: true
@@ -49,6 +45,9 @@ export default {
     },
     titleField() {
       return this.$parent.titleField
+    },
+    collection() {
+      return { fields: this.$parent.fields }
     }
   }
 }

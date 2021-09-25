@@ -11,7 +11,7 @@
         <div v-for="(field, name) in collection.fields" :key="name" class="item-preview mb-3">
           <label :for="name" class="form-label">
             <template v-if="field.label && field.label.length > 0">{{this.$translate(field.label)}}</template>
-            <template v-else>{{name}}</template>:
+            <template v-else>{{name}}</template>:&nbsp;
           </label>
           <div class="input-group">
           <template v-if="field.type == 'longtext'">

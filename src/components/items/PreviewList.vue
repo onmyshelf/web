@@ -2,35 +2,32 @@
   <div class="row">
     <div class="col-4 item-cover">
       <a :href="'item/'+item.id">
-        <Cover v-if="item.fields && coverField && item.fields[coverField]" :url="item.fields[coverField]" :linked=false />
-        <Cover v-else-if="$parent.cover" :url="$parent.cover" :linked=false />
-        <Cover v-else url="/assets/images/box.svg" :linked=false />
+        <Image :url="coverUrl" :cover=true />
       </a>
     </div>
     <div class="col">
       <a :href="'item/'+item.id+'/'">
-        <h1 v-if="item.fields && titleField && item.fields[titleField]">{{item.fields[titleField]}}</h1>
-        <h1 v-else>Item {{item.id}}</h1>
+        <h1>{{title}}</h1>
       </a>
       <a v-if="$parent.isMine" :href="'item/'+item.id+'/edit'" class="btn btn-outline-primary">
         <i class="bi-pencil"></i> Edit item
       </a>
-      <template v-if="item.fields" class="item-preview">
-        <template v-for="(field, name) in collection.fields" :key="name">
-          <Field v-if="item.fields[name]" :name="name" :value=item.fields[name] />
-        </template>
-      </template>
+      <div v-if="item.fields" class="item-preview">
+        <div v-for="(field, name) of collection.fields" :key="name">
+          <Field v-if="field.preview" :name="name" :field=field :value=item.fields[name] />
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import Cover from '@/components/fields/Cover.vue'
+import Image from '@/components/fields/medias/Image.vue'
 import Field from '@/components/Field.vue'
 
 export default {
   components: {
-    Cover,
+    Image,
     Field
   },
   props: {
@@ -40,14 +37,22 @@ export default {
     }
   },
   computed: {
-    coverField() {
-      return this.$parent.coverField
-    },
-    titleField() {
-      return this.$parent.titleField
-    },
     collection() {
-      return { fields: this.$parent.fields }
+      return this.$parent.collection
+    },
+    coverUrl() {
+      if (this.item.fields[this.collection.coverField]) {
+        return this.item.fields[this.collection.coverField]
+      } else {
+        return this.collection.cover
+      }
+    },
+    title() {
+      if (this.item.fields[this.collection.titleField]) {
+        return this.item.fields[this.collection.titleField]
+      } else {
+        return 'Item '+this.item.id
+      }
     }
   }
 }

@@ -22,8 +22,7 @@
           <div v-if="!filterMine || collection.owner == this.$currentUserId()" class="row">
             <div class="col-4 item-cover">
               <a :href="'collection/'+collection.id+'/'">
-                <Cover v-if="collection.cover" :url="collection.cover" :linked=false style="max-height:8em" />
-                <Cover v-else url="/assets/images/box.svg" :linked=false style="max-height:8em" />
+                <Image :url="collection.cover" :cover=true style="max-height:8em" />
               </a>
             </div>
             <div class="col">
@@ -52,14 +51,14 @@
 
 <script>
 import axios from 'axios'
-import Cover from './fields/Cover.vue'
+import Image from './fields/medias/Image.vue'
 import Empty from '@/components/Empty.vue'
 import Error from '@/components/Error.vue'
 import Loading from '@/components/Loading.vue'
 
 export default {
   components: {
-    Cover,
+    Image,
     Empty,
     Error,
     Loading

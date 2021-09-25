@@ -1,25 +1,33 @@
 <template>
   <a v-if="linked" :href="imgUrl">
-    <img :src="imgUrl" alt="Image not found" />
+    <img :src="imgUrl" alt="Image not found" :class="classes" />
   </a>
-  <img v-else :src="imgUrl" alt="Image not found" />
+  <img v-else :src="imgUrl" alt="Image not found" :class="classes" />
 </template>
 
 <script>
 export default {
   props: {
-    url: {
-      type: String,
-      required: true
-    },
+    url: {},
     linked: {
       type: Boolean,
-      default: true
+      default: false
     },
+    cover: {
+      type: Boolean,
+      default: false
+    }
   },
   computed: {
+    classes() {
+      return (this.cover ? 'cover img-thumbnail' : '')
+    },
     imgUrl() {
-      return this.$mediaUrl(this.url)
+      if (this.url && this.url != '') {
+        return this.$mediaUrl(this.url)
+      } else {
+        return '/assets/images/box.svg'
+      }
     }
   }
 }

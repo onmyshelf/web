@@ -2,31 +2,30 @@
   <div class="container">
     <Error v-if="errors.length > 0" />
     <template v-else>
-      <Breadcrumbs v-if="collection && item" :parents=breadcrumbs :current=item.fields[titleField] />
+      <Breadcrumbs v-if="collection && item" :parents=breadcrumbs :current=title />
       <div v-if="item && collection && collection.fields" class="row item">
         <div class="col-4 item-cover">
-          <Cover v-if="item.fields && coverField && item.fields[coverField]" :url="item.fields[coverField]" />
-          <Cover v-else-if="collection.cover" :url="collection.cover" :linked=false />
-          <Cover v-else url="/assets/images/box.svg" :linked=false />
+          <Image v-if="item.fields && coverField && item.fields[coverField]" :url="item.fields[coverField]"
+            :cover=true :linked=true />
+          <Image v-else :url="collection.cover" :cover=true />
 
           <div v-if="gallery.length > 0" class="gallery">
             <template v-for="field in gallery" :key="field">
-              <Cover v-if="item.fields[field]" :url="item.fields[field]" />
+              <Image v-if="item.fields[field] && !collection.fields[field].isCover" :url="item.fields[field]" :linked=true />
             </template>
           </div>
         </div>
         <div class="col">
-          <h1 v-if="item.fields && titleField && item.fields[titleField]">{{item.fields[titleField]}}</h1>
-          <h1 v-else>Item {{item.id}}</h1>
+          <h1>{{title}}</h1>
           <a v-if="isMine" href="edit" class="btn btn-outline-primary">
             <i class="bi-pencil"></i> Edit
           </a>
           <template v-if="item.fields">
-            <div v-for="(field, name) in collection.fields" :key="name" class="item-preview">
-              <template v-if="field.shown != true">
-                <Field v-if="item.fields[name]" :name="name" :value=item.fields[name] />
-              </template><!-- if !shown -->
-            </div>
+            <template v-for="(field, name) of collection.fields" :key="name">
+              <div v-if="!field.shown && (item.fields[name] || field.default)" class="item-preview">
+                <Field :name="name" :field=field :value=item.fields[name] />
+              </div>
+            </template>
           </template>
         </div><!-- .col -->
       </div><!-- .row -->
@@ -37,14 +36,14 @@
 <script>
 import axios from 'axios'
 import Breadcrumbs from '@/components/Breadcrumbs.vue'
-import Cover from './fields/Cover.vue'
+import Image from './fields/medias/Image.vue'
 import Error from '@/components/Error.vue'
 import Field from '@/components/Field.vue'
 
 export default {
   components: {
     Breadcrumbs,
-    Cover,
+    Image,
     Error,
     Field
   },
@@ -75,7 +74,7 @@ export default {
       if (response.data.name) {
         this.collection.name = this.$translate(response.data.name)
       } else {
-        this.collection.name = 'Collection ' + this.id
+        this.collection.name = 'Collection ' + this.$route.params.cid
       }
       this.breadcrumbs[0].label = this.collection.name
 
@@ -117,6 +116,13 @@ export default {
     // check if collection is mine
     isMine() {
       return this.$matchUserId(this.collection.owner)
+    },
+    title() {
+      if (this.item.fields[this.titleField]) {
+        return this.item.fields[this.titleField]
+      } else {
+        return 'Item '+this.item.id
+      }
     }
   }
 }

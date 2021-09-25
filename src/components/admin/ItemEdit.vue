@@ -7,41 +7,40 @@
         <template v-else>New item</template>
       </h1>
       <Loading v-if="loading"/>
-      <form v-if="item && item.fields">
+      <form v-else @submit="validate">
         <div v-for="(field, name) in collection.fields" :key="name" class="item-preview mb-3">
           <label :for="name" class="form-label">
-            <template v-if="field.label && field.label.length > 0">{{this.$translate(field.label)}}</template>
-            <template v-else>{{name}}</template>:&nbsp;
+            {{label(field.label, name)}}:
+            <span v-if="helpField(field)">
+              <a title="Informations about this field" data-bs-toggle="collapse" :href="'#help-'+name" 
+                aria-expanded="false" :aria-controls="'help-'+name">
+                <i class="bi bi-info-circle"></i>
+              </a>
+              <div class="collapse" :id="'help-'+name">
+                <div class="card card-body">
+                  {{$translate(field.description)}}
+                </div>
+              </div>
+            </span>
           </label>
-          <div class="input-group">
-          <template v-if="field.type == 'longtext'">
-            <textarea v-model="edit[name]" class="form-control" rows="3"></textarea>
+          <template v-if="Array.isArray(edit.fields[name])">
+            <FieldInput v-for="(value, key) in edit.fields[name]" :key="key" v-model="edit.fields[name][key]" :field=field />
           </template>
-          <template v-else-if="field.type == 'rating'">
-            <input v-model="edit[name]" type="number" min=0 max=5 step=1
-              class="form-control" :required=field.required>
-          </template>
-          <template v-else-if="field.type == 'date'">
-            <input v-model="edit[name]" type="date" class="form-control" :required=field.required>
-          </template>
-          <template v-else-if="field.type == 'yesno'">
-            <div class="form-check">
-              <input v-model="edit[name]" class="form-check-input" type="checkbox">
-            </div>
-          </template>
-          <MediaSelector v-else-if="field.type == 'image'" type="image" v-model="edit[name]" />
-          <MediaSelector v-else-if="field.type == 'video'" type="video" v-model="edit[name]" />
-          <input v-else-if="field.type == 'url'" v-model="edit[name]" :required=field.required
-            type="text" class="form-control" placeholder="e.g. https://mywebsite.com">
-          <input v-else v-model="edit[name]" :type="field.type" class="form-control" :required=field.required>
-          <span v-if="field.suffix" class="input-group-text">{{field.suffix}}</span>
-          </div>
-
-          <button v-if="field.multiple" type="button" class="btn btn-outline-primary">+ add value</button>
+          <FieldInput v-else v-model="edit.fields[name]" :field=field />
+          <button v-if="field.multiple" type="button" class="btn btn-outline-primary" @click="addValue(name)">+ add value</button>
         </div>
 
         <div class="mb-3">
-          <button class="btn btn-primary" type="submit">Save changes</button>
+          <label class="form-label">Who can see this item?</label>
+          <Visibility v-model="edit.visibility" max=3 />
+        </div>
+
+        <div class="mb-3">
+          <button class="btn btn-primary" type="submit">
+            <template v-if="id">Save changes</template>
+            <template v-else>Create item</template>
+          </button>&nbsp;
+          <a href=".." class="btn btn-outline-secondary">Cancel</a>
         </div>
       </form>
     </template>
@@ -51,23 +50,27 @@
 <script>
 import axios from 'axios'
 import Error from '@/components/Error.vue'
+import FieldInput from './fields/FieldInput.vue'
 import Loading from '@/components/Loading.vue'
-import MediaSelector from './fields/MediaSelector.vue'
+import Visibility from './fields/Visibility.vue'
 
 export default {
   components: {
     Error,
+    FieldInput,
     Loading,
-    MediaSelector
+    Visibility
   },
   data() {
     return {
       id: this.$route.params.id,
-      item: null,
-      loading: true,
-      collection: [],
+      collection: {
+        id: this.$route.params.cid
+      },
       edit: {},
-      errors: []
+      errors: [],
+      loading: true,
+      help: {}
     }
   },
   inject: ['visibilityLevels'],
@@ -79,7 +82,7 @@ export default {
     }
 
     // get collection
-    axios.get(process.env.VUE_APP_API_URL + '/collections/' + this.$route.params.cid, this.$apiConfig())
+    axios.get(process.env.VUE_APP_API_URL + '/collections/' + this.collection.id, this.$apiConfig())
     .then(response => {
       this.collection = response.data
 
@@ -87,7 +90,7 @@ export default {
       if (response.data.name) {
         this.collection.name = this.$translate(response.data.name)
       } else {
-        this.collection.name = 'Collection ' + this.id
+        this.collection.name = 'Collection ' + this.collection.id
       }
 
       // check if collection is mine; if not, quit
@@ -100,16 +103,66 @@ export default {
     })
 
     // get item
-    axios.get(process.env.VUE_APP_API_URL + '/collections/' + this.$route.params.cid + '/items/' + this.$route.params.id, this.$apiConfig())
+    axios.get(process.env.VUE_APP_API_URL + '/collections/' + this.collection.id + '/items/' + this.id, this.$apiConfig())
     .then(response => {
-      this.item = response.data
-      this.edit = this.item.fields
+      this.edit = response.data
 
       this.loading = false
     })
     .catch(e => {
       this.errors.push(e)
     })
+  },
+  methods: {
+    addValue(fieldName) {
+      // transform values to array if not
+      if (!Array.isArray(this.edit.fields[fieldName])) {
+        this.edit.fields[fieldName] = [this.edit.fields[fieldName]]
+      }
+      // append empty value
+      this.edit.fields[fieldName].push('')
+    },
+    helpField(field) {
+      let translation = this.$translate(field.description)
+      if (translation) {
+        return translation
+      }
+
+      return false
+    },
+    label(label, name) {
+      let translation = this.$translate(label)
+      if (translation) {
+        return translation
+      }
+      return name
+    },
+    validate(e) {
+      // prevent form to reload page
+      e.preventDefault()
+
+      console.log(this.edit.visibility)
+
+      // create/update item
+      let url = process.env.VUE_APP_API_URL + '/collections/' + this.collection.id + '/items'
+      let protocol = 'post'
+      if (this.id) {
+          protocol = 'patch'
+          url += '/' + this.id
+      }
+
+      // copy edit object (to avoid cloning events)
+      let data = Object.assign({}, this.edit)
+
+      // API call
+      axios[protocol](url, data, this.$apiConfig())
+      .then(response => {
+        if (!this.id) {
+          this.id = response.data.id
+        }
+        document.location.href = '/collection/'+this.collection.id+'/item/'+this.id+'/'
+      })
+    }
   }
 }
 </script>

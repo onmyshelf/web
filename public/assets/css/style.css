@@ -29,12 +29,17 @@ img {
 
 .field-label {
   display: inline;
-  margin-right: 10px;
+  margin-right: 0.5em;
   vertical-align: top;
 }
 
 .field-value {
   display: inline-block;
+  margin-right: 0.5em;
+}
+
+.field-filter {
+  margin-left: 0.2em;
 }
 
 .gallery img {

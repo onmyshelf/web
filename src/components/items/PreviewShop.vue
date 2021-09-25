@@ -1,13 +1,10 @@
 <template>
   <div class="col-3">
     <a :href="'item/'+item.id+'/'">
-      <Cover v-if="item.fields && coverField && item.fields[coverField]" :url="item.fields[coverField]" :linked=false />
-      <Cover v-else-if="$parent.cover" :url="$parent.cover" :linked=false />
-      <Cover v-else url="/assets/images/box.svg" :linked=false />
+      <Image :url="coverUrl" :cover=true />
     </a>
     <a :href="'item/'+item.id+'/'">
-      <h1 v-if="item.fields && titleField && item.fields[titleField]">{{item.fields[titleField]}}</h1>
-      <h1 v-else>Item {{item.id}}</h1>
+      <h1>{{title}}</h1>
     </a>
     <a v-if="$parent.isMine" :href="'item/'+item.id+'/edit'" class="btn btn-outline-primary">
       <i class="bi-pencil"></i> Edit
@@ -16,11 +13,11 @@
 </template>
 
 <script>
-import Cover from '@/components/fields/Cover.vue'
+import Image from '@/components/fields/medias/Image.vue'
 
 export default {
   components: {
-    Cover
+    Image
   },
   props: {
     item: {
@@ -29,11 +26,22 @@ export default {
     }
   },
   computed: {
-    coverField() {
-      return this.$parent.coverField
+    collection() {
+      return this.$parent.collection
     },
-    titleField() {
-      return this.$parent.titleField
+    coverUrl() {
+      if (this.item.fields[this.collection.coverField]) {
+        return this.item.fields[this.collection.coverField]
+      } else {
+        return this.collection.cover
+      }
+    },
+    title() {
+      if (this.item.fields[this.collection.titleField]) {
+        return this.item.fields[this.collection.titleField]
+      } else {
+        return 'Item '+this.item.id
+      }
     }
   }
 }

@@ -32,7 +32,6 @@
         </button>&nbsp;
         <a href=".." class="btn btn-outline-secondary">Cancel</a>
       </div>
-
     </form>
   </div>
 </template>

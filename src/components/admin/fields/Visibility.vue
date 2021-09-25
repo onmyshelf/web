@@ -1,7 +1,7 @@
 <template>
   <select v-model="level" class="form-select" aria-label="Visibility">
     <template v-for="(name,key) in visibilityLevels" :key="key">
-      <option v-if="key <= max" :value="key">{{name.label}}</option>
+      <option v-if="key >= min && key <= max" :value="key">{{name.label}}</option>
     </template>
   </select>
 </template>
@@ -11,8 +11,10 @@ export default {
   props: {
     modelValue: {},
     max: {
-      type: String,
-      default: "4"
+      default: 4
+    },
+    min: {
+      default: 0
     }
   },
   inject: ['visibilityLevels'],

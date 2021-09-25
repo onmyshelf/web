@@ -84,6 +84,10 @@ export default {
         },
         file: {
           label: 'File URI'
+        },
+        json: {
+          label: 'JSON object',
+          description: 'for advanced properties'
         }
       },
       visibilityLevels: {

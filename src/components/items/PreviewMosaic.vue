@@ -1,17 +1,15 @@
 <template>
   <a :href="'item/'+item.id+'/'">
-    <Cover v-if="item.fields && coverField && item.fields[coverField]" :url="item.fields[coverField]" :linked=false :title="item.fields[titleField]" />
-    <Cover v-else-if="$parent.cover" :url="$parent.cover" :linked=false :title="item.fields[titleField]" />
-    <Cover v-else url="/assets/images/box.svg" :linked=false :title="item.fields[titleField]" />
+    <Image :url="collection.cover" :title="item.fields[collection.titleField]" :cover=true />
   </a>
 </template>
 
 <script>
-import Cover from '@/components/fields/Cover.vue'
+import Image from '@/components/fields/medias/Image.vue'
 
 export default {
   components: {
-    Cover
+    Image
   },
   props: {
     item: {
@@ -20,11 +18,15 @@ export default {
     }
   },
   computed: {
-    coverField() {
-      return this.$parent.coverField
+    collection() {
+      return this.$parent.collection
     },
-    titleField() {
-      return this.$parent.titleField
+    coverUrl() {
+      if (this.item.fields[this.collection.coverField]) {
+        return this.item.fields[this.collection.coverField]
+      } else {
+        return this.collection.cover
+      }
     }
   }
 }

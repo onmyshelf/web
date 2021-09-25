@@ -1,63 +1,39 @@
 <template>
-  <div v-if="name && value && !type.isTitle && !type.isCover" :class="'field field-'+name">
-    <div v-if="type && type.showLabel" class="field-label">
-      <Translation v-if="type.label && Object.keys(type.label).length > 0" :text=type.label />
-      <template v-else>{{name}}</template>:
-    </div>
-    <div class="field-value">
-      <Image v-if="type && type.type == 'image'" :url="value" />
-      <Video v-else-if="type && type.type == 'video'" :url="value" />
-      <Url v-else-if="type && type.type == 'url'" :url="value" />
-      <YesNo v-else-if="type && type.type == 'yesno'" :label="name" :value=value />
-      <Rating v-else-if="type && type.type == 'rating'" :label="name" :value=value />
-      <template v-else>
-        <ul v-if="Array.isArray(value)">
-          <li class="value" v-for="val in value" :key="val">{{val}}
-            <span v-if="type && type.suffix" class="field-suffix">
-              {{type.suffix}}
-            </span>
-          </li>
-        </ul>
-        <template v-else>
-          <span class="value">{{value}}</span>
-          <span v-if="type && type.suffix" class="field-suffix">
-            {{type.suffix}}
-          </span>
-        </template>
-      </template>
-    </div>
-    <span v-if="type && type.filterable" class="field-filter">
-      <a :href="'/collection/'+this.$parent.collection.id+'/?filterBy='+name+'&filterValue='+value" title="Filter items"><i class="bi-funnel-fill"></i></a>
-    </span>
-  </div>
+  <template v-if="!field.isCover && !field.isTitle">
+    <FieldLabel v-if="!field.hideLabel" :name=name :label=field.label />
+    <template v-if="value">
+      <ul v-if="Array.isArray(value)">
+        <li v-for="(v, k) in value" :key="k">
+          <FieldValue :name="name" :field=field :value=v />
+        </li>
+      </ul>
+      <FieldValue v-else :name="name" :field=field :value=value />
+    </template>
+    <FieldValue v-else-if="field.default" :name="name" :field=field :value=field.default />
+  </template>
 </template>
 
 <script>
-import Image from './fields/medias/Image.vue'
-import Rating from './fields/Rating.vue'
-import Translation from './fields/Translation.vue'
-import Url from './fields/Url.vue'
-import Video from './fields/medias/Video.vue'
-import YesNo from './fields/YesNo.vue'
+import FieldLabel from './FieldLabel.vue'
+import FieldValue from './FieldValue.vue'
 
 export default {
   components: {
-    Image,
-    Rating,
-    Translation,
-    Url,
-    Video,
-    YesNo,
+    FieldLabel,
+    FieldValue
   },
   props: {
     name: {
       required: true
     },
-    value: {},
+    field: {
+      required: true
+    },
+    value: {}
   },
   computed: {
-    type() {
-      return this.$parent.collection.fields[this.name]
+    collection() {
+      return this.$parent.collection
     }
   }
 }

@@ -15,18 +15,18 @@
         </div>
 
         <div class="form-check form-switch mb-3">
-          <input v-model="edit.showLabel" class="form-check-input" type="checkbox">
+          <input v-model="edit.hideLabel" class="form-check-input" type="checkbox">
           <label class="form-check-label">Do not show this label before value</label>
         </div>
 
         <div v-if="!id" class="mb-3">
           <label class="form-label">Field ID (<strong>required</strong>). Use a short name and alphanumeric characters only</label>
-          <input v-model="newId" type="text" placeholder="e.g. name" class="form-control"
+          <input v-model="edit.name" type="text" placeholder="e.g. name" class="form-control"
             pattern="[a-z0-9_]+" maxlength="20" @input="checkNewId" required>
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Description (used only here for your own information)</label>
+          <label class="form-label">Description (used only in edition for your own information)</label>
           <textarea v-model="edit.description" placeholder="e.g. This field is used for..." class="form-control" rows="3"></textarea>
         </div>
 
@@ -130,11 +130,10 @@ export default {
       // default form values
       edit: {
         type: 'text',
-        showLabel: false,
+        hideLabel: false,
         visibility: 0
       },
-      errors: [],
-      newId: ''
+      errors: []
     }
   },
   inject: ['fieldTypes', 'visibilityLevels'],
@@ -166,7 +165,7 @@ export default {
       this.edit = this.collection.fields[this.id]
       
       // transform boolean values
-      var booleans = ['isCover', 'isTitle', 'preview', 'showLabel']
+      var booleans = ['isCover', 'isTitle', 'preview', 'hideLabel']
       booleans.forEach(key => {
         if (this.edit[key] == 1) {
           this.edit[key] = true
@@ -184,13 +183,6 @@ export default {
       if (this.edit.isTitle) {
           this.edit.preview = true
       }
-
-      // invert showLabel value
-      if (this.edit.showLabel) {
-        this.edit.showLabel = false
-      } else {
-        this.edit.showLabel = true
-      }
     })
     .catch(e => {
       this.errors.push(e)
@@ -201,7 +193,7 @@ export default {
       if (this.id) {
         return
       }
-      this.newId = this.edit.label
+      this.edit.name = this.edit.label
       this.checkNewId()
     },
     checkNewId() {
@@ -209,7 +201,7 @@ export default {
         return
       }
 
-      let newId = this.newId.toLowerCase().replace(/\s+/g, '') // delete spaces
+      let newId = this.edit.name.toLowerCase().replace(/\s+/g, '') // delete spaces
       
       // remove accents, swap ñ for n, etc
       let from = "àáäâèéëêìíïîòóöôùúüûñç"
@@ -220,7 +212,7 @@ export default {
 
       newId = newId.replace(/[^a-z0-9]/g, '').substring(0,20) // remove invalid chars
       
-      this.newId = newId
+      this.edit.name = newId
     },
     checkPreview() {
       if (this.edit.isCover || this.edit.isTitle || this.edit.isSubTitle) {
@@ -242,19 +234,12 @@ export default {
       // copy edit object (to avoid cloning events)
       let data = Object.assign({}, this.edit)
 
-      // new field: add id name
-      if (!this.id) {
-          data.name = this.newId
-      }
-
       if (data.label) {
         data.label = this.$i18nObject(data.label)
       }
       if (data.description) {
         data.description = this.$i18nObject(data.description)
       }
-      // invert showLabel
-      data.showLabel = !data.showLabel
 
       // API call
       axios[protocol](url, data, this.$apiConfig())

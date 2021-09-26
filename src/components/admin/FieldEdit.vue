@@ -27,7 +27,7 @@
 
         <div class="mb-3">
           <label class="form-label">Description (used only in edition for your own information)</label>
-          <textarea v-model="edit.description" placeholder="e.g. This field is used for..." class="form-control" rows="3"></textarea>
+          <textarea v-model="edit.description" placeholder="e.g. This field is used for..." class="form-control" rows="2"></textarea>
         </div>
 
         <div class="mb-3">

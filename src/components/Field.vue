@@ -1,5 +1,5 @@
 <template>
-  <template v-if="!field.isCover && !field.isTitle">
+  <template v-if="!field.isCover && !field.isTitle && !field.isSubTitle">
     <FieldLabel v-if="!field.hideLabel" :name=name :label=field.label />
     <template v-if="value">
       <ul v-if="Array.isArray(value)">

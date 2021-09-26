@@ -8,15 +8,18 @@
     <div class="col">
       <a :href="'item/'+item.id+'/'">
         <h1>{{title}}</h1>
-      </a>
-      <a v-if="$parent.isMine" :href="'item/'+item.id+'/edit'" class="btn btn-outline-primary">
-        <i class="bi-pencil"></i> Edit item
+        <h2 v-if="collection.subTitleField && item.fields[collection.subTitleField]">
+          {{item.fields[collection.subTitleField]}}
+        </h2>
       </a>
       <div v-if="item.fields" class="item-preview">
         <div v-for="(field, name) of collection.fields" :key="name">
           <Field v-if="field.preview" :name="name" :field=field :value=item.fields[name] />
         </div>
       </div>
+      <a v-if="$parent.isMine" :href="'item/'+item.id+'/edit'" class="btn btn-outline-primary">
+        <i class="bi-pencil"></i> Edit
+      </a>
     </div>
   </div>
 </template>

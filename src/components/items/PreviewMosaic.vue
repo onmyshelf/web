@@ -1,6 +1,6 @@
 <template>
   <a :href="'item/'+item.id+'/'">
-    <Image :url="collection.cover" :title="item.fields[collection.titleField]" :cover=true />
+    <Image :url="coverUrl" :title="item.fields[collection.titleField]" :cover=true />
   </a>
 </template>
 

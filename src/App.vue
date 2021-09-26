@@ -59,6 +59,9 @@ export default {
         image: {
           label: 'Image'
         },
+        video: {
+          label: 'Video'
+        },
         number: {
           label: 'Number'
         },

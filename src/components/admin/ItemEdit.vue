@@ -40,7 +40,7 @@
             <template v-if="id">Save changes</template>
             <template v-else>Create item</template>
           </button>&nbsp;
-          <a href=".." class="btn btn-outline-secondary">Cancel</a>
+          <a href="." class="btn btn-outline-secondary">Cancel</a>
         </div>
       </form>
     </template>
@@ -67,7 +67,10 @@ export default {
       collection: {
         id: this.$route.params.cid
       },
-      edit: {},
+      edit: {
+        fields: {},
+        visibility: 0
+      },
       errors: [],
       loading: true,
       help: {}
@@ -75,12 +78,6 @@ export default {
   },
   inject: ['visibilityLevels'],
   created() {
-    // new collection: do not load data
-    if (!this.id) {
-      this.loading = false
-      return
-    }
-
     // get collection
     axios.get(process.env.VUE_APP_API_URL + '/collections/' + this.collection.id, this.$apiConfig())
     .then(response => {
@@ -93,6 +90,10 @@ export default {
         this.collection.name = 'Collection ' + this.collection.id
       }
 
+      if (!this.id) {
+        this.loading = false
+      }
+
       // check if collection is mine; if not, quit
       if (!this.$matchUserId(this.collection.owner)) {
         document.location.href = '..'
@@ -103,15 +104,17 @@ export default {
     })
 
     // get item
-    axios.get(process.env.VUE_APP_API_URL + '/collections/' + this.collection.id + '/items/' + this.id, this.$apiConfig())
-    .then(response => {
-      this.edit = response.data
+    if (this.id) {
+      axios.get(process.env.VUE_APP_API_URL + '/collections/' + this.collection.id + '/items/' + this.id, this.$apiConfig())
+      .then(response => {
+        this.edit = response.data
 
-      this.loading = false
-    })
-    .catch(e => {
-      this.errors.push(e)
-    })
+        this.loading = false
+      })
+      .catch(e => {
+        this.errors.push(e)
+      })
+    }
   },
   methods: {
     addValue(fieldName) {
@@ -140,8 +143,6 @@ export default {
     validate(e) {
       // prevent form to reload page
       e.preventDefault()
-
-      console.log(this.edit.visibility)
 
       // create/update item
       let url = process.env.VUE_APP_API_URL + '/collections/' + this.collection.id + '/items'

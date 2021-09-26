@@ -14,8 +14,18 @@ img {
   max-height: 300px;
 }
 
+.items a {
+  text-decoration: none;
+}
+
 .items h1 {
-  font-size: 2em;
+  font-size: 1.5em;
+}
+.items-list h1 {
+  font-size: 1.8em;
+}
+.items h2 {
+  font-size: 1.5em;
 }
 
 .list-empty {

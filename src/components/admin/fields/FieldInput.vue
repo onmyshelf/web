@@ -1,7 +1,7 @@
 <template>
   <div class="input-group">
     <template v-if="field.type == 'longtext'">
-      <textarea v-model="value" class="form-control" rows="3"></textarea>
+      <textarea v-model="value" class="form-control" rows="4"></textarea>
     </template>
     <template v-else-if="field.type == 'json'">
       <textarea v-model="value" class="form-control" rows="6"></textarea>

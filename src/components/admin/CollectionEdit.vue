@@ -12,7 +12,8 @@
       </div>
       <div class="mb-3">
         <label class="form-label">Collection description (optional)</label>
-        <textarea v-model="edit.description" class="form-control" rows="3" placeholder="e.g. My collection of..."></textarea>
+        <textarea v-model="edit.description" placeholder="e.g. My collection of..."
+          class="form-control" rows="3" ></textarea>
       </div>
 
       <div class="mb-3">

@@ -35,7 +35,7 @@
         <p v-if="collection.description">{{collection.description}}</p>
         <p v-if="items">Items: {{items.length}}</p>
 
-        <div v-if="items" class="container items">
+        <div v-if="items" :class="'container items items-'+displayMode">
           <Empty v-if="items.length == 0" label="No items" />
           <template v-else>
             <template v-if="this.displayMode == 'mosaic'">
@@ -129,6 +129,9 @@ export default {
         for (let key in response.data.fields) {
           if (response.data.fields[key].isTitle) {
             this.collection.titleField = key
+          }
+          if (response.data.fields[key].isSubTitle) {
+            this.collection.subTitleField = key
           }
           if (response.data.fields[key].isCover) {
             this.collection.coverField = key

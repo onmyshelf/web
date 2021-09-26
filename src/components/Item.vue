@@ -17,9 +17,7 @@
         </div>
         <div class="col">
           <h1>{{title}}</h1>
-          <a v-if="isMine" href="edit" class="btn btn-outline-primary">
-            <i class="bi-pencil"></i> Edit
-          </a>
+          <h2 v-if="subTitleField && item.fields[subTitleField]">{{item.fields[subTitleField]}}</h2>
           <template v-if="item.fields">
             <template v-for="(field, name) of collection.fields" :key="name">
               <div v-if="!field.shown && (item.fields[name] || field.default)" class="item-preview">
@@ -27,6 +25,9 @@
               </div>
             </template>
           </template>
+          <a v-if="isMine" href="edit" class="btn btn-outline-primary">
+            <i class="bi-pencil"></i> Edit
+          </a>
         </div><!-- .col -->
       </div><!-- .row -->
     </template>
@@ -59,6 +60,7 @@ export default {
       item: null,
       errors: [],
       titleField: null,
+      subTitleField: null,
       coverField: null,
       gallery: []
     }
@@ -84,6 +86,11 @@ export default {
           // search title field
           if (response.data.fields[key].isTitle) {
             this.titleField = key
+            this.collection.fields[key].shown = true
+          }
+          // search subtitle field
+          if (response.data.fields[key].isSubTitle) {
+            this.subTitleField = key
             this.collection.fields[key].shown = true
           }
           // search cover field

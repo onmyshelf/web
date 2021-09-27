@@ -16,8 +16,8 @@
     <template v-else-if="field.type == 'yesno'">
       <YesNo v-model="value" />
     </template>
-    <MediaSelector v-else-if="field.type == 'image'" type="image" v-model="value" />
-    <MediaSelector v-else-if="field.type == 'video'" type="video" v-model="value" />
+    <MediaSelector v-else-if="field.type == 'image' || field.type == 'video'" v-model="value"
+      :type="field.type" :mandatory="field.required"/>
     <input v-else-if="field.type == 'url'" v-model="value" :required=field.required
       type="text" class="form-control" placeholder="e.g. https://mywebsite.com">
     <input v-else v-model="value" :type="field.type" class="form-control" :required=field.required>

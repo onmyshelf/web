@@ -108,7 +108,7 @@
               <p class="card-text">
                 Import items from CSV,...
               </p>
-              <a href="#" class="btn btn-primary">Import items</a>
+              <a href="import" class="btn btn-primary">Import items</a>
             </div>
           </div><!-- card -->
           <p></p>

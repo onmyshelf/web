@@ -9,9 +9,11 @@
             @change="toggleSource('url')" :checked="source == 'url'">
       <label class="btn btn-outline-primary" :for="'mediaUrl-'+cptId">External URL</label>
 
-      <input type="radio" :name="'mediaSource-'+cptId" class="btn-check" :id="'mediaNone-'+cptId" autocomplete="off"
-            @change="toggleSource('none')" :checked="source == 'none'">
-      <label class="btn btn-outline-primary" :for="'mediaNone-'+cptId">None</label>
+      <template v-if="!mandatory">
+        <input type="radio" :name="'mediaSource-'+cptId" class="btn-check" :id="'mediaNone-'+cptId" autocomplete="off"
+              @change="toggleSource('none')" :checked="source == 'none'">
+        <label class="btn btn-outline-primary" :for="'mediaNone-'+cptId">None</label>
+      </template>
     </div>
   </div>
 
@@ -62,13 +64,16 @@ export default {
     type: {
       type: String,
       default: ''
+    },
+    mandatory: {
+      default: false
     }
   },
   emits: ['update:modelValue'],
   data() {
     return {
       loading: false,
-      source: 'none',
+      source: this.mandatory ? 'media' : 'none',
       externalUrl: '',
       mediaUrl: '',
       uploadField: false,
@@ -98,14 +103,17 @@ export default {
     },
     exampleUrl() {
       switch (this.type) {
+        case 'csv':
+          return "e.g. https://mywebsite.com/collection.csv"
+
         case 'image':
-          return "e.g. https://mysite.com/image.jpg"
+          return "e.g. https://mywebsite.com/image.jpg"
 
         case 'video':
           return "e.g. https://www.youtube.com/watch?v=123456"
 
         default:
-          return "e.g. https://mysite.com/file.pdf"
+          return "e.g. https://mywebsite.com/file.pdf"
       }
     }
   },
@@ -128,15 +136,12 @@ export default {
         return
       }
 
-      console.log(file)
-
       this.loading = true
 
       let data = new FormData()
       data.append("file", file)
 
       // API call
-      // TODO TEST
       axios.post(process.env.VUE_APP_API_URL + '/upload', data, this.$apiConfig({
           headers: {'Content-Type': 'multipart/form-data'}})
       ).then(response => {

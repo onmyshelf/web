@@ -43,6 +43,10 @@ const routes = [
         component: () => import('../components/admin/FieldDelete.vue'),
       },
       {
+        path: 'manage/import',
+        component: () => import('../components/admin/Import.vue'),
+      },
+      {
         path: 'item/new',
         component: () => import('../components/admin/ItemEdit.vue'),
       },

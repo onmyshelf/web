@@ -53,8 +53,7 @@ export default {
     return {
       loading: true,
       id: this.$route.params.cid,
-      edit: {visibility: 0},
-      coverMediaType: 'library'
+      edit: {visibility: 0}
     }
   },
   inject: ['visibilityLevels'],

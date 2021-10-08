@@ -1,12 +1,10 @@
-# Changelog for OnMyShelf interface
+# Changelog for OnMyShelf web interface
 
-## 0.1.0 Alpha 2 (2021-08-11)
-- Add collection view mode in list or mosaic
-- Move config to environment variables
-- Add authentication system with Bearer tokens
-
-## 0.1.0 Alpha 1 (2021-07-31)
-- Display collections, items and item detail
+## 1.0 Beta 1 (2021-09-27)
+- Create, edit & delete collections
+- Create, edit & delete fields
+- Create, edit & delete items
+- Import collections from GCstar, Tellico and CSV
 
 ---------------------------------------------------------------
 

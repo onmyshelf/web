@@ -17,7 +17,7 @@
 
         <h2>Properties</h2>
         <div v-if="properties">
-          <a href="property/new" class="btn btn-outline-success mb-3">Create a new property</a>
+          <a href="property/new" class="btn btn-success mb-3">Create a new property</a>
           <div v-if="Object.keys(properties).length == 0" class="alert alert-warning" role="alert">
             Items are defined by properties. <a href="property/new">Create your first property!</a>
           </div>
@@ -65,11 +65,15 @@
 
         <div v-if="properties && Object.keys(properties).length > 0">
           <h2>Items</h2>
-          <a :href="'/collection/'+id+'/new'" class="btn btn-outline-success mb-3">Create new item</a>
+          <div class="mb-3">
+            <a :href="'/collection/'+id+'/new'" class="btn btn-success">Create a new item</a>
+            &nbsp;<a href="import" class="btn btn-outline-primary">Import items</a>
+          </div>
           <p v-if="items">Total: {{items.length}}</p>
           <div v-if="items" class="items">
             <div v-if="items.length == 0" class="alert alert-info" role="alert">
-              You have no item yet. <a :href="'/collection/'+id+'/new'">Create your first item!</a>
+              You have no item yet.
+              <a :href="'/collection/'+id+'/new'">Create your first item</a> or <a :href="'/collection/'+id+'/import'">import items</a>
             </div>
             <table v-else class="table">
               <thead>
@@ -105,18 +109,17 @@
 
         <div>
           <h3>Advanced</h3>
-          <div class="card">
+          <div class="card mb-3">
             <div class="card-header">
-              <strong>Import items</strong>
+              <strong>Import collection</strong>
             </div>
             <div class="card-body">
               <p class="card-text">
-                Import items from CSV,...
+                Import collection from CSV, GCstar, Tellico, ... (experimental, no images imported yet)
               </p>
-              <a href="import" class="btn btn-primary">Import items</a>
+              <a href="import" class="btn btn-primary">Import collection</a>
             </div>
           </div><!-- card -->
-          <p></p>
           <div class="card">
             <div class="card-header">
               <strong>Delete collection</strong>

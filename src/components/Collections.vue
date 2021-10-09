@@ -6,7 +6,10 @@
     </p>
     <Loading v-if="loading"/>
     <template v-if="collections">
-      <Empty v-if="collections.length == 0" label="No collections yet. Create your first collection!"/>
+      <template v-if="collections.length == 0">
+        <Empty v-if="isLoggedIn" label="No collections yet. Create your first collection!"/>
+        <Empty v-else label="No collections yet. Login to create your first collection!"/>
+      </template>
       <template v-else>
         <!-- TODO: enable when multi-user will be supported -->
         <div v-if="isLoggedIn && false">
@@ -39,7 +42,7 @@
               <div v-if="collection.owner == this.currentUserID">
                 <!-- TODO: enable when multi-user will be supported -->
                 <p v-if="false"><span class="badge bg-secondary">Mine</span></p>
-                <a :href="'collection/'+collection.id+'/manage/'" class="btn btn-outline-primary"><i class="bi-pencil"></i> Manage</a>
+                <a :href="'collection/'+collection.id+'/manage/'" class="btn btn-outline-primary"><i class="bi-gear-fill"></i> Manage</a>
               </div>
             </div>
           </div>

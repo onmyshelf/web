@@ -6,7 +6,7 @@
         <div class="position-sticky pt-3">
           <h4>Display options</h4>
           <p>
-            Display as:
+            Display mode:
             <select v-model="displayMode" class="form-select">
               <option value="shop">Shop</option>
               <option value="list">List</option>
@@ -21,8 +21,8 @@
             <a :href="'/collection/'+collection.id+'/'">Clear filters</a>
           </div>
           <div v-if="isMine">
-            <h4>Manage collection</h4>
-            <a href="manage/" class="btn btn-outline-primary">Manage</a>
+            <h4>Collection</h4>
+            <a href="manage/" class="btn btn-outline-primary"><i class="bi-gear-fill"></i> Manage</a>
             <a v-if="collection && collection.properties && collection.properties > 0" href="item/new" class="btn btn-outline-success">Create item</a>
           </div>
         </div><!-- .position-sticky -->
@@ -36,7 +36,10 @@
         <p v-if="items">Items: {{items.length}}</p>
 
         <div v-if="items" :class="'container items items-'+displayMode">
-          <Empty v-if="items.length == 0" label="No items" />
+          <template v-if="items.length == 0">
+            <Empty v-if="isMine" label="No items. Create your first item or import them!" />
+            <Empty v-else label="No items" />
+          </template>
           <template v-else>
             <template v-if="this.displayMode == 'mosaic'">
               <PreviewMosaic v-for="item of items" :key="item.id" :item=item />

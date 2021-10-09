@@ -39,8 +39,8 @@
           <button class="btn btn-primary" type="submit">
             <template v-if="id">Save changes</template>
             <template v-else>Create item</template>
-          </button>&nbsp;
-          <a href="." class="btn btn-outline-secondary">Cancel</a>
+          </button>
+          &nbsp;<a href="." class="btn btn-outline-secondary">Cancel</a>
         </div>
       </form>
     </template>

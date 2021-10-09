@@ -23,7 +23,7 @@
           <div v-if="isMine">
             <h4>Manage collection</h4>
             <a href="manage/" class="btn btn-outline-primary">Manage</a>
-            <a href="item/new" class="btn btn-outline-success">Create item</a>
+            <a v-if="collection && collection.fields && collection.fields > 0" href="item/new" class="btn btn-outline-success">Create item</a>
           </div>
         </div><!-- .position-sticky -->
       </div><!-- sidebar -->

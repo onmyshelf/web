@@ -16,16 +16,15 @@
         </p>
 
         <h2>Fields</h2>
-        <a href="field/new" class="btn btn-outline-primary">Add field</a>
         <div v-if="fields">
-          <div v-if="fields.length == 0" class="alert alert-warning" role="alert">
-            No fields. Click on "Add field" button above to create the fields that defines your collection.
+          <a href="field/new" class="btn btn-outline-success mb-3">Create a new field</a>
+          <div v-if="Object.keys(fields).length == 0" class="alert alert-warning" role="alert">
+            Items are defined by fields. <a href="field/new">Create your first field!</a>
           </div>
           <table v-else class="table">
             <thead>
               <tr>
                 <th scope="col">Name</th>
-                <th scope="col">Label</th>
                 <th scope="col">Type</th>
                 <th scope="col">Visibility</th>
                 <th scope="col">Order</th>
@@ -34,8 +33,10 @@
             </thead>
             <tbody>
               <tr v-for="(field, name) of fields" :key="name">
-                <td scope="row">{{name}}</td>
-                <td scope="row">{{this.$translate(field.label)}}</td>
+                <td scope="row">
+                  <template v-if="this.$translate(field.label)">{{this.$translate(field.label)}}</template>
+                  <template v-else>{{name}}</template>
+                </td>
                 <td scope="row">
                   <template v-if="fieldTypes[field.type]">
                     <strong v-if="field.isTitle">Item title</strong>
@@ -59,15 +60,17 @@
               </tr>
             </tbody>
           </table>
-        </div><!-- if fields -->
+        </div><!-- end of fields section -->
         <Loading v-else />
 
-        <div v-if="fields">
+        <div v-if="fields && Object.keys(fields).length > 0">
           <h2>Items</h2>
-          <a href="" class="btn btn-outline-primary">Create new item</a>
+          <a :href="'/collection/'+id+'/new'" class="btn btn-outline-success mb-3">Create new item</a>
           <p v-if="items">Total: {{items.length}}</p>
           <div v-if="items" class="items">
-            <Empty v-if="items.length == 0" />
+            <div v-if="items.length == 0" class="alert alert-info" role="alert">
+              You have no item yet. <a :href="'/collection/'+id+'/new'">Create your first item!</a>
+            </div>
             <table v-else class="table">
               <thead>
                 <tr>
@@ -81,14 +84,15 @@
                 <tr v-for="item of items" :key="item.id">
                   <th scope="row">{{item.id}}</th>
                   <td>
-                    <template v-if="item.fields && titleField && item.fields[titleField]">{{item.fields[titleField]}}</template>
-                    <template v-else>Item {{item.id}}</template>
+                    <a :href="'/collection/'+id+'/item/'+item.id+'/'">
+                      <template v-if="item.fields && titleField && item.fields[titleField]">{{item.fields[titleField]}}</template>
+                      <template v-else>Item {{item.id}}</template>
+                    </a>
                   </td>
                   <td>
                     <Visibility :level="item.visibility >= visibility ? item.visibility : visibility" />
                   </td>
                   <td>
-                    <a :href="'/collection/'+id+'/item/'+item.id+'/'" class="btn btn-outline-primary">See</a>&nbsp;
                     <a :href="'/collection/'+id+'/item/'+item.id+'/edit'" class="btn btn-primary">Edit</a>&nbsp;
                     <a :href="'/collection/'+id+'/item/'+item.id+'/delete'" class="btn btn-danger">Delete</a>
                   </td>
@@ -98,6 +102,7 @@
           </div><!-- .container .items -->
           <Loading v-else />
         </div><!-- end of items section -->
+
         <div>
           <h3>Advanced</h3>
           <div class="card">
@@ -131,7 +136,6 @@
 
 <script>
 import axios from 'axios'
-import Empty from '@/components/Empty.vue'
 import Error from '@/components/Error.vue'
 import Loading from '@/components/Loading.vue'
 import Translation from '@/components/fields/Translation.vue'
@@ -139,7 +143,6 @@ import Visibility from '@/components/fields/Visibility.vue'
 
 export default {
   components: {
-    Empty,
     Error,
     Loading,
     Translation,

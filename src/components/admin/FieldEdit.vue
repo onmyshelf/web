@@ -93,6 +93,27 @@
           <input v-model="edit.suffix" type="text" class="form-control" placeholder="e.g. min, kg, m², ...">
         </div>
 
+        <div v-if="canBeFilterable || canBeSearchable || canBeOrdered" class="card mb-3">
+          <div class="card-header">
+            Search and filters
+          </div>
+          <div class="card-body">
+            <div v-if="canBeFilterable" class="form-check form-switch">
+              <input v-model="edit.filterable" class="form-check-input" type="checkbox">
+              <label class="form-check-label">Collection can be filtered by this field</label>
+            </div>
+
+            <div v-if="canBeSearchable" class="form-check form-switch">
+              <input v-model="edit.search" class="form-check-input" type="checkbox">
+              <label class="form-check-label">Searching items will search in this field</label>
+            </div>
+
+            <div v-if="canBeOrdered" class="form-check form-switch">
+              <input v-model="edit.orderBy" class="form-check-input" type="checkbox">
+              <label class="form-check-label">Collection can be ordered by this field</label>
+            </div>
+          </div>
+        </div>
 
         <div class="mb-3">
           <button class="btn btn-primary" type="submit">Save changes</button>&nbsp;
@@ -187,6 +208,48 @@ export default {
     .catch(e => {
       this.errors.push(e)
     })
+  },
+  computed: {
+    canBeTitle() {
+      switch (this.edit.type) {
+        case 'text':
+        case 'number':
+        case 'date':
+        case 'datetime':
+          return true
+      }
+      return false
+    },
+    canBeFilterable() {
+      switch (this.edit.type) {
+        case 'image':
+        case 'longtext':
+        case 'object':
+        case 'url':
+          return false
+      }
+      return true
+    },
+    canBeSearchable() {
+      switch (this.edit.type) {
+        case 'image':
+        case 'object':
+        case 'rating':
+        case 'yesno':
+          return false
+      }
+      return true
+    },
+    canBeOrdered() {
+      switch (this.edit.type) {
+        case 'image':
+        case 'longtext':
+        case 'object':
+        case 'url':
+          return false
+      }
+      return true
+    }
   },
   methods: {
     labelToNewId() {

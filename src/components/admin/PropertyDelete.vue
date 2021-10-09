@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <h5>Delete field "{{$route.params.id}}"?</h5>
-    <p>This will delete the field and all item values associated with.</p>
-    <button type="button" class="btn btn-danger" @click="deleteField">Delete field</button>&nbsp;
+    <h5>Delete property "{{$route.params.id}}"?</h5>
+    <p>This will delete the property and all item values associated with.</p>
+    <button type="button" class="btn btn-danger" @click="deleteProperty">Delete property</button>&nbsp;
     <button type="button" class="btn btn-outline-secondary" @click="goBack">Cancel</button>
   </div>
 </template>
@@ -15,9 +15,9 @@ export default {
     goBack() {
       document.location.href = '/collection/' + this.$route.params.cid + '/manage/'
     },
-    deleteField() {
+    deleteProperty() {
       // API call
-      axios.delete(process.env.VUE_APP_API_URL + '/collections/' + this.$route.params.cid + '/fields/' + this.$route.params.id, this.$apiConfig())
+      axios.delete(process.env.VUE_APP_API_URL + '/collections/' + this.$route.params.cid + '/properties/' + this.$route.params.id, this.$apiConfig())
       .then(() => {
         this.goBack()
       })
@@ -26,6 +26,6 @@ export default {
         alert('Error')
       })
     }
-  }  
+  }
 }
 </script>

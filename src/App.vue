@@ -51,7 +51,7 @@ export default {
         'fr_FR': 'Français',
         'de_GE': 'Deutsch'
       },
-      fieldTypes: {
+      propertyTypes: {
         text: {
           label: 'Text',
           description: 'used in most cases'

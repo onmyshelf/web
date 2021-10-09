@@ -1,5 +1,5 @@
 <template>
-  <div class="field-label">
+  <div class="property-label">
     {{labelTranslated}}:
   </div>
 </template>

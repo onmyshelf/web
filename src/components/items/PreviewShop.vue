@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Image from '@/components/fields/medias/Image.vue'
+import Image from '@/components/properties/medias/Image.vue'
 
 export default {
   components: {
@@ -30,15 +30,15 @@ export default {
       return this.$parent.collection
     },
     coverUrl() {
-      if (this.item.fields[this.collection.coverField]) {
-        return this.item.fields[this.collection.coverField]
+      if (this.item.properties[this.collection.coverProperty]) {
+        return this.item.properties[this.collection.coverProperty]
       } else {
         return this.collection.cover
       }
     },
     title() {
-      if (this.item.fields[this.collection.titleField]) {
-        return this.item.fields[this.collection.titleField]
+      if (this.item.properties[this.collection.titleProperty]) {
+        return this.item.properties[this.collection.titleProperty]
       } else {
         return 'Item '+this.item.id
       }

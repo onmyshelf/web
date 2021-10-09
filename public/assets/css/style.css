@@ -37,18 +37,18 @@ img {
   padding: 0.5em;
 }
 
-.field-label {
+.property-label {
   display: inline;
   margin-right: 0.5em;
   vertical-align: top;
 }
 
-.field-value {
+.property-value {
   display: inline-block;
   margin-right: 0.5em;
 }
 
-.field-filter {
+.property-filter {
   margin-left: 0.2em;
 }
 
@@ -60,4 +60,3 @@ img {
 .error {
   text-align: center;
 }
-

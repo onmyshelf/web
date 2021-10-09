@@ -16,14 +16,14 @@
           <div v-if="filters.length > 0" class="mb-3">
             <h4>Filters</h4>
             <ul>
-              <li v-for="filter in filters" :key=filter>{{filter.field}}={{filter.value}}</li>
+              <li v-for="filter in filters" :key=filter>{{filter.property}}={{filter.value}}</li>
             </ul>
             <a :href="'/collection/'+collection.id+'/'">Clear filters</a>
           </div>
           <div v-if="isMine">
             <h4>Manage collection</h4>
             <a href="manage/" class="btn btn-outline-primary">Manage</a>
-            <a v-if="collection && collection.fields && collection.fields > 0" href="item/new" class="btn btn-outline-success">Create item</a>
+            <a v-if="collection && collection.properties && collection.properties > 0" href="item/new" class="btn btn-outline-success">Create item</a>
           </div>
         </div><!-- .position-sticky -->
       </div><!-- sidebar -->
@@ -84,9 +84,9 @@ export default {
         description: null,
         cover: null,
         owner: null,
-        fields: [],
-        titleField: null,
-        coverField: null
+        properties: [],
+        titleProperty: null,
+        coverProperty: null
       },
       items: null,
       displayMode: 'shop',
@@ -101,7 +101,7 @@ export default {
     if (this.$route.query.filterBy) {
       query = ['filterBy='+this.$route.query.filterBy, 'filterValue='+this.$route.query.filterValue]
       this.filters.push({
-        field: this.$route.query.filterBy,
+        property: this.$route.query.filterBy,
         value: this.$route.query.filterValue
       })
     }
@@ -122,19 +122,19 @@ export default {
       // other properties
       this.collection.cover = response.data.cover
       this.collection.owner = response.data.owner
-      this.collection.fields = response.data.fields
+      this.collection.properties = response.data.properties
 
-      // search title field
-      if (response.data.fields) {
-        for (let key in response.data.fields) {
-          if (response.data.fields[key].isTitle) {
-            this.collection.titleField = key
+      // search title property
+      if (response.data.properties) {
+        for (let key in response.data.properties) {
+          if (response.data.properties[key].isTitle) {
+            this.collection.titleProperty = key
           }
-          if (response.data.fields[key].isSubTitle) {
-            this.collection.subTitleField = key
+          if (response.data.properties[key].isSubTitle) {
+            this.collection.subTitleProperty = key
           }
-          if (response.data.fields[key].isCover) {
-            this.collection.coverField = key
+          if (response.data.properties[key].isCover) {
+            this.collection.coverProperty = key
           }
         }
       }

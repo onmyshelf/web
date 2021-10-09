@@ -8,13 +8,13 @@
     <div class="col">
       <a :href="'item/'+item.id+'/'">
         <h1>{{title}}</h1>
-        <h2 v-if="collection.subTitleField && item.fields[collection.subTitleField]">
-          {{item.fields[collection.subTitleField]}}
+        <h2 v-if="collection.subTitleProperty && item.properties[collection.subTitleProperty]">
+          {{item.properties[collection.subTitleProperty]}}
         </h2>
       </a>
-      <div v-if="item.fields" class="item-preview">
-        <div v-for="(field, name) of collection.fields" :key="name">
-          <Field v-if="field.preview" :name="name" :field=field :value=item.fields[name] />
+      <div v-if="item.properties" class="item-preview">
+        <div v-for="(property, name) of collection.properties" :key="name">
+          <Property v-if="property.preview" :name="name" :property=property :value=item.properties[name] />
         </div>
       </div>
       <a v-if="$parent.isMine" :href="'item/'+item.id+'/edit'" class="btn btn-outline-primary">
@@ -25,13 +25,13 @@
 </template>
 
 <script>
-import Image from '@/components/fields/medias/Image.vue'
-import Field from '@/components/Field.vue'
+import Image from '@/components/properties/medias/Image.vue'
+import Property from '@/components/Property.vue'
 
 export default {
   components: {
     Image,
-    Field
+    Property
   },
   props: {
     item: {
@@ -44,15 +44,15 @@ export default {
       return this.$parent.collection
     },
     coverUrl() {
-      if (this.item.fields[this.collection.coverField]) {
-        return this.item.fields[this.collection.coverField]
+      if (this.item.properties[this.collection.coverProperty]) {
+        return this.item.properties[this.collection.coverProperty]
       } else {
         return this.collection.cover
       }
     },
     title() {
-      if (this.item.fields[this.collection.titleField]) {
-        return this.item.fields[this.collection.titleField]
+      if (this.item.properties[this.collection.titleProperty]) {
+        return this.item.properties[this.collection.titleProperty]
       } else {
         return 'Item '+this.item.id
       }

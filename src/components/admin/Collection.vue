@@ -15,11 +15,11 @@
           <a href="edit" class="btn btn-outline-primary"><i class="bi-pencil"></i>&nbsp;Edit collection</a>
         </p>
 
-        <h2>Fields</h2>
-        <div v-if="fields">
-          <a href="field/new" class="btn btn-outline-success mb-3">Create a new field</a>
-          <div v-if="Object.keys(fields).length == 0" class="alert alert-warning" role="alert">
-            Items are defined by fields. <a href="field/new">Create your first field!</a>
+        <h2>Properties</h2>
+        <div v-if="properties">
+          <a href="property/new" class="btn btn-outline-success mb-3">Create a new property</a>
+          <div v-if="Object.keys(properties).length == 0" class="alert alert-warning" role="alert">
+            Items are defined by properties. <a href="property/new">Create your first property!</a>
           </div>
           <table v-else class="table">
             <thead>
@@ -32,38 +32,38 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(field, name) of fields" :key="name">
+              <tr v-for="(property, name) of properties" :key="name">
                 <td scope="row">
-                  <template v-if="this.$translate(field.label)">{{this.$translate(field.label)}}</template>
+                  <template v-if="this.$translate(property.label)">{{this.$translate(property.label)}}</template>
                   <template v-else>{{name}}</template>
                 </td>
                 <td scope="row">
-                  <template v-if="fieldTypes[field.type]">
-                    <strong v-if="field.isTitle">Item title</strong>
-                    <strong v-else-if="field.isSubTitle">Item subtitle</strong>
-                    <strong v-else-if="field.isCover">Item cover</strong>
-                    <template v-else>{{fieldTypes[field.type].label}}</template>
+                  <template v-if="propertyTypes[property.type]">
+                    <strong v-if="property.isTitle">Item title</strong>
+                    <strong v-else-if="property.isSubTitle">Item subtitle</strong>
+                    <strong v-else-if="property.isCover">Item cover</strong>
+                    <template v-else>{{propertyTypes[property.type].label}}</template>
                   </template>
                 </td>
                 <td>
-                  <Visibility :level="field.visibility >= visibility ? field.visibility : visibility" />
-                  <template v-if="field.preview">,&nbsp;<a title="In item summary"><i class="bi-bookmark-fill"></i></a></template>
+                  <Visibility :level="property.visibility >= visibility ? property.visibility : visibility" />
+                  <template v-if="property.preview">,&nbsp;<a title="In item summary"><i class="bi-bookmark-fill"></i></a></template>
                 </td>
                 <td>
-                  <a title="Move up" @click="orderField(name)"><i class="bi bi-arrow-up-circle-fill"></i></a>&nbsp;
-                  <a title="Move down" @click="orderField(name, -1)"><i class="bi bi-arrow-down-circle"></i></a>
+                  <a title="Move up" @click="orderProperty(name)"><i class="bi bi-arrow-up-circle-fill"></i></a>&nbsp;
+                  <a title="Move down" @click="orderProperty(name, -1)"><i class="bi bi-arrow-down-circle"></i></a>
                 </td>
                 <td>
-                  <a :href="'field/'+name" class="btn btn-primary">Edit</a>&nbsp;
-                  <a :href="'field/'+name+'/delete'" class="btn btn-danger">Delete</a>
+                  <a :href="'property/'+name" class="btn btn-primary">Edit</a>&nbsp;
+                  <a :href="'property/'+name+'/delete'" class="btn btn-danger">Delete</a>
                 </td>
               </tr>
             </tbody>
           </table>
-        </div><!-- end of fields section -->
+        </div><!-- end of properties section -->
         <Loading v-else />
 
-        <div v-if="fields && Object.keys(fields).length > 0">
+        <div v-if="properties && Object.keys(properties).length > 0">
           <h2>Items</h2>
           <a :href="'/collection/'+id+'/new'" class="btn btn-outline-success mb-3">Create new item</a>
           <p v-if="items">Total: {{items.length}}</p>
@@ -85,7 +85,7 @@
                   <th scope="row">{{item.id}}</th>
                   <td>
                     <a :href="'/collection/'+id+'/item/'+item.id+'/'">
-                      <template v-if="item.fields && titleField && item.fields[titleField]">{{item.fields[titleField]}}</template>
+                      <template v-if="item.properties && titleProperty && item.properties[titleProperty]">{{item.properties[titleProperty]}}</template>
                       <template v-else>Item {{item.id}}</template>
                     </a>
                   </td>
@@ -138,8 +138,8 @@
 import axios from 'axios'
 import Error from '@/components/Error.vue'
 import Loading from '@/components/Loading.vue'
-import Translation from '@/components/fields/Translation.vue'
-import Visibility from '@/components/fields/Visibility.vue'
+import Translation from '@/components/properties/Translation.vue'
+import Visibility from '@/components/properties/Visibility.vue'
 
 export default {
   components: {
@@ -155,13 +155,13 @@ export default {
       description: null,
       cover: null,
       visibility: null,
-      fields: null,
+      properties: null,
       items: null,
       errors: [],
-      titleField: null
+      titleProperty: null
     }
   },
-  inject: ['fieldTypes'],
+  inject: ['propertyTypes'],
   created() {
     // get URL parameters
     var query = []
@@ -176,13 +176,13 @@ export default {
       this.description = response.data.description
       this.cover = response.data.cover
       this.visibility = response.data.visibility
-      this.fields = response.data.fields
+      this.properties = response.data.properties
 
-      // search title field
-      if (response.data.fields) {
-        for (let key in response.data.fields) {
-          if (response.data.fields[key].isTitle) {
-            this.titleField = key
+      // search title property
+      if (response.data.properties) {
+        for (let key in response.data.properties) {
+          if (response.data.properties[key].isTitle) {
+            this.titleProperty = key
           }
         }
       }
@@ -201,11 +201,11 @@ export default {
     })
   },
   methods: {
-    // order field
-    orderField(name, increment = 1) {
-      let keys = Object.keys(this.fields)
+    // order property
+    orderProperty(name, increment = 1) {
+      let keys = Object.keys(this.properties)
 
-      // one field: do nothing
+      // one property: do nothing
       if (keys.length <= 1) {
         return
       }
@@ -216,7 +216,7 @@ export default {
         }
 
         let data = {}
-        let otherField = null
+        let otherProperty = null
         let otherData = null
 
         // increment
@@ -226,11 +226,11 @@ export default {
             return
           }
 
-          otherField = keys[i-1]
-          if (this.fields[otherField].order > this.fields[name].order) {
-            otherData = {order: this.fields[name].order}
+          otherProperty = keys[i-1]
+          if (this.properties[otherProperty].order > this.properties[name].order) {
+            otherData = {order: this.properties[name].order}
           }
-          data = {order: (this.fields[name].order + 1)}
+          data = {order: (this.properties[name].order + 1)}
         } else {
           // decrement
           // min: do nothing
@@ -238,22 +238,22 @@ export default {
             return
           }
 
-          otherField = keys[i+1]
-          if (this.fields[otherField].order < this.fields[name].order) {
-            otherData = {order: this.fields[name].order}
+          otherProperty = keys[i+1]
+          if (this.properties[otherProperty].order < this.properties[name].order) {
+            otherData = {order: this.properties[name].order}
           }
-          data = {order: (this.fields[name].order - 1)}
+          data = {order: (this.properties[name].order - 1)}
         }
 
-        // API call to update field
-        axios.patch(process.env.VUE_APP_API_URL + '/collections/' + this.id + '/fields/' + name, data, this.$apiConfig())
+        // API call to update property
+        axios.patch(process.env.VUE_APP_API_URL + '/collections/' + this.id + '/properties/' + name, data, this.$apiConfig())
         .then(() => {
           document.location.reload()
         })
 
         if (otherData) {
-          // API call to update other field
-          axios.patch(process.env.VUE_APP_API_URL + '/collections/' + this.id + '/fields/' + otherField, otherData, this.$apiConfig())
+          // API call to update other property
+          axios.patch(process.env.VUE_APP_API_URL + '/collections/' + this.id + '/properties/' + otherProperty, otherData, this.$apiConfig())
           .then(() => {
             document.location.reload()
           })

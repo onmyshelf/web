@@ -2,10 +2,10 @@
   <div class="container">
     <Error v-if="errors.length > 0" />
     <template v-else>
-      <Breadcrumbs v-if="collection" :parents=breadcrumbs :current="id || 'New field'" />
+      <Breadcrumbs v-if="collection" :parents=breadcrumbs :current="id || 'New property'" />
       <h1>
-        <template v-if="id">Edit field {{id}}</template>
-        <template v-else>New field</template>
+        <template v-if="id">Edit property {{id}}</template>
+        <template v-else>New property</template>
       </h1>
       <form @submit="validate">
         <div class="mb-3">
@@ -20,20 +20,20 @@
         </div>
 
         <div v-if="!id" class="mb-3">
-          <label class="form-label">Field ID (<strong>required</strong>). Use a short name and alphanumeric characters only</label>
+          <label class="form-label">Property ID (<strong>required</strong>). Use a short name and alphanumeric characters only</label>
           <input v-model="edit.name" type="text" placeholder="e.g. name" class="form-control"
             pattern="[a-z0-9_]+" maxlength="20" @input="checkNewId" required>
         </div>
 
         <div class="mb-3">
           <label class="form-label">Description (used only in edition for your own information)</label>
-          <textarea v-model="edit.description" placeholder="e.g. This field is used for..." class="form-control" rows="2"></textarea>
+          <textarea v-model="edit.description" placeholder="e.g. This property is used for..." class="form-control" rows="2"></textarea>
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Type of field (<strong>required</strong>)</label>
-          <select v-model="edit.type" class="form-select" aria-label="Type of field" required>
-            <option v-for="(obj,key) in fieldTypes" :key="key" :value="key">
+          <label class="form-label">Type of property (<strong>required</strong>)</label>
+          <select v-model="edit.type" class="form-select" aria-label="Type of property" required>
+            <option v-for="(obj,key) in propertyTypes" :key="key" :value="key">
               {{obj.label}} <template v-if="obj.description">({{obj.description}})</template>
             </option>
           </select>
@@ -70,7 +70,7 @@
         </div>
 
         <div class="mt-3 mb-3">
-          <label class="form-label">Who can see this field?</label>
+          <label class="form-label">Who can see this property?</label>
           <select v-model="edit.visibility" class="form-select" aria-label="Visibility">
             <template v-for="(name,key) in visibilityLevels" :key="key">
               <option :value="key">{{name.label}}</option>
@@ -80,11 +80,11 @@
 
         <div class="form-check form-switch mb-3">
           <input v-model="edit.required" class="form-check-input" type="checkbox">
-          <label class="form-check-label">This field should never be empty</label>
+          <label class="form-check-label">This property should never be empty</label>
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Default value if field is empty</label>
+          <label class="form-label">Default value if property is empty</label>
           <input v-model="edit.default" type="text" class="form-control">
         </div>
 
@@ -100,17 +100,17 @@
           <div class="card-body">
             <div v-if="canBeFilterable" class="form-check form-switch">
               <input v-model="edit.filterable" class="form-check-input" type="checkbox">
-              <label class="form-check-label">Collection can be filtered by this field</label>
+              <label class="form-check-label">Collection can be filtered by this property</label>
             </div>
 
             <div v-if="canBeSearchable" class="form-check form-switch">
               <input v-model="edit.search" class="form-check-input" type="checkbox">
-              <label class="form-check-label">Searching items will search in this field</label>
+              <label class="form-check-label">Searching items will search in this property</label>
             </div>
 
             <div v-if="canBeOrdered" class="form-check form-switch">
               <input v-model="edit.orderBy" class="form-check-input" type="checkbox">
-              <label class="form-check-label">Collection can be ordered by this field</label>
+              <label class="form-check-label">Collection can be ordered by this property</label>
             </div>
           </div>
         </div>
@@ -157,7 +157,7 @@ export default {
       errors: []
     }
   },
-  inject: ['fieldTypes', 'visibilityLevels'],
+  inject: ['propertyTypes', 'visibilityLevels'],
   created() {
     // new collection: do not load data
     if (!this.id) {
@@ -183,8 +183,8 @@ export default {
         document.location.href = '..'
       }
 
-      this.edit = this.collection.fields[this.id]
-      
+      this.edit = this.collection.properties[this.id]
+
       // transform boolean values
       var booleans = ['isCover', 'isTitle', 'preview', 'hideLabel']
       booleans.forEach(key => {
@@ -265,7 +265,7 @@ export default {
       }
 
       let newId = this.edit.name.toLowerCase().replace(/\s+/g, '') // delete spaces
-      
+
       // remove accents, swap ñ for n, etc
       let from = "àáäâèéëêìíïîòóöôùúüûñç"
       let to   = "aaaaeeeeiiiioooouuuunc"
@@ -274,7 +274,7 @@ export default {
       }
 
       newId = newId.replace(/[^a-z0-9]/g, '').substring(0,20) // remove invalid chars
-      
+
       this.edit.name = newId
     },
     checkPreview() {
@@ -286,8 +286,8 @@ export default {
       // prevent form to reload page
       e.preventDefault()
 
-      // create/update field
-      let url = process.env.VUE_APP_API_URL + '/collections/' + this.$route.params.cid + '/fields'
+      // create/update property
+      let url = process.env.VUE_APP_API_URL + '/collections/' + this.$route.params.cid + '/properties'
       let protocol = 'post'
       if (this.id) {
           protocol = 'patch'

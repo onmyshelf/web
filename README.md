@@ -1,4 +1,4 @@
-# OnMyShelf - Collection Manager - Web interface
+# OnMyShelf Collection Manager - Web interface
 
 ## Project setup
 ```
@@ -27,8 +27,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 OnMyShelf is licensed under the MIT License. See [LICENSE.md](LICENSE.md) for the full license text.
 
 # Credits
-Author: Jean Prunneaux https://jean.prunneaux.com
-
 Website: https://onmyshelf.cm
 
 Source code: https://github.com/onmyshelf/web
+
+Author: Jean Prunneaux https://jean.prunneaux.com

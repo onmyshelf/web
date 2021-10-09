@@ -51,7 +51,7 @@
 
 <script>
 import axios from 'axios'
-import Image from './fields/medias/Image.vue'
+import Image from './properties/medias/Image.vue'
 import Empty from '@/components/Empty.vue'
 import Error from '@/components/Error.vue'
 import Loading from '@/components/Loading.vue'

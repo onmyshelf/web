@@ -31,7 +31,7 @@
 <script>
 import axios from 'axios'
 import Loading from '@/components/Loading.vue'
-import MediaSelector from './fields/MediaSelector.vue'
+import MediaSelector from './properties/MediaSelector.vue'
 
 export default {
   components: {

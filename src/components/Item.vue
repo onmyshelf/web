@@ -3,25 +3,25 @@
     <Error v-if="errors.length > 0" />
     <template v-else>
       <Breadcrumbs v-if="collection && item" :parents=breadcrumbs :current=title />
-      <div v-if="item && collection && collection.fields" class="row item">
+      <div v-if="item && collection && collection.properties" class="row item">
         <div class="col-4 item-cover">
-          <Image v-if="item.fields && coverField && item.fields[coverField]" :url="item.fields[coverField]"
+          <Image v-if="item.properties && coverProperty && item.properties[coverProperty]" :url="item.properties[coverProperty]"
             :cover=true :linked=true />
           <Image v-else :url="collection.cover" :cover=true />
 
           <div v-if="gallery.length > 0" class="gallery">
-            <template v-for="field in gallery" :key="field">
-              <Image v-if="item.fields[field] && !collection.fields[field].isCover" :url="item.fields[field]" :linked=true />
+            <template v-for="property in gallery" :key="property">
+              <Image v-if="item.properties[property] && !collection.properties[property].isCover" :url="item.properties[property]" :linked=true />
             </template>
           </div>
         </div>
         <div class="col">
           <h1>{{title}}</h1>
-          <h2 v-if="subTitleField && item.fields[subTitleField]">{{item.fields[subTitleField]}}</h2>
-          <template v-if="item.fields">
-            <template v-for="(field, name) of collection.fields" :key="name">
-              <div v-if="!field.shown && (item.fields[name] || field.default)" class="item-preview">
-                <Field :name="name" :field=field :value=item.fields[name] />
+          <h2 v-if="subTitleProperty && item.properties[subTitleProperty]">{{item.properties[subTitleProperty]}}</h2>
+          <template v-if="item.properties">
+            <template v-for="(property, name) of collection.properties" :key="name">
+              <div v-if="!property.shown && (item.properties[name] || property.default)" class="item-preview">
+                <Property :name="name" :property=property :value=item.properties[name] />
               </div>
             </template>
           </template>
@@ -37,16 +37,16 @@
 <script>
 import axios from 'axios'
 import Breadcrumbs from '@/components/Breadcrumbs.vue'
-import Image from './fields/medias/Image.vue'
+import Image from './properties/medias/Image.vue'
 import Error from '@/components/Error.vue'
-import Field from '@/components/Field.vue'
+import Property from '@/components/Property.vue'
 
 export default {
   components: {
     Breadcrumbs,
     Image,
     Error,
-    Field
+    Property
   },
   data() {
     return {
@@ -59,9 +59,9 @@ export default {
       collection: null,
       item: null,
       errors: [],
-      titleField: null,
-      subTitleField: null,
-      coverField: null,
+      titleProperty: null,
+      subTitleProperty: null,
+      coverProperty: null,
       gallery: []
     }
   },
@@ -80,28 +80,28 @@ export default {
       }
       this.breadcrumbs[0].label = this.collection.name
 
-      // parse fields
-      if (response.data.fields) {
-        for (let key in response.data.fields) {
-          // search title field
-          if (response.data.fields[key].isTitle) {
-            this.titleField = key
-            this.collection.fields[key].shown = true
+      // parse properties
+      if (response.data.properties) {
+        for (let key in response.data.properties) {
+          // search title property
+          if (response.data.properties[key].isTitle) {
+            this.titleProperty = key
+            this.collection.properties[key].shown = true
           }
-          // search subtitle field
-          if (response.data.fields[key].isSubTitle) {
-            this.subTitleField = key
-            this.collection.fields[key].shown = true
+          // search subtitle property
+          if (response.data.properties[key].isSubTitle) {
+            this.subTitleProperty = key
+            this.collection.properties[key].shown = true
           }
-          // search cover field
-          if (response.data.fields[key].isCover) {
-            this.coverField = key
-            this.collection.fields[key].shown = true
+          // search cover property
+          if (response.data.properties[key].isCover) {
+            this.coverProperty = key
+            this.collection.properties[key].shown = true
           }
           // search images for gallery
-          if (response.data.fields[key].type == 'image') {
+          if (response.data.properties[key].type == 'image') {
             this.gallery.push(key)
-            this.collection.fields[key].shown = true
+            this.collection.properties[key].shown = true
           }
         }
       }
@@ -125,8 +125,8 @@ export default {
       return this.$matchUserId(this.collection.owner)
     },
     title() {
-      if (this.item.fields[this.titleField]) {
-        return this.item.fields[this.titleField]
+      if (this.item.properties[this.titleProperty]) {
+        return this.item.properties[this.titleProperty]
       } else {
         return 'Item '+this.item.id
       }

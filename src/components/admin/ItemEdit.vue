@@ -8,26 +8,26 @@
       </h1>
       <Loading v-if="loading"/>
       <form v-else @submit="validate">
-        <div v-for="(field, name) in collection.fields" :key="name" class="item-preview mb-3">
+        <div v-for="(property, name) in collection.properties" :key="name" class="item-preview mb-3">
           <label :for="name" class="form-label">
-            {{label(field.label, name)}}:
-            <span v-if="helpField(field)">
-              <a title="Informations about this field" data-bs-toggle="collapse" :href="'#help-'+name" 
+            {{label(property.label, name)}}:
+            <span v-if="helpProperty(property)">
+              <a title="Informations about this property" data-bs-toggle="collapse" :href="'#help-'+name"
                 aria-expanded="false" :aria-controls="'help-'+name">
                 <i class="bi bi-info-circle"></i>
               </a>
               <div class="collapse" :id="'help-'+name">
                 <div class="card card-body">
-                  {{$translate(field.description)}}
+                  {{$translate(property.description)}}
                 </div>
               </div>
             </span>
           </label>
-          <template v-if="Array.isArray(edit.fields[name])">
-            <FieldInput v-for="(value, key) in edit.fields[name]" :key="key" v-model="edit.fields[name][key]" :field=field />
+          <template v-if="Array.isArray(edit.properties[name])">
+            <PropertyInput v-for="(value, key) in edit.properties[name]" :key="key" v-model="edit.properties[name][key]" :property=property />
           </template>
-          <FieldInput v-else v-model="edit.fields[name]" :field=field />
-          <button v-if="field.multiple" type="button" class="btn btn-outline-primary" @click="addValue(name)">+ add value</button>
+          <PropertyInput v-else v-model="edit.properties[name]" :property=property />
+          <button v-if="property.multiple" type="button" class="btn btn-outline-primary" @click="addValue(name)">+ add value</button>
         </div>
 
         <div class="mb-3">
@@ -50,14 +50,14 @@
 <script>
 import axios from 'axios'
 import Error from '@/components/Error.vue'
-import FieldInput from './fields/FieldInput.vue'
+import PropertyInput from './properties/PropertyInput.vue'
 import Loading from '@/components/Loading.vue'
-import Visibility from './fields/Visibility.vue'
+import Visibility from './properties/Visibility.vue'
 
 export default {
   components: {
     Error,
-    FieldInput,
+    PropertyInput,
     Loading,
     Visibility
   },
@@ -68,7 +68,7 @@ export default {
         id: this.$route.params.cid
       },
       edit: {
-        fields: {},
+        properties: {},
         visibility: 0
       },
       errors: [],
@@ -117,16 +117,16 @@ export default {
     }
   },
   methods: {
-    addValue(fieldName) {
+    addValue(propertyName) {
       // transform values to array if not
-      if (!Array.isArray(this.edit.fields[fieldName])) {
-        this.edit.fields[fieldName] = [this.edit.fields[fieldName]]
+      if (!Array.isArray(this.edit.properties[propertyName])) {
+        this.edit.properties[propertyName] = [this.edit.properties[propertyName]]
       }
       // append empty value
-      this.edit.fields[fieldName].push('')
+      this.edit.properties[propertyName].push('')
     },
-    helpField(field) {
-      let translation = this.$translate(field.description)
+    helpProperty(property) {
+      let translation = this.$translate(property.description)
       if (translation) {
         return translation
       }

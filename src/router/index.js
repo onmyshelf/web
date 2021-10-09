@@ -31,16 +31,16 @@ const routes = [
         component: () => import('../components/admin/CollectionEdit.vue'),
       },
       {
-        path: 'manage/field/new',
-        component: () => import('../components/admin/FieldEdit.vue'),
+        path: 'manage/property/new',
+        component: () => import('../components/admin/PropertyEdit.vue'),
       },
       {
-        path: 'manage/field/:id',
-        component: () => import('../components/admin/FieldEdit.vue'),
+        path: 'manage/property/:id',
+        component: () => import('../components/admin/PropertyEdit.vue'),
       },
       {
-        path: 'manage/field/:id/delete',
-        component: () => import('../components/admin/FieldDelete.vue'),
+        path: 'manage/property/:id/delete',
+        component: () => import('../components/admin/PropertyDelete.vue'),
       },
       {
         path: 'manage/import',

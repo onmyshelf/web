@@ -40,8 +40,8 @@
 <script>
 import axios from 'axios'
 import Loading from '@/components/Loading.vue'
-import MediaSelector from './fields/MediaSelector.vue'
-import Visibility from './fields/Visibility.vue'
+import MediaSelector from './properties/MediaSelector.vue'
+import Visibility from './properties/Visibility.vue'
 
 export default {
   components: {

@@ -21,7 +21,7 @@
 
       <div v-if="result" :class="'alert alert-'+(result.success ? 'success':'danger')" role="alert">
         {{result.text}}<br/>
-        <a :href="'/collection/'+this.collectionId+'/'">View collection</a>
+        <router-link :to="'/collection/'+this.collectionId+'/'">View collection</router-link>
       </div>
       <Loading v-if="loading" info="Please wait, this may take some time..."/>
     </form>

@@ -12,14 +12,16 @@
         </p>
         <p v-if="visibility !== null">Visibility: <Visibility :level=visibility /></p>
         <p>
-          <a href="edit" class="btn btn-outline-primary"><i class="bi-pencil"></i>&nbsp;Edit collection</a>
+          <router-link to="edit" class="btn btn-outline-primary">
+            <i class="bi-pencil"></i>&nbsp;Edit collection
+          </router-link>
         </p>
 
         <h2>Properties</h2>
         <div v-if="properties">
-          <a href="property/new" class="btn btn-success mb-3">Create a new property</a>
+          <router-link to="property/new" class="btn btn-success mb-3">Create a new property</router-link>
           <div v-if="Object.keys(properties).length == 0" class="alert alert-warning" role="alert">
-            Items are defined by properties. <a href="property/new">Create your first property!</a>
+            Items are defined by properties. <router-link to="property/new">Create your first property!</router-link>
           </div>
           <table v-else class="table">
             <thead>
@@ -54,8 +56,8 @@
                   <a title="Move down" @click="orderProperty(name, -1)"><i class="bi bi-arrow-down-circle"></i></a>
                 </td>
                 <td>
-                  <a :href="'property/'+name" class="btn btn-primary">Edit</a>&nbsp;
-                  <a :href="'property/'+name+'/delete'" class="btn btn-danger">Delete</a>
+                  <router-link :to="'property/'+name" class="btn btn-primary">Edit</router-link>&nbsp;
+                  <router-link :to="'property/'+name+'/delete'" class="btn btn-danger">Delete</router-link>
                 </td>
               </tr>
             </tbody>
@@ -66,14 +68,14 @@
         <div v-if="properties && Object.keys(properties).length > 0">
           <h2>Items</h2>
           <div class="mb-3">
-            <a :href="'/collection/'+id+'/new'" class="btn btn-success">Create a new item</a>
-            &nbsp;<a href="import" class="btn btn-outline-primary">Import items</a>
+            <router-link :to="'/collection/'+id+'/item/new'" class="btn btn-success">Create a new item</router-link>
+            &nbsp;<router-link to="import" class="btn btn-outline-primary">Import items</router-link>
           </div>
           <p v-if="items">Total: {{items.length}}</p>
           <div v-if="items" class="items">
             <div v-if="items.length == 0" class="alert alert-info" role="alert">
               You have no item yet.
-              <a :href="'/collection/'+id+'/new'">Create your first item</a> or <a :href="'/collection/'+id+'/import'">import items</a>
+              <router-link :to="'/collection/'+id+'/new'">Create your first item</router-link> or <router-link :to="'/collection/'+id+'/import'">import items</router-link>
             </div>
             <table v-else class="table">
               <thead>
@@ -88,17 +90,17 @@
                 <tr v-for="item of items" :key="item.id">
                   <th scope="row">{{item.id}}</th>
                   <td>
-                    <a :href="'/collection/'+id+'/item/'+item.id+'/'">
+                    <router-link :to="'/collection/'+id+'/item/'+item.id+'/'">
                       <template v-if="item.properties && titleProperty && item.properties[titleProperty]">{{item.properties[titleProperty]}}</template>
                       <template v-else>Item {{item.id}}</template>
-                    </a>
+                    </router-link>
                   </td>
                   <td>
                     <Visibility :level="item.visibility >= visibility ? item.visibility : visibility" />
                   </td>
                   <td>
-                    <a :href="'/collection/'+id+'/item/'+item.id+'/edit'" class="btn btn-primary">Edit</a>&nbsp;
-                    <a :href="'/collection/'+id+'/item/'+item.id+'/delete'" class="btn btn-danger">Delete</a>
+                    <router-link :to="'/collection/'+id+'/item/'+item.id+'/edit'" class="btn btn-primary">Edit</router-link>&nbsp;
+                    <router-link :to="'/collection/'+id+'/item/'+item.id+'/delete'" class="btn btn-danger">Delete</router-link>
                   </td>
                 </tr>
               </tbody>
@@ -117,7 +119,7 @@
               <p class="card-text">
                 Import collection from CSV, GCstar, Tellico, ... (experimental, no images imported yet)
               </p>
-              <a href="import" class="btn btn-primary">Import collection</a>
+              <router-link to="import" class="btn btn-primary">Import collection</router-link>
             </div>
           </div><!-- card -->
           <div class="card">
@@ -128,7 +130,7 @@
               <p class="card-text">
                 Delete entire collection.
               </p>
-              <a href="delete" class="btn btn-danger">Delete collection</a>
+              <router-link to="delete" class="btn btn-danger">Delete collection</router-link>
             </div>
           </div><!-- card -->
         </div><!-- end of advanced section -->

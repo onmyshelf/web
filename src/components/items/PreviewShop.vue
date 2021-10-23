@@ -1,14 +1,14 @@
 <template>
   <div class="col-3">
-    <a :href="'item/'+item.id+'/'">
+    <router-link :to="'item/'+item.id+'/'">
       <Image :url="coverUrl" :cover=true />
-    </a>
-    <a :href="'item/'+item.id+'/'">
+    </router-link>
+    <router-link :to="'item/'+item.id+'/'">
       <h1>{{title}}</h1>
-    </a>
-    <a v-if="$parent.isMine" :href="'item/'+item.id+'/edit'" class="btn btn-outline-primary">
+    </router-link>
+    <router-link v-if="$parent.isMine" :to="'item/'+item.id+'/edit'" class="btn btn-outline-primary">
       <i class="bi-pencil"></i> Edit
-    </a>
+    </router-link>
   </div>
 </template>
 

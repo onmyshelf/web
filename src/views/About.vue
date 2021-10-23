@@ -2,7 +2,7 @@
   <div class="about container">
     <h1>About</h1>
     <ul>
-      <li>Web interface: <router-link to="/" replace>{{rootUrl}}</router-link></li>
+      <li>Web interface: <router-link to="/">{{rootUrl}}</router-link></li>
       <li>Server API: <a :href="apiUrl">{{apiUrl}}</a></li>
     </ul>
     <p>OnMyShelf is a powerful open source collection manager.</p>

@@ -31,7 +31,8 @@
           <template v-if="id">Save changes</template>
           <template v-else>Create collection</template>
         </button>&nbsp;
-        <a href=".." class="btn btn-outline-secondary">Cancel</a>
+        <a v-if="id" href="." class="btn btn-outline-secondary">Cancel</a>
+        <router-link v-else to="/" class="btn btn-outline-secondary">Cancel</router-link>
       </div>
     </form>
   </div>

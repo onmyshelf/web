@@ -25,9 +25,9 @@
               </div>
             </template>
           </template>
-          <a v-if="isMine" href="edit" class="btn btn-outline-primary">
+          <router-link v-if="isMine" to="edit" class="btn btn-outline-primary">
             <i class="bi-pencil"></i> Edit
-          </a>
+          </router-link>
         </div><!-- .col -->
       </div><!-- .row -->
     </template>

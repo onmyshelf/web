@@ -14,7 +14,9 @@
       <div v-if="error" class="alert alert-danger" role="alert">
         Login failed!
       </div>
-      <p><a href="/resetpassword">Forgot password?</a></p>
+      <p>
+        <router-link to="/resetpassword">Forgot password?</router-link>
+      </p>
     </form>
   </main>
 </template>

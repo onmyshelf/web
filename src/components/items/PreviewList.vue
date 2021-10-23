@@ -1,25 +1,25 @@
 <template>
   <div class="row">
     <div class="col-4 item-cover">
-      <a :href="'item/'+item.id">
+      <router-link :to="'item/'+item.id">
         <Image :url="coverUrl" :cover=true />
-      </a>
+      </router-link>
     </div>
     <div class="col">
-      <a :href="'item/'+item.id+'/'">
+      <router-link :to="'item/'+item.id+'/'">
         <h1>{{title}}</h1>
         <h2 v-if="collection.subTitleProperty && item.properties[collection.subTitleProperty]">
           {{item.properties[collection.subTitleProperty]}}
         </h2>
-      </a>
+      </router-link>
       <div v-if="item.properties" class="item-preview">
         <div v-for="(property, name) of collection.properties" :key="name">
           <Property v-if="property.preview" :name="name" :property=property :value=item.properties[name] />
         </div>
       </div>
-      <a v-if="$parent.isMine" :href="'item/'+item.id+'/edit'" class="btn btn-outline-primary">
+      <router-link v-if="$parent.isMine" :to="'item/'+item.id+'/edit'" class="btn btn-outline-primary">
         <i class="bi-pencil"></i> Edit
-      </a>
+      </router-link>
     </div>
   </div>
 </template>

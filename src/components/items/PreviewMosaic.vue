@@ -1,7 +1,7 @@
 <template>
-  <a :href="'item/'+item.id+'/'">
+  <router-link :to="'item/'+item.id+'/'">
     <Image :url="coverUrl" :title="item.properties[collection.titleProperty]" :cover=true />
-  </a>
+  </router-link>
 </template>
 
 <script>

@@ -2,7 +2,9 @@
   <Error v-if="errors.length > 0" />
   <div v-else class="collections container">
     <p v-if="isLoggedIn">
-      <a href="collection/new" class="btn btn-outline-primary">Create a collection</a>
+      <router-link to="/collection/new" class="btn btn-outline-primary">
+        Create a collection
+      </router-link>
     </p>
     <Loading v-if="loading"/>
     <template v-if="collections">
@@ -24,17 +26,17 @@
         <template v-for="collection of collections" :key="collection.id" class="row">
           <div v-if="!filterMine || collection.owner == this.$currentUserId()" class="row">
             <div class="col-4 item-cover">
-              <a :href="'collection/'+collection.id+'/'">
+              <router-link :to="'/collection/'+collection.id+'/'">
                 <Image :url="collection.cover" :cover=true style="max-height:8em" />
-              </a>
+              </router-link>
             </div>
             <div class="col">
-              <a :href="'collection/'+collection.id+'/'">
+              <router-link :to="'/collection/'+collection.id+'/'">
                 <h1>
                   <template v-if="collection.name">{{collection.name}}</template>
                   <template v-else>Collection {{collection.id}}</template>
                 </h1>
-              </a>
+              </router-link>
               <p v-if="collection.description">
                 <template v-if="collection.description">{{collection.description}}</template>
               </p>
@@ -42,7 +44,9 @@
               <div v-if="collection.owner == this.currentUserID">
                 <!-- TODO: enable when multi-user will be supported -->
                 <p v-if="false"><span class="badge bg-secondary">Mine</span></p>
-                <a :href="'collection/'+collection.id+'/manage/'" class="btn btn-outline-primary"><i class="bi-gear-fill"></i> Manage</a>
+                <router-link :to="'/collection/'+collection.id+'/manage/'" class="btn btn-outline-primary">
+                  <i class="bi-gear-fill"></i> Manage
+                </router-link>
               </div>
             </div>
           </div>

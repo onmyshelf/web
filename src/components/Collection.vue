@@ -18,12 +18,17 @@
             <ul>
               <li v-for="filter in filters" :key=filter>{{filter.property}}={{filter.value}}</li>
             </ul>
-            <a :href="'/collection/'+collection.id+'/'">Clear filters</a>
+            <router-link :to="'/collection/'+collection.id+'/'">Clear filters</router-link>
           </div>
           <div v-if="isMine">
             <h4>Collection</h4>
-            <a href="manage/" class="btn btn-outline-primary"><i class="bi-gear-fill"></i> Manage</a>
-            <a v-if="collection && collection.properties && collection.properties > 0" href="item/new" class="btn btn-outline-success">Create item</a>
+            <router-link to="manage/" class="btn btn-outline-primary">
+              <i class="bi-gear-fill"></i> Manage
+            </router-link>&nbsp;
+            <router-link v-if="collection && Object.keys(collection.properties).length > 0"
+              to="item/new" class="btn btn-outline-success">
+              Create item
+            </router-link>
           </div>
         </div><!-- .position-sticky -->
       </div><!-- sidebar -->

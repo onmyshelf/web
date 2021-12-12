@@ -7,7 +7,7 @@
           <h4>Display options</h4>
           <p>
             Display mode:
-            <select v-model="displayMode" class="form-select">
+            <select v-model="displayMode" @change="toggleDisplay()" class="form-select">
               <option value="shop">Shop</option>
               <option value="list">List</option>
               <option value="mosaic">Mosaic</option>
@@ -104,6 +104,11 @@ export default {
     }
   },
   created() {
+    // get display mode
+    if (localStorage.getItem('onmyshelf_displayMode')) {
+      this.displayMode = localStorage.getItem('onmyshelf_displayMode')
+    }
+
     // get URL parameters
     var query = []
     if (this.$route.query.filterBy) {
@@ -173,6 +178,11 @@ export default {
       } else {
         return 'Collection ' + this.collection.id
       }
+    }
+  },
+  methods: {
+    toggleDisplay() {
+      localStorage.setItem('onmyshelf_displayMode', this.displayMode)
     }
   }
 }

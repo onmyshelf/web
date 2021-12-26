@@ -20,16 +20,6 @@
             </ul>
             <router-link :to="'/collection/'+collection.id+'/'">Clear filters</router-link>
           </div>
-          <div v-if="isMine">
-            <h4>Collection</h4>
-            <router-link to="manage/" class="btn btn-outline-primary">
-              <i class="bi-gear-fill"></i> Manage
-            </router-link>&nbsp;
-            <router-link v-if="collection && Object.keys(collection.properties).length > 0"
-              to="item/new" class="btn btn-outline-success">
-              Create item
-            </router-link>
-          </div>
         </div><!-- .position-sticky -->
       </div><!-- sidebar -->
 
@@ -39,6 +29,16 @@
         <h1>{{title}}</h1>
         <p v-if="collection.description">{{collection.description}}</p>
         <p v-if="items">Items: {{items.length}}</p>
+
+        <p v-if="isMine" style="text-align:right">
+          <router-link to="manage/" class="btn btn-outline-primary">
+            <i class="bi-gear-fill"></i> Manage
+          </router-link>&nbsp;
+          <router-link v-if="collection && Object.keys(collection.properties).length > 0"
+            to="item/new" class="btn btn-outline-success">
+            Create item
+          </router-link>
+        </p>
 
         <div v-if="items" :class="'container items items-'+displayMode">
           <template v-if="items.length == 0">

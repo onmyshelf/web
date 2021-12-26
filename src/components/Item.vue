@@ -18,6 +18,9 @@
         <div class="col">
           <h1>{{title}}</h1>
           <h2 v-if="subTitleProperty && item.properties[subTitleProperty]">{{item.properties[subTitleProperty]}}</h2>
+          <router-link v-if="isMine" to="edit" class="btn btn-outline-primary">
+            <i class="bi-pencil"></i> Edit
+          </router-link>
           <template v-if="item.properties">
             <template v-for="(property, name) of collection.properties" :key="name">
               <div v-if="!property.shown && (item.properties[name] || property.default)" class="item-preview">
@@ -25,9 +28,6 @@
               </div>
             </template>
           </template>
-          <router-link v-if="isMine" to="edit" class="btn btn-outline-primary">
-            <i class="bi-pencil"></i> Edit
-          </router-link>
         </div><!-- .col -->
       </div><!-- .row -->
     </template>

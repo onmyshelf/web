@@ -1,38 +1,37 @@
 <template>
   <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand navbar-light bg-light">
       <div class="container container-fluid">
         <a class="navbar-brand" href="#">
           OnMyShelf
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topmenu" aria-controls="topmenu" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse d-flex" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="topmenu">
           <ul class="navbar-nav me-auto">
-            <li class="nav-item active">
-              <router-link to="/" class="nav-link">Home</router-link>
+            <li class="nav-item">
+              <router-link to="/" class="nav-link active">Home</router-link>
             </li>
             <li class="nav-item">
               <router-link to="/about" class="nav-link">About</router-link>
             </li>
           </ul>
+          <ul class="navbar-nav">
+            <template v-if="isLoggedIn">
+              <li class="nav-item">
+                <router-link to="/profile" class="nav-link">My profile</router-link>
+              </li>
+              <li class="nav-item">
+                <a @click="logout" href="#" class="nav-link">Logout</a>
+              </li>
+            </template>
+            <li v-else class="nav-item">
+              <router-link to="/login" class="nav-link">Login</router-link>
+            </li>
+          </ul>
         </div><!-- .navbar-collapse -->
-
-        <ul class="navbar-nav me-auto">
-          <template v-if="isLoggedIn">
-            <li class="nav-item">
-              <router-link to="/profile" class="nav-link">My profile</router-link>
-            </li>
-            <li class="nav-item">
-              <a @click="logout" href="#" class="nav-link">Logout</a>
-            </li>
-          </template>
-          <li v-else class="nav-item">
-            <router-link to="/login" class="nav-link">Login</router-link>
-          </li>
-        </ul>
       </div><!-- .container -->
     </nav>
   </header>

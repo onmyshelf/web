@@ -18,7 +18,7 @@
             <ul>
               <li v-for="filter in filters" :key=filter>
                 <PropertyLabel :name=filter.name :property=collection.properties[filter.name] />{{filter.value}}&nbsp;
-                <a href="." title="Clear filter"><i class="bi bi-x-circle"></i></a>
+                <a :href="reloadCollection(filters.filter(f => f.name != filter.name),sorting)" title="Clear filter"><i class="bi bi-x-circle"></i></a>
               </li>
             </ul>
           </div>
@@ -28,8 +28,10 @@
               <template v-for="(property, name) of collection.properties" :key=name>
                 <li v-if="property.sortable">
                   <PropertyLabel :name=name :property=property />
-                  <a :href="'?sort='+name"><i class="bi bi-arrow-down-circle"></i></a>&nbsp;
-                  <a :href="'?sort=-'+name"><i class="bi bi-arrow-up-circle"></i></a>
+                  <i v-if="sorting == name" class="bi bi-arrow-down-circle-fill"></i>
+                  <a v-else :href="reloadCollection(filters,name)"><i class="bi bi-arrow-down-circle"></i></a>&nbsp;
+                  <i v-if="sorting == '-'+name" class="bi bi-arrow-up-circle-fill"></i>
+                  <a v-else :href="reloadCollection(filters,'-'+name)"><i class="bi bi-arrow-up-circle"></i></a>
                 </li>
               </template>
             </ul>
@@ -132,17 +134,16 @@ export default {
     // get filters
     const filters = Object.keys(this.$route.query).filter(k => k.substring(0,2) == 'p_')
     filters.forEach(prop => {
-      console.log(prop)
       apiQuery.push(prop+'='+this.$route.query[prop])
       this.filters.push({
         name: prop.substring(2),
-        value: this.$route.query[prop]
+        value: decodeURIComponent(this.$route.query[prop])
       })
     });
 
     // get sorting
     if (this.$route.query.sort) {
-      apiQuery = ['sort='+this.$route.query.sort]
+      apiQuery.push('sort='+this.$route.query.sort)
       this.sorting = this.$route.query.sort
     }
 
@@ -169,6 +170,10 @@ export default {
         for (let key in response.data.properties) {
           if (response.data.properties[key].isTitle) {
             this.collection.titleProperty = key
+            // default sorting (if not specified)
+            if (!this.sorting) {
+              this.sorting = key
+            }
           }
           if (response.data.properties[key].isSubTitle) {
             this.collection.subTitleProperty = key
@@ -208,6 +213,17 @@ export default {
     }
   },
   methods: {
+    reloadCollection(filters, sorting) {
+      var query = []
+      filters.forEach(filter => {
+        query.push('p_' + filter.name + '=' + encodeURIComponent(filter.value))
+      })
+      if (sorting) {
+        query.push('sort='+sorting)
+      }
+
+      return '?' + query.join('&')
+    },
     toggleDisplay() {
       localStorage.setItem('onmyshelf_displayMode', this.displayMode)
     }

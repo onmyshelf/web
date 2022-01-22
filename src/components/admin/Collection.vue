@@ -12,8 +12,13 @@
         </p>
         <p v-if="visibility !== null">Visibility: <Visibility :level=visibility /></p>
         <p>
-          <router-link to="edit" class="btn btn-outline-primary">
-            <i class="bi-pencil"></i>&nbsp;Edit collection
+          <router-link to="edit" class="btn btn-primary">
+            <i class="bi-pencil"></i>&nbsp;Edit collection details
+          </router-link>
+        </p>
+        <p>
+          <router-link :to="'/collection/'+id+'/'" class="btn btn-outline-success">
+            <i class="bi-eye"></i>&nbsp;Show collection
           </router-link>
         </p>
 

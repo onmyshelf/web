@@ -93,7 +93,7 @@
           <input v-model="edit.suffix" type="text" class="form-control" placeholder="e.g. min, kg, m², ...">
         </div>
 
-        <div v-if="canBeFilterable || canBeSearchable || canBeOrdered" class="card mb-3">
+        <div v-if="canBeFilterable || canBeSearchable || canBeSortable" class="card mb-3">
           <div class="card-header">
             Search and filters
           </div>
@@ -108,9 +108,9 @@
               <label class="form-check-label">Searching items will search in this property</label>
             </div>
 
-            <div v-if="canBeOrdered" class="form-check form-switch">
-              <input v-model="edit.orderBy" class="form-check-input" type="checkbox">
-              <label class="form-check-label">Collection can be ordered by this property</label>
+            <div v-if="canBeSortable" class="form-check form-switch">
+              <input v-model="edit.sortable" class="form-check-input" type="checkbox">
+              <label class="form-check-label">Collection can be sorted by this property</label>
             </div>
           </div>
         </div>
@@ -186,7 +186,7 @@ export default {
       this.edit = this.collection.properties[this.id]
 
       // transform boolean values
-      var booleans = ['isCover', 'isTitle', 'preview', 'hideLabel']
+      var booleans = ['isCover', 'isTitle', 'preview', 'hideLabel', 'filterable', 'searchable', 'sortable']
       booleans.forEach(key => {
         if (this.edit[key] == 1) {
           this.edit[key] = true
@@ -240,7 +240,7 @@ export default {
       }
       return true
     },
-    canBeOrdered() {
+    canBeSortable() {
       switch (this.edit.type) {
         case 'image':
         case 'longtext':

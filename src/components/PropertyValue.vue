@@ -18,7 +18,7 @@
       </template>
     </template>
     <span v-if="property.filterable" class="property-filter">
-      <router-link :to="'/collection/'+this.$parent.collection.id+'/?filterBy='+name+'&filterValue='+value"
+      <router-link :to="'/collection/'+this.$parent.collection.id+'/?p_'+name+'='+value"
         title="Filter items">
         <i class="bi-funnel-fill"></i>
       </router-link>

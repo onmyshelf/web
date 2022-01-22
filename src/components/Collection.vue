@@ -16,9 +16,23 @@
           <div v-if="filters.length > 0" class="mb-3">
             <h4>Filters</h4>
             <ul>
-              <li v-for="filter in filters" :key=filter>{{filter.property}}={{filter.value}}</li>
+              <li v-for="filter in filters" :key=filter>
+                <PropertyLabel :name=filter.name :property=collection.properties[filter.name] />{{filter.value}}&nbsp;
+                <a href="." title="Clear filter"><i class="bi bi-x-circle"></i></a>
+              </li>
             </ul>
-            <router-link :to="'/collection/'+collection.id+'/'">Clear filters</router-link>
+          </div>
+          <div v-if="collection && Object.keys(collection.properties).length > 0" class="mb-3">
+            <h4>Sort by</h4>
+            <ul>
+              <template v-for="(property, name) of collection.properties" :key=name>
+                <li v-if="property.sortable">
+                  <PropertyLabel :name=name :property=property />
+                  <a :href="'?sort='+name"><i class="bi bi-arrow-down-circle"></i></a>&nbsp;
+                  <a :href="'?sort=-'+name"><i class="bi bi-arrow-up-circle"></i></a>
+                </li>
+              </template>
+            </ul>
           </div>
         </div><!-- .position-sticky -->
       </div><!-- sidebar -->
@@ -69,6 +83,7 @@ import axios from 'axios'
 import PreviewList from './items/PreviewList.vue'
 import PreviewMosaic from './items/PreviewMosaic.vue'
 import PreviewShop from './items/PreviewShop.vue'
+import PropertyLabel from './PropertyLabel.vue'
 import Breadcrumbs from '@/components/Breadcrumbs.vue'
 import Empty from '@/components/Empty.vue'
 import Error from '@/components/Error.vue'
@@ -83,6 +98,7 @@ export default {
     PreviewList,
     PreviewMosaic,
     PreviewShop,
+    PropertyLabel,
   },
   data() {
     return {
@@ -100,6 +116,7 @@ export default {
       displayMode: 'shop',
       errors: [],
       filters: [],
+      sorting: null,
       loading: true
     }
   },
@@ -109,14 +126,24 @@ export default {
       this.displayMode = localStorage.getItem('onmyshelf_displayMode')
     }
 
-    // get URL parameters
-    var query = []
-    if (this.$route.query.filterBy) {
-      query = ['filterBy='+this.$route.query.filterBy, 'filterValue='+this.$route.query.filterValue]
+    // prepare API query parameters
+    var apiQuery = []
+
+    // get filters
+    const filters = Object.keys(this.$route.query).filter(k => k.substring(0,2) == 'p_')
+    filters.forEach(prop => {
+      console.log(prop)
+      apiQuery.push(prop+'='+this.$route.query[prop])
       this.filters.push({
-        property: this.$route.query.filterBy,
-        value: this.$route.query.filterValue
+        name: prop.substring(2),
+        value: this.$route.query[prop]
       })
+    });
+
+    // get sorting
+    if (this.$route.query.sort) {
+      apiQuery = ['sort='+this.$route.query.sort]
+      this.sorting = this.$route.query.sort
     }
 
     // get collection details
@@ -157,7 +184,7 @@ export default {
     })
 
     // get items
-    axios.get(process.env.VUE_APP_API_URL + '/collections/' + this.collection.id + '/items?' + query.join('&'), this.$apiConfig())
+    axios.get(process.env.VUE_APP_API_URL + '/collections/' + this.collection.id + '/items?' + apiQuery.join('&'), this.$apiConfig())
     .then(response => {
       this.items = response.data
       this.loading = false

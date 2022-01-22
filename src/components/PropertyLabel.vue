@@ -1,5 +1,5 @@
 <template>
-  <div class="property-label">
+  <div v-if="property && !property.hideLabel" class="property-label">
     {{labelTranslated}}:
   </div>
 </template>
@@ -10,11 +10,13 @@ export default {
     name: {
       required: true
     },
-    label: {},
+    property: {
+      required: true
+    },
   },
   computed: {
     labelTranslated() {
-      let translation = this.$translate(this.label)
+      let translation = this.$translate(this.property.label)
       if (translation) {
         return translation
       } else {

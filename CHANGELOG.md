@@ -1,6 +1,10 @@
 # Changelog for OnMyShelf web interface
 
-## 1.0 Beta 2 (202X-XX-XX)
+## 1.0 Beta 3 (2022-XX-XX)
+- Items sorting and filters are now working properly
+
+## 1.0 Beta 2 (2021-12-27)
+- Fixed responsive bugs
 - Display mode is saved in the local storage
 - Rename 'fields' to 'properties' for better understanding
 - Various bugfixes

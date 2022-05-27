@@ -2,6 +2,7 @@
 
 ## 1.0 Beta 3 (2022-XX-XX)
 - Items sorting and filters are now working properly
+- Upgrade VueJS 3.2.36, VueJS router 4.0.15 and axios 0.27.2
 
 ## 1.0 Beta 2 (2021-12-27)
 - Fixed responsive bugs

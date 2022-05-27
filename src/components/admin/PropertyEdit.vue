@@ -281,6 +281,15 @@ export default {
       if (this.edit.isCover || this.edit.isTitle || this.edit.isSubTitle) {
         this.edit.preview = true
       }
+
+      if (this.edit.isTitle) {
+        if (!this.edit.filterable) {
+          this.edit.filterable = true
+        }
+        if (!this.edit.searchable) {
+          this.edit.searchable = true
+        }
+      }
     },
     validate(e) {
       // prevent form to reload page

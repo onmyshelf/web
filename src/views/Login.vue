@@ -37,7 +37,7 @@ export default {
       // prevent form to reload page
       e.preventDefault()
 
-      axios.post(process.env.VUE_APP_API_URL + '/login',
+      axios.post(import.meta.env.VITE_API_URL + '/login',
         { username: this.username, password: this.password }
       )
       .then(response => {

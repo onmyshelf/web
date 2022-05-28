@@ -81,7 +81,7 @@ export default {
   inject: ['visibilityLevels'],
   created() {
     // get collection
-    axios.get(process.env.VUE_APP_API_URL + '/collections/' + this.collection.id, this.$apiConfig())
+    axios.get(import.meta.env.VITE_API_URL + '/collections/' + this.collection.id, this.$apiConfig())
     .then(response => {
       this.collection = response.data
 
@@ -107,7 +107,7 @@ export default {
 
     // get item
     if (this.id) {
-      axios.get(process.env.VUE_APP_API_URL + '/collections/' + this.collection.id + '/items/' + this.id, this.$apiConfig())
+      axios.get(import.meta.env.VITE_API_URL + '/collections/' + this.collection.id + '/items/' + this.id, this.$apiConfig())
       .then(response => {
         this.edit = response.data
 
@@ -147,7 +147,7 @@ export default {
       e.preventDefault()
 
       // create/update item
-      let url = process.env.VUE_APP_API_URL + '/collections/' + this.collection.id + '/items'
+      let url = import.meta.env.VITE_API_URL + '/collections/' + this.collection.id + '/items'
       let protocol = 'post'
       if (this.id) {
           protocol = 'patch'

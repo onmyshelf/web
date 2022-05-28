@@ -16,7 +16,7 @@ export default {
     },
     deleteItem() {
       // API call
-      axios.delete(process.env.VUE_APP_API_URL + '/collections/' + this.$route.params.cid + '/items/' + this.$route.params.id, this.$apiConfig())
+      axios.delete(import.meta.env.VITE_API_URL + '/collections/' + this.$route.params.cid + '/items/' + this.$route.params.id, this.$apiConfig())
       .then(() => {
         this.goBack()
       })
@@ -25,6 +25,6 @@ export default {
         alert('Error')
       })
     }
-  }  
+  }
 }
 </script>

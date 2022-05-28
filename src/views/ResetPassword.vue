@@ -23,7 +23,7 @@
 
 <script>
 import axios from 'axios'
-import ChangePassword from '@/components/user/ChangePassword'
+import ChangePassword from '@/components/user/ChangePassword.vue'
 
 export default {
   components: {
@@ -47,7 +47,7 @@ export default {
       // prevent form to reload page
       e.preventDefault()
 
-      axios.post(process.env.VUE_APP_API_URL + '/resetpassword', { username: this.username })
+      axios.post(import.meta.env.VITE_API_URL + '/resetpassword', { username: this.username })
       .then(() => {
         this.success = true
       })

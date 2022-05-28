@@ -10,7 +10,6 @@
   </div>
 </template>
 
-
 <script>
 export default {
   computed: {
@@ -31,11 +30,21 @@ export default {
     // return the API URL
     apiUrl() {
       // return external API address
-      if (process.env.VUE_APP_API_URL.substring(0,4) == 'http') {
-        return process.env.VUE_APP_API_URL
+      if (import.meta.env.VITE_API_URL.substring(0,4) == 'http') {
+        return import.meta.env.VITE_API_URL
       }
       // return same URL + API path
-      return this.rootUrl + process.env.VUE_APP_API_URL
+      return this.rootUrl + import.meta.env.VITE_API_URL
+    },
+
+    // return the media URL
+    mediaUrl() {
+      // return external API address
+      if (import.meta.env.VITE_MEDIA_URL.substring(0,4) == 'http') {
+        return import.meta.env.VITE_MEDIA_URL
+      }
+      // return same URL + API path
+      return this.rootUrl + import.meta.env.VITE_MEDIA_URL
     }
   }
 }

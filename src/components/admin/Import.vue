@@ -64,7 +64,7 @@ export default {
       this.result = null
 
       // API call
-      axios.post(process.env.VUE_APP_API_URL + '/collections/' + this.collectionId + '/import', this.data, this.$apiConfig())
+      axios.post(import.meta.env.VITE_API_URL + '/collections/' + this.collectionId + '/import', this.data, this.$apiConfig())
       .then(response => {
         if (response.data.imported) {
           this.result = {

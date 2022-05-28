@@ -19,7 +19,7 @@ export default {
     },
     defaultLang: {
       default() {
-        return process.env.VUE_APP_DEFAULT_LANG
+        return import.meta.env.VITE_DEFAULT_LANG
       }
     }
   },

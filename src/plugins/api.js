@@ -47,7 +47,7 @@ export default {
       }
       const regex = /^media:\/\//
       if (url.match(regex)) {
-        return url.replace(regex, process.env.VUE_APP_MEDIA_URL+'/')
+        return url.replace(regex, import.meta.env.VITE_MEDIA_URL+'/')
       } else {
         return url
       }

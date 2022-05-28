@@ -7,8 +7,8 @@ export default {
       }
 
       // if lang exists, use it
-      if (obj[process.env.VUE_APP_DEFAULT_LANG]) {
-        return obj[process.env.VUE_APP_DEFAULT_LANG]
+      if (obj[import.meta.env.VITE_DEFAULT_LANG]) {
+        return obj[import.meta.env.VITE_DEFAULT_LANG]
       } else {
         // else return the first key
         return obj[Object.keys(obj)[0]]
@@ -17,7 +17,7 @@ export default {
 
     // transform a string to a translation object
     app.config.globalProperties.$i18nObject = (text) => {
-      return { [process.env.VUE_APP_DEFAULT_LANG]: text }
+      return { [import.meta.env.VITE_DEFAULT_LANG]: text }
     }
   }
 }

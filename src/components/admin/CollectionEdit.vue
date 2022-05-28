@@ -66,7 +66,7 @@ export default {
     }
 
     // get collection details
-    axios.get(process.env.VUE_APP_API_URL + '/collections/' + this.id, this.$apiConfig())
+    axios.get(import.meta.env.VITE_API_URL + '/collections/' + this.id, this.$apiConfig())
     .then(response => {
       this.edit = response.data
 
@@ -83,7 +83,7 @@ export default {
       e.preventDefault()
 
       // create/update collection
-      let url = process.env.VUE_APP_API_URL + '/collections'
+      let url = import.meta.env.VITE_API_URL + '/collections'
       let protocol = 'post'
       if (this.id) {
           protocol = 'patch'

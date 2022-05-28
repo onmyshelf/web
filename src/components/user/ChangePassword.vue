@@ -66,7 +66,7 @@ export default {
         data.password = this.oldPassword
       }
 
-      axios.post(process.env.VUE_APP_API_URL + url, data, this.$apiConfig())
+      axios.post(import.meta.env.VITE_API_URL + url, data, this.$apiConfig())
       .then(() => {
         this.error = false
         this.success = true

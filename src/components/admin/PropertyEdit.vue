@@ -166,7 +166,7 @@ export default {
     }
 
     // get collection
-    axios.get(process.env.VUE_APP_API_URL + '/collections/' + this.$route.params.cid, this.$apiConfig())
+    axios.get(import.meta.env.VITE_API_URL + '/collections/' + this.$route.params.cid, this.$apiConfig())
     .then(response => {
       this.collection = response.data
 
@@ -296,7 +296,7 @@ export default {
       e.preventDefault()
 
       // create/update property
-      let url = process.env.VUE_APP_API_URL + '/collections/' + this.$route.params.cid + '/properties'
+      let url = import.meta.env.VITE_API_URL + '/collections/' + this.$route.params.cid + '/properties'
       let protocol = 'post'
       if (this.id) {
           protocol = 'patch'

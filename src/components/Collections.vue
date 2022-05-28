@@ -87,7 +87,7 @@ export default {
     }
 
     // get collections list
-    axios.get(process.env.VUE_APP_API_URL + '/collections', this.$apiConfig())
+    axios.get(import.meta.env.VITE_API_URL + '/collections', this.$apiConfig())
     .then(response => {
       this.collections = response.data
 

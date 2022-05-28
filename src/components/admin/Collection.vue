@@ -180,7 +180,7 @@ export default {
     }
 
     // get collection details
-    axios.get(process.env.VUE_APP_API_URL + '/collections/' + this.id, this.$apiConfig())
+    axios.get(import.meta.env.VITE_API_URL + '/collections/' + this.id, this.$apiConfig())
     .then(response => {
       this.name = response.data.name
       this.description = response.data.description
@@ -202,7 +202,7 @@ export default {
     })
 
     // get items
-    axios.get(process.env.VUE_APP_API_URL + '/collections/' + this.id + '/items?' + query.join('&'), this.$apiConfig())
+    axios.get(import.meta.env.VITE_API_URL + '/collections/' + this.id + '/items?' + query.join('&'), this.$apiConfig())
     .then(response => {
       this.items = response.data
     })
@@ -256,14 +256,14 @@ export default {
         }
 
         // API call to update property
-        axios.patch(process.env.VUE_APP_API_URL + '/collections/' + this.id + '/properties/' + name, data, this.$apiConfig())
+        axios.patch(import.meta.env.VITE_API_URL + '/collections/' + this.id + '/properties/' + name, data, this.$apiConfig())
         .then(() => {
           document.location.reload()
         })
 
         if (otherData) {
           // API call to update other property
-          axios.patch(process.env.VUE_APP_API_URL + '/collections/' + this.id + '/properties/' + otherProperty, otherData, this.$apiConfig())
+          axios.patch(import.meta.env.VITE_API_URL + '/collections/' + this.id + '/properties/' + otherProperty, otherData, this.$apiConfig())
           .then(() => {
             document.location.reload()
           })

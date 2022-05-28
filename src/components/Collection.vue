@@ -148,7 +148,7 @@ export default {
     }
 
     // get collection details
-    axios.get(process.env.VUE_APP_API_URL + '/collections/' + this.collection.id, this.$apiConfig())
+    axios.get(import.meta.env.VITE_API_URL + '/collections/' + this.collection.id, this.$apiConfig())
     .then(response => {
       // translate name & description
       if (response.data.name) {
@@ -189,7 +189,7 @@ export default {
     })
 
     // get items
-    axios.get(process.env.VUE_APP_API_URL + '/collections/' + this.collection.id + '/items?' + apiQuery.join('&'), this.$apiConfig())
+    axios.get(import.meta.env.VITE_API_URL + '/collections/' + this.collection.id + '/items?' + apiQuery.join('&'), this.$apiConfig())
     .then(response => {
       this.items = response.data
       this.loading = false

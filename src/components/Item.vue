@@ -67,7 +67,7 @@ export default {
   },
   created() {
     // get collection
-    axios.get(process.env.VUE_APP_API_URL + '/collections/' + this.$route.params.cid, this.$apiConfig())
+    axios.get(import.meta.env.VITE_API_URL + '/collections/' + this.$route.params.cid, this.$apiConfig())
     .then(response => {
 
       this.collection = response.data
@@ -111,7 +111,7 @@ export default {
     })
 
     // get item
-    axios.get(process.env.VUE_APP_API_URL + '/collections/' + this.$route.params.cid + '/items/' + this.$route.params.id, this.$apiConfig())
+    axios.get(import.meta.env.VITE_API_URL + '/collections/' + this.$route.params.cid + '/items/' + this.$route.params.id, this.$apiConfig())
     .then(response => {
       this.item = response.data
     })

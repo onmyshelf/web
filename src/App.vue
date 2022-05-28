@@ -135,7 +135,7 @@ export default {
       this.$cleanSession()
 
       // tell API to delete token
-      axios.delete(process.env.VUE_APP_API_URL + '/token', apiConfig)
+      axios.delete(import.meta.env.VITE_API_URL + '/token', apiConfig)
       .then(() => {
         document.location.href = '/'
       })

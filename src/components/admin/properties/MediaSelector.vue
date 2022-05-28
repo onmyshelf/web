@@ -142,7 +142,7 @@ export default {
       data.append("file", file)
 
       // API call
-      axios.post(process.env.VUE_APP_API_URL + '/upload', data, this.$apiConfig({
+      axios.post(import.meta.env.VITE_API_URL + '/upload', data, this.$apiConfig({
           headers: {'Content-Type': 'multipart/form-data'}})
       ).then(response => {
         // save media URL in input fields

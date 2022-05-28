@@ -1,8 +1,9 @@
 # Changelog for OnMyShelf web interface
 
-## 1.0 Beta 3 (2022-XX-XX)
+## 1.0 RC 1 (2022-05-28)
 - Items sorting and filters are now working properly
 - Upgrade VueJS 3.2.36, VueJS router 4.0.15 and axios 0.27.2
+- Migrate from vue-cli to vite
 
 ## 1.0 Beta 2 (2021-12-27)
 - Fixed responsive bugs

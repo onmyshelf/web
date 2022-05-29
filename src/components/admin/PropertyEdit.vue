@@ -104,7 +104,7 @@
             </div>
 
             <div v-if="canBeSearchable" class="form-check form-switch">
-              <input v-model="edit.search" class="form-check-input" type="checkbox">
+              <input v-model="edit.searchable" class="form-check-input" type="checkbox">
               <label class="form-check-label">Searching items will search in this property</label>
             </div>
 

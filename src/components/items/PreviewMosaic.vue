@@ -23,9 +23,17 @@ export default {
     },
     coverUrl() {
       if (this.item.properties[this.collection.coverProperty]) {
-        return this.item.properties[this.collection.coverProperty]
+        if (this.item.thumbnail.small) {
+          return this.item.thumbnail.small
+        } else {
+          return this.item.properties[this.collection.coverProperty]
+        }
       } else {
-        return this.collection.cover
+        if (this.collection.thumbnail.small) {
+          return this.collection.thumbnail.small
+        } else {
+          return this.collection.cover
+        }
       }
     }
   }

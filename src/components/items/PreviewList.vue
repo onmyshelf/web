@@ -45,9 +45,17 @@ export default {
     },
     coverUrl() {
       if (this.item.properties[this.collection.coverProperty]) {
-        return this.item.properties[this.collection.coverProperty]
+        if (this.item.thumbnail.normal) {
+          return this.item.thumbnail.normal
+        } else {
+          return this.item.properties[this.collection.coverProperty]
+        }
       } else {
-        return this.collection.cover
+        if (this.collection.thumbnail.normal) {
+          return this.collection.thumbnail.normal
+        } else {
+          return this.collection.cover
+        }
       }
     },
     title() {

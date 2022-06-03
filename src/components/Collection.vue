@@ -162,6 +162,7 @@ export default {
 
       // other properties
       this.collection.cover = response.data.cover
+      this.collection.thumbnail = response.data.thumbnail
       this.collection.owner = response.data.owner
       this.collection.properties = response.data.properties
 

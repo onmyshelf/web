@@ -13,12 +13,11 @@
         <Empty v-else label="No collections yet. Login to create your first collection!"/>
       </template>
       <template v-else>
-        <!-- TODO: enable when multi-user will be supported -->
-        <div v-if="isLoggedIn && false">
+        <div v-if="isLoggedIn">
           <div class="form-check">
             <input v-model="filterMine" class="form-check-input" type="checkbox" id="filterMine">
             <label class="form-check-label" for="filterMine">
-              Display only my collections
+              Show only my collections
             </label>
           </div>
         </div>
@@ -42,8 +41,7 @@
               </p>
               <p>Items: {{collection.items}}</p>
               <div v-if="collection.owner == this.currentUserID">
-                <!-- TODO: enable when multi-user will be supported -->
-                <p v-if="false"><span class="badge bg-secondary">Mine</span></p>
+                <p><span class="badge bg-secondary">Mine</span></p>
                 <router-link :to="'/collection/'+collection.id+'/manage/'" class="btn btn-outline-primary">
                   <i class="bi-gear-fill"></i> Manage
                 </router-link>
@@ -68,7 +66,7 @@ export default {
     Image,
     Empty,
     Error,
-    Loading
+    Loading,
   },
   data() {
     return {

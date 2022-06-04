@@ -12,7 +12,7 @@
         <input v-model="confirmPassword" type="password" class="form-control" id="confirmPassword" placeholder="Confirm new password" required>
         <label for="confirmPassword">Confirm new password</label>
     </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Change password</button>
+    <button class="w-100 btn btn-lg btn-primary" type="submit" :disabled="$demoMode()">Change password</button>
     <div v-if="success" class="alert alert-success" role="alert">
         Password changed
     </div>

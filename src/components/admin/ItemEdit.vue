@@ -36,11 +36,10 @@
         </div>
 
         <div class="mb-3">
-          <button class="btn btn-primary" type="submit">
+          <button class="btn btn-primary" type="submit" :disabled="$demoMode()">
             <template v-if="id">Save changes</template>
             <template v-else>Create item</template>
-          </button>
-          &nbsp;
+          </button>&nbsp;
           <a v-if="id" href="." class="btn btn-outline-secondary">Cancel</a>
           <a v-else href=".." class="btn btn-outline-secondary">Cancel</a>
         </div>

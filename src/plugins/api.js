@@ -27,6 +27,10 @@ export default {
       return localStorage.getItem('onmyshelf_userID') == id
     }
 
+    app.config.globalProperties.$demoMode = () => {
+      return localStorage.getItem('onmyshelf_readonly') == 'true'
+    }
+
     app.config.globalProperties.$cleanSession = () => {
       localStorage.removeItem('onmyshelf_token')
       localStorage.removeItem('onmyshelf_userID')

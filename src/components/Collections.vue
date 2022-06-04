@@ -1,7 +1,7 @@
 <template>
   <Error v-if="errors.length > 0" />
   <div v-else class="collections container">
-    <p v-if="isLoggedIn">
+    <p v-if="$isLoggedIn()">
       <router-link to="/collection/new" class="btn btn-outline-primary">
         Create a collection
       </router-link>
@@ -9,11 +9,11 @@
     <Loading v-if="loading"/>
     <template v-if="collections">
       <template v-if="collections.length == 0">
-        <Empty v-if="isLoggedIn" label="No collections yet. Create your first collection!"/>
+        <Empty v-if="$isLoggedIn()" label="No collections yet. Create your first collection!"/>
         <Empty v-else label="No collections yet. Login to create your first collection!"/>
       </template>
       <template v-else>
-        <div v-if="isLoggedIn">
+        <div v-if="$isLoggedIn()">
           <div class="form-check">
             <input v-model="filterMine" class="form-check-input" type="checkbox" id="filterMine">
             <label class="form-check-label" for="filterMine">
@@ -23,7 +23,7 @@
         </div>
 
         <template v-for="collection of collections" :key="collection.id" class="row">
-          <div v-if="!filterMine || collection.owner == this.$currentUserId()" class="row">
+          <div v-if="!filterMine || collection.owner == $currentUserId()" class="row">
             <div class="col-4 item-cover">
               <router-link :to="'/collection/'+collection.id+'/'">
                 <Image :url="collection.cover" :cover=true style="max-height:8em" />
@@ -40,7 +40,7 @@
                 <template v-if="collection.description">{{collection.description}}</template>
               </p>
               <p>Items: {{collection.items}}</p>
-              <div v-if="collection.owner == this.currentUserID">
+              <div v-if="collection.owner == $currentUserId()">
                 <p><span class="badge bg-secondary">Mine</span></p>
                 <router-link :to="'/collection/'+collection.id+'/manage/'" class="btn btn-outline-primary">
                   <i class="bi-gear-fill"></i> Manage
@@ -73,17 +73,10 @@ export default {
       loading: true,
       collections: null,
       errors: [],
-      isLoggedIn: false,
-      currentUserID: null,
       filterMine: false
     }
   },
   created() {
-    this.isLoggedIn = this.$isLoggedIn()
-    if (this.isLoggedIn) {
-      this.currentUserID = this.$currentUserId()
-    }
-
     // get collections list
     axios.get(import.meta.env.VITE_API_URL + '/collections', this.$apiConfig())
     .then(response => {

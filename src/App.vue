@@ -11,6 +11,7 @@
 
         <div class="collapse navbar-collapse" id="topmenu">
           <ul class="navbar-nav me-auto">
+            <li v-if="$demoMode()"><span class="badge text-bg-warning">DEMO</span></li>
             <li class="nav-item">
               <router-link to="/" class="nav-link active">Home</router-link>
             </li>
@@ -19,7 +20,7 @@
             </li>
           </ul>
           <ul class="navbar-nav">
-            <template v-if="isLoggedIn">
+            <template v-if="$isLoggedIn()">
               <li class="nav-item">
                 <router-link to="/profile" class="nav-link">My profile</router-link>
               </li>
@@ -117,14 +118,6 @@ export default {
         }
       }
     }
-  },
-  data() {
-    return {
-      isLoggedIn: false
-    }
-  },
-  created() {
-    this.isLoggedIn = this.$isLoggedIn()
   },
   methods: {
     logout() {

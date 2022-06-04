@@ -31,7 +31,7 @@
         <label class="form-label">Choose a file then click on upload:</label>
         <div class="input-group">
           <input :id="'uploadFile-'+cptId" type="file" class="form-control" placeholder="">
-          <a class="btn btn-primary" @click="upload" :disabled="loading">Upload</a>
+          <a class="btn btn-primary" @click="upload" :disabled="$demoMode() || loading">Upload</a>
         </div>
         <Loading v-if="loading"/>
       </div>

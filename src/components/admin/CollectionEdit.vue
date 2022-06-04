@@ -27,7 +27,7 @@
       </div>
 
       <div class="mt-3">
-        <button class="btn btn-primary" type="submit">
+        <button class="btn btn-primary" type="submit" :disabled="$demoMode()">
           <template v-if="id">Save changes</template>
           <template v-else>Create collection</template>
         </button>&nbsp;

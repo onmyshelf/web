@@ -2,7 +2,7 @@
   <div class="container">
     <h5>Delete property "{{$route.params.id}}"?</h5>
     <p>This will delete the property and all item values associated with.</p>
-    <button type="button" class="btn btn-danger" @click="deleteProperty">Delete property</button>&nbsp;
+    <button type="button" class="btn btn-danger" @click="deleteProperty" :disabled="$demoMode()">Delete property</button>&nbsp;
     <button type="button" class="btn btn-outline-secondary" @click="goBack">Cancel</button>
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h5>Delete item {{$route.params.id}}?</h5>
-    <button type="button" class="btn btn-danger" @click="deleteItem">Delete item</button>&nbsp;
+    <button type="button" class="btn btn-danger" @click="deleteItem" :disabled="$demoMode()">Delete item</button>&nbsp;
     <button type="button" class="btn btn-outline-secondary" @click="goBack">Cancel</button>
   </div>
 </template>

@@ -116,7 +116,10 @@
         </div>
 
         <div class="mb-3">
-          <button class="btn btn-primary" type="submit">Save changes</button>&nbsp;
+          <button class="btn btn-primary" type="submit" :disabled="$demoMode()">
+            <template v-if="id">Save changes</template>
+            <template v-else>Create property</template>
+          </button>&nbsp;
           <a href=".." class="btn btn-outline-secondary">Cancel</a>
         </div>
       </form>
@@ -159,7 +162,7 @@ export default {
   },
   inject: ['propertyTypes', 'visibilityLevels'],
   created() {
-    // new collection: do not load data
+    // new property: do not load data
     if (!this.id) {
       this.loading = false
       return

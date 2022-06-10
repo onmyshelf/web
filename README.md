@@ -33,5 +33,3 @@ OnMyShelf is licensed under the MIT License. See [LICENSE.md](LICENSE.md) for th
 Website: https://onmyshelf.cm
 
 Source code: https://github.com/onmyshelf/web
-
-Author: Jean Prunneaux https://jean.prunneaux.com

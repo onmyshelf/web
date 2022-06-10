@@ -1,9 +1,20 @@
 <template>
+  <div class="container">
+    <h1>Welcome!</h1>
+    <div v-if="$demoMode() && !$isLoggedIn()" class="alert alert-info" role="alert">
+      <p>This is a demo instance. You can log in with the following credentials:</p>
+      <ul>
+        <li>Username: <strong>onmyshelf</strong></li>
+        <li>Password: <strong>onmyshelf</strong></li>
+      </ul>
+      <p>Please note that in demo mode, you can explore all features, but not make any changes.</p>
+    </div>
+  </div>
   <Error v-if="errors.length > 0" />
   <div v-else class="collections container">
-    <p v-if="$isLoggedIn()">
-      <router-link to="/collection/new" class="btn btn-outline-primary">
-        Create a collection
+    <p v-if="$isLoggedIn()" class="text-end">
+      <router-link to="/collection/new" class="btn btn-outline-success">
+        <i class="bi-plus"></i> Create a collection
       </router-link>
     </p>
     <Loading v-if="loading"/>
@@ -77,6 +88,13 @@ export default {
     }
   },
   created() {
+    // get API info
+    axios.get(import.meta.env.VITE_API_URL + '/', this.$apiConfig())
+    .then(response => {
+      localStorage.setItem('onmyshelf_readonly', response.data.readonly)
+    })
+    .catch(e => {})
+
     // get collections list
     axios.get(import.meta.env.VITE_API_URL + '/collections', this.$apiConfig())
     .then(response => {

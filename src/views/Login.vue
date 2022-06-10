@@ -1,7 +1,15 @@
 <template>
   <main class="form-signin container">
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-    <form @submit="login">
+    <div v-if="$demoMode() && !$isLoggedIn()" class="alert alert-info" role="alert">
+      <p>This is a demo instance. You can log in with the following credentials:</p>
+      <ul>
+        <li>Username: <strong>onmyshelf</strong></li>
+        <li>Password: <strong>onmyshelf</strong></li>
+      </ul>
+      <p>Please note that in demo mode, you can explore all features, but not make any changes.</p>
+    </div>
+    <form @submit="login" class="container">
       <div class="form-floating">
         <input v-model="username" type="text" class="form-control" id="floatingInput" placeholder="Username" required>
         <label for="floatingInput">Username</label>
@@ -14,9 +22,9 @@
       <div v-if="error" class="alert alert-danger" role="alert">
         Login failed!
       </div>
-      <p>
+      <div class="mt-3">
         <router-link to="/resetpassword">Forgot password?</router-link>
-      </p>
+      </div>
     </form>
   </main>
 </template>

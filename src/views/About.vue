@@ -1,12 +1,19 @@
 <template>
   <div class="about container">
     <h1>About</h1>
+    <div class="alert alert-info" role="alert">
+      OnMyShelf is still in development.<br/>
+      Some key features you expects may be missing,
+      but we work hard to make it be the best collection manager!
+    </div>
+    <h2>About this instance</h2>
     <ul>
       <li>Web interface: <router-link to="/">{{rootUrl}}</router-link></li>
       <li>Server API: <a :href="apiUrl">{{apiUrl}}</a></li>
     </ul>
+    <h2>About OnMyShelf project</h2>
     <p>OnMyShelf is a powerful open source collection manager.</p>
-    <p>OnMyShelf official website: <a href="https://onmyshelf.cm">https://onmyshelf.cm</a></p>
+    <p>Official website: <a href="https://onmyshelf.cm">https://onmyshelf.cm</a></p>
   </div>
 </template>
 

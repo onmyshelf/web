@@ -12,7 +12,7 @@
           <input v-model="username" type="text" class="form-control" id="username" placeholder="Username" required>
           <label for="username">Username</label>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Ask a password reset</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit" :disabled="$demoMode()">Ask password reset</button>
         <div v-if="error" class="alert alert-danger" role="alert">
           Failed! Please retry.
         </div>

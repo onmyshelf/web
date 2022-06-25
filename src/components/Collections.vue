@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>Welcome!</h1>
+    <h1>Welcome<span v-if="$isLoggedIn()">, {{currentUser.username}}</span>!</h1>
     <div v-if="$demoMode() && !$isLoggedIn()" class="alert alert-info" role="alert">
       <p>This is a demo instance. You can log in with the following credentials:</p>
       <ul>
@@ -34,7 +34,7 @@
         </div>
 
         <template v-for="collection of collections" :key="collection.id" class="row">
-          <div v-if="!filterMine || collection.owner == $currentUserId()" class="row">
+          <div v-if="!filterMine || collection.owner == currentUser.id" class="row">
             <div class="col-4 item-cover">
               <router-link :to="'/collection/'+collection.id+'/'">
                 <Image :url="collection.cover" :cover=true style="max-height:8em" />
@@ -51,7 +51,7 @@
                 <template v-if="collection.description">{{collection.description}}</template>
               </p>
               <p>Items: {{collection.items}}</p>
-              <div v-if="collection.owner == $currentUserId()">
+              <div v-if="collection.owner == currentUser.id">
                 <p><span class="badge bg-secondary">Mine</span></p>
                 <router-link :to="'/collection/'+collection.id+'/manage/'" class="btn btn-outline-primary">
                   <i class="bi-gear-fill"></i> Manage
@@ -123,6 +123,8 @@ export default {
 
       this.loading = false
     })
+
+    this.currentUser = this.$currentUser()
   }
 }
 </script>

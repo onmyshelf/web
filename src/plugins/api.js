@@ -12,12 +12,11 @@ export default {
       return localStorage.getItem('onmyshelf_token') !== null
     }
 
-    app.config.globalProperties.$currentToken = () => {
-      return localStorage.getItem('onmyshelf_token')
-    }
-
-    app.config.globalProperties.$currentUserId = () => {
-      return localStorage.getItem('onmyshelf_userID')
+    app.config.globalProperties.$currentUser = () => {
+      return {
+        id: localStorage.getItem('onmyshelf_userID'),
+        username: localStorage.getItem('onmyshelf_username'),
+      }
     }
 
     app.config.globalProperties.$matchUserId = (id) => {

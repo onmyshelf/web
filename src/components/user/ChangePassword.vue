@@ -60,9 +60,9 @@ export default {
       let url = '/resetpassword'
       let data = { resetToken: this.resetToken, newpassword: this.newPassword }
 
-      // change password from connected user
+      // change password for connected user
       if (!this.resetToken) {
-        url = '/users/' + this.$currentUserId() + '/password'
+        url = '/users/' + this.$currentUser().id + '/password'
         data.password = this.oldPassword
       }
 

@@ -51,6 +51,7 @@ export default {
       .then(response => {
         localStorage.setItem('onmyshelf_token', response.data.token)
         localStorage.setItem('onmyshelf_userID', response.data.userid)
+        localStorage.setItem('onmyshelf_username', this.username)
         localStorage.setItem('onmyshelf_readonly', response.data.readonly)
         document.location.href = '/'
       })

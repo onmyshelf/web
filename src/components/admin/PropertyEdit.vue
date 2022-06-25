@@ -154,7 +154,6 @@ export default {
       // default form values
       edit: {
         type: 'text',
-        hideLabel: false,
         visibility: 0
       },
       errors: []

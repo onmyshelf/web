@@ -6,6 +6,9 @@
         <template v-if="id">Edit item {{id}}</template>
         <template v-else>New item</template>
       </h1>
+      <div class="mb-3">
+        <button v-if="id" class="btn btn-outline-success" @click="duplicate()">Duplicate item</button>
+      </div>
       <Loading v-if="loading"/>
       <form v-else @submit="validate">
         <div v-for="(property, name) in collection.properties" :key="name" class="item-preview mb-3">
@@ -40,7 +43,6 @@
             <template v-if="id">Save changes</template>
             <template v-else>Create item</template>
           </button>&nbsp;
-          <button v-if="id" class="btn btn-outline-success" @click="duplicate()">Duplicate item</button>&nbsp;
           <a v-if="id" href="." class="btn btn-outline-secondary">Cancel</a>
           <a v-else href=".." class="btn btn-outline-secondary">Cancel</a>
         </div>
@@ -156,7 +158,7 @@ export default {
       // create/update item
       let url = import.meta.env.VITE_API_URL + '/collections/' + this.collection.id + '/items'
       let protocol = 'post'
-      
+
       if (this.id) {
           protocol = 'patch'
           url += '/' + this.id

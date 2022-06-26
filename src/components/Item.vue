@@ -19,6 +19,7 @@
           <h1>{{title}}</h1>
           <h2 v-if="subTitleProperty && properties[subTitleProperty]">{{properties[subTitleProperty]}}</h2>
           <div v-if="isMine" class="item-actions">
+            <Visibility :level="item.visibility >= collection.visibility ? item.visibility : collection.visibility" />
             <router-link to="edit" class="btn btn-outline-primary">
               <i class="bi-pencil"></i> Edit
             </router-link>
@@ -48,17 +49,19 @@
 
 <script>
 import axios from 'axios'
-import Breadcrumbs from '@/components/Breadcrumbs.vue'
+import Breadcrumbs from './Breadcrumbs.vue'
 import Image from './properties/medias/Image.vue'
-import Error from '@/components/Error.vue'
-import Property from '@/components/Property.vue'
+import Error from './Error.vue'
+import Property from './Property.vue'
+import Visibility from './properties/Visibility.vue'
 
 export default {
   components: {
     Breadcrumbs,
     Image,
     Error,
-    Property
+    Property,
+    Visibility,
   },
   data() {
     return {

@@ -1,7 +1,10 @@
 <template>
-  <span v-if="stars" :title="stars.label">
-    <i v-for="i in stars.full" :key="i" class="bi-star-fill"></i><i v-if="stars.mid == 1" class="bi-star-half"></i><i v-for="i in stars.empty" :key="i" class="bi-star"></i>
-  </span>
+  <div v-if="stars" :title="stars.label" class="property-rating-view">
+    <span :title="stars.label" class="stars">
+      <i v-for="i in stars.full" :key="i" class="bi-star-fill"></i><i v-if="stars.mid == 1" class="bi-star-half"></i><i v-for="i in stars.empty" :key="i" class="bi-star"></i>
+    </span>
+    <span class="rating">{{stars.label}}</span>
+  </div>
 </template>
 
 <script>

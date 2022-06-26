@@ -68,6 +68,9 @@ export default {
         date: {
           label: 'Date'
         },
+        datetime: {
+          label: 'Date and time'
+        },
         rating: {
           label: 'Rating'
         },
@@ -79,11 +82,8 @@ export default {
           label: 'Long text',
           description: 'used for descriptions, comments, ...'
         },
-        datetime: {
-          label: 'Date and time'
-        },
         url: {
-          label: 'Link'
+          label: 'URL (link)'
         },
         file: {
           label: 'File URI'

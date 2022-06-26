@@ -1,5 +1,7 @@
 <template>
-  <i :class="'property-yesno-view bi bi-'+(isTrue ? 'check-circle-fill' : 'x-circle')" />
+  <div :class="'property-yesno-view property-yesno-view-'+(isTrue ? 'yes' : 'no')">
+    <i :class="'bi bi-'+(isTrue ? 'check-circle-fill' : 'x-circle')" />
+  </div>
 </template>
 
 <script>

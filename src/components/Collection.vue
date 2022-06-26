@@ -107,14 +107,15 @@ export default {
         owner: null,
         properties: [],
         titleProperty: null,
-        coverProperty: null
+        coverProperty: null,
+        visibility: null,
       },
       items: null,
       displayMode: 'shop',
       errors: [],
       filters: [],
       sorting: null,
-      loading: true
+      loading: true,
     }
   },
   created() {
@@ -160,6 +161,7 @@ export default {
       this.collection.thumbnail = response.data.thumbnail
       this.collection.owner = response.data.owner
       this.collection.properties = response.data.properties
+      this.collection.visibility = response.data.visibility
 
       // search title property
       if (response.data.properties) {

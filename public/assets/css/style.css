@@ -85,10 +85,6 @@ a {
  *  Item properties view
  */
 
-.property-yesno-view {
-  font-size: 1.6em;
-}
-
 .property-color-view {
   display: block;
   border-radius: 100%;
@@ -99,6 +95,24 @@ a {
   text-align: center;
   box-shadow: 0 0 0 1px #dee0e3;
   cursor: default;
+}
+
+.property-rating-view {
+  color: #ffc400;
+}
+.property-rating-view .rating {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.property-yesno-view {
+  font-size: 1.6em;
+}
+.property-yesno-view-yes {
+  color: #008000;
+}
+.property-yesno-view-no {
+  color: #c00000;
 }
 
 .property-filter {

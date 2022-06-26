@@ -110,7 +110,7 @@
                 </tr>
               </tbody>
             </table>
-          </div><!-- .container .items -->
+          </div><!-- .items -->
           <Loading v-else />
         </div><!-- end of items section -->
 

@@ -13,6 +13,9 @@
     <template v-else-if="property.type == 'date'">
       <input v-model="value" type="date" class="form-control" :required=property.required>
     </template>
+    <template v-else-if="property.type == 'color'">
+      <input v-model="value" type="color" class="form-control" :required=property.required>
+    </template>
     <template v-else-if="property.type == 'yesno'">
       <YesNo v-model="value" />
     </template>

@@ -148,6 +148,7 @@ export default {
       // create/update item
       let url = import.meta.env.VITE_API_URL + '/collections/' + this.collection.id + '/items'
       let protocol = 'post'
+      
       if (this.id) {
           protocol = 'patch'
           url += '/' + this.id

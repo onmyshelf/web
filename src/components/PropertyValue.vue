@@ -6,6 +6,7 @@
     <YesNo v-else-if="property.type == 'yesno'" :label="name" :value=value />
     <Rating v-else-if="property.type == 'rating'" :label="name" :value=value />
     <Json v-else-if="property.type == 'json'" :obj=jsonDecode(value) />
+    <div v-else-if="property.type == 'color'" :style="'background:'+value" class="property-color-view"></div>
     <template v-else>
       <ul v-if="Array.isArray(value)">
         <li class="value" v-for="val in value" :key="val">{{val}}
@@ -20,7 +21,7 @@
     <span v-if="property.filterable" class="property-filter">
       <a :href="'/collection/'+this.$parent.collection.id+'/?p_'+name+'='+encodeURIComponent(value)"
         :title="'Filter by '+value" force>
-        <i class="bi-funnel-fill"></i>
+        <i class="bi-filter-square-fill"></i>
       </a>
     </span>
   </div>

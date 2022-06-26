@@ -88,6 +88,9 @@ export default {
         file: {
           label: 'File URI'
         },
+        color: {
+          label: 'Color'
+        },
         json: {
           label: 'JSON object',
           description: 'for advanced properties'

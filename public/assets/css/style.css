@@ -2,6 +2,10 @@
  *  Main design
  */
 
+body {
+  font-size: 18px;
+}
+
 .item-cover {
   text-align: center;
 }
@@ -15,6 +19,7 @@ img {
 }
 
 a {
+  color: black;
   text-decoration: none;
 }
 
@@ -59,4 +64,43 @@ a {
 
 .error {
   text-align: center;
+}
+
+/*
+ *  Item page
+ */
+.item-actions {
+  margin-bottom: 10px;
+}
+
+.item-actions a {
+  margin-right: 10px;
+}
+
+.item-copies li {
+  margin-left: 10px;
+}
+
+/*
+ *  Item properties view
+ */
+
+.property-yesno-view {
+  font-size: 1.6em;
+}
+
+.property-color-view {
+  display: block;
+  border-radius: 100%;
+  font-size: 1.6em;
+  width: 1.6em;
+  height: 1.6em;
+  line-height: 1.6em;
+  text-align: center;
+  box-shadow: 0 0 0 1px #dee0e3;
+  cursor: default;
+}
+
+.property-filter {
+  margin-left: 10px;
 }

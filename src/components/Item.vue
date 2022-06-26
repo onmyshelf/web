@@ -5,26 +5,38 @@
       <Breadcrumbs v-if="collection && item" :parents=breadcrumbs :current=title />
       <div v-if="item && collection && collection.properties" class="row item">
         <div class="col-4 item-cover">
-          <Image v-if="item.properties && coverProperty && item.properties[coverProperty]" :url="item.properties[coverProperty]"
+          <Image v-if="properties && coverProperty && properties[coverProperty]" :url="properties[coverProperty]"
             :cover=true :linked=true />
           <Image v-else :url="collection.cover" :cover=true />
 
           <div v-if="gallery.length > 0" class="gallery">
             <template v-for="property in gallery" :key="property">
-              <Image v-if="item.properties[property] && !collection.properties[property].isCover" :url="item.properties[property]" :linked=true />
+              <Image v-if="properties[property] && !collection.properties[property].isCover" :url="properties[property]" :linked=true />
             </template>
           </div>
         </div>
         <div class="col">
           <h1>{{title}}</h1>
-          <h2 v-if="subTitleProperty && item.properties[subTitleProperty]">{{item.properties[subTitleProperty]}}</h2>
-          <router-link v-if="isMine" to="edit" class="btn btn-outline-primary">
-            <i class="bi-pencil"></i> Edit
-          </router-link>
-          <template v-if="item.properties">
+          <h2 v-if="subTitleProperty && properties[subTitleProperty]">{{properties[subTitleProperty]}}</h2>
+          <div v-if="isMine" class="item-actions">
+            <router-link to="edit" class="btn btn-outline-primary">
+              <i class="bi-pencil"></i> Edit
+            </router-link>
+            <hr/>
+          </div>
+          <div v-if="itemCopies && itemCopies.length > 1" class="item-copies">
+            Copies:
+            <li v-for="(itemCopy, i) in itemCopies" @click="loadItemCopy(i)"
+              :class="'btn btn-'+(i == currentItemCopy ? '' : 'outline-')+'secondary'">
+              <template v-if="itemCopy.description">{{itemCopy.description}}</template>
+              <template v-else>Copy #{{itemCopy.id}}</template>
+            </li>
+          </div>
+          <hr/>
+          <template v-if="properties">
             <template v-for="(property, name) of collection.properties" :key="name">
-              <div v-if="!property.shown && (item.properties[name] || property.default)" class="item-preview">
-                <Property :name="name" :property=property :value=item.properties[name] />
+              <div v-if="!property.shown && (properties[name] || property.default)" class="item-preview">
+                <Property :name="name" :property=property :value=properties[name] />
               </div>
             </template>
           </template>
@@ -58,11 +70,20 @@ export default {
       ],
       collection: null,
       item: null,
+      properties: null,
       errors: [],
       titleProperty: null,
       subTitleProperty: null,
       coverProperty: null,
-      gallery: []
+      gallery: [],
+      itemCopies: [
+        {
+          id: 1,
+          quantity: 1,
+          properties: {},
+        }
+      ],
+      currentItemCopy: 0,
     }
   },
   created() {
@@ -114,6 +135,7 @@ export default {
     axios.get(import.meta.env.VITE_API_URL + '/collections/' + this.$route.params.cid + '/items/' + this.$route.params.id, this.$apiConfig())
     .then(response => {
       this.item = response.data
+      this.loadItemCopy(0)
     })
     .catch(e => {
       this.errors.push(e)
@@ -125,11 +147,18 @@ export default {
       return this.$matchUserId(this.collection.owner)
     },
     title() {
-      if (this.item.properties[this.titleProperty]) {
-        return this.item.properties[this.titleProperty]
+      if (this.properties[this.titleProperty]) {
+        return this.properties[this.titleProperty]
       } else {
         return 'Item '+this.item.id
       }
+    }
+  },
+  methods: {
+    loadItemCopy(id) {
+      // merge item properties and copy properties
+      this.properties = {...this.item.properties, ...this.itemCopies[id].properties}
+      this.currentItemCopy = id
     }
   }
 }

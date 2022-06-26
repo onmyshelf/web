@@ -5,7 +5,7 @@
     <div v-else>
       <div v-if="success" class="alert alert-success" role="alert">
         Your request has been sent to the administrator.<br/>
-        For more information, please <a href="https://docs.onmyshelf.cm/resetpassword">read documentation here</a>.
+        For more information, please <a href="https://docs.onmyshelf.cm/user-guide/#reset-user-password">read documentation here</a>.
       </div>
       <form v-else @submit="askReset">
         <div class="form-floating">

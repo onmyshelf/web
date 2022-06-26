@@ -1,5 +1,5 @@
 <template>
-  <input type="checkbox" disabled :checked="isTrue" />
+  <i :class="'property-yesno-view bi bi-'+(isTrue ? 'check-circle-fill' : 'x-circle')" />
 </template>
 
 <script>

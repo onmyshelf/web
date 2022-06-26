@@ -40,6 +40,7 @@
             <template v-if="id">Save changes</template>
             <template v-else>Create item</template>
           </button>&nbsp;
+          <button v-if="id" class="btn btn-outline-success" @click="duplicate()">Duplicate item</button>&nbsp;
           <a v-if="id" href="." class="btn btn-outline-secondary">Cancel</a>
           <a v-else href=".." class="btn btn-outline-secondary">Cancel</a>
         </div>
@@ -140,6 +141,13 @@ export default {
         return translation
       }
       return name
+    },
+    duplicate() {
+      if (!this.id) {
+        return;
+      }
+      this.id = null
+      this.edit.id = null
     },
     validate(e) {
       // prevent form to reload page

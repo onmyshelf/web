@@ -32,7 +32,7 @@
 
         <div class="mb-3">
           <label class="form-label">Type of property (<strong>required</strong>)</label>
-          <select v-model="edit.type" class="form-select" aria-label="Type of property" required>
+          <select v-model="edit.type" class="form-select" aria-label="Type of property" required @change="changedType=true">
             <option v-for="(obj,key) in propertyTypes" :key="key" :value="key">
               {{obj.label}} <template v-if="obj.description">({{obj.description}})</template>
             </option>
@@ -156,7 +156,8 @@ export default {
         type: 'text',
         visibility: 0
       },
-      errors: []
+      changedType: false,
+      errors: [],
     }
   },
   inject: ['propertyTypes', 'visibilityLevels'],
@@ -261,6 +262,70 @@ export default {
       this.edit.name = this.edit.label
       this.checkNewId()
     },
+    idToNewType() {
+      // try to guess property type using property name
+      if (this.id) {
+        return
+      }
+      if (this.changedType) {
+        return
+      }
+
+      switch (this.edit.name) {
+        case 'color':
+        case 'colour':
+        case 'couleur':
+          this.edit.type = 'color'
+          break
+        case 'date':
+          this.edit.type = 'date'
+          break
+        case 'datetime':
+          this.edit.type = 'datetime'
+          break
+        case 'file':
+        case 'uri':
+          this.edit.type = 'file'
+          break
+        case 'link':
+        case 'url':
+          this.edit.type = 'url'
+          break
+        case 'json':
+          this.edit.type = 'json'
+          break
+        case 'comment':
+        case 'description':
+        case 'resume':
+        case 'synopsis':
+        case 'text':
+        case 'texte':
+          this.edit.type = 'longtext'
+          break
+        case 'cover':
+        case 'image':
+        case 'img':
+        case 'photo':
+        case 'picture':
+          this.edit.type = 'image'
+          break
+        case 'id':
+        case 'number':
+        case 'year':
+          this.edit.type = 'number'
+          break
+        case 'rating':
+        case 'note':
+          this.edit.type = 'rating'
+          break
+        case 'movie':
+        case 'teaser':
+        case 'trailer':
+        case 'video':
+          this.edit.type = 'video'
+          break
+      }
+    },
     checkNewId() {
       if (this.id) {
         return
@@ -278,6 +343,8 @@ export default {
       newId = newId.replace(/[^a-z0-9]/g, '').substring(0,20) // remove invalid chars
 
       this.edit.name = newId
+
+      this.idToNewType()
     },
     checkPreview() {
       if (this.edit.isCover || this.edit.isTitle || this.edit.isSubTitle) {

@@ -3,6 +3,7 @@
 # 1.0 RC 2 (2022-XX-XX)
 - Fix crash when setting searchable property
 - Display thumbnails instead of full images
+- Many design improvements
 
 # 1.0 RC 1 (2022-05-28)
 - Items sorting and filters are now working properly

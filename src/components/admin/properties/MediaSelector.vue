@@ -44,7 +44,7 @@
       <div v-if="uploadField" class="mt-3">
         <label class="form-label">Drag and drop or choose a file:</label>
         <div class="input-group">
-          <input type="file" :id="'uploadFile-'+cptId" 
+          <input type="file" :id="'uploadFile-' + cptId" 
             class="form-control" placeholder="" @change="upload"
             :disabled="$demoMode() || loading"
           />
@@ -58,8 +58,8 @@
     </div>
 
     <div v-else-if="source == 'url'" class="input-group card-body">
-      <span class="input-group-text" :id="'mediaInfo-'+cptId">Enter a valid URL:</span>
-      <input type="text" class="form-control" :aria-describedby="'mediaInfo-'+cptId" :placeholder="exampleUrl"
+      <span class="input-group-text" :id="'mediaInfo-' + cptId">Enter a valid URL:</span>
+      <input type="text" class="form-control" :aria-describedby="'mediaInfo-' + cptId" :placeholder="exampleUrl"
         v-model="externalUrl" @input="chosenUrl = externalUrl"
       />
     </div>

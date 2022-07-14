@@ -53,15 +53,16 @@ export default {
       }
 
       // API config
-      let url = "/resetpassword"
+      let url = "resetpassword"
       let data = { resetToken: this.resetToken, newpassword: this.newPassword }
 
-      // change password for connected user
+      // if change password for connected user
       if (!this.resetToken) {
-        url = "/users/" + this.$currentUser().id + "/password"
+        url = "users/" + this.$currentUser().id + "/password"
         data.password = this.oldPassword
       }
 
+      // API request
       this.$apiPost(url, data)
         .then(() => {
           this.error = false

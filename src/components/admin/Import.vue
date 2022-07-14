@@ -5,7 +5,9 @@
       <div class="mb-3">
         <label class="form-label">Source type</label>
         <select v-model="data.type" class="form-select" aria-label="Type of import" required>
-          <option v-for="(label,key) in importTypes" :key="key" :value="key">{{label}}</option>
+          <template v-for="(importModule, name) in importTypes" :key="name">
+            <option v-if="importModule.importCollection" :value="name">{{ importModule.name }}</option>
+          </template>
         </select>
       </div>
 
@@ -29,32 +31,44 @@
 </template>
 
 <script>
-import axios from 'axios'
-import Loading from '@/components/Loading.vue'
-import MediaSelector from './properties/MediaSelector.vue'
+import axios from "axios"
+import Loading from "@/components/Loading.vue"
+import MediaSelector from "./properties/MediaSelector.vue"
 
 export default {
   components: {
     Loading,
-    MediaSelector
+    MediaSelector,
   },
   data() {
     return {
       collectionId: this.$route.params.cid,
       loading: false,
-      importTypes: {
-        csv: "CSV file",
-        gcstar: "GCstar file",
-        tellico: "Tellico file"
-      },
+      importTypes: {},
       data: {
         source: null,
-        type: 'csv'
+        type: "csv",
       },
-      result: null
+      result: null,
     }
   },
-  inject: ['visibilityLevels'],
+  inject: ["visibilityLevels"],
+  created() {
+    // get import modules
+    axios.get(import.meta.env.VITE_API_URL + "/import/modules", this.$apiConfig())
+      .then((response) => {
+        if (response.data) {
+          this.importTypes = response.data
+        }
+        this.loading = false
+      })
+      .catch(() => {
+        this.result = {
+          success: false,
+          text: "Internal error. Please retry."
+        }
+      })
+  },
   methods: {
     validate(e) {
       // prevent form to reload page
@@ -71,7 +85,7 @@ export default {
             success: response.data.success
           }
           if (this.result.success) {
-            this.result.text = "Imported "+response.data.imported.items+" items"
+            this.result.text = "Imported " + response.data.imported.items + " items"
           } else {
             this.result.text = "Failed to import collection"
           }

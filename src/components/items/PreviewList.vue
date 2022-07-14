@@ -25,19 +25,19 @@
 </template>
 
 <script>
-import Image from '@/components/properties/medias/Image.vue'
-import Property from '@/components/Property.vue'
+import Image from "@/components/properties/medias/Image.vue"
+import Property from "@/components/Property.vue"
 
 export default {
   components: {
     Image,
-    Property
+    Property,
   },
   props: {
     item: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     collection() {

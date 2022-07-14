@@ -11,24 +11,24 @@ export default {
     url: {},
     linked: {
       type: Boolean,
-      default: false
+      default: false,
     },
     cover: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
     classes() {
-      return (this.cover ? 'cover img-thumbnail' : '')
+      return this.cover ? "cover img-thumbnail" : ""
     },
     imgUrl() {
-      if (this.url && this.url != '') {
+      if (this.url && this.url != "") {
         return this.$mediaUrl(this.url)
       } else {
-        return '/assets/images/box.svg'
+        return "/assets/images/box.svg"
       }
-    }
-  }
+    },
+  },
 }
 </script>

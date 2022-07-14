@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import axios from "axios"
 import Error from "@/components/Error.vue"
 import Loading from "@/components/Loading.vue"
 
@@ -46,7 +45,7 @@ export default {
   },
   created() {
     // get config
-    axios.get(import.meta.env.VITE_API_URL + "/config", this.$apiConfig())
+    this.$apiGet("config")
       .then((response) => {
         this.config = response.data
         this.loading = false
@@ -64,7 +63,7 @@ export default {
       let data = Object.assign({}, this.config)
 
       // API call
-      axios.patch(import.meta.env.VITE_API_URL + "/config", data, this.$apiConfig())
+      this.$apiPatch("config", data)
         .then(() => {
           this.success = true
         })

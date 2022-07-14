@@ -48,7 +48,6 @@
 </template>
 
 <script>
-import axios from "axios"
 import Breadcrumbs from "./Breadcrumbs.vue"
 import Image from "./properties/medias/Image.vue"
 import Error from "./Error.vue"
@@ -91,7 +90,7 @@ export default {
   },
   created() {
     // get collection
-    axios.get(import.meta.env.VITE_API_URL + "/collections/" + this.$route.params.cid, this.$apiConfig())
+    this.$apiGet("collections/" + this.$route.params.cid)
       .then((response) => {
         this.collection = response.data
 
@@ -134,7 +133,7 @@ export default {
       })
 
     // get item
-    axios.get(import.meta.env.VITE_API_URL + "/collections/" + this.$route.params.cid + "/items/" + this.$route.params.id, this.$apiConfig())
+    this.$apiGet("collections/" + this.$route.params.cid + "/items/" + this.$route.params.id)
       .then((response) => {
         this.item = response.data
         this.loadItemCopy(0)
@@ -177,6 +176,7 @@ export default {
         ...this.item.properties,
         ...this.itemCopies[id].properties,
       }
+
       this.currentItemCopy = id
     }
   },

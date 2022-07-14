@@ -60,17 +60,16 @@
 </template>
 
 <script>
-import axios from "axios"
 import Error from "@/components/Error.vue"
-import PropertyInput from "./properties/PropertyInput.vue"
 import Loading from "@/components/Loading.vue"
+import PropertyInput from "./properties/PropertyInput.vue"
 import Visibility from "./properties/Visibility.vue"
 
 export default {
   components: {
     Error,
-    PropertyInput,
     Loading,
+    PropertyInput,
     Visibility,
   },
   data() {
@@ -91,7 +90,7 @@ export default {
   inject: ["visibilityLevels"],
   created() {
     // get collection
-    axios.get(import.meta.env.VITE_API_URL + "/collections/" + this.collection.id, this.$apiConfig())
+    this.$apiGet("collections/" + this.collection.id)
       .then((response) => {
       this.collection = response.data
 
@@ -117,7 +116,7 @@ export default {
 
     // get item
     if (this.id) {
-      axios.get(import.meta.env.VITE_API_URL + "/collections/" + this.collection.id + "/items/" + this.id, this.$apiConfig())
+      this.$apiGet("collections/" + this.collection.id + "/items/" + this.id)
         .then((response) => {
         this.edit = response.data
 
@@ -163,26 +162,23 @@ export default {
       // prevent form to reload page
       e.preventDefault()
 
-      // prepare URL and protocol
-      let url = import.meta.env.VITE_API_URL + "/collections/" + this.collection.id + "/items"
-      let protocol = "post"
-
-      if (this.id) {
-        protocol = "patch"
-        url += "/" + this.id
-      }
-
       // copy edit object (to avoid cloning events)
       let data = Object.assign({}, this.edit)
 
       // API call
-      axios[protocol](url, data, this.$apiConfig())
-        .then((response) => {
-        if (!this.id) {
-          this.id = response.data.id
-        }
+      if (this.id) {
+        // modify item
+        this.$apiPatch("collections/" + this.collection.id + "/items/" + this.id, data)
+        .then(() => {
           document.location.href = "/collection/" + this.collection.id + "/item/" + this.id + "/"
+        })
+      } else {
+        // create new collection
+        this.$apiPost("collections/" + this.collection.id + "/items/", data)
+        .then((response) => {
+          document.location.href = "/collection/" + this.collecion.id + "/item/" + response.data.id + "/"
       })
+      }
     }
   }
 }

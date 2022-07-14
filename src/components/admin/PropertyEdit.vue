@@ -128,7 +128,6 @@
 </template>
 
 <script>
-import axios from "axios"
 import Breadcrumbs from "@/components/Breadcrumbs.vue"
 import Error from "@/components/Error.vue"
 
@@ -169,7 +168,7 @@ export default {
     }
 
     // get collection
-    axios.get(import.meta.env.VITE_API_URL + "/collections/" + this.$route.params.cid, this.$apiConfig())
+    this.$apiGet("collections/" + this.$route.params.cid)
       .then((response) => {
         this.collection = response.data
 
@@ -377,14 +376,6 @@ export default {
       // prevent form to reload page
       e.preventDefault()
 
-      // prepare URL and protocol
-      let url = import.meta.env.VITE_API_URL + "/collections/" + this.$route.params.cid + "/properties"
-      let protocol = "post"
-      if (this.id) {
-        protocol = "patch"
-        url += "/" + this.id
-      }
-
       // copy edit object (to avoid cloning events)
       let data = Object.assign({}, this.edit)
 
@@ -395,11 +386,22 @@ export default {
         data.description = this.$i18nObject(data.description)
       }
 
+      let redirect = "/collection/" + this.$route.params.cid + "/manage/"
+
       // API call
-      axios[protocol](url, data, this.$apiConfig())
-        .then(() => {
-          document.location.href = "/collection/" + this.$route.params.cid + "/manage/"
-        })
+      if (this.id) {
+        // modify property
+        this.$apiPatch("collections/" + this.$route.params.cid + "/properties/" + this.id, data)
+          .then(() => {
+            document.location.href = redirect
+          })
+      } else {
+        // create new property
+        this.$apiPost("collections/" + this.$route.params.cid + "/properties", data)
+          .then(() => {
+            document.location.href = redirect
+          })
+      }
     },
   },
 }

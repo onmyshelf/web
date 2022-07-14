@@ -1,4 +1,4 @@
-import "axios"
+import axios from "axios"
 
 export default {
   install: (app) => {
@@ -8,6 +8,36 @@ export default {
         options.headers = { Authorization: "Bearer " + token }
       }
       return options
+    }
+
+    app.config.globalProperties.$apiDelete = (url, options = {}) => {
+      return axios.delete(
+        import.meta.env.VITE_API_URL + "/" + url,
+        app.config.globalProperties.$apiConfig(options)
+      )
+    }
+    
+    app.config.globalProperties.$apiGet = (url, options = {}) => {
+      return axios.get(
+        import.meta.env.VITE_API_URL + "/" + url,
+        app.config.globalProperties.$apiConfig(options)
+      )
+    }
+
+    app.config.globalProperties.$apiPatch = (url, data, options = {}) => {
+      return axios.patch(
+        import.meta.env.VITE_API_URL + "/" + url,
+        data,
+        app.config.globalProperties.$apiConfig(options)
+      )
+    }
+
+    app.config.globalProperties.$apiPost = (url, data, options = {}) => {
+      return axios.post(
+        import.meta.env.VITE_API_URL + "/" + url,
+        data,
+        app.config.globalProperties.$apiConfig(options)
+      )
     }
 
     app.config.globalProperties.$isLoggedIn = () => {

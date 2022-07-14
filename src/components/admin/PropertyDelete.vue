@@ -15,16 +15,13 @@
 </template>
 
 <script>
-import axios from "axios"
-
 export default {
   methods: {
     goBack() {
       document.location.href = "/collection/" + this.$route.params.cid + "/manage/"
     },
     deleteProperty() {
-      // API call
-      axios.delete(import.meta.env.VITE_API_URL + "/collections/" + this.$route.params.cid + "/properties/" + this.$route.params.id, this.$apiConfig())
+      this.$apiDelete("collections/" + this.$route.params.cid + "/properties/" + this.$route.params.id)
         .then(() => {
           this.goBack()
         })

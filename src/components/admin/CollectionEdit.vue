@@ -39,7 +39,6 @@
 </template>
 
 <script>
-import axios from "axios"
 import Loading from "@/components/Loading.vue"
 import MediaSelector from "./properties/MediaSelector.vue"
 import Visibility from "./properties/Visibility.vue"
@@ -66,29 +65,21 @@ export default {
     }
 
     // get collection details
-    axios.get(import.meta.env.VITE_API_URL + "/collections/" + this.id, this.$apiConfig())
-      .then((response) => {
-        this.edit = response.data
+    this.$apiGet("collections/" + this.id)
+    .then((response) => {
+      this.edit = response.data
 
-        this.edit.name = this.$translate(response.data.name)
-        this.edit.description = this.$translate(response.data.description)
+      this.edit.name = this.$translate(response.data.name)
+      this.edit.description = this.$translate(response.data.description)
 
-        // end of loading
-        this.loading = false
-      })
+      // end of loading
+      this.loading = false
+    })
   },
   methods: {
     validate(e) {
       // prevent form to reload page
       e.preventDefault()
-
-      // prepare URL and protocol
-      let url = import.meta.env.VITE_API_URL + "/collections"
-      let protocol = 'post'
-      if (this.id) {
-        protocol = "patch"
-        url += "/" + this.id
-      }
 
       // copy edit object (to avoid cloning events)
       let data = Object.assign({}, this.edit)
@@ -100,13 +91,17 @@ export default {
       }
 
       // API call
-      axios[protocol](url, data, this.$apiConfig())
-        .then((response) => {
-          if (!this.id) {
-            this.id = response.data.id
-          }
+      if (this.id) {
+        // modify collection
+        this.$apiPatch("collections/" + this.id, data).then(() => {
           document.location.href = "/collection/" + this.id + "/manage/"
         })
+      } else {
+        // create new collection
+        this.$apiPost("collections", data).then((response) => {
+          document.location.href = "/collection/" + response.data.id + "/manage/"
+        })
+      }
     },
   },
 }

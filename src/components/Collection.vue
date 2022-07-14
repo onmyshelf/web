@@ -76,7 +76,6 @@
 </template>
 
 <script>
-import axios from "axios"
 import PreviewList from "./items/PreviewList.vue"
 import PreviewMosaic from "./items/PreviewMosaic.vue"
 import PreviewShop from "./items/PreviewShop.vue"
@@ -125,12 +124,12 @@ export default {
     }
 
     // prepare API query parameters
-    var apiQuery = []
+    let options = { params: {} }
 
     // get filters
     const filters = Object.keys(this.$route.query).filter((k) => k.substring(0,2) == "p_")
     filters.forEach((prop) => {
-      apiQuery.push(prop + "=" + this.$route.query[prop])
+      options.params[prop] = this.$route.query[prop]
       this.filters.push({
         name: prop.substring(2),
         value: decodeURIComponent(this.$route.query[prop]),
@@ -139,12 +138,12 @@ export default {
 
     // get sorting
     if (this.$route.query.sort) {
-      apiQuery.push("sort=" + this.$route.query.sort)
+      options.params.sort = this.$route.query.sort
       this.sorting = this.$route.query.sort
     }
 
     // get collection details
-    axios.get(import.meta.env.VITE_API_URL + "/collections/" + this.collection.id, this.$apiConfig())
+    this.$apiGet("collections/" + this.collection.id)
       .then((response) => {
         // translate name & description
         if (response.data.name) {
@@ -187,7 +186,7 @@ export default {
       })
 
     // get items
-    axios.get(import.meta.env.VITE_API_URL + "/collections/" + this.collection.id + "/items?" + apiQuery.join("&"), this.$apiConfig())
+    this.$apiGet("collections/" + this.collection.id + "/items", options)
       .then((response) => {
         this.items = response.data
         this.loading = false
@@ -213,7 +212,7 @@ export default {
   methods: {
     reloadCollection(filters, sorting) {
       var query = []
-      filters.forEach(filter => {
+      filters.forEach((filter) => {
         query.push("p_" + filter.name + "=" + encodeURIComponent(filter.value))
       })
       if (sorting) {

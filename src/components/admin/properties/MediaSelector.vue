@@ -69,7 +69,6 @@
 </template>
 
 <script>
-import axios from "axios"
 import Loading from "@/components/Loading.vue"
 
 export default {
@@ -158,12 +157,14 @@ export default {
       let data = new FormData()
       data.append("file", file)
 
-      let headers = {
-        "Content-Type": "multipart/form-data",
+      let options = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       }
 
       // API call
-      axios.post(import.meta.env.VITE_API_URL + "/upload", data, this.$apiConfig(headers))
+      this.$apiPost("upload", data, options)
         .then((response) => {
           // save media URL in input fields
           if (response.data && response.data.url) {

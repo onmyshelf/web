@@ -11,8 +11,6 @@
 </template>
 
 <script>
-import axios from "axios"
-
 export default {
   methods: {
     goBack() {
@@ -20,7 +18,7 @@ export default {
     },
     deleteCollection() {
       // API call
-      axios.delete(import.meta.env.VITE_API_URL + "/collections/" + this.$route.params.cid, this.$apiConfig())
+      this.$apiDelete("collections/" + this.$route.params.cid)
         .then(() => {
           this.goBack()
         })

@@ -22,7 +22,7 @@
       </div>
 
       <div v-if="result" :class="'alert alert-'+(result.success ? 'success':'danger')" role="alert">
-        {{result.text}}<br/>
+        {{ result.text }}<br/>
         <router-link :to="'/collection/'+this.collectionId+'/'">View collection</router-link>
       </div>
       <Loading v-if="loading" info="Please wait, this may take some time..."/>
@@ -31,7 +31,6 @@
 </template>
 
 <script>
-import axios from "axios"
 import Loading from "@/components/Loading.vue"
 import MediaSelector from "./properties/MediaSelector.vue"
 
@@ -55,7 +54,7 @@ export default {
   inject: ["visibilityLevels"],
   created() {
     // get import modules
-    axios.get(import.meta.env.VITE_API_URL + "/import/modules", this.$apiConfig())
+    this.$apiGet("import/modules")
       .then((response) => {
         if (response.data) {
           this.importTypes = response.data
@@ -65,7 +64,7 @@ export default {
       .catch(() => {
         this.result = {
           success: false,
-          text: "Internal error. Please retry."
+          text: "Internal error. Please retry.",
         }
       })
   },
@@ -78,27 +77,27 @@ export default {
       this.result = null
 
       // API call
-      axios.post(import.meta.env.VITE_API_URL + '/collections/' + this.collectionId + '/import', this.data, this.$apiConfig())
-      .then(response => {
-        if (response.data.imported) {
+      this.$apiPost("collections/" + this.collectionId + "/import", this.data)
+        .then((response) => {
+          if (response.data.imported) {
+            this.result = {
+              success: response.data.success
+            }
+            if (this.result.success) {
+              this.result.text = "Imported " + response.data.imported.items + " items"
+            } else {
+              this.result.text = "Failed to import collection"
+            }
+          }
+          this.loading = false
+        })
+        .catch(() => {
           this.result = {
-            success: response.data.success
+            success: false,
+            text: "Internal error. Please retry.",
           }
-          if (this.result.success) {
-            this.result.text = "Imported " + response.data.imported.items + " items"
-          } else {
-            this.result.text = "Failed to import collection"
-          }
-        }
-        this.loading = false
-      })
-      .catch(() => {
-        this.result = {
-          success: false,
-          text: "Internal error. Please retry."
-        }
-      })
+        })
     }
-  }
+  },
 }
 </script>

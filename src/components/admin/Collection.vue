@@ -161,7 +161,6 @@
 </template>
 
 <script>
-import axios from "axios"
 import Error from "@/components/Error.vue"
 import Loading from "@/components/Loading.vue"
 import Translation from "@/components/properties/Translation.vue"
@@ -190,7 +189,7 @@ export default {
   inject: ["propertyTypes"],
   created() {
     // get collection details
-    axios.get(import.meta.env.VITE_API_URL + "/collections/" + this.id, this.$apiConfig())
+    this.$apiGet("collections/" + this.id)
       .then((response) => {
         this.name = response.data.name
         this.description = response.data.description
@@ -211,19 +210,8 @@ export default {
         this.errors.push(e)
       })
 
-    // get URL parameters
-    let headers = {}
-    if (this.$route.query.filterBy) {
-      headers = {
-        params: {
-          filterBy: this.$route.query.filterBy,
-          filterValue: this.$route.query.filterValue,
-        },
-      }
-    }
-
     // get items
-    axios.get(import.meta.env.VITE_API_URL + "/collections/" + this.id + "/items", this.$apiConfig(headers))
+    this.$apiGet("collections/" + this.id + "/items")
       .then((response) => {
         this.items = response.data
       })
@@ -277,17 +265,17 @@ export default {
         }
 
         // API call to update property
-        axios.patch(import.meta.env.VITE_API_URL + "/collections/" + this.id + "/properties/" + name, data, this.$apiConfig())
-          .then(() => {
-            document.location.reload()
-          })
+        this.$apiPatch("collections/" + this.id + "/properties/" + name, data)
+        .then(() => {
+          document.location.reload()
+        })
 
         if (otherData) {
           // API call to update other property
-          axios.patch(import.meta.env.VITE_API_URL + "/collections/" + this.id + "/properties/" + otherProperty, otherData, this.$apiConfig())
-            .then(() => {
-              document.location.reload()
-            })
+          this.$apiPatch("collections/" + this.id + "/properties/" + otherProperty, otherData)
+          .then(() => {
+            document.location.reload()
+          })
         }
 
         // quit loop

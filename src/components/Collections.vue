@@ -72,7 +72,6 @@
 </template>
 
 <script>
-import axios from "axios"
 import Image from "./properties/medias/Image.vue"
 import Empty from "@/components/Empty.vue"
 import Error from "@/components/Error.vue"
@@ -95,13 +94,13 @@ export default {
   },
   created() {
     // get API info
-    axios.get(import.meta.env.VITE_API_URL + "/", this.$apiConfig())
+    this.$apiGet("")
       .then((response) => {
         localStorage.setItem("onmyshelf_readonly", response.data.readonly)
       })
 
     // get collections list
-    axios.get(import.meta.env.VITE_API_URL + "/collections", this.$apiConfig())
+    this.$apiGet("collections")
       .then((response) => {
         this.collections = response.data
 
@@ -117,7 +116,7 @@ export default {
 
         this.loading = false
       })
-      .catch(e => {
+      .catch((e) => {
         if (e.response && e.response.status == 401) {
           // delete local token
           this.$cleanSession()

@@ -10,13 +10,13 @@ export default {
       required: true,
     },
     label: {
-      type: String
-    }
+      type: String,
+    },
   },
   computed: {
     linkLabel() {
-      return (this.label) ? this.label : this.url
-    }
-  }
+      return this.label ? this.label : this.url
+    },
+  },
 }
 </script>

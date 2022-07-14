@@ -1,21 +1,21 @@
 <template>
-  <router-link :to="'item/'+item.id+'/'">
-    <Image :url="coverUrl" :title="item.properties[collection.titleProperty]" :cover=true />
+  <router-link :to="'item/' + item.id + '/'">
+    <Image :url="coverUrl" :title="item.properties[collection.titleProperty]" :cover="true" />
   </router-link>
 </template>
 
 <script>
-import Image from '@/components/properties/medias/Image.vue'
+import Image from "@/components/properties/medias/Image.vue"
 
 export default {
   components: {
-    Image
+    Image,
   },
   props: {
     item: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     collection() {
@@ -35,7 +35,7 @@ export default {
           return this.collection.cover
         }
       }
-    }
-  }
+    },
+  },
 }
 </script>

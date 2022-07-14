@@ -1,6 +1,6 @@
 <template>
   <div v-if="property && !property.hideLabel" class="property-label">
-    {{labelTranslated}}:
+    {{ labelTranslated }}:
   </div>
 </template>
 
@@ -8,10 +8,10 @@
 export default {
   props: {
     name: {
-      required: true
+      required: true,
     },
     property: {
-      required: true
+      required: true,
     },
   },
   computed: {
@@ -23,6 +23,6 @@ export default {
         return this.name
       }
     }
-  }
+  },
 }
 </script>

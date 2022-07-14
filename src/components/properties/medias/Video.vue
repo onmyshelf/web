@@ -6,9 +6,9 @@
 </template>
 
 <script>
-import Allocine from './Allocine.vue'
-import Vimeo from './Vimeo.vue'
-import Youtube from './Youtube.vue'
+import Allocine from "./Allocine.vue"
+import Vimeo from "./Vimeo.vue"
+import Youtube from "./Youtube.vue"
 
 export default {
   components: {
@@ -20,7 +20,7 @@ export default {
     url: {
       type: String,
       required: true,
-    }
+    },
   },
   computed: {
     isAllocine() {
@@ -39,7 +39,7 @@ export default {
     },
     videoUrl() {
       return this.$mediaUrl(this.url)
-    }
-  }
+    },
+  },
 }
 </script>

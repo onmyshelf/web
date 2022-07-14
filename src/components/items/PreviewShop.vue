@@ -1,29 +1,29 @@
 <template>
   <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
-    <router-link :to="'item/'+item.id+'/'">
-      <Image :url="coverUrl" :cover=true />
+    <router-link :to="'item/' + item.id+'/'">
+      <Image :url="coverUrl" :cover="true" />
     </router-link>
-    <router-link :to="'item/'+item.id+'/'">
-      <h1>{{title}}</h1>
+    <router-link :to="'item/' + item.id + '/'">
+      <h1>{{ title }}</h1>
     </router-link>
-    <router-link v-if="$parent.isMine" :to="'item/'+item.id+'/edit'" class="btn btn-outline-primary">
+    <router-link v-if="$parent.isMine" :to="'item/' + item.id + '/edit'" class="btn btn-outline-primary">
       <i class="bi-pencil"></i> Edit
     </router-link>
   </div>
 </template>
 
 <script>
-import Image from '@/components/properties/medias/Image.vue'
+import Image from "@/components/properties/medias/Image.vue"
 
 export default {
   components: {
-    Image
+    Image,
   },
   props: {
     item: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     collection() {
@@ -48,9 +48,9 @@ export default {
       if (this.item.properties[this.collection.titleProperty]) {
         return this.item.properties[this.collection.titleProperty]
       } else {
-        return 'Item '+this.item.id
+        return "Item " + this.item.id
       }
-    }
-  }
+    },
+  },
 }
 </script>

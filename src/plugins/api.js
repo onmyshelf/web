@@ -1,38 +1,40 @@
+import "axios"
+
 export default {
   install: (app) => {
-    app.config.globalProperties.$apiConfig = (options={}) => {
-      let token = localStorage.getItem('onmyshelf_token')
+    app.config.globalProperties.$apiConfig = (options = {}) => {
+      let token = localStorage.getItem("onmyshelf_token")
       if (token) {
-        options.headers = { 'Authorization': 'Bearer ' + token }
+        options.headers = { Authorization: "Bearer " + token }
       }
       return options
     }
 
     app.config.globalProperties.$isLoggedIn = () => {
-      return localStorage.getItem('onmyshelf_token') !== null
+      return localStorage.getItem("onmyshelf_token") !== null
     }
 
     app.config.globalProperties.$currentUser = () => {
       return {
-        id: localStorage.getItem('onmyshelf_userID'),
-        username: localStorage.getItem('onmyshelf_username'),
+        id: localStorage.getItem("onmyshelf_userID"),
+        username: localStorage.getItem("onmyshelf_username"),
       }
     }
 
     app.config.globalProperties.$matchUserId = (id) => {
-      if (!localStorage.getItem('onmyshelf_userID')) {
+      if (!localStorage.getItem("onmyshelf_userID")) {
         return false
       }
-      return localStorage.getItem('onmyshelf_userID') == id
+      return localStorage.getItem("onmyshelf_userID") == id
     }
 
     app.config.globalProperties.$demoMode = () => {
-      return localStorage.getItem('onmyshelf_readonly') == 'true'
+      return localStorage.getItem("onmyshelf_readonly") == "true"
     }
 
     app.config.globalProperties.$cleanSession = () => {
-      localStorage.removeItem('onmyshelf_token')
-      localStorage.removeItem('onmyshelf_userID')
+      localStorage.removeItem("onmyshelf_token")
+      localStorage.removeItem("onmyshelf_userID")
     }
 
     // check if a URL is a media path
@@ -46,11 +48,11 @@ export default {
     // transform URL if needed
     app.config.globalProperties.$mediaUrl = (url) => {
       if (!url) {
-        return ''
+        return ""
       }
       const regex = /^media:\/\//
       if (url.match(regex)) {
-        return url.replace(regex, import.meta.env.VITE_MEDIA_URL+'/')
+        return url.replace(regex, import.meta.env.VITE_MEDIA_URL + "/")
       } else {
         return url
       }

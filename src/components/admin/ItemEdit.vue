@@ -7,35 +7,43 @@
         <template v-else>New item</template>
       </h1>
       <div class="mb-3">
-        <button v-if="id" class="btn btn-outline-success" @click="duplicate()">Duplicate item</button>
+        <button v-if="id" class="btn btn-outline-success" @click="duplicate()">
+          Duplicate item
+        </button>
       </div>
       <Loading v-if="loading"/>
       <form v-else @submit="validate">
         <div v-for="(property, name) in collection.properties" :key="name" class="item-preview mb-3">
           <label :for="name" class="form-label">
-            {{label(property.label, name)}}:
+            {{ label(property.label, name) }}:
             <span v-if="helpProperty(property)">
-              <a title="Informations about this property" data-bs-toggle="collapse" :href="'#help-'+name"
-                aria-expanded="false" :aria-controls="'help-'+name">
+              <a :href="'#help-' + name"
+                title="Informations about this property" data-bs-toggle="collapse"
+                aria-expanded="false" :aria-controls="'help-' + name"
+              >
                 <i class="bi bi-info-circle"></i>
               </a>
               <div class="collapse" :id="'help-'+name">
                 <div class="card card-body">
-                  {{$translate(property.description)}}
+                  {{ $translate(property.description) }}
                 </div>
               </div>
             </span>
           </label>
+
           <template v-if="Array.isArray(edit.properties[name])">
             <PropertyInput v-for="(value, key) in edit.properties[name]" :key="key" v-model="edit.properties[name][key]" :property=property />
           </template>
           <PropertyInput v-else v-model="edit.properties[name]" :property=property />
-          <button v-if="property.multiple" type="button" class="btn btn-outline-primary" @click="addValue(name)">+ add value</button>
+
+          <button v-if="property.multiple" type="button" class="btn btn-outline-primary" @click="addValue(name)">
+            + add value
+          </button>
         </div>
 
         <div class="mb-3">
           <label class="form-label">Who can see this item?</label>
-          <Visibility v-model="edit.visibility" max=3 />
+          <Visibility v-model="edit.visibility" max="3" />
         </div>
 
         <div class="mb-3">
@@ -52,46 +60,46 @@
 </template>
 
 <script>
-import axios from 'axios'
-import Error from '@/components/Error.vue'
-import PropertyInput from './properties/PropertyInput.vue'
-import Loading from '@/components/Loading.vue'
-import Visibility from './properties/Visibility.vue'
+import axios from "axios"
+import Error from "@/components/Error.vue"
+import PropertyInput from "./properties/PropertyInput.vue"
+import Loading from "@/components/Loading.vue"
+import Visibility from "./properties/Visibility.vue"
 
 export default {
   components: {
     Error,
     PropertyInput,
     Loading,
-    Visibility
+    Visibility,
   },
   data() {
     return {
       id: this.$route.params.id,
       collection: {
-        id: this.$route.params.cid
+        id: this.$route.params.cid,
       },
       edit: {
         properties: {},
-        visibility: 0
+        visibility: 0,
       },
       errors: [],
       loading: true,
-      help: {}
+      help: {},
     }
   },
-  inject: ['visibilityLevels'],
+  inject: ["visibilityLevels"],
   created() {
     // get collection
-    axios.get(import.meta.env.VITE_API_URL + '/collections/' + this.collection.id, this.$apiConfig())
-    .then(response => {
+    axios.get(import.meta.env.VITE_API_URL + "/collections/" + this.collection.id, this.$apiConfig())
+      .then((response) => {
       this.collection = response.data
 
       // translate name
       if (response.data.name) {
         this.collection.name = this.$translate(response.data.name)
       } else {
-        this.collection.name = 'Collection ' + this.collection.id
+          this.collection.name = "Collection " + this.collection.id
       }
 
       if (!this.id) {
@@ -100,22 +108,22 @@ export default {
 
       // check if collection is mine; if not, quit
       if (!this.$matchUserId(this.collection.owner)) {
-        document.location.href = '..'
+          document.location.href = ".."
       }
     })
-    .catch(e => {
+      .catch((e) => {
       this.errors.push(e)
     })
 
     // get item
     if (this.id) {
-      axios.get(import.meta.env.VITE_API_URL + '/collections/' + this.collection.id + '/items/' + this.id, this.$apiConfig())
-      .then(response => {
+      axios.get(import.meta.env.VITE_API_URL + "/collections/" + this.collection.id + "/items/" + this.id, this.$apiConfig())
+        .then((response) => {
         this.edit = response.data
 
         this.loading = false
       })
-      .catch(e => {
+        .catch((e) => {
         this.errors.push(e)
       })
     }
@@ -124,10 +132,10 @@ export default {
     addValue(propertyName) {
       // transform values to array if not
       if (!Array.isArray(this.edit.properties[propertyName])) {
-        this.edit.properties[propertyName] = [this.edit.properties[propertyName]]
+        this.edit.properties[propertyName] = [ this.edit.properties[propertyName] ]
       }
       // append empty value
-      this.edit.properties[propertyName].push('')
+      this.edit.properties[propertyName].push("")
     },
     helpProperty(property) {
       let translation = this.$translate(property.description)
@@ -146,7 +154,7 @@ export default {
     },
     duplicate() {
       if (!this.id) {
-        return;
+        return
       }
       this.id = null
       this.edit.id = null
@@ -155,13 +163,13 @@ export default {
       // prevent form to reload page
       e.preventDefault()
 
-      // create/update item
-      let url = import.meta.env.VITE_API_URL + '/collections/' + this.collection.id + '/items'
-      let protocol = 'post'
+      // prepare URL and protocol
+      let url = import.meta.env.VITE_API_URL + "/collections/" + this.collection.id + "/items"
+      let protocol = "post"
 
       if (this.id) {
-          protocol = 'patch'
-          url += '/' + this.id
+        protocol = "patch"
+        url += "/" + this.id
       }
 
       // copy edit object (to avoid cloning events)
@@ -169,11 +177,11 @@ export default {
 
       // API call
       axios[protocol](url, data, this.$apiConfig())
-      .then(response => {
+        .then((response) => {
         if (!this.id) {
           this.id = response.data.id
         }
-        document.location.href = '/collection/'+this.collection.id+'/item/'+this.id+'/'
+          document.location.href = "/collection/" + this.collection.id + "/item/" + this.id + "/"
       })
     }
   }

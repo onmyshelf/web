@@ -26,13 +26,13 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios"
 
 export default {
   props: {
     resetToken: {
-      type: String
-    }
+      type: String,
+    },
   },
   data() {
     return {
@@ -41,7 +41,7 @@ export default {
       confirmPassword: null,
       notSimilar: false,
       success: false,
-      error: false
+      error: false,
     }
   },
   methods: {
@@ -57,29 +57,29 @@ export default {
       }
 
       // API config
-      let url = '/resetpassword'
+      let url = "/resetpassword"
       let data = { resetToken: this.resetToken, newpassword: this.newPassword }
 
       // change password for connected user
       if (!this.resetToken) {
-        url = '/users/' + this.$currentUser().id + '/password'
+        url = "/users/" + this.$currentUser().id + "/password"
         data.password = this.oldPassword
       }
 
       axios.post(import.meta.env.VITE_API_URL + url, data, this.$apiConfig())
-      .then(() => {
-        this.error = false
-        this.success = true
-        this.oldPassword = ''
-        this.newPassword = ''
-        this.confirmPassword = ''
-      })
-      .catch(e => {
-        if (e.response && e.response.status) {
-          this.error = true
-        }
-      })
-    }
-  }
+        .then(() => {
+          this.error = false
+          this.success = true
+          this.oldPassword = ""
+          this.newPassword = ""
+          this.confirmPassword = ""
+        })
+        .catch((e) => {
+          if (e.response && e.response.status) {
+            this.error = true
+          }
+        })
+    },
+  },
 }
 </script>

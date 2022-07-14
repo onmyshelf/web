@@ -128,39 +128,39 @@
 </template>
 
 <script>
-import axios from 'axios'
-import Breadcrumbs from '@/components/Breadcrumbs.vue'
-import Error from '@/components/Error.vue'
+import axios from "axios"
+import Breadcrumbs from "@/components/Breadcrumbs.vue"
+import Error from "@/components/Error.vue"
 
 export default {
   components: {
     Breadcrumbs,
-    Error
+    Error,
   },
   data() {
     return {
       breadcrumbs: [
         {
-          url: '/collection/' + this.$route.params.cid + '/',
-          label: 'Collection ' + this.$route.params.cid
+          url: "/collection/" + this.$route.params.cid + "/",
+          label: "Collection " + this.$route.params.cid,
         },
         {
-          url: '/collection/' + this.$route.params.cid + '/manage/',
-          label: 'Manage'
-        }
+          url: "/collection/" + this.$route.params.cid + "/manage/",
+          label: "Manage",
+        },
       ],
       id: this.$route.params.id,
       collection: null,
       // default form values
       edit: {
-        type: 'text',
-        visibility: 0
+        type: "text",
+        visibility: 0,
       },
       changedType: false,
       errors: [],
     }
   },
-  inject: ['propertyTypes', 'visibilityLevels'],
+  inject: ["propertyTypes", "visibilityLevels"],
   created() {
     // new property: do not load data
     if (!this.id) {
@@ -169,86 +169,95 @@ export default {
     }
 
     // get collection
-    axios.get(import.meta.env.VITE_API_URL + '/collections/' + this.$route.params.cid, this.$apiConfig())
-    .then(response => {
-      this.collection = response.data
+    axios.get(import.meta.env.VITE_API_URL + "/collections/" + this.$route.params.cid, this.$apiConfig())
+      .then((response) => {
+        this.collection = response.data
 
-      // translate name
-      if (response.data.name) {
-        this.collection.name = this.$translate(response.data.name)
-      } else {
-        this.collection.name = 'Collection ' + this.id
-      }
-      this.breadcrumbs[0].label = this.collection.name
+        // translate name
+        if (response.data.name) {
+          this.collection.name = this.$translate(response.data.name)
+        } else {
+          this.collection.name = "Collection " + this.id
+        }
+        this.breadcrumbs[0].label = this.collection.name
 
-      // check if collection is mine; if not, quit
-      if (!this.$matchUserId(this.collection.owner)) {
-        document.location.href = '..'
-      }
+        // check if collection is mine; if not, quit
+        if (!this.$matchUserId(this.collection.owner)) {
+          document.location.href = ".."
+        }
 
-      this.edit = this.collection.properties[this.id]
+        this.edit = this.collection.properties[this.id]
 
-      // transform boolean values
-      var booleans = ['isCover', 'isTitle', 'preview', 'hideLabel', 'filterable', 'searchable', 'sortable']
-      booleans.forEach(key => {
-        if (this.edit[key] == 1) {
-          this.edit[key] = true
+        // transform boolean values
+        var booleans = [
+          "isCover",
+          "isTitle",
+          "preview",
+          "hideLabel",
+          "filterable",
+          "searchable",
+          "sortable",
+        ];
+
+        booleans.forEach((key) => {
+          if (this.edit[key] == 1) {
+            this.edit[key] = true
+          }
+        })
+
+        // translate values
+        this.edit.label = this.$translate(this.edit.label)
+        this.edit.description = this.$translate(this.edit.description)
+
+        // force preview if title or cover
+        if (this.edit.isCover) {
+          this.edit.preview = true
+        }
+        if (this.edit.isTitle) {
+          this.edit.preview = true
         }
       })
-
-      // translate values
-      this.edit.label = this.$translate(this.edit.label)
-      this.edit.description = this.$translate(this.edit.description)
-
-      // force preview if title or cover
-      if (this.edit.isCover) {
-          this.edit.preview = true
-      }
-      if (this.edit.isTitle) {
-          this.edit.preview = true
-      }
-    })
-    .catch(e => {
-      this.errors.push(e)
-    })
+      .catch((e) => {
+        this.errors.push(e)
+      })
   },
   computed: {
     canBeTitle() {
       switch (this.edit.type) {
-        case 'text':
-        case 'number':
-        case 'date':
-        case 'datetime':
+        case "text":
+        case "number":
+        case "date":
+        case "datetime":
           return true
       }
       return false
     },
     canBeFilterable() {
       switch (this.edit.type) {
-        case 'image':
-        case 'longtext':
-        case 'object':
-        case 'url':
+        case "image":
+        case "longtext":
+        case "object":
+        case "url":
           return false
       }
       return true
     },
     canBeSearchable() {
       switch (this.edit.type) {
-        case 'image':
-        case 'object':
-        case 'rating':
-        case 'yesno':
+        case "image":
+        case "object":
+        case "rating":
+        case "yesno":
           return false
       }
       return true
     },
     canBeSortable() {
       switch (this.edit.type) {
-        case 'image':
-        case 'longtext':
-        case 'object':
-        case 'url':
+        case "image":
+        case "longtext":
+        case "object":
+        case "url":
           return false
       }
       return true
@@ -272,28 +281,32 @@ export default {
       }
 
       switch (this.edit.name) {
-        case 'color':
-        case 'colour':
-        case 'couleur':
-          this.edit.type = 'color'
-          break
-        case 'date':
-          this.edit.type = 'date'
-          break
+        case "color":
+        case "date":
         case 'datetime':
-          this.edit.type = 'datetime'
-          break
         case 'file':
+        case 'image':
+        case 'json':
+        case 'number':
+        case 'rating':
+        case 'url':
+        case 'video':
+          this.edit.type = this.edit.name
+          break
+
+        case "colour":
+        case "couleur":
+          this.edit.type = "color"
+          break
+
         case 'uri':
           this.edit.type = 'file'
           break
+
         case 'link':
-        case 'url':
           this.edit.type = 'url'
           break
-        case 'json':
-          this.edit.type = 'json'
-          break
+
         case 'comment':
         case 'description':
         case 'resume':
@@ -302,26 +315,26 @@ export default {
         case 'texte':
           this.edit.type = 'longtext'
           break
+
         case 'cover':
-        case 'image':
         case 'img':
         case 'photo':
         case 'picture':
           this.edit.type = 'image'
           break
+
         case 'id':
-        case 'number':
         case 'year':
           this.edit.type = 'number'
           break
-        case 'rating':
+
         case 'note':
           this.edit.type = 'rating'
           break
+
         case 'movie':
         case 'teaser':
         case 'trailer':
-        case 'video':
           this.edit.type = 'video'
           break
       }
@@ -336,11 +349,11 @@ export default {
       // remove accents, swap ñ for n, etc
       let from = "àáäâèéëêìíïîòóöôùúüûñç"
       let to   = "aaaaeeeeiiiioooouuuunc"
-      for (let i=0, l=from.length ; i<l ; i++) {
-        newId = newId.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+      for (let i=0, l = from.length; i < l; i++) {
+        newId = newId.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
       }
 
-      newId = newId.replace(/[^a-z0-9]/g, '').substring(0,20) // remove invalid chars
+      newId = newId.replace(/[^a-z0-9]/g, "").substring(0, 20) // remove invalid chars
 
       this.edit.name = newId
 
@@ -364,12 +377,12 @@ export default {
       // prevent form to reload page
       e.preventDefault()
 
-      // create/update property
-      let url = import.meta.env.VITE_API_URL + '/collections/' + this.$route.params.cid + '/properties'
-      let protocol = 'post'
+      // prepare URL and protocol
+      let url = import.meta.env.VITE_API_URL + "/collections/" + this.$route.params.cid + "/properties"
+      let protocol = "post"
       if (this.id) {
-          protocol = 'patch'
-          url += '/' + this.id
+        protocol = "patch"
+        url += "/" + this.id
       }
 
       // copy edit object (to avoid cloning events)
@@ -384,10 +397,10 @@ export default {
 
       // API call
       axios[protocol](url, data, this.$apiConfig())
-      .then(() => {
-        document.location.href = '/collection/'+this.$route.params.cid+'/manage/'
-      })
-    }
-  }
+        .then(() => {
+          document.location.href = "/collection/" + this.$route.params.cid + "/manage/"
+        })
+    },
+  },
 }
 </script>

@@ -6,9 +6,7 @@
       <form v-else @submit="validate">
         <template v-for="(value, param) in config" :key="param" >
           <div v-if="param != 'version'" class="item-preview mb-3">
-            <label class="form-label">
-              {{param}}:
-            </label>
+            <label class="form-label">{{ param }}:</label>
             <input v-model="config[param]" type="text" class="form-control">
           </div>
         </template>
@@ -20,19 +18,17 @@
         </div>
       </form>
       <div v-if="success" class="alert alert-success" role="alert">
-          Config changed
+        Config changed
       </div>
-      <div v-if="error" class="alert alert-danger" role="alert">
-          Failed!
-      </div>
+      <div v-if="error" class="alert alert-danger" role="alert">Failed!</div>
     </template>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-import Error from '@/components/Error.vue'
-import Loading from '@/components/Loading.vue'
+import axios from "axios"
+import Error from "@/components/Error.vue"
+import Loading from "@/components/Loading.vue"
 
 export default {
   components: {
@@ -50,14 +46,14 @@ export default {
   },
   created() {
     // get config
-    axios.get(import.meta.env.VITE_API_URL + '/config', this.$apiConfig())
-    .then(response => {
-      this.config = response.data
-      this.loading = false
-    })
-    .catch(e => {
-      this.errors.push(e)
-    })
+    axios.get(import.meta.env.VITE_API_URL + "/config", this.$apiConfig())
+      .then((response) => {
+        this.config = response.data
+        this.loading = false
+      })
+      .catch((e) => {
+        this.errors.push(e)
+      })
   },
   methods: {
     validate(e) {
@@ -68,14 +64,14 @@ export default {
       let data = Object.assign({}, this.config)
 
       // API call
-      axios.patch(import.meta.env.VITE_API_URL + '/config', data, this.$apiConfig())
-      .then(response => {
-        this.success = true
-      })
-      .catch(e => {
-        this.error = true
-      })
-    }
-  }
+      axios.patch(import.meta.env.VITE_API_URL + "/config", data, this.$apiConfig())
+        .then(() => {
+          this.success = true
+        })
+        .catch(() => {
+          this.error = true
+        })
+    },
+  },
 }
 </script>

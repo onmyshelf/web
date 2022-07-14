@@ -7,21 +7,20 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios"
 
 export default {
   methods: {
     goBack() {
-      document.location.href = '/collection/' + this.$route.params.cid + '/manage/'
+      document.location.href = "/collection/" + this.$route.params.cid + "/manage/"
     },
     deleteItem() {
       // API call
-      axios.delete(import.meta.env.VITE_API_URL + '/collections/' + this.$route.params.cid + '/items/' + this.$route.params.id, this.$apiConfig())
+      axios.delete(import.meta.env.VITE_API_URL + "/collections/" + this.$route.params.cid + "/items/" + this.$route.params.id, this.$apiConfig())
       .then(() => {
         this.goBack()
       })
-      .catch(e => {
-        console.log(e)
+      .catch(() => {
         alert('Error')
       })
     }

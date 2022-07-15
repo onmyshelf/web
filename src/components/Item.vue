@@ -23,17 +23,18 @@
             <router-link to="edit" class="btn btn-outline-primary">
               <i class="bi-pencil"></i> Edit
             </router-link>
-            <hr/>
+            <hr />
           </div>
           <div v-if="itemCopies && itemCopies.length > 1" class="item-copies">
             Copies:
             <li v-for="(itemCopy, i) in itemCopies" :key="i" @click="loadItemCopy(i)"
-              :class="'btn btn-'+(i == currentItemCopy ? '' : 'outline-')+'secondary'">
+              :class="'btn btn-'+(i == currentItemCopy ? '' : 'outline-') + 'secondary'"
+            >
               <template v-if="itemCopy.description">{{ itemCopy.description }}</template>
               <template v-else>Copy #{{ itemCopy.id }}</template>
             </li>
+            <hr />
           </div>
-          <hr/>
           <template v-if="properties">
             <template v-for="(property, name) of collection.properties" :key="name">
               <div v-if="!property.shown && (properties[name] || property.default)" class="item-preview">
@@ -141,20 +142,6 @@ export default {
       .catch((e) => {
         this.errors.push(e)
       })
-
-    // get item copies
-    this.itemCopies.push({
-      id: 2,
-      description: "Edition 2010",
-      properties: {
-        pub_year: 2010,
-        cover: "http://onmyshelf.local/media/a/ada08bac719a3227ff37d18c.png",
-        color: "#ff77ee33",
-        format: "Blu-Ray 4K UHD",
-        seen: true,
-      },
-      quantity: 0,
-    })
   },
   computed: {
     // check if collection is mine

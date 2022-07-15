@@ -96,6 +96,7 @@ export default {
             success: false,
             text: "Internal error. Please retry.",
           }
+          this.loading = false
         })
     }
   },

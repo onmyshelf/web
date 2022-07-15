@@ -55,6 +55,9 @@
       <div v-if="fileUploaded" class="alert alert-success mt-3" role="alert">
         Your file has been uploaded.
       </div>
+      <div v-else-if="uploadError" class="alert alert-danger mt-3" role="alert">
+        An error occured. Please retry.
+      </div>
     </div>
 
     <div v-else-if="source == 'url'" class="input-group card-body">
@@ -93,6 +96,7 @@ export default {
       externalUrl: "",
       mediaUrl: "",
       uploadField: false,
+      uploadError: false,
       fileUploaded: false,
       cptId: Date.now().toString().substr(7),
     }
@@ -152,6 +156,8 @@ export default {
         return
       }
 
+      this.uploadError = false
+      this.fileUploaded = false
       this.loading = true
 
       let data = new FormData()
@@ -179,6 +185,7 @@ export default {
         .catch(() => {
           // hide loading
           this.loading = false
+          this.uploadError = true
         })
     },
   },

@@ -11,18 +11,18 @@
         <div class="mb-3">
           <label class="form-label">Label</label>
           <input v-model="edit.label" type="text" placeholder="e.g. Name" class="form-control"
-            @input="labelToNewId">
+            @input="labelToNewId" />
         </div>
 
         <div class="form-check form-switch mb-3">
-          <input v-model="edit.hideLabel" class="form-check-input" type="checkbox">
+          <input v-model="edit.hideLabel" class="form-check-input" type="checkbox" />
           <label class="form-check-label">Do not show this label before value</label>
         </div>
 
         <div v-if="!id" class="mb-3">
           <label class="form-label">Property ID (<strong>required</strong>). Use a short name and alphanumeric characters only</label>
           <input v-model="edit.name" type="text" placeholder="e.g. name" class="form-control"
-            pattern="[a-z0-9_]+" maxlength="20" @input="checkNewId" required>
+            pattern="[a-z0-9_]+" maxlength="20" @input="checkNewId" required />
         </div>
 
         <div class="mb-3">
@@ -31,39 +31,43 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Type of property (<strong>required</strong>)</label>
+          <label class="form-label">
+            Type of property (<strong>required</strong>)
+          </label>
           <select v-model="edit.type" class="form-select" aria-label="Type of property" required @change="changedType=true">
             <option v-for="(obj,key) in propertyTypes" :key="key" :value="key">
-              {{obj.label}} <template v-if="obj.description">({{obj.description}})</template>
+              {{ obj.label }} <template v-if="obj.description">({{ obj.description }})</template>
             </option>
           </select>
         </div>
 
         <div class="card mb-3">
-          <div class="card-header">
-            Summary
-          </div>
+          <div class="card-header">Summary</div>
           <div class="card-body">
             <div class="form-check form-switch">
               <input v-model="edit.preview" class="form-check-input" type="checkbox"
-                :disabled="edit.visibility > 3 || edit.isCover || edit.isTitle || edit.isSubTitle">
-              <label class="form-check-label">Display in item summary (shown in collection list and on top of item page)</label>
+                :disabled="edit.visibility > 3 || edit.isCover || edit.isTitle || edit.isSubTitle" />
+              <label class="form-check-label">
+                Display in item summary (shown in collection list and on top of item page)
+              </label>
             </div>
 
             <div v-if="canBeTitle" class="form-check form-switch">
               <input v-model="edit.isTitle" class="form-check-input" type="checkbox"
-                :disabled=edit.isSubTitle @change="checkPreview">
-              <label class="form-check-label">Use as item title (main name)</label>
+                :disabled=edit.isSubTitle @change="checkPreview" />
+              <label class="form-check-label">
+                Use as item title (main name)
+              </label>
             </div>
 
             <div v-if="canBeTitle" class="form-check form-switch">
               <input v-model="edit.isSubTitle" class="form-check-input" type="checkbox"
-                :disabled=edit.isTitle @change="checkPreview">
+                :disabled=edit.isTitle @change="checkPreview" />
               <label class="form-check-label">Use as item subtitle</label>
             </div>
 
             <div v-if="edit.type == 'image'" class="form-check form-switch">
-              <input v-model="edit.isCover" class="form-check-input" type="checkbox" @change="checkPreview">
+              <input v-model="edit.isCover" class="form-check-input" type="checkbox" @change="checkPreview" />
               <label class="form-check-label">Use as cover image</label>
             </div>
           </div>
@@ -73,44 +77,50 @@
           <label class="form-label">Who can see this property?</label>
           <select v-model="edit.visibility" class="form-select" aria-label="Visibility">
             <template v-for="(name,key) in visibilityLevels" :key="key">
-              <option :value="key">{{name.label}}</option>
+              <option :value="key">{{ name.label }}</option>
             </template>
           </select>
         </div>
 
         <div class="form-check form-switch mb-3">
-          <input v-model="edit.required" class="form-check-input" type="checkbox">
-          <label class="form-check-label">This property should never be empty</label>
+          <input v-model="edit.required" class="form-check-input" type="checkbox" />
+          <label class="form-check-label">
+            This property should never be empty
+          </label>
         </div>
 
         <div class="mb-3">
           <label class="form-label">Default value if property is empty</label>
-          <input v-model="edit.default" type="text" class="form-control">
+          <input v-model="edit.default" type="text" class="form-control" />
         </div>
 
         <div class="mb-3">
           <label class="form-label">Suffix to display after value</label>
-          <input v-model="edit.suffix" type="text" class="form-control" placeholder="e.g. min, kg, m², ...">
+          <input v-model="edit.suffix" type="text" class="form-control" placeholder="e.g. min, kg, m², ..." />
         </div>
 
         <div v-if="canBeFilterable || canBeSearchable || canBeSortable" class="card mb-3">
-          <div class="card-header">
-            Search and filters
-          </div>
+          <div class="card-header">Search and filters</div>
           <div class="card-body">
             <div v-if="canBeFilterable" class="form-check form-switch">
-              <input v-model="edit.filterable" class="form-check-input" type="checkbox">
-              <label class="form-check-label">Collection can be filtered by this property</label>
+              <input v-model="edit.filterable" class="form-check-input" type="checkbox" />
+              <label class="form-check-label">
+                Collection can be filtered by this property
+              </label>
             </div>
 
             <div v-if="canBeSearchable" class="form-check form-switch">
               <input v-model="edit.searchable" class="form-check-input" type="checkbox">
-              <label class="form-check-label">Searching items will search in this property</label>
+              <label class="form-check-label">
+                Searching items will search in this property
+              </label>
             </div>
 
             <div v-if="canBeSortable" class="form-check form-switch">
               <input v-model="edit.sortable" class="form-check-input" type="checkbox">
-              <label class="form-check-label">Collection can be sorted by this property</label>
+              <label class="form-check-label">
+                Collection can be sorted by this property
+              </label>
             </div>
           </div>
         </div>
@@ -188,7 +198,8 @@ export default {
         this.edit = this.collection.properties[this.id]
 
         // transform boolean values
-        var booleans = [
+        // TODO: remove this dirty work!
+        let booleans = [
           "isCover",
           "isTitle",
           "preview",
@@ -196,8 +207,7 @@ export default {
           "filterable",
           "searchable",
           "sortable",
-        ];
-
+        ]
         booleans.forEach((key) => {
           if (this.edit[key] == 1) {
             this.edit[key] = true
@@ -282,14 +292,14 @@ export default {
       switch (this.edit.name) {
         case "color":
         case "date":
-        case 'datetime':
-        case 'file':
-        case 'image':
-        case 'json':
-        case 'number':
-        case 'rating':
-        case 'url':
-        case 'video':
+        case "datetime":
+        case "file":
+        case "image":
+        case "json":
+        case "number":
+        case "rating":
+        case "url":
+        case "video":
           this.edit.type = this.edit.name
           break
 
@@ -298,43 +308,43 @@ export default {
           this.edit.type = "color"
           break
 
-        case 'uri':
-          this.edit.type = 'file'
+        case "uri":
+          this.edit.type = "file"
           break
 
-        case 'link':
-          this.edit.type = 'url'
+        case "link":
+          this.edit.type = "url"
           break
 
-        case 'comment':
-        case 'description':
-        case 'resume':
-        case 'synopsis':
-        case 'text':
-        case 'texte':
-          this.edit.type = 'longtext'
+        case "comment":
+        case "description":
+        case "resume":
+        case "synopsis":
+        case "text":
+        case "texte":
+          this.edit.type = "longtext"
           break
 
-        case 'cover':
-        case 'img':
-        case 'photo':
-        case 'picture':
-          this.edit.type = 'image'
+        case "cover":
+        case "img":
+        case "photo":
+        case "picture":
+          this.edit.type = "image"
           break
 
-        case 'id':
-        case 'year':
-          this.edit.type = 'number'
+        case "id":
+        case "year":
+          this.edit.type = "number"
           break
 
-        case 'note':
-          this.edit.type = 'rating'
+        case "note":
+          this.edit.type = "rating"
           break
 
-        case 'movie':
-        case 'teaser':
-        case 'trailer':
-          this.edit.type = 'video'
+        case "movie":
+        case "teaser":
+        case "trailer":
+          this.edit.type = "video"
           break
       }
     },
@@ -343,7 +353,7 @@ export default {
         return
       }
 
-      let newId = this.edit.name.toLowerCase().replace(/\s+/g, '') // delete spaces
+      let newId = this.edit.name.toLowerCase().replace(/\s+/g, "") // delete spaces
 
       // remove accents, swap ñ for n, etc
       let from = "àáäâèéëêìíïîòóöôùúüûñç"
@@ -385,6 +395,25 @@ export default {
       if (data.description) {
         data.description = this.$i18nObject(data.description)
       }
+
+      // transform boolean values
+      // TODO: remove this dirty work!
+      let booleans = [
+        "isCover",
+        "isTitle",
+        "preview",
+        "hideLabel",
+        "filterable",
+        "searchable",
+        "sortable",
+      ]
+      booleans.forEach((key) => {
+        if (data[key]) {
+          data[key] = 1
+        } else {
+          data[key] = 0
+        }
+      })
 
       let redirect = "/collection/" + this.$route.params.cid + "/manage/"
 

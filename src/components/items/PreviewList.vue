@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-4 item-cover">
-      <router-link :to="'item/' + item.id">
+      <router-link :to="'item/' + item.id + '/'">
         <Image :url="coverUrl" :cover="true" />
       </router-link>
     </div>

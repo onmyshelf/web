@@ -3,9 +3,9 @@
     <h1>Import items</h1>
     <form @submit="validate">
       <div class="mb-3">
-        <label class="form-label">Source type</label>
-        <select v-model="data.type" class="form-select" aria-label="Type of import" required>
-          <template v-for="(importModule, name) in importTypes" :key="name">
+        <label class="form-label">Import module</label>
+        <select v-model="data.module" class="form-select" aria-label="Type of import" required>
+          <template v-for="(importModule, name) in importModules" :key="name">
             <option v-if="importModule.importCollection" :value="name">{{ importModule.name }}</option>
           </template>
         </select>
@@ -13,7 +13,7 @@
 
       <div class="mb-3">
         <label class="form-label">Source</label>
-        <MediaSelector v-model="data.source" :type="data.type" mandatory="true"/>
+        <MediaSelector v-model="data.source" :type="data.module" mandatory="true" />
       </div>
 
       <div class="mb-3">
@@ -22,10 +22,10 @@
       </div>
 
       <div v-if="result" :class="'alert alert-'+(result.success ? 'success':'danger')" role="alert">
-        {{ result.text }}<br/>
-        <router-link :to="'/collection/'+this.collectionId+'/'">View collection</router-link>
+        {{ result.text }}<br />
+        <router-link :to="'/collection/' + this.collectionId + '/'">View collection</router-link>
       </div>
-      <Loading v-if="loading" info="Please wait, this may take some time..."/>
+      <Loading v-if="loading" info="Please wait, this may take some time..." />
     </form>
   </div>
 </template>
@@ -43,10 +43,10 @@ export default {
     return {
       collectionId: this.$route.params.cid,
       loading: false,
-      importTypes: {},
+      importModules: {},
       data: {
+        module: "csv",
         source: null,
-        type: "csv",
       },
       result: null,
     }
@@ -57,7 +57,7 @@ export default {
     this.$apiGet("import/modules")
       .then((response) => {
         if (response.data) {
-          this.importTypes = response.data
+          this.importModules = response.data
         }
         this.loading = false
       })
@@ -81,12 +81,8 @@ export default {
         .then((response) => {
           if (response.data.imported) {
             this.result = {
-              success: response.data.success
-            }
-            if (this.result.success) {
-              this.result.text = "Imported " + response.data.imported.items + " items"
-            } else {
-              this.result.text = "Failed to import collection"
+              success: true,
+              text: "Imported " + response.data.imported.items + " items"
             }
           }
           this.loading = false
@@ -98,7 +94,7 @@ export default {
           }
           this.loading = false
         })
-    }
+    },
   },
 }
 </script>

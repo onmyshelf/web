@@ -6,11 +6,15 @@
       <form @submit="validate">
         <div class="mb-3">
           <label class="form-label">Source:</label>
-          <select v-model="search.source" class="form-select" aria-label="Type of import" required>
-            <template v-for="(importModule, name) in search.sources" :key="name">
+          <select v-model="search.module" class="form-select" aria-label="Type of import" required>
+            <template v-for="(importModule, name) in search.modules" :key="name">
               <option v-if="importModule.search" :value="name">{{ importModule.name }} {{ moduleTags(importModule.tags) }}</option>
             </template>
           </select>
+        </div>
+
+        <div v-if="search.module && search.modules[search.module].requiredSource" class="mb-3">
+          <MediaSelector v-model="search.source" :type="search.module" mandatory="true" />
         </div>
 
         <div class="mb-3">
@@ -20,7 +24,7 @@
 
         <div class="mb-3">
           <button class="btn btn-primary" type="submit">Search item</button>&nbsp;
-          <a href="." class="btn btn-outline-secondary">Cancel</a>
+          <a href=".." class="btn btn-outline-secondary">Cancel</a>
         </div>
       </form>
     </template>
@@ -143,6 +147,7 @@
 import Loading from "@/components/Loading.vue"
 import Empty from "@/components/Empty.vue"
 import Image from "@/components/properties/medias/Image.vue"
+import MediaSelector from "./properties/MediaSelector.vue"
 
 export default {
   components: {
@@ -150,13 +155,15 @@ export default {
     Error,
     Loading,
     Image,
+    MediaSelector,
   },
   data() {
     return {
       search: {
+        module: "",
         source: "",
         search: "",
-        sources: {},
+        modules: [],
       },
       items: false,
       errors: [],
@@ -169,7 +176,7 @@ export default {
     this.$apiGet("import/modules")
       .then((response) => {
         if (response.data) {
-          this.search.sources = response.data
+          this.search.modules = response.data
           this.loading = false
         }
       })
@@ -180,9 +187,9 @@ export default {
         }
       })
 
-    // default source
-    if (this.$route.query.source) {
-      this.search.source = this.$route.query.source
+    // default module
+    if (this.$route.query.module) {
+      this.search.module = this.$route.query.module
     }
 
     // default search
@@ -202,14 +209,14 @@ export default {
 
       let data = {
         params: {
-          module: this.search.source,
-          source: "",
+          module: this.search.module,
+          source: this.search.source,
           search: this.search.search,
         },
       }
 
       // search
-      this.$apiGet("collections/" + this.$route.params.cid + '/import/search', data)
+      this.$apiGet("collections/" + this.$route.params.cid + "/import/search", data)
         .then((response) => {
           if (response.data) {
             this.items = response.data

@@ -51,10 +51,10 @@
             <i class="bi bi-plus-lg"></i> Create item
           </router-link>&nbsp;
           <router-link v-if="collection"
-            to="import/item" class="btn btn-outline-secondary">
+            to="import/item" class="btn btn-outline-primary">
             <i class="bi bi-box-arrow-in-down-left"></i> Import item
           </router-link>&nbsp;
-          <router-link to="manage/" class="btn btn-outline-primary">
+          <router-link to="manage/" class="btn btn-outline-secondary">
             <i class="bi-gear-fill"></i> Manage
           </router-link>
         </p>

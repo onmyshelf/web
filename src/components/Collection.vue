@@ -46,12 +46,16 @@
         <p v-if="items">Items: {{ items.length }}</p>
 
         <p v-if="isMine" style="text-align: right">
-          <router-link to="manage/" class="btn btn-outline-primary">
-            <i class="bi-gear-fill"></i> Manage
-          </router-link>&nbsp;
           <router-link v-if="collection && Object.keys(collection.properties).length > 0"
             to="item/new" class="btn btn-outline-success">
-            Create item
+            <i class="bi bi-plus-lg"></i> Create item
+          </router-link>&nbsp;
+          <router-link v-if="collection"
+            to="import/item" class="btn btn-outline-secondary">
+            <i class="bi bi-box-arrow-in-down-left"></i> Import item
+          </router-link>&nbsp;
+          <router-link to="manage/" class="btn btn-outline-primary">
+            <i class="bi-gear-fill"></i> Manage
           </router-link>
         </p>
 

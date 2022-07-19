@@ -93,39 +93,39 @@ export default {
     // get collection
     this.$apiGet("collections/" + this.collection.id)
       .then((response) => {
-      this.collection = response.data
+        this.collection = response.data
 
-      // translate name
-      if (response.data.name) {
-        this.collection.name = this.$translate(response.data.name)
-      } else {
+        // translate name
+        if (response.data.name) {
+          this.collection.name = this.$translate(response.data.name)
+        } else {
           this.collection.name = "Collection " + this.collection.id
-      }
+        }
 
-      if (!this.id) {
-        this.loading = false
-      }
+        if (!this.id) {
+          this.loading = false
+        }
 
-      // check if collection is mine; if not, quit
-      if (!this.$matchUserId(this.collection.owner)) {
+        // check if collection is mine; if not, quit
+        if (!this.$matchUserId(this.collection.owner)) {
           document.location.href = ".."
-      }
-    })
+        }
+      })
       .catch((e) => {
-      this.errors.push(e)
-    })
+        this.errors.push(e)
+      })
 
     // get item
     if (this.id) {
       this.$apiGet("collections/" + this.collection.id + "/items/" + this.id)
         .then((response) => {
-        this.edit = response.data
+          this.edit = response.data
 
-        this.loading = false
-      })
+          this.loading = false
+        })
         .catch((e) => {
-        this.errors.push(e)
-      })
+          this.errors.push(e)
+        })
     }
   },
   methods: {
@@ -178,7 +178,7 @@ export default {
         this.$apiPost("collections/" + this.collection.id + "/items/", data)
         .then((response) => {
           document.location.href = "/collection/" + this.collecion.id + "/item/" + response.data.id + "/"
-      })
+        })
       }
     }
   }

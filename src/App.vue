@@ -2,16 +2,16 @@
   <header>
     <nav class="navbar navbar-expand navbar-light bg-light">
       <div class="container container-fluid">
-        <a class="navbar-brand" href="#">
-          OnMyShelf
-        </a>
+        <a class="navbar-brand" href="#">OnMyShelf</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topmenu" aria-controls="topmenu" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="topmenu">
           <ul class="navbar-nav me-auto">
-            <li v-if="$demoMode()"><span class="badge text-bg-warning">DEMO</span></li>
+            <li v-if="$demoMode()">
+              <span class="badge text-bg-warning">DEMO</span>
+            </li>
             <li class="nav-item">
               <router-link to="/" class="nav-link active">Home</router-link>
             </li>
@@ -36,7 +36,7 @@
       </div><!-- .container -->
     </nav>
   </header>
-  <router-view/>
+  <router-view />
 </template>
 
 <script>

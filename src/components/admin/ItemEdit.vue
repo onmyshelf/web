@@ -6,11 +6,12 @@
         <template v-if="id">Edit item {{id}}</template>
         <template v-else>New item</template>
       </h1>
-      <div class="mb-3">
-        <button v-if="id" class="btn btn-outline-success" @click="duplicate()">
+      <div v-if="id" class="mb-3">
+        <button class="btn btn-outline-success" @click="duplicate()">
           Duplicate item
         </button>
       </div>
+
       <Loading v-if="loading"/>
       <form v-else @submit="validate">
         <div v-for="(property, name) in collection.properties" :key="name" class="item-preview mb-3">

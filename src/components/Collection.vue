@@ -5,24 +5,28 @@
       <div id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
         <div class="position-sticky pt-3">
           <h4>Display mode</h4>
-          <p>
+          <div>
             <select v-model="displayMode" @change="toggleDisplay()" class="form-select">
               <option value="shop">Shop</option>
               <option value="list">List</option>
               <option value="mosaic">Mosaic</option>
             </select>
-          </p>
-          <div v-if="filters.length > 0" class="mb-3">
+          </div>
+          <div class="position-sticky pt-3">
+            <h4>Search</h4>
+            <input v-model="search" type="text" class="form-control" placeholder="Search item name" />
+          </div>
+          <div v-if="filters.length > 0" class="position-sticky pt-3">
             <h4>Filters</h4>
             <p v-for="filter in filters" :key="filter">
               <i class="bi-filter-square"></i> <PropertyLabel :name="filter.name" :property=collection.properties[filter.name] />{{filter.value}}&nbsp;
               <a :href="reloadCollection(filters.filter(f => f.name != filter.name),sorting)" title="Clear filter"><i class="bi bi-x-circle"></i></a>
             </p>
           </div>
-          <div v-if="collection && Object.keys(collection.properties).length > 0" class="mb-3">
+          <div v-if="collection && Object.keys(collection.properties).length > 0" class="position-sticky pt-3">
             <h4>Sort by</h4>
             <template v-for="(property, name) of collection.properties" :key="name">
-              <p v-if="property.sortable">
+              <p v-if="property.isTitle || property.sortable">
                 <PropertyLabel :name="name" :property="property" />
                 <i v-if="sorting == name" class="bi bi-arrow-down-circle-fill"></i>
                 <a v-else :href="reloadCollection(filters,name)"><i class="bi bi-arrow-down-circle"></i></a>&nbsp;
@@ -114,6 +118,7 @@ export default {
       errors: [],
       filters: [],
       sorting: null,
+      search: "",
       loading: true,
     }
   },

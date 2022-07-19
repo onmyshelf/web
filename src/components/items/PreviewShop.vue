@@ -1,6 +1,8 @@
 <template>
-  <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
-    <router-link :to="'item/' + item.id+'/'">
+  <div v-if="!$parent.search || title.toLowerCase().includes($parent.search.toLowerCase())"
+    class="col-lg-3 col-md-6 col-sm-12 mb-3"
+  >
+    <router-link :to="'item/' + item.id + '/'">
       <Image :url="coverUrl" :cover="true" />
     </router-link>
     <router-link :to="'item/' + item.id + '/'">

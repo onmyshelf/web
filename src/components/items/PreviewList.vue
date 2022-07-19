@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div v-if="!$parent.search || title.toLowerCase().includes($parent.search.toLowerCase())" class="row">
     <div class="col-4 item-cover">
       <router-link :to="'item/' + item.id + '/'">
         <Image :url="coverUrl" :cover="true" />

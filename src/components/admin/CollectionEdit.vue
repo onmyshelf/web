@@ -8,7 +8,7 @@
     <form v-else @submit="validate">
       <div class="mb-3">
         <label class="form-label">Collection name</label>
-        <input v-model="edit.name" type="text" class="form-control" placeholder="e.g. My books" required>
+        <input v-model="edit.name" type="text" class="form-control" placeholder="e.g. My books" required />
       </div>
       <div class="mb-3">
         <label class="form-label">Collection description (optional)</label>

@@ -1,5 +1,8 @@
 <template>
-  <router-link :to="'item/' + item.id + '/'">
+  <router-link
+    v-if="!$parent.search || title.toLowerCase().includes($parent.search.toLowerCase())"
+    :to="'item/' + item.id + '/'"
+  >
     <Image :url="coverUrl" :title="item.properties[collection.titleProperty]" :cover="true" />
   </router-link>
 </template>
@@ -34,6 +37,13 @@ export default {
         } else {
           return this.collection.cover
         }
+      }
+    },
+    title() {
+      if (this.item.properties[this.collection.titleProperty]) {
+        return this.item.properties[this.collection.titleProperty]
+      } else {
+        return "Item " + this.item.id
       }
     },
   },

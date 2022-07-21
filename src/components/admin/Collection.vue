@@ -16,121 +16,66 @@
             <i class="bi-pencil"></i>&nbsp;Edit collection details
           </router-link>
         </p>
-        <p>
-          <router-link :to="'/collection/' + id + '/'" class="btn btn-outline-success">
-            <i class="bi-eye"></i>&nbsp;Show collection
-          </router-link>
-        </p>
 
         <h2>Properties</h2>
-        <div v-if="properties">
+        <div class="mb-3">
           <router-link to="property/new" class="btn btn-success mb-3">
-            Create a new property
+            <i class="bi-plus-lg"></i> Create a new property
           </router-link>
 
-          <div v-if="Object.keys(properties).length == 0" class="alert alert-warning" role="alert">
-            Items are defined by properties.
-            <router-link to="property/new">
-              Create your first property!
-            </router-link>
-          </div>
-          <table v-else class="table">
-            <thead>
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Type</th>
-                <th scope="col">Visibility</th>
-                <th scope="col">Order</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(property, name) of properties" :key="name">
-                <td scope="row">
-                  <template v-if="this.$translate(property.label)">{{ this.$translate(property.label) }}</template>
-                  <template v-else>{{ name }}</template>
-                </td>
-                <td scope="row">
-                  <template v-if="propertyTypes[property.type]">
-                    <strong v-if="property.isTitle">Item title</strong>
-                    <strong v-else-if="property.isSubTitle">Item subtitle</strong>
-                    <strong v-else-if="property.isCover">Item cover</strong>
-                    <template v-else>{{ propertyTypes[property.type].label }}</template>
-                  </template>
-                </td>
-                <td>
-                  <Visibility :level="property.visibility >= visibility ? property.visibility : visibility" />
-                  <template v-if="property.preview">
-                    ,&nbsp;<a title="In item summary"><i class="bi-bookmark-fill"></i></a>
-                  </template>
-                </td>
-                <td>
-                  <a title="Move up" @click="orderProperty(name)"><i class="bi bi-arrow-up-circle-fill"></i></a>&nbsp;
-                  <a title="Move down" @click="orderProperty(name, -1)"><i class="bi bi-arrow-down-circle"></i></a>
-                </td>
-                <td>
-                  <router-link :to="'property/' + name" class="btn btn-primary">Edit</router-link>&nbsp;
-                  <router-link :to="'property/' + name + '/delete'" class="btn btn-danger">Delete</router-link>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <Loading v-else />
-
-        <div v-if="properties && Object.keys(properties).length > 0">
-          <h2>Items</h2>
-          <div class="mb-3">
-            <router-link :to="'/collection/' + id + '/item/new'" class="btn btn-success">Create a new item</router-link>
-            &nbsp;<router-link to="import" class="btn btn-outline-primary">Import items</router-link>
-          </div>
-          <p v-if="items">Total: {{ items.length }}</p>
-          <div v-if="items" class="items">
-            <div v-if="items.length == 0" class="alert alert-info" role="alert">
-              You have no item yet.
-              <router-link :to="'/collection/' + id + '/new'">
-                Create your first item
-              </router-link>
-              or
-              <router-link :to="'/collection/' + id + '/import'">
-                import items
+          <template v-if="properties">
+            <div v-if="Object.keys(properties).length == 0" class="alert alert-warning" role="alert">
+              Items are defined by properties.
+              <router-link to="property/new">
+                Create your first property!
               </router-link>
             </div>
             <table v-else class="table">
               <thead>
                 <tr>
-                  <th scope="col">ID</th>
                   <th scope="col">Name</th>
+                  <th scope="col">Type</th>
                   <th scope="col">Visibility</th>
+                  <th scope="col">Order</th>
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item of items" :key="item.id">
-                  <th scope="row">{{ item.id }}</th>
-                  <td>
-                    <router-link :to="'/collection/' + id + '/item/' + item.id + '/'">
-                      <template v-if="item.properties && titleProperty && item.properties[titleProperty]">
-                        {{ item.properties[titleProperty] }}
-                      </template>
-                      <template v-else>Item {{ item.id }}</template>
-                    </router-link>
+                <tr v-for="(property, name) of properties" :key="name">
+                  <td scope="row">
+                    <template v-if="this.$translate(property.label)">{{ this.$translate(property.label) }}</template>
+                    <template v-else>{{ name }}</template>
+                  </td>
+                  <td scope="row">
+                    <template v-if="propertyTypes[property.type]">
+                      <strong v-if="property.isTitle">Item title</strong>
+                      <strong v-else-if="property.isSubTitle">Item subtitle</strong>
+                      <strong v-else-if="property.isCover">Item cover</strong>
+                      <template v-else>{{ propertyTypes[property.type].label }}</template>
+                    </template>
                   </td>
                   <td>
-                    <Visibility :level="item.visibility >= visibility ? item.visibility : visibility" />
+                    <Visibility :level="property.visibility > visibility ? property.visibility : visibility" />
+                    <template v-if="property.preview">
+                      ,&nbsp;<a title="In item summary"><i class="bi-bookmark-fill"></i></a>
+                    </template>
                   </td>
                   <td>
-                    <router-link :to="'/collection/' + id + '/item/' + item.id + '/edit'" class="btn btn-primary">Edit</router-link>&nbsp;
-                    <router-link :to="'/collection/' + id + '/item/' + item.id + '/delete'" class="btn btn-danger">Delete</router-link>
+                    <a title="Move up" @click="orderProperty(name)"><i class="bi bi-arrow-up-circle-fill"></i></a>&nbsp;
+                    <a title="Move down" @click="orderProperty(name, -1)"><i class="bi bi-arrow-down-circle"></i></a>
+                  </td>
+                  <td>
+                    <router-link :to="'property/' + name" class="btn btn-primary">Edit</router-link>&nbsp;
+                    <router-link :to="'property/' + name + '/delete'" class="btn btn-danger">Delete</router-link>
                   </td>
                 </tr>
               </tbody>
             </table>
-          </div>
+          </template>
           <Loading v-else />
         </div>
 
-        <div>
+        <div class="mb-3">
           <h3>Advanced</h3>
           <div class="card mb-3">
             <div class="card-header">
@@ -181,9 +126,9 @@ export default {
       cover: null,
       visibility: null,
       properties: null,
-      items: null,
       errors: [],
       titleProperty: null,
+      loading: true,
     }
   },
   inject: ["propertyTypes"],
@@ -205,15 +150,8 @@ export default {
             }
           }
         }
-      })
-      .catch((e) => {
-        this.errors.push(e)
-      })
 
-    // get items
-    this.$apiGet("collections/" + this.id + "/items")
-      .then((response) => {
-        this.items = response.data
+        this.loading = false
       })
       .catch((e) => {
         this.errors.push(e)

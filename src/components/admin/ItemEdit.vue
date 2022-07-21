@@ -6,9 +6,9 @@
         <template v-if="id">Edit item {{id}}</template>
         <template v-else>New item</template>
       </h1>
-      <div v-if="id" class="mb-3">
-        <button class="btn btn-outline-success" @click="duplicate()">
-          Duplicate item
+      <div v-if="id" class="mt-3 mb-3">
+        <button class="btn btn-success" @click="duplicate()">
+          <i class="bi bi-arrow-left-right"></i> Duplicate item
         </button>
       </div>
 

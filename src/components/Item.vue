@@ -19,9 +19,13 @@
           <h1>{{ title }}</h1>
           <h2 v-if="subTitleProperty && properties[subTitleProperty]">{{ properties[subTitleProperty] }}</h2>
           <div v-if="isMine" class="item-actions">
-            <Visibility :level="item.visibility >= collection.visibility ? item.visibility : collection.visibility" />
+            <Visibility :level="item.visibility > collection.visibility ? item.visibility : collection.visibility" />
             <router-link to="edit" class="btn btn-outline-primary">
               <i class="bi-pencil"></i> Edit
+            </router-link>
+            &nbsp;
+            <router-link to="delete" class="btn btn-outline-danger">
+              <i class="bi-x-lg"></i> Delete
             </router-link>
             <hr />
           </div>

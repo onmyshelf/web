@@ -17,9 +17,13 @@
           <Property v-if="property.preview" :name="name" :property="property" :value="item.properties[name]" />
         </div>
       </div>
-      <router-link v-if="$parent.isMine" :to="'item/' + item.id + '/edit'" class="btn btn-outline-primary">
-        <i class="bi-pencil"></i> Edit
-      </router-link>
+      <div v-if="$parent.isMine" class="mt-3">
+        <Visibility :level="item.visibility > $parent.collection.visibility ? item.visibility : $parent.collection.visibility" />
+        &nbsp;
+        <router-link :to="'item/' + item.id + '/edit'" class="btn btn-outline-primary">
+          <i class="bi-pencil"></i> Edit
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -27,11 +31,13 @@
 <script>
 import Image from "@/components/properties/medias/Image.vue"
 import Property from "@/components/Property.vue"
+import Visibility from "@/components/properties/Visibility.vue"
 
 export default {
   components: {
     Image,
     Property,
+    Visibility,
   },
   props: {
     item: {

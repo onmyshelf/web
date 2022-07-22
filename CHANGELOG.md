@@ -1,6 +1,10 @@
 # Changelog for OnMyShelf web interface
 
 # 1.0 RC 2 (2022-XX-XX)
+- New demo mode
+- New button to duplicate an item
+- New search bar in collections
+- New page to search and import items from external sources
 - Fix crash when setting searchable property
 - Display thumbnails instead of full images
 - Many design improvements

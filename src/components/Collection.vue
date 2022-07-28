@@ -26,14 +26,29 @@
           <div v-if="collection && Object.keys(collection.properties).length > 0" class="position-sticky pt-3">
             <h4>Sort by</h4>
             <template v-for="(property, name) of collection.properties" :key="name">
-              <p v-if="property.isTitle || property.sortable">
+              <template v-if="property.isTitle || property.sortable">
                 <PropertyLabel :name="name" :property="property" />
                 <i v-if="sorting == name" class="bi bi-arrow-down-circle-fill"></i>
                 <a v-else :href="reloadCollection(filters,name)"><i class="bi bi-arrow-down-circle"></i></a>&nbsp;
                 <i v-if="sorting == '-'+name" class="bi bi-arrow-up-circle-fill"></i>
                 <a v-else :href="reloadCollection(filters,'-'+name)"><i class="bi bi-arrow-up-circle"></i></a>
-              </p>
+                <br />
+              </template>
             </template>
+            <div class="position-sticky pt-3">
+              <h4>Filter by</h4>
+              <template v-for="(property, name) of collection.properties" :key="name">
+                <template v-if="property.filterable">
+                  <PropertyLabel :name="name" :property=collection.properties[name] /><br />
+                  <select :id="'filter-' + name" @change="filterBy(name)" class="form-select">
+                    <option value=""></option>
+                    <template v-for="filter in property.values" :key="filter">
+                      <option :value="filter">{{ filter }}</option>
+                    </template>
+                  </select>
+                </template>
+              </template>
+            </div>
           </div>
         </div><!-- .position-sticky -->
       </div><!-- sidebar -->
@@ -232,6 +247,9 @@ export default {
     },
     toggleDisplay() {
       localStorage.setItem("onmyshelf_displayMode", this.displayMode)
+    },
+    filterBy(name) {
+      document.location = "./?p_" + name + "=" + document.getElementById("filter-" + name).value
     },
   },
 }

@@ -1,6 +1,9 @@
 # Changelog for OnMyShelf web interface
 
-# 1.0 RC 2 (2022-XX-XX)
+# 1.0.0 (2022-XX-XX)
+- Filters selector in collection vue
+
+# 1.0 RC 2 (2022-07-22)
 - New demo mode
 - New button to duplicate an item
 - New search bar in collections

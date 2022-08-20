@@ -1,6 +1,9 @@
 <template>
   <Error v-if="errors.length > 0" />
   <div v-else class="container-fluid">
+    <button class="navbar-toggler" type="button" @click="toggleSidebar()">
+      <i class="bi bi-list" style="font-size: 2em"></i>
+    </button>
     <div class="row">
       <div id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
         <div class="position-sticky pt-3">
@@ -39,7 +42,7 @@
               <h4>Filter by</h4>
               <template v-for="(property, name) of collection.properties" :key="name">
                 <template v-if="property.filterable">
-                  <PropertyLabel :name="name" :property=collection.properties[name] /><br />
+                  <PropertyLabel :name="name" :property=collection.properties[name] />
                   <select :id="'filter-' + name" @change="filterBy(name)" class="form-select">
                     <option value=""></option>
                     <template v-for="filter in property.values" :key="filter">
@@ -250,6 +253,15 @@ export default {
     },
     filterBy(name) {
       document.location = "./?p_" + name + "=" + document.getElementById("filter-" + name).value
+    },
+    toggleSidebar() {
+      let sidebar = document.getElementById("sidebarMenu")
+
+      if (sidebar.style.display == "block") {
+        sidebar.style.display = "none"
+      } else {
+        sidebar.style.display = "block"
+      }
     },
   },
 }

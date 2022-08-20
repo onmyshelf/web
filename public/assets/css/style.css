@@ -67,6 +67,19 @@ a {
 }
 
 /*
+ * Collection page
+ */
+.navbar-toggler {
+  display: none;
+}
+
+@media screen and (max-width: 767px) {
+  .navbar-toggler {
+    display: block;
+  }
+}
+
+/*
  *  Item page
  */
 .item-actions {

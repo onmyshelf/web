@@ -67,6 +67,14 @@ a {
 }
 
 /*
+ *  Top menu bar
+ */
+.nav-item .dropdown-menu {
+  /* force selector to display */
+  display: block;
+}
+
+/*
  * Collection page
  */
 .navbar-toggler {

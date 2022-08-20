@@ -1,0 +1,22 @@
+{
+  "welcome_homepage": {
+    "en_US": "Welcome",
+    "fr_FR": "Bienvenue"
+  },
+  "create_collection": {
+    "en_US": "Create a collection",
+    "fr_FR": "Créer une collection"
+  },
+  "items": {
+    "en_US": "Items",
+    "fr_FR": "Objets"
+  },
+  "empty": {
+    "en_US": "",
+    "fr_FR": ""
+  },
+  "manage": {
+    "en_US": "Manage",
+    "fr_FR": "Gérer"
+  }
+}

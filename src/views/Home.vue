@@ -5,11 +5,11 @@
 </template>
 
 <script>
-import Collections from '@/components/Collections.vue'
+import Collections from "@/components/Collections.vue"
 
 export default {
   components: {
-    Collections
-  }
+    Collections,
+  },
 }
 </script>

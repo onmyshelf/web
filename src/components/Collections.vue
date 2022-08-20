@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1>
-      Welcome<span v-if="$isLoggedIn()">, {{ currentUser.username }}</span>!
+      {{ $t("welcome_homepage") }}<span v-if="$isLoggedIn()">, {{ currentUser.username }}</span>!
     </h1>
     <div v-if="$demoMode() && !$isLoggedIn()" class="alert alert-info" role="alert">
       <p>
@@ -20,7 +20,7 @@
   <div v-else class="collections container">
     <p v-if="$isLoggedIn()" class="text-end">
       <router-link to="/collection/new" class="btn btn-outline-success">
-        <i class="bi-plus"></i> Create a collection
+        <i class="bi-plus"></i> {{ $t("create_collection") }}
       </router-link>
     </p>
     <Loading v-if="loading"/>
@@ -56,13 +56,13 @@
               <p v-if="collection.description">
                 <template v-if="collection.description">{{ collection.description }}</template>
               </p>
-              <p>Items: {{ collection.items }}</p>
+              <p>{{ $t("items") }}: {{ collection.items }}</p>
               <div v-if="collection.owner == currentUser.id">
                 <p>
                   <span class="badge bg-secondary">Mine</span>&nbsp;
                   <Visibility :level="collection.visibility" />&nbsp;
                   <router-link :to="'/collection/' + collection.id + '/manage/'" class="btn btn-outline-secondary">
-                    <i class="bi-gear-fill"></i> Manage
+                    <i class="bi-gear-fill"></i> {{ $t("manage") }}
                   </router-link>
                 </p>
               </div>

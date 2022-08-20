@@ -1,141 +1,92 @@
 <template>
-  <header>
-    <nav class="navbar navbar-expand navbar-light bg-light">
-      <div class="container container-fluid">
-        <a class="navbar-brand" href="#">OnMyShelf</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topmenu" aria-controls="topmenu" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="topmenu">
-          <ul class="navbar-nav me-auto">
-            <li v-if="$demoMode()">
-              <span class="badge text-bg-warning">DEMO</span>
-            </li>
-            <li class="nav-item">
-              <router-link to="/" class="nav-link active">Home</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link to="/about" class="nav-link">About</router-link>
-            </li>
-          </ul>
-          <ul class="navbar-nav">
-            <template v-if="$isLoggedIn()">
-              <li class="nav-item">
-                <router-link to="/profile" class="nav-link">My profile</router-link>
-              </li>
-              <li class="nav-item">
-                <a @click="logout" href="#" class="nav-link">Logout</a>
-              </li>
-            </template>
-            <li v-else class="nav-item">
-              <router-link to="/login" class="nav-link">Login</router-link>
-            </li>
-          </ul>
-        </div><!-- .navbar-collapse -->
-      </div><!-- .container -->
-    </nav>
-  </header>
+  <Header />
   <router-view />
 </template>
 
 <script>
-import axios from 'axios'
+import Header from "@/components/Header.vue"
 
 export default {
-  name: 'App',
+  name: "App",
   provide() {
     return {
       languages: {
-        'en_US': 'English',
-        'fr_FR': 'Français',
-        'de_GE': 'Deutsch'
+        en_US: "English",
+        fr_FR: "Français",
       },
       propertyTypes: {
         text: {
-          label: 'Text',
-          description: 'used in most cases'
+          label: "Text",
+          description: "used in most cases",
         },
         image: {
-          label: 'Image'
+          label: "Image",
         },
         video: {
-          label: 'Video'
+          label: "Video",
         },
         number: {
-          label: 'Number'
+          label: "Number",
         },
         date: {
-          label: 'Date'
+          label: "Date",
         },
         datetime: {
-          label: 'Date and time'
+          label: "Date and time",
         },
         rating: {
-          label: 'Rating'
+          label: "Rating",
         },
         yesno: {
-          label: 'Yes or No',
-          description: 'e.g. object is new'
+          label: "Yes or No",
+          description: "e.g. object is new",
         },
         longtext: {
-          label: 'Long text',
-          description: 'used for descriptions, comments, ...'
+          label: "Long text",
+          description: "used for descriptions, comments, ...",
         },
         url: {
-          label: 'URL (link)'
+          label: "URL (link)",
         },
         file: {
-          label: 'File URI'
+          label: "File URI",
         },
         color: {
-          label: 'Color'
+          label: "Color",
         },
         json: {
-          label: 'JSON object',
-          description: 'for advanced properties'
-        }
+          label: "JSON object",
+          description: "for advanced properties",
+        },
       },
       visibilityLevels: {
         0: {
-          label: 'Everyone',
-          icon: 'globe'
+          label: "Everyone",
+          icon: "globe",
         },
         1: {
-          label: 'Logged in users',
-          icon: 'unlock'
+          label: "Logged in users",
+          icon: "unlock",
         },
         /* TODO
         2: {
-          label: 'Shared users (not yet implemented)',
-          icon: 'lock'
+          label: "Shared users (not yet implemented)",
+          icon: "lock",
         },
         */
         3: {
-          label: 'Only me',
-          icon: 'person-circle'
+          label: "Only me",
+          icon: "person-circle",
         },
         4: {
-          label: 'Nobody (hidden)',
-          icon: 'eye-slash-fill'
-        }
-      }
+          label: "Nobody (hidden)",
+          icon: "eye-slash-fill",
+        },
+      },
     }
   },
-  methods: {
-    logout() {
-      // API config
-      let apiConfig = this.$apiConfig()
-
-      // clean local storage
-      this.$cleanSession()
-
-      // tell API to delete token
-      axios.delete(import.meta.env.VITE_API_URL + '/token', apiConfig)
-      .then(() => {
-        document.location.href = '/'
-      })
-    }
-  }
+  components: {
+    Header,
+  },
 }
 </script>

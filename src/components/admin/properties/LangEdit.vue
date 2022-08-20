@@ -30,11 +30,6 @@ export default {
         return {}
       },
     },
-    defaultLang: {
-      default() {
-        return import.meta.env.VITE_DEFAULT_LANG
-      },
-    }
   },
   inject: ["languages"],
   data() {
@@ -44,7 +39,7 @@ export default {
     }
   },
   created() {
-    this.lang = this.defaultLang
+    this.lang = this.$currentLanguage
 
     if (this.content !== null && Object.keys(this.content).length > 0) {
       this.translations = this.content

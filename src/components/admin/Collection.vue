@@ -83,7 +83,7 @@
             </div>
             <div class="card-body">
               <p class="card-text">
-                Import collection from CSV, GCstar, Tellico, ... (experimental, no images imported yet)
+                Import collection from CSV, GCstar, Tellico, ... (<a href="https://docs.onmyshelf.cm/user-guide/imports/" target="_blank">more info</a>)
               </p>
               <router-link to="import" class="btn btn-primary">
                 Import collection

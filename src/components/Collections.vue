@@ -58,10 +58,13 @@
               </p>
               <p>Items: {{ collection.items }}</p>
               <div v-if="collection.owner == currentUser.id">
-                <p><span class="badge bg-secondary">Mine</span></p>
-                <router-link :to="'/collection/' + collection.id + '/manage/'" class="btn btn-outline-primary">
-                  <i class="bi-gear-fill"></i> Manage
-                </router-link>
+                <p>
+                  <span class="badge bg-secondary">Mine</span>&nbsp;
+                  <Visibility :level="collection.visibility" />&nbsp;
+                  <router-link :to="'/collection/' + collection.id + '/manage/'" class="btn btn-outline-secondary">
+                    <i class="bi-gear-fill"></i> Manage
+                  </router-link>
+                </p>
               </div>
             </div>
           </div>
@@ -76,6 +79,7 @@ import Image from "./properties/medias/Image.vue"
 import Empty from "@/components/Empty.vue"
 import Error from "@/components/Error.vue"
 import Loading from "@/components/Loading.vue"
+import Visibility from "@/components/properties/Visibility.vue"
 
 export default {
   components: {
@@ -83,6 +87,7 @@ export default {
     Empty,
     Error,
     Loading,
+    Visibility,
   },
   data() {
     return {

@@ -1,6 +1,6 @@
 <template>
-  <div class="card">
-    <div class="btn-group card-body" role="group" aria-label="Basic radio toggle button group">
+  <div class="">
+    <div class="btn-group card-body" role="group">
       <input type="radio" :name="'mediaSource-' + cptId" class="btn-check" :id="'mediaLibrary-' + cptId" autocomplete="off"
         @change="toggleSource('media')" :checked="source == 'media'"
       />
@@ -28,7 +28,7 @@
 
   <div v-if="source != 'none'" class="card mb-3">
     <div v-if="source == 'media'" class="card-body">
-      <div class="input-group">
+      <div v-if="mediaUrl" class="input-group mb-3">
         <span class="input-group-text" :id="'mediaInfo-' + cptId">
           Media URL:
         </span>
@@ -36,10 +36,14 @@
           class="form-control" :aria-describedby="'mediaInfo-' + cptId"
           placeholder="Click on Upload button to send a new file"
         />
-        <a class="btn btn-primary" @click="uploadField = !uploadField">
-          Upload a new file
+        <a :href="$mediaUrl(mediaUrl)" class="btn btn-primary" title="Open in a new tab" target="_blank">
+          <i class="bi bi-box-arrow-up-right"></i>
         </a>
       </div>
+
+      <a class="btn btn-primary" @click="uploadField = !uploadField">
+        <i class="bi bi-cloud-arrow-up"></i> Upload a new file
+      </a>
 
       <div v-if="uploadField" class="mt-3">
         <label class="form-label">Drag and drop or choose a file:</label>
@@ -65,6 +69,9 @@
       <input type="text" class="form-control" :aria-describedby="'mediaInfo-' + cptId" :placeholder="exampleUrl"
         v-model="externalUrl" @input="chosenUrl = externalUrl"
       />
+      <a v-if="externalUrl" :href="externalUrl" class="btn btn-primary" title="Open in a new tab" target="_blank">
+        <i class="bi bi-box-arrow-up-right"></i>
+      </a>
     </div>
   </div>
 

@@ -28,118 +28,117 @@
         </div>
       </form>
     </template>
-    <template v-if="items">
-      <Loading v-if="loading"/>
-      <div v-else>
-        <div v-if="items" class="container items">
-          <template v-if="items.length == 0">
-            <Empty label="Nothing found" />
-          </template>
-          <template v-else>
-            <template v-for="(item, index) in items" :key="index">
-              <div :id="'item-' + index" class="row">
-                <div class="col-4 item-cover">
-                  <Image :url="item.image" :cover="true" />
-                </div>
-                <div class="col">
-                  <h1>{{ item.name }}</h1>
-                  <p>{{ item.description }}</p>
-                  <p>
-                    <a :id="'item-source-' + index" :href="item.source" target="_blank">
-                      Source <i class="bi bi-box-arrow-up-right"></i>
-                    </a>
-                  </p>
-                  <p>
-                    <button @click="importItem(index)" class="btn btn-primary" :disabled="$demoMode()">
-                      Import item
-                    </button>
-                  </p>
-                </div>
+    
+    <Loading v-if="loading" />
+    <div v-else>
+      <div v-if="items" class="container items">
+        <template v-if="items.length == 0">
+          <Empty label="Nothing found" />
+        </template>
+        <template v-else>
+          <template v-for="(item, index) in items" :key="index">
+            <div :id="'item-' + index" class="row">
+              <div class="col-4 item-cover">
+                <Image :url="item.image" :cover="true" />
               </div>
-              <div v-if="false" class="accordion" id="accordionExample">
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      Import item information
-                    </button>
-                  </h2>
-                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th scope="col">Property</th>
-                            <th scope="col">Item property</th>
-                            <th scope="col">Options</th>
-                            <th scope="col">Preview</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row">title</th>
-                            <td>
-                              <select class="form-select" aria-label="Destination property">
-                                <option value="key">title</option>
-                                <option value="key"></option>
-                              </select>
-                            </td>
-                            <td>
-                              <select class="form-select" aria-label="Options">
-                                <option value="key"></option>
-                              </select>
-                            </td>
-                            <td>{{ trimPreview(item.name) }}</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">cover</th>
-                            <td>
-                              <select class="form-select" aria-label="Destination property">
-                                <option value="key">image</option>
-                                <option value="key"></option>
-                              </select>
-                            </td>
-                            <td>
-                              <select class="form-select" aria-label="Options">
-                                <option value="key"></option>
-                                <option value="key">download</option>
-                              </select>
-                            </td>
-                            <td>{{ trimPreview(item.image) }}</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">description</th>
-                            <td>
-                              <select class="form-select" aria-label="Destination property">
-                                <option value="key">description</option>
-                              </select>
-                            </td>
-                            <td>
-                              <select class="form-select" aria-label="Options">
-                                <option value="key">to string</option>
-                              </select>
-                            </td>
-                            <td>{{ trimPreview(item.description) }}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <p>
-                        <button class="btn btn-primary">Import into item</button>
-                      </p>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                        <label class="form-check-label" for="flexCheckChecked">
-                          Remember my choices
-                        </label>
-                      </div>
+              <div class="col">
+                <h1>{{ item.name }}</h1>
+                <p>{{ item.description }}</p>
+                <p>
+                  <a :id="'item-source-' + index" :href="item.source" target="_blank">
+                    Source <i class="bi bi-box-arrow-up-right"></i>
+                  </a>
+                </p>
+                <p>
+                  <button @click="importItem(index)" class="btn btn-primary" :disabled="$demoMode()">
+                    Import item
+                  </button>
+                </p>
+              </div>
+            </div>
+            <div v-if="false" class="accordion" id="accordionExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Import item information
+                  </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Property</th>
+                          <th scope="col">Item property</th>
+                          <th scope="col">Options</th>
+                          <th scope="col">Preview</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">title</th>
+                          <td>
+                            <select class="form-select" aria-label="Destination property">
+                              <option value="key">title</option>
+                              <option value="key"></option>
+                            </select>
+                          </td>
+                          <td>
+                            <select class="form-select" aria-label="Options">
+                              <option value="key"></option>
+                            </select>
+                          </td>
+                          <td>{{ trimPreview(item.name) }}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">cover</th>
+                          <td>
+                            <select class="form-select" aria-label="Destination property">
+                              <option value="key">image</option>
+                              <option value="key"></option>
+                            </select>
+                          </td>
+                          <td>
+                            <select class="form-select" aria-label="Options">
+                              <option value="key"></option>
+                              <option value="key">download</option>
+                            </select>
+                          </td>
+                          <td>{{ trimPreview(item.image) }}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">description</th>
+                          <td>
+                            <select class="form-select" aria-label="Destination property">
+                              <option value="key">description</option>
+                            </select>
+                          </td>
+                          <td>
+                            <select class="form-select" aria-label="Options">
+                              <option value="key">to string</option>
+                            </select>
+                          </td>
+                          <td>{{ trimPreview(item.description) }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <p>
+                      <button class="btn btn-primary">Import into item</button>
+                    </p>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                      <label class="form-check-label" for="flexCheckChecked">
+                        Remember my choices
+                      </label>
                     </div>
                   </div>
                 </div>
               </div>
-            </template>
+            </div>
           </template>
-        </div>
+        </template>
       </div>
-    </template>
+    </div>
   </div>
 </template>
 

@@ -125,6 +125,13 @@
           </div>
         </div>
 
+        <div class="mt-3 mb-3">
+          <label class="form-label">Order (increase to see this property above others)</label>
+          <input v-model="edit.order" type="number" min="0"
+            class="form-control"
+          />
+        </div>
+
         <div class="mb-3">
           <button class="btn btn-primary" type="submit" :disabled="$demoMode()">
             <template v-if="id">Save changes</template>

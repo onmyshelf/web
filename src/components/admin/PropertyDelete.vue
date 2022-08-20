@@ -1,9 +1,9 @@
 <template>
-  <div class="container">
+  <div class="container delete-confirm">
     <h5>
-      Delete property <strong>{{ $route.params.id }}</strong>?
+      Are you sure to delete property <strong>{{ $route.params.id }}</strong>?
     </h5>
-    <p>This will delete the property and all item values associated with.</p>
+    <p>This will delete the property definition and all values of this property in your items.</p>
 
     <button type="button" class="btn btn-danger" @click="deleteProperty" :disabled="$demoMode()">
       Delete property
@@ -18,7 +18,7 @@
 export default {
   methods: {
     goBack() {
-      document.location.href = "/collection/" + this.$route.params.cid + "/manage/"
+      document.location.href = "../.."
     },
     deleteProperty() {
       this.$apiDelete("collections/" + this.$route.params.cid + "/properties/" + this.$route.params.id)

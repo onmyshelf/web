@@ -1,104 +1,101 @@
 <template>
   <Error v-if="errors.length > 0" />
-  <div v-else class="container-fluid">
-    <div class="row">
-      <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <h1>
-          <Translation v-if="name && Object.keys(name).length > 0" :text="name" />
-          <template v-else>Collection {{ $route.params.cid }}</template>
-        </h1>
-        <p v-if="description && Object.keys(description).length > 0">
-          <Translation :text="description" />
-        </p>
-        <p v-if="visibility !== null">Visibility: <Visibility :level=visibility /></p>
-        <p>
-          <router-link to="edit" class="btn btn-primary">
-            <i class="bi-pencil"></i>&nbsp;Edit collection details
-          </router-link>
-        </p>
+  <div v-else class="container">
+    <Breadcrumbs v-if="name" :parents="breadcrumbs" current="Manage" />
+    <h1>
+      <Translation v-if="name && Object.keys(name).length > 0" :text="name" />
+      <template v-else>Collection {{ $route.params.cid }}</template>
+    </h1>
+    <p v-if="description && Object.keys(description).length > 0">
+      <Translation :text="description" />
+    </p>
+    <p v-if="visibility !== null">Visibility: <Visibility :level=visibility /></p>
+    <p>
+      <router-link to="edit" class="btn btn-primary">
+        <i class="bi-pencil"></i>&nbsp;Edit collection details
+      </router-link>
+    </p>
 
-        <h2>Properties</h2>
-        <div class="mb-3">
-          <router-link to="property/new" class="btn btn-success mb-3">
-            <i class="bi-plus-lg"></i> Create a new property
-          </router-link>
+    <h2>Properties</h2>
+    <div class="mb-3">
+      <router-link to="property/new" class="btn btn-success mb-3">
+        <i class="bi-plus-lg"></i> Create a new property
+      </router-link>
 
-          <template v-if="properties">
-            <div v-if="Object.keys(properties).length == 0" class="alert alert-warning" role="alert">
-              Items are defined by properties.
-              <router-link to="property/new">
-                Create your first property!
-              </router-link>
-            </div>
-            <table v-else class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Name</th>
-                  <th scope="col">Type</th>
-                  <th scope="col">Visibility</th>
-                  <th scope="col">Order</th>
-                  <th scope="col">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(property, name) of properties" :key="name">
-                  <td scope="row">
-                    <template v-if="this.$translate(property.label)">{{ this.$translate(property.label) }}</template>
-                    <template v-else>{{ name }}</template>
-                  </td>
-                  <td scope="row">
-                    <template v-if="propertyTypes[property.type]">
-                      <strong v-if="property.isTitle">Item title</strong>
-                      <strong v-else-if="property.isSubTitle">Item subtitle</strong>
-                      <strong v-else-if="property.isCover">Item cover</strong>
-                      <template v-else>{{ propertyTypes[property.type].label }}</template>
-                    </template>
-                  </td>
-                  <td>
-                    <Visibility :level="property.visibility > visibility ? property.visibility : visibility" />
-                    <template v-if="property.preview">
-                      ,&nbsp;<a title="In item summary"><i class="bi-bookmark-fill"></i></a>
-                    </template>
-                  </td>
-                  <td>
-                    <a title="Move up" @click="orderProperty(name)"><i class="bi bi-arrow-up-circle-fill"></i></a>&nbsp;
-                    <a title="Move down" @click="orderProperty(name, -1)"><i class="bi bi-arrow-down-circle"></i></a>
-                  </td>
-                  <td>
-                    <router-link :to="'property/' + name" class="btn btn-primary">Edit</router-link>&nbsp;
-                    <router-link :to="'property/' + name + '/delete'" class="btn btn-danger">Delete</router-link>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </template>
-          <Loading v-else />
+      <template v-if="properties">
+        <div v-if="Object.keys(properties).length == 0" class="alert alert-warning" role="alert">
+          Items are defined by properties.
+          <router-link to="property/new">
+            Create your first property!
+          </router-link>
         </div>
+        <table v-else class="table">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Type</th>
+              <th scope="col">Visibility</th>
+              <th scope="col">Order</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(property, name) of properties" :key="name">
+              <td scope="row">
+                <template v-if="this.$translate(property.label)">{{ this.$translate(property.label) }}</template>
+                <template v-else>{{ name }}</template>
+              </td>
+              <td scope="row">
+                <template v-if="propertyTypes[property.type]">
+                  <strong v-if="property.isTitle">Item title</strong>
+                  <strong v-else-if="property.isSubTitle">Item subtitle</strong>
+                  <strong v-else-if="property.isCover">Item cover</strong>
+                  <template v-else>{{ propertyTypes[property.type].label }}</template>
+                </template>
+              </td>
+              <td>
+                <Visibility :level="property.visibility > visibility ? property.visibility : visibility" />
+                <template v-if="property.preview">
+                  ,&nbsp;<a title="In item summary"><i class="bi-bookmark-fill"></i></a>
+                </template>
+              </td>
+              <td>
+                <a title="Move up" @click="orderProperty(name)"><i class="bi bi-arrow-up-circle-fill"></i></a>&nbsp;
+                <a title="Move down" @click="orderProperty(name, -1)"><i class="bi bi-arrow-down-circle"></i></a>
+              </td>
+              <td>
+                <router-link :to="'property/' + name" title="Edit"><i class="bi bi-pencil"></i></router-link>&nbsp;&nbsp;
+                <router-link :to="'property/' + name + '/delete'" title="Delete"><i class="bi bi-x-lg"></i></router-link>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </template>
+      <Loading v-else />
+    </div>
 
-        <div class="mb-3">
-          <h3>Advanced</h3>
-          <div class="card mb-3">
-            <div class="card-header">
-              <strong>Import collection</strong>
-            </div>
-            <div class="card-body">
-              <p class="card-text">
-                Import collection from CSV, GCstar, Tellico, ... (<a href="https://docs.onmyshelf.cm/user-guide/imports/" target="_blank">more info</a>)
-              </p>
-              <router-link to="import" class="btn btn-primary">
-                Import collection
-              </router-link>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header">
-              <strong>Delete collection</strong>
-            </div>
-            <div class="card-body">
-              <p class="card-text">Delete entire collection.</p>
-              <router-link to="delete" class="btn btn-danger">Delete collection</router-link>
-            </div>
-          </div>
+    <div class="mb-3">
+      <h3>Advanced</h3>
+      <div class="card mb-3">
+        <div class="card-header">
+          <strong>Import collection</strong>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            Import collection from CSV, GCstar, Tellico, ... (<a href="https://docs.onmyshelf.cm/user-guide/imports/" target="_blank">more info</a>)
+          </p>
+          <router-link to="import" class="btn btn-primary">
+            Import collection
+          </router-link>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <strong>Delete collection</strong>
+        </div>
+        <div class="card-body">
+          <p class="card-text">Delete entire collection.</p>
+          <router-link to="delete" class="btn btn-danger">Delete collection</router-link>
         </div>
       </div>
     </div>
@@ -106,6 +103,7 @@
 </template>
 
 <script>
+import Breadcrumbs from "@/components/Breadcrumbs.vue"
 import Error from "@/components/Error.vue"
 import Loading from "@/components/Loading.vue"
 import Translation from "@/components/properties/Translation.vue"
@@ -113,6 +111,7 @@ import Visibility from "@/components/properties/Visibility.vue"
 
 export default {
   components: {
+    Breadcrumbs,
     Error,
     Loading,
     Translation,
@@ -120,6 +119,12 @@ export default {
   },
   data() {
     return {
+      breadcrumbs: [
+        {
+          url: "/collection/" + this.$route.params.cid + "/",
+          label: "Collection " + this.$route.params.cid,
+        },
+      ],
       id: this.$route.params.cid,
       name: null,
       description: null,
@@ -136,8 +141,18 @@ export default {
     // get collection details
     this.$apiGet("collections/" + this.id)
       .then((response) => {
-        this.name = response.data.name
-        this.description = response.data.description
+        // translate name & description
+        if (response.data.name) {
+          this.name = this.$translate(response.data.name)
+        } else {
+          this.name = "Collection " + this.collection.id
+        }
+        if (response.data.description) {
+          this.description = this.$translate(response.data.description)
+        }
+
+        this.breadcrumbs[0].label = this.name
+        
         this.cover = response.data.cover
         this.visibility = response.data.visibility
         this.properties = response.data.properties

@@ -234,7 +234,7 @@ export default {
       this.loading = true
 
       let data = {
-        module: this.search.source,
+        module: this.search.module,
         source: document.getElementById("item-source-" + id).getAttribute("href"),
       }
 

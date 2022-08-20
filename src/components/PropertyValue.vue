@@ -2,10 +2,12 @@
   <div class="property-value">
     <Image v-if="property.type == 'image'" :url="value" />
     <Video v-else-if="property.type == 'video'" :url="value" />
-    <Url v-else-if="property.type == 'url'" :url="value" />
     <YesNo v-else-if="property.type == 'yesno'" :label="name" :value="value" />
     <Rating v-else-if="property.type == 'rating'" :label="name" :value="value" />
     <Json v-else-if="property.type == 'json'" :obj="jsonDecode(value)" />
+    <a v-else-if="property.type == 'url'" :href="value">
+      Open link &nbsp;<i class="bi bi-box-arrow-up-right"></i>
+    </a>
     <div v-else-if="property.type == 'color'" :style="'background:' + value" class="property-color-view"></div>
     <template v-else>
       <ul v-if="Array.isArray(value)">
@@ -36,7 +38,6 @@
 import Image from "./properties/medias/Image.vue"
 import Json from "./properties/Json.vue"
 import Rating from "./properties/Rating.vue"
-import Url from "./properties/Url.vue"
 import Video from "./properties/medias/Video.vue"
 import YesNo from "./properties/YesNo.vue"
 
@@ -45,7 +46,6 @@ export default {
     Image,
     Json,
     Rating,
-    Url,
     Video,
     YesNo,
   },

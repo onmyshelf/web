@@ -2,7 +2,7 @@
   <div class="container">
     <Error v-if="errors.length > 0" />
     <template v-else>
-      <h1>Search item from external sources</h1>
+      <h1>Import item from external sources</h1>
       <form @submit="validate">
         <div class="mb-3">
           <label class="form-label">Source:</label>

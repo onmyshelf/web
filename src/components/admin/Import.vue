@@ -1,12 +1,15 @@
 <template>
   <div class="container">
-    <h1>Import items</h1>
+    <h1>Import collection</h1>
     <form @submit="validate">
       <div class="mb-3">
         <label class="form-label">Import module</label>
         <select v-model="data.module" class="form-select" aria-label="Type of import" required>
           <template v-for="(importModule, name) in importModules" :key="name">
-            <option v-if="importModule.importCollection" :value="name">{{ importModule.name }}</option>
+            <option v-if="importModule.importCollection" :value="name">
+              {{ importModule.name }}
+              <template v-if="importModule.description">: {{ importModule.description }}</template>
+            </option>
           </template>
         </select>
       </div>

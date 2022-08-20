@@ -79,6 +79,10 @@ a {
   }
 }
 
+.items-shop .item {
+  text-align: center;
+}
+
 /*
  *  Item page
  */

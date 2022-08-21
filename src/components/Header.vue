@@ -71,13 +71,11 @@ export default {
       this.$router.go()
     },
     logout() {
-      // clean local storage
-      this.$cleanSession()
-
       // tell API to delete token
-      this.$apiDelete("/token")
-      .then(() => {
-        document.location.href = "/"
+      this.$apiDelete("token").then(() => {
+        // clean local storage
+        this.$cleanSession()
+        this.$router.go("/")
       })
     },
   },

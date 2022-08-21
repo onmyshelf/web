@@ -6,10 +6,10 @@
     <p>This will delete the property definition and all values of this property in your items.</p>
 
     <button type="button" class="btn btn-danger" @click="deleteProperty" :disabled="$demoMode()">
-      Delete property
+      {{ $t("Delete property") }}
     </button>&nbsp;
     <button type="button" class="btn btn-outline-secondary" @click="goBack">
-      Cancel
+      {{ $t("Cancel") }}
     </button>
   </div>
 </template>

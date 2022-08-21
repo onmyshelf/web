@@ -5,14 +5,14 @@
         @change="toggleSource('media')" :checked="source == 'media'"
       />
       <label class="btn btn-outline-primary" :for="'mediaLibrary-' + cptId">
-        Media library
+        {{ $t("Media library") }}
       </label>
 
       <input type="radio" :name="'mediaSource-'+cptId" class="btn-check" :id="'mediaUrl-' + cptId" autocomplete="off"
         @change="toggleSource('url')" :checked="source == 'url'"
       />
       <label class="btn btn-outline-primary" :for="'mediaUrl-' + cptId">
-        External URL
+        {{ $t("External URL") }}
       </label>
 
       <template v-if="!mandatory">
@@ -20,7 +20,7 @@
           @change="toggleSource('none')" :checked="source == 'none'"
         />
         <label class="btn btn-outline-primary" :for="'mediaNone-' + cptId">
-          None
+          {{ $t("None") }}
         </label>
       </template>
     </div>
@@ -42,11 +42,11 @@
       </div>
 
       <a class="btn btn-primary" @click="uploadField = !uploadField">
-        <i class="bi bi-cloud-arrow-up"></i> Upload a new file
+        <i class="bi bi-cloud-arrow-up"></i> {{ $t("Upload a new file") }}
       </a>
 
       <div v-if="uploadField" class="mt-3">
-        <label class="form-label">Drag and drop or choose a file:</label>
+        <label class="form-label">{{ $t("Drag and drop or choose a file:") }}</label>
         <div class="input-group">
           <input type="file" :id="'uploadFile-' + cptId" 
             class="form-control" placeholder="" @change="upload"
@@ -57,15 +57,15 @@
       </div>
 
       <div v-if="fileUploaded" class="alert alert-success mt-3" role="alert">
-        Your file has been uploaded.
+        {{ $t("Your file has been uploaded.") }}
       </div>
       <div v-else-if="uploadError" class="alert alert-danger mt-3" role="alert">
-        An error occured. Please retry.
+        {{ $t("An error occured. Please retry.") }}
       </div>
     </div>
 
     <div v-else-if="source == 'url'" class="input-group card-body">
-      <span class="input-group-text" :id="'mediaInfo-' + cptId">Enter a valid URL:</span>
+      <span class="input-group-text" :id="'mediaInfo-' + cptId">{{ $t("Enter a valid URL:") }}</span>
       <input type="text" class="form-control" :aria-describedby="'mediaInfo-' + cptId" :placeholder="exampleUrl"
         v-model="externalUrl" @input="chosenUrl = externalUrl"
       />

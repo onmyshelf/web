@@ -18,13 +18,13 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Search:</label>
-          <input v-model="search.search" name="search" type="text" class="form-control" placeholder="Search your item here" required />
+          <label class="form-label">{{ $t("Search") }}:</label>
+          <input v-model="search.search" name="search" type="text" class="form-control" :placeholder="$t('Search your item here')" required />
         </div>
 
         <div class="mb-3">
-          <button class="btn btn-primary" type="submit">Search item</button>&nbsp;
-          <a href=".." class="btn btn-outline-secondary">Cancel</a>
+          <button class="btn btn-primary" type="submit">{{ $t("Search item") }}</button>&nbsp;
+          <a href=".." class="btn btn-outline-secondary">{{ $t("Cancel") }}</a>
         </div>
       </form>
     </template>

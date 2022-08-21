@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>Import collection</h1>
+    <h1>{{ $t("Import collection") }}</h1>
     <form @submit="validate">
       <div class="mb-3">
         <label class="form-label">Import module</label>
@@ -21,7 +21,7 @@
 
       <div class="mb-3">
         <button class="btn btn-primary" type="submit" :disabled="$demoMode() || ! data.source || loading">Import</button>&nbsp;
-        <a href="." class="btn btn-outline-secondary" :disabled="loading">Cancel</a>
+        <a href="." class="btn btn-outline-secondary" :disabled="loading">{{ $t("Cancel") }}</a>
       </div>
 
       <div v-if="result" :class="'alert alert-'+(result.success ? 'success':'danger')" role="alert">
@@ -54,7 +54,6 @@ export default {
       result: null,
     }
   },
-  inject: ["visibilityLevels"],
   created() {
     // get import modules
     this.$apiGet("import/modules")

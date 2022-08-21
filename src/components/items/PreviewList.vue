@@ -21,7 +21,7 @@
         <Visibility :level="item.visibility > $parent.collection.visibility ? item.visibility : $parent.collection.visibility" />
         &nbsp;
         <router-link :to="'item/' + item.id + '/edit'" class="btn btn-outline-primary">
-          <i class="bi-pencil"></i> Edit
+          <i class="bi-pencil"></i> {{ $t("Edit") }}
         </router-link>
       </div>
     </div>

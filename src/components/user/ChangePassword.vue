@@ -1,25 +1,25 @@
 <template>
   <form @submit="changePassword">
     <div v-if="!resetToken" class="form-floating">
-      <input v-model="oldPassword" type="password" class="form-control" id="oldPassword" placeholder="Current password" required>
-      <label for="oldPassword">Current password</label>
+      <input v-model="oldPassword" type="password" class="form-control" id="oldPassword" :placeholder="$t('Current password')" required>
+      <label for="oldPassword">{{ $t("Current password") }}</label>
     </div>
     <div class="form-floating">
-      <input v-model="newPassword" type="password" class="form-control" id="newPassword" placeholder="New password" required>
-      <label for="newPassword">New password</label>
+      <input v-model="newPassword" type="password" class="form-control" id="newPassword" :placeholder="$t('New password')" required>
+      <label for="newPassword">{{ $t("New password") }}</label>
     </div>
     <div class="form-floating">
-      <input v-model="confirmPassword" type="password" class="form-control" id="confirmPassword" placeholder="Confirm new password" required>
-      <label for="confirmPassword">Confirm new password</label>
+      <input v-model="confirmPassword" type="password" class="form-control" id="confirmPassword" :placeholder="$t('Confirm new password')" required>
+      <label for="confirmPassword">{{ $t("Confirm new password") }}</label>
     </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit" :disabled="$demoMode()">Change password</button>
+    <button class="w-100 btn btn-lg btn-primary" type="submit" :disabled="$demoMode()">{{ $t("Change password") }}</button>
     <div v-if="success" class="alert alert-success" role="alert">
-      Password changed
+      {{ $t("Password changed") }}
     </div>
     <div v-if="notSimilar" class="alert alert-danger" role="alert">
-      Passwords not equals!
+      {{ $t("Passwords not equals!") }}
     </div>
-    <div v-if="error" class="alert alert-danger" role="alert">Failed!</div>
+    <div v-if="error" class="alert alert-danger" role="alert">{{ $t("Failed!") }}</div>
   </form>
 </template>
 

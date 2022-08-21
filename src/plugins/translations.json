@@ -1,22 +1,102 @@
 {
-  "welcome_homepage": {
+  "Home": {
+    "en_US": "Home",
+    "fr_FR": "Accueil"
+  },
+  "About": {
+    "en_US": "About",
+    "fr_FR": "À propos"
+  },
+  "My profile": {
+    "en_US": "My profile",
+    "fr_FR": "Mon profil"
+  },
+  "Login": {
+    "en_US": "Login",
+    "fr_FR": "Se connecter"
+  },
+  "Logout": {
+    "en_US": "Logout",
+    "fr_FR": "Se déconnecter"
+  },
+  "Welcome_homepage": {
     "en_US": "Welcome",
     "fr_FR": "Bienvenue"
   },
-  "create_collection": {
+  "Show only my collections": {
+    "en_US": "Show only my collections",
+    "fr_FR": "Voir seulement mes collections"
+  },
+  "Create a collection": {
     "en_US": "Create a collection",
     "fr_FR": "Créer une collection"
   },
-  "items": {
+  "New collection": {
+    "en_US": "New collection",
+    "fr_FR": "Nouvelle collection"
+  },
+  "Create collection": {
+    "en_US": "Create collection",
+    "fr_FR": "Créer la collection"
+  },
+  "Items": {
     "en_US": "Items",
     "fr_FR": "Objets"
   },
-  "empty": {
-    "en_US": "",
-    "fr_FR": ""
+  "Mine": {
+    "en_US": "Mine",
+    "fr_FR": "À moi"
   },
-  "manage": {
+  "Manage": {
     "en_US": "Manage",
     "fr_FR": "Gérer"
+  },
+  "Create an item": {
+    "en_US": "Create an item",
+    "fr_FR": "Créer un objet"
+  },
+  "Create item": {
+    "en_US": "Create item",
+    "fr_FR": "Créer l'objet"
+  },
+  "Edit": {
+    "en_US": "Edit",
+    "fr_FR": "Modifier"
+  },
+  "Delete": {
+    "en_US": "Delete",
+    "fr_FR": "Supprimer"
+  },
+  "Save changes": {
+    "en_US": "Save changes",
+    "fr_FR": "Enregistrer"
+  },
+  "Cancel": {
+    "en_US": "Cancel",
+    "fr_FR": "Annuler"
+  },
+  "Username": {
+    "en_US": "Username",
+    "fr_FR": "Nom d'utilisateur"
+  },
+  "Change password": {
+    "en_US": "Change password",
+    "fr_FR": "Changer mon mot de passe"
+  },
+  "Current password": {
+    "en_US": "Current password",
+    "fr_FR": "Mot de passe actuel"
+  },
+  "New password": {
+    "en_US": "New password",
+    "fr_FR": "Nouveau mot de passe"
+  },
+  "Confirm new password": {
+    "en_US": "Confirm new password",
+    "fr_FR": "Confirmer le nouveau mot de passe"
+  },
+  "Server configuration": {
+    "en_US": "Server configuration",
+    "fr_FR": "Configuration serveur"
   }
 }

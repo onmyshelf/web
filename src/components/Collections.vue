@@ -1,15 +1,15 @@
 <template>
   <div class="container">
     <h1>
-      {{ $t("welcome_homepage") }}<span v-if="$isLoggedIn()">, {{ currentUser.username }}</span>!
+      {{ $t("Welcome_homepage") }}<span v-if="$isLoggedIn()">, {{ currentUser.username }}</span>!
     </h1>
     <div v-if="$demoMode() && !$isLoggedIn()" class="alert alert-info" role="alert">
       <p>
         This is a demo instance. You can log in with the following credentials:
       </p>
       <ul>
-        <li>Username: <strong>onmyshelf</strong></li>
-        <li>Password: <strong>onmyshelf</strong></li>
+        <li>{{ $t("Username") }}: <strong>onmyshelf</strong></li>
+        <li>{{ $t("Password") }}: <strong>onmyshelf</strong></li>
       </ul>
       <p>
         Please note that in demo mode, you can explore all features, but not make any changes.
@@ -20,7 +20,7 @@
   <div v-else class="collections container">
     <p v-if="$isLoggedIn()" class="text-end">
       <router-link to="/collection/new" class="btn btn-outline-success">
-        <i class="bi-plus"></i> {{ $t("create_collection") }}
+        <i class="bi-plus"></i> {{ $t("Create a collection") }}
       </router-link>
     </p>
     <Loading v-if="loading"/>
@@ -34,7 +34,7 @@
           <div class="form-check">
             <input v-model="filterMine" class="form-check-input" type="checkbox" id="filterMine">
             <label class="form-check-label" for="filterMine">
-              Show only my collections
+              {{ $t("Show only my collections") }}
             </label>
           </div>
         </div>
@@ -56,13 +56,13 @@
               <p v-if="collection.description">
                 <template v-if="collection.description">{{ collection.description }}</template>
               </p>
-              <p>{{ $t("items") }}: {{ collection.items }}</p>
+              <p>{{ $t("Items") }}: {{ collection.items }}</p>
               <div v-if="collection.owner == currentUser.id">
                 <p>
-                  <span class="badge bg-secondary">Mine</span>&nbsp;
+                  <span class="badge text-bg-light">{{ $t("Mine") }}</span>&nbsp;
                   <Visibility :level="collection.visibility" />&nbsp;
                   <router-link :to="'/collection/' + collection.id + '/manage/'" class="btn btn-outline-secondary">
-                    <i class="bi-gear-fill"></i> {{ $t("manage") }}
+                    <i class="bi-gear-fill"></i> {{ $t("Manage") }}
                   </router-link>
                 </p>
               </div>

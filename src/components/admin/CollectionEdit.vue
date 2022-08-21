@@ -1,38 +1,38 @@
 <template>
   <div class="container">
     <h1>
-      <template v-if="id">Edit collection {{ id }}</template>
-      <template v-else>New collection</template>
+      <template v-if="id">{{ $t("Edit collection") }} {{ id }}</template>
+      <template v-else>{{ $t("New collection") }}</template>
     </h1>
     <Loading v-if="loading"/>
     <form v-else @submit="validate">
       <div class="mb-3">
-        <label class="form-label">Collection name</label>
+        <label class="form-label">{{ $t("Collection name") }}</label>
         <input v-model="edit.name" type="text" class="form-control" placeholder="e.g. My books" required />
       </div>
       <div class="mb-3">
-        <label class="form-label">Collection description (optional)</label>
+        <label class="form-label">{{ $t("Collection description") }} ({{ $t("optional") }})</label>
         <textarea v-model="edit.description" placeholder="e.g. My collection of..."
           class="form-control" rows="3" ></textarea>
       </div>
 
       <div class="mb-3">
-        <label class="form-label">Who can see this collection?</label>
+        <label class="form-label">{{ $t("Who can see this collection?") }}</label>
         <Visibility v-model="edit.visibility" max="3" />
       </div>
 
       <div class="mb-3">
-        <label class="form-label">Collection image</label>
+        <label class="form-label">{{ $t("Collection image") }}</label>
         <MediaSelector type="image" v-model="edit.cover" />
       </div>
 
       <div class="mt-3">
         <button class="btn btn-primary" type="submit" :disabled="$demoMode()">
-          <template v-if="id">Save changes</template>
-          <template v-else>Create collection</template>
+          <template v-if="id">{{ $t("Save changes") }}</template>
+          <template v-else>{{ $t("Create collection") }}</template>
         </button>&nbsp;
-        <a v-if="id" href="." class="btn btn-outline-secondary">Cancel</a>
-        <router-link v-else to="/" class="btn btn-outline-secondary">Cancel</router-link>
+        <a v-if="id" href="." class="btn btn-outline-secondary">{{ $t("Cancel") }}</a>
+        <router-link v-else to="/" class="btn btn-outline-secondary">{{ $t("Cancel") }}</router-link>
       </div>
     </form>
   </div>

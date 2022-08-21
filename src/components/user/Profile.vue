@@ -1,12 +1,12 @@
 <template>
   <main class="form-signin container">
-    <h1>My profile</h1>
-    <p>Username: {{ currentUser.username }}</p>
-    <h3>Change password</h3>
+    <h1>{{ $t("My profile") }}</h1>
+    <p>{{ $t("Username") }}: {{ currentUser.username }}</p>
+    <h3>{{ $t("Change password") }}</h3>
     <ChangePassword />
     <div v-if="currentUser.username == 'onmyshelf'">
       <hr />
-      <h3>Server configuration</h3>
+      <h3>{{ $t("Server configuration") }}</h3>
       <ServerConfig />
     </div>
   </main>

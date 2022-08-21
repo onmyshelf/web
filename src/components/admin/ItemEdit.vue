@@ -3,8 +3,8 @@
     <Error v-if="errors.length > 0" />
     <template v-else>
       <h1>
-        <template v-if="id">Edit item {{id}}</template>
-        <template v-else>New item</template>
+        <template v-if="id">{{ $t("Edit item") }} {{id}}</template>
+        <template v-else>{{ $t("New item") }}</template>
       </h1>
       <div v-if="id" class="mt-3 mb-3">
         <button class="btn btn-success" @click="duplicate()">
@@ -43,17 +43,17 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Who can see this item?</label>
+          <label class="form-label">{{ $t("Who can see this item?") }}</label>
           <Visibility v-model="edit.visibility" max="3" />
         </div>
 
         <div class="mb-3">
           <button class="btn btn-primary" type="submit" :disabled="$demoMode()">
-            <template v-if="id">Save changes</template>
-            <template v-else>Create item</template>
+            <template v-if="id">{{ $t("Save changes") }}</template>
+            <template v-else>{{ $t("Create item") }}</template>
           </button>&nbsp;
-          <a v-if="id" href="." class="btn btn-outline-secondary">Cancel</a>
-          <a v-else href=".." class="btn btn-outline-secondary">Cancel</a>
+          <a v-if="id" href="." class="btn btn-outline-secondary">{{ $t("Cancel") }}</a>
+          <a v-else href=".." class="btn btn-outline-secondary">{{ $t("Cancel") }}</a>
         </div>
       </form>
     </template>

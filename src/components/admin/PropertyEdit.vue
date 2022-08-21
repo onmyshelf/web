@@ -2,10 +2,10 @@
   <div class="container">
     <Error v-if="errors.length > 0" />
     <template v-else>
-      <Breadcrumbs v-if="collection" :parents=breadcrumbs :current="id || 'New property'" />
+      <Breadcrumbs v-if="collection" :parents=breadcrumbs :current="id || $t('New property')" />
       <h1>
-        <template v-if="id">Edit property {{id}}</template>
-        <template v-else>New property</template>
+        <template v-if="id">{{ $t("Edit property") }} {{ id }}</template>
+        <template v-else>{{ $t("New property") }}</template>
       </h1>
       <form @submit="validate">
         <div class="mb-3">
@@ -20,7 +20,7 @@
         </div>
 
         <div v-if="!id" class="mb-3">
-          <label class="form-label">Property ID (<strong>required</strong>). Use a short name and alphanumeric characters only</label>
+          <label class="form-label">Property ID (<strong>{{ $t("required") }}</strong>). Use a short name and alphanumeric characters only</label>
           <input v-model="edit.name" type="text" placeholder="e.g. name" class="form-control"
             pattern="[a-z0-9_]+" maxlength="20" @input="checkNewId" required />
         </div>
@@ -74,7 +74,7 @@
         </div>
 
         <div class="mt-3 mb-3">
-          <label class="form-label">Who can see this property?</label>
+          <label class="form-label">{{ $t("Who can see this property?") }}</label>
           <select v-model="edit.visibility" class="form-select" aria-label="Visibility">
             <template v-for="(name,key) in $visibilityLevels" :key="key">
               <option :value="key">{{ name.label }}</option>
@@ -134,10 +134,10 @@
 
         <div class="mb-3">
           <button class="btn btn-primary" type="submit" :disabled="$demoMode()">
-            <template v-if="id">Save changes</template>
-            <template v-else>Create property</template>
+            <template v-if="id">{{ $t("Save changes") }}</template>
+            <template v-else>{{ $t("Create property") }}</template>
           </button>&nbsp;
-          <a href=".." class="btn btn-outline-secondary">Cancel</a>
+          <a href=".." class="btn btn-outline-secondary">{{ $t("Cancel") }}</a>
         </div>
       </form>
     </template>
@@ -162,7 +162,7 @@ export default {
         },
         {
           url: "/collection/" + this.$route.params.cid + "/manage/",
-          label: "Manage",
+          label: this.$t("Manage"),
         },
       ],
       id: this.$route.params.id,

@@ -10,13 +10,13 @@
         <div class="collapse navbar-collapse" id="topmenu">
           <ul class="navbar-nav me-auto">
             <li v-if="$demoMode()">
-              <span class="badge text-bg-warning">DEMO</span>
+              <span class="badge text-bg-warning">{{ $t("DEMO") }}</span>
             </li>
             <li class="nav-item">
-              <router-link to="/" class="nav-link active">Home</router-link>
+              <router-link to="/" class="nav-link active">{{ $t("Home") }}</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/about" class="nav-link">About</router-link>
+              <router-link to="/about" class="nav-link">{{ $t("About") }}</router-link>
             </li>
           </ul>
           <ul class="navbar-nav">
@@ -33,14 +33,14 @@
 
             <template v-if="$isLoggedIn()">
               <li class="nav-item">
-                <router-link to="/profile" class="nav-link">My profile</router-link>
+                <router-link to="/profile" class="nav-link">{{ $t("My profile") }}</router-link>
               </li>
               <li class="nav-item">
-                <a @click="logout" href="#" class="nav-link">Logout</a>
+                <a @click="logout" href="#" class="nav-link">{{ $t("Logout") }}</a>
               </li>
             </template>
             <li v-else class="nav-item">
-              <router-link to="/login" class="nav-link">Login</router-link>
+              <router-link to="/login" class="nav-link">{{ $t("Login") }}</router-link>
             </li>
           </ul>
         </div>

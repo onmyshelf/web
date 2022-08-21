@@ -13,7 +13,7 @@
 
         <div class="mb-3">
           <button class="btn btn-primary" type="submit" :disabled="$demoMode()">
-            Save changes
+            {{ $t("Save changes") }}
           </button>
         </div>
       </form>

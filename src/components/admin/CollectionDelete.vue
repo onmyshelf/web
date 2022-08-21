@@ -3,12 +3,12 @@
     <h5>
       Are you sure to delete collection <strong>{{ $route.params.cid }}</strong>?
     </h5>
-    <p>This operation cannot be undone.</p>
+    <p>{{ $t("This operation cannot be undone.") }}</p>
 
     <button @click="deleteCollection" type="button" class="btn btn-danger" :disabled="$demoMode()">
-      Delete collection
+      {{ $t("Delete collection") }}
     </button>&nbsp;
-    <a href="." class="btn btn-outline-secondary">Cancel</a>
+    <a href="." class="btn btn-outline-secondary">{{ $t("Cancel") }}</a>
   </div>
 </template>
 

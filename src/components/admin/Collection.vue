@@ -1,7 +1,7 @@
 <template>
   <Error v-if="errors.length > 0" />
   <div v-else class="container">
-    <Breadcrumbs v-if="name" :parents="breadcrumbs" current="Manage" />
+    <Breadcrumbs v-if="name" :parents="breadcrumbs" :current="$t('Manage')" />
     <h1>
       <Translation v-if="name && Object.keys(name).length > 0" :text="name" />
       <template v-else>Collection {{ $route.params.cid }}</template>
@@ -12,14 +12,14 @@
     <p v-if="visibility !== null">Visibility: <Visibility :level=visibility /></p>
     <p>
       <router-link to="edit" class="btn btn-primary">
-        <i class="bi-pencil"></i>&nbsp;Edit collection details
+        <i class="bi-pencil"></i>&nbsp;{{ $t("Edit collection details") }}
       </router-link>
     </p>
 
-    <h2>Properties</h2>
+    <h2>{{ $t("Properties") }}</h2>
     <div class="mb-3">
       <router-link to="property/new" class="btn btn-success mb-3">
-        <i class="bi-plus-lg"></i> Create a new property
+        <i class="bi-plus-lg"></i> {{ $t("Create a new property") }}
       </router-link>
 
       <template v-if="properties">
@@ -64,8 +64,8 @@
                 <a title="Move down" @click="orderProperty(name, -1)"><i class="bi bi-arrow-down-circle"></i></a>
               </td>
               <td>
-                <router-link :to="'property/' + name" title="Edit"><i class="bi bi-pencil"></i></router-link>&nbsp;&nbsp;
-                <router-link :to="'property/' + name + '/delete'" title="Delete"><i class="bi bi-x-lg"></i></router-link>
+                <router-link :to="'property/' + name" :title="$t('Edit')"><i class="bi bi-pencil"></i></router-link>&nbsp;&nbsp;
+                <router-link :to="'property/' + name + '/delete'" :title="$t('Delete')"><i class="bi bi-x-lg"></i></router-link>
               </td>
             </tr>
           </tbody>
@@ -75,27 +75,27 @@
     </div>
 
     <div class="mb-3">
-      <h3>Advanced</h3>
+      <h3>{{ $t("Advanced") }}</h3>
       <div class="card mb-3">
         <div class="card-header">
-          <strong>Import collection</strong>
+          <strong>{{ $t("Import collection") }}</strong>
         </div>
         <div class="card-body">
           <p class="card-text">
-            Import collection from CSV, GCstar, Tellico, ... (<a href="https://docs.onmyshelf.cm/user-guide/imports/" target="_blank">more info</a>)
+            Import collection from CSV, GCstar, Tellico, ... (<a href="https://docs.onmyshelf.cm/user-guide/imports/" target="_blank">{{ $t("more info") }}</a>)
           </p>
           <router-link to="import" class="btn btn-primary">
-            Import collection
+            {{ $t("Import collection") }}
           </router-link>
         </div>
       </div>
       <div class="card">
         <div class="card-header">
-          <strong>Delete collection</strong>
+          <strong>{{ $t("Delete collection") }}</strong>
         </div>
         <div class="card-body">
           <p class="card-text">Delete entire collection.</p>
-          <router-link to="delete" class="btn btn-danger">Delete collection</router-link>
+          <router-link to="delete" class="btn btn-danger">{{ $t("Delete collection") }}</router-link>
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@
     <div class="row">
       <div id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
         <div class="position-sticky pt-3">
-          <h4>Display mode</h4>
+          <h4>{{ $t("Display mode") }}</h4>
           <div>
             <select v-model="displayMode" @change="toggleDisplay()" class="form-select">
               <option value="shop">Shop</option>
@@ -16,8 +16,8 @@
             </select>
           </div>
           <div class="position-sticky pt-3">
-            <h4>Search</h4>
-            <input v-model="search" type="text" class="form-control" placeholder="Search item name" />
+            <h4>{{ $t("Search") }}</h4>
+            <input v-model="search" type="text" class="form-control" :placeholder="$t('Search item name')" />
           </div>
           <div v-if="filters.length > 0" class="position-sticky pt-3">
             <h4>Filters</h4>
@@ -27,7 +27,7 @@
             </p>
           </div>
           <div v-if="collection && Object.keys(collection.properties).length > 0" class="position-sticky pt-3">
-            <h4>Sort by</h4>
+            <h4>{{ $t("Sort by") }}</h4>
             <template v-for="(property, name) of collection.properties" :key="name">
               <template v-if="property.isTitle || property.sortable">
                 <PropertyLabel :name="name" :property="property" />
@@ -39,7 +39,7 @@
               </template>
             </template>
             <div class="position-sticky pt-3">
-              <h4>Filter by</h4>
+              <h4>{{ $t("Filter by") }}</h4>
               <template v-for="(property, name) of collection.properties" :key="name">
                 <template v-if="property.filterable">
                   <PropertyLabel :name="name" :property=collection.properties[name] />
@@ -61,19 +61,19 @@
         <Breadcrumbs v-if="collection.name" :current="title" />
         <h1>{{ title }}</h1>
         <p v-if="collection.description">{{ collection.description }}</p>
-        <p v-if="items">Items: {{ items.length }}</p>
+        <p v-if="items">{{ $t("Items") }}: {{ items.length }}</p>
 
         <p v-if="isMine" style="text-align: right">
           <router-link v-if="collection && Object.keys(collection.properties).length > 0"
             to="item/new" class="btn btn-outline-success">
-            <i class="bi bi-plus-lg"></i> Create item
+            <i class="bi bi-plus-lg"></i> {{ $t("Create an item") }}
           </router-link>&nbsp;
           <router-link v-if="collection"
             to="import/item" class="btn btn-outline-primary">
-            <i class="bi bi-box-arrow-in-down-left"></i> Import item
+            <i class="bi bi-box-arrow-in-down-left"></i> {{ $t("Import") }}
           </router-link>&nbsp;
           <router-link to="manage/" class="btn btn-outline-secondary">
-            <i class="bi-gear-fill"></i> Manage
+            <i class="bi-gear-fill"></i> {{ $t("Manage") }}
           </router-link>
         </p>
 

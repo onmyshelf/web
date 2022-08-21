@@ -3,12 +3,12 @@
     <h5>
       Are you sure to delete item <strong>{{ $route.params.id }}</strong>?
     </h5>
-    <p>This operation cannot be undone.</p>
+    <p>{{ $t("This operation cannot be undone.") }}</p>
 
     <button type="button" class="btn btn-danger" @click="deleteItem" :disabled="$demoMode()">
-      Delete item
+      {{ $t("Delete item") }}
     </button>&nbsp;
-    <a href="." class="btn btn-outline-secondary">Cancel</a>
+    <a href="." class="btn btn-outline-secondary">{{ $t("Cancel") }}</a>
   </div>
 </template>
 

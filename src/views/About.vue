@@ -1,6 +1,6 @@
 <template>
   <div class="about container">
-    <h1>About</h1>
+    <h1>{{ $t("About") }}</h1>
     <div class="alert alert-info" role="alert">
       OnMyShelf is still in development.<br/>
       Some key features you expects may be missing,

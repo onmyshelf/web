@@ -18,16 +18,14 @@
           <label :for="name" class="form-label">
             {{ label(property.label, name) }}:
             <span v-if="helpProperty(property)">
-              <a :href="'#help-' + name"
+              <a href="#" @click="toggleHelp(name)"
                 title="Informations about this property" data-bs-toggle="collapse"
                 aria-expanded="false" :aria-controls="'help-' + name"
               >
                 <i class="bi bi-info-circle"></i>
               </a>
-              <div class="collapse" :id="'help-'+name">
-                <div class="card card-body">
-                  {{ $translate(property.description) }}
-                </div>
+              <div :id="'help-' + name" class="card card-body bg-light" style="display:none">
+                <i class="bi bi-info-circle"></i> {{ $translate(property.description) }}
               </div>
             </span>
           </label>
@@ -143,6 +141,14 @@ export default {
       }
 
       return false
+    },
+    toggleHelp(property) {
+      let obj = document.getElementById("help-" + property)
+      if (obj.style.display === "none") {
+        obj.style.display = "block"
+      } else {
+        obj.style.display = "none"
+      }
     },
     label(label, name) {
       let translation = this.$translate(label)

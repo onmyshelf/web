@@ -30,12 +30,12 @@
             <hr />
           </div>
           <div v-if="itemCopies && itemCopies.length > 1" class="item-copies">
-            Copies:
+            {{ $t("Copies") }}:
             <li v-for="(itemCopy, i) in itemCopies" :key="i" @click="loadItemCopy(i)"
-              :class="'btn btn-'+(i == currentItemCopy ? '' : 'outline-') + 'secondary'"
+              :class="'btn btn-' + (i == currentItemCopy ? '' : 'outline-') + 'secondary'"
             >
               <template v-if="itemCopy.description">{{ itemCopy.description }}</template>
-              <template v-else>Copy #{{ itemCopy.id }}</template>
+              <template v-else>{{ $t("Copy") }} #{{ itemCopy.id }}</template>
             </li>
             <hr />
           </div>
@@ -158,7 +158,7 @@ export default {
       } else {
         return "Item " + this.item.id
       }
-    }
+    },
   },
   methods: {
     loadItemCopy(id) {
@@ -169,7 +169,7 @@ export default {
       }
 
       this.currentItemCopy = id
-    }
+    },
   },
 }
 </script>

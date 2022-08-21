@@ -11,12 +11,12 @@
     "en_US": "My profile",
     "fr_FR": "Mon profil"
   },
-  "Login": {
-    "en_US": "Login",
+  "Sign in": {
+    "en_US": "Sign in",
     "fr_FR": "Se connecter"
   },
-  "Logout": {
-    "en_US": "Logout",
+  "Sign out": {
+    "en_US": "Sign out",
     "fr_FR": "Se déconnecter"
   },
   "Welcome_homepage": {
@@ -243,9 +243,21 @@
     "en_US": "Failed!",
     "fr_FR": "Échec !"
   },
+  "Delete item": {
+    "en_US": "Delete item",
+    "fr_FR": "Supprimer l'objet"
+  },
+  "Confirm delete item": {
+    "en_US": "Are you sure to delete item",
+    "fr_FR": "Êtes-vous sûr de supprimer l'objet"
+  },
   "Username": {
     "en_US": "Username",
     "fr_FR": "Nom d'utilisateur"
+  },
+  "Password": {
+    "en_US": "Password",
+    "fr_FR": "Mot de passe"
   },
   "Change password": {
     "en_US": "Change password",

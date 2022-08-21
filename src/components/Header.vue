@@ -36,11 +36,11 @@
                 <router-link to="/profile" class="nav-link">{{ $t("My profile") }}</router-link>
               </li>
               <li class="nav-item">
-                <a @click="logout" href="#" class="nav-link">{{ $t("Logout") }}</a>
+                <a @click="logout" href="#" class="nav-link">{{ $t("Sign out") }}</a>
               </li>
             </template>
             <li v-else class="nav-item">
-              <router-link to="/login" class="nav-link">{{ $t("Login") }}</router-link>
+              <router-link to="/login" class="nav-link">{{ $t("Sign in") }}</router-link>
             </li>
           </ul>
         </div>
@@ -79,7 +79,7 @@ export default {
       .then(() => {
         document.location.href = "/"
       })
-    }
-  }
+    },
+  },
 }
 </script>

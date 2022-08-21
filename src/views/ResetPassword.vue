@@ -9,12 +9,21 @@
       </div>
       <form v-else @submit="askReset">
         <div class="form-floating">
-          <input v-model="username" type="text" class="form-control" id="username" placeholder="Username" required>
-          <label for="username">Username</label>
+          <input
+            v-model="username"
+            name="username"
+            type="text"
+            class="form-control"
+            :placeholder="$t('Username')"
+            required
+          />
+          <label>Username</label>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit" :disabled="$demoMode()">Ask password reset</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit" :disabled="$demoMode()">
+          {{ $t("Ask password reset") }}
+        </button>
         <div v-if="error" class="alert alert-danger" role="alert">
-          Failed! Please retry.
+          {{ $t("Failed, please retry") }}
         </div>
       </form>
     </div>
@@ -22,12 +31,11 @@
 </template>
 
 <script>
-import axios from 'axios'
-import ChangePassword from '@/components/user/ChangePassword.vue'
+import ChangePassword from "@/components/user/ChangePassword.vue"
 
 export default {
   components: {
-    ChangePassword
+    ChangePassword,
   },
   created() {
     if (this.$route.query.token) {
@@ -39,7 +47,7 @@ export default {
       username: null,
       resetToken: null,
       success: false,
-      error: false
+      error: false,
     }
   },
   methods: {
@@ -47,16 +55,16 @@ export default {
       // prevent form to reload page
       e.preventDefault()
 
-      axios.post(import.meta.env.VITE_API_URL + '/resetpassword', { username: this.username })
-      .then(() => {
-        this.success = true
-      })
-      .catch(e => {
-        if (e.response && e.response.status) {
-          this.error = true
-        }
-      })
-    }
-  }
+      this.$apiPost("resetpassword", { username: this.username })
+        .then(() => {
+          this.success = true
+        })
+        .catch(e => {
+          if (e.response && e.response.status) {
+            this.error = true
+          }
+        })
+    },
+  },
 }
 </script>

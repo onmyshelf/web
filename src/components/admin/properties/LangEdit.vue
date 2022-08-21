@@ -10,7 +10,7 @@
     <button type="button" data-bs-toggle="dropdown" aria-expanded="false"
       class="btn btn-outline-secondary dropdown-toggle"
     >
-      {{ languages[lang] }}
+      {{ $languages[lang] }}
     </button>
 
     <ul class="dropdown-menu dropdown-menu-end">
@@ -31,7 +31,6 @@ export default {
       },
     },
   },
-  inject: ["languages"],
   data() {
     return {
       lang: null,

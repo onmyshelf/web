@@ -56,7 +56,6 @@ export default {
       edit: { visibility: 0 },
     }
   },
-  inject: ["visibilityLevels"],
   created() {
     // new collection: do not load data
     if (!this.id) {

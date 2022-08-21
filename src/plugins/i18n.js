@@ -2,6 +2,10 @@ import translations from "./translations.json"
 
 export default {
   install: (app) => {
+    app.config.globalProperties.$languages = {
+      en_US: "English",
+      fr_FR: "Français",
+    }
     app.config.globalProperties.$currentLanguage = localStorage.getItem("onmyshelf_lang")
 
     // extract text from a translation object
@@ -29,7 +33,7 @@ export default {
     // translate
     app.config.globalProperties.$t = (key) => {
       if (!translations[key]) {
-        return "{" + key + "}"
+        return key
       }
       return app.config.globalProperties.$translate(translations[key])
     }

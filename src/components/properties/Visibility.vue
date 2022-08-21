@@ -1,6 +1,6 @@
 <template>
-  <a :title="'Visibility: ' + visibilityLevels[level].label">
-    <i :class="'bi-' + visibilityLevels[level].icon"></i>
+  <a :title="'Visibility: ' + $visibilityLevels[level].label">
+    <i :class="'bi-' + $visibilityLevels[level].icon"></i>
   </a>
 </template>
 
@@ -11,6 +11,5 @@ export default {
       required: true,
     },
   },
-  inject: ["visibilityLevels"],
 }
 </script>

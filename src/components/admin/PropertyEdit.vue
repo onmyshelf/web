@@ -35,7 +35,7 @@
             Type of property (<strong>required</strong>)
           </label>
           <select v-model="edit.type" class="form-select" aria-label="Type of property" required @change="changedType=true">
-            <option v-for="(obj,key) in propertyTypes" :key="key" :value="key">
+            <option v-for="(obj,key) in $propertyTypes" :key="key" :value="key">
               {{ obj.label }} <template v-if="obj.description">({{ obj.description }})</template>
             </option>
           </select>
@@ -76,7 +76,7 @@
         <div class="mt-3 mb-3">
           <label class="form-label">Who can see this property?</label>
           <select v-model="edit.visibility" class="form-select" aria-label="Visibility">
-            <template v-for="(name,key) in visibilityLevels" :key="key">
+            <template v-for="(name,key) in $visibilityLevels" :key="key">
               <option :value="key">{{ name.label }}</option>
             </template>
           </select>
@@ -176,7 +176,6 @@ export default {
       errors: [],
     }
   },
-  inject: ["propertyTypes", "visibilityLevels"],
   created() {
     // new property: do not load data
     if (!this.id) {

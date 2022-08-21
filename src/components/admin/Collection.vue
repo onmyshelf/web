@@ -46,11 +46,11 @@
                 <template v-else>{{ name }}</template>
               </td>
               <td scope="row">
-                <template v-if="propertyTypes[property.type]">
+                <template v-if="$propertyTypes[property.type]">
                   <strong v-if="property.isTitle">Item title</strong>
                   <strong v-else-if="property.isSubTitle">Item subtitle</strong>
                   <strong v-else-if="property.isCover">Item cover</strong>
-                  <template v-else>{{ propertyTypes[property.type].label }}</template>
+                  <template v-else>{{ $propertyTypes[property.type].label }}</template>
                 </template>
               </td>
               <td>
@@ -136,7 +136,6 @@ export default {
       loading: true,
     }
   },
-  inject: ["propertyTypes"],
   created() {
     // get collection details
     this.$apiGet("collections/" + this.id)

@@ -22,10 +22,10 @@
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" @click="langSelector = ! langSelector">
-                {{ languages[$currentLanguage] }}
+                {{ $languages[$currentLanguage] }}
               </a>
               <ul v-if="langSelector" class="dropdown-menu">
-                <li v-for="(language, key) in languages" :key="key">
+                <li v-for="(language, key) in $languages" :key="key">
                   <a class="dropdown-item" href="#" @click="changeLanguage(key)">{{ language }}</a>
                 </li>
               </ul>
@@ -56,7 +56,6 @@ export default {
       langSelector: false,
     }
   },
-  inject: ["languages"],
   created() {
     // set default if not exists
     if (!localStorage.getItem("onmyshelf_lang")) {

@@ -88,7 +88,6 @@ export default {
       help: {},
     }
   },
-  inject: ["visibilityLevels"],
   created() {
     // get collection
     this.$apiGet("collections/" + this.collection.id)

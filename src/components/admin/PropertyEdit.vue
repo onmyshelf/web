@@ -4,7 +4,7 @@
     <template v-else>
       <Breadcrumbs v-if="collection" :parents=breadcrumbs :current="id || $t('New property')" />
       <h1>
-        <template v-if="id">{{ $t("Edit property") }} {{ id }}</template>
+        <template v-if="id">{{ $t("Edit property") }}: {{ id }}</template>
         <template v-else>{{ $t("New property") }}</template>
       </h1>
       <form @submit="validate">

@@ -8,22 +8,26 @@
     <form v-else @submit="validate">
       <div class="mb-3">
         <label class="form-label">{{ $t("Collection name") }}</label>
-        <input v-model="edit.name" type="text" class="form-control" placeholder="e.g. My books" required />
+        <input v-model="edit.name" type="text" class="form-control" :placeholder="$t('Collection name example')" required />
       </div>
       <div class="mb-3">
         <label class="form-label">{{ $t("Collection description") }} ({{ $t("optional") }})</label>
-        <textarea v-model="edit.description" placeholder="e.g. My collection of..."
-          class="form-control" rows="3" ></textarea>
+        <textarea
+          v-model="edit.description"
+          :placeholder="$t('Collection description example')"
+          rows="3"
+          class="form-control"
+        ></textarea>
       </div>
 
       <div class="mb-3">
-        <label class="form-label">{{ $t("Who can see this collection?") }}</label>
-        <Visibility v-model="edit.visibility" max="3" />
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label">{{ $t("Collection image") }}</label>
+        <label class="form-label">{{ $t("Collection image") }} ({{ $t("optional") }})</label>
         <MediaSelector type="image" v-model="edit.cover" />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">{{ $t("Who can see collection") }}</label>
+        <Visibility v-model="edit.visibility" max="3" />
       </div>
 
       <div class="mt-3">

@@ -51,9 +51,173 @@
     "en_US": "Manage",
     "fr_FR": "Gérer"
   },
+  "Display mode": {
+    "en_US": "Display mode",
+    "fr_FR": "Mode d'affichage"
+  },
+  "Shop": {
+    "en_US": "Shop",
+    "fr_FR": "Boutique"
+  },
+  "List": {
+    "en_US": "List",
+    "fr_FR": "Liste"
+  },
+  "Mosaic": {
+    "en_US": "Mosaic",
+    "fr_FR": "Mosaïque"
+  },
+  "Search": {
+    "en_US": "Search",
+    "fr_FR": "Rechercher"
+  },
+  "Search item": {
+    "en_US": "Search item",
+    "fr_FR": "Rechercher un object"
+  },
+  "Sort by": {
+    "en_US": "Sort by",
+    "fr_FR": "Trier par"
+  },
+  "Filter by": {
+    "en_US": "Filter by",
+    "fr_FR": "Filtrer par"
+  },
   "Create an item": {
     "en_US": "Create an item",
     "fr_FR": "Créer un objet"
+  },
+  "Edit collection details": {
+    "en_US": "Edit collection details",
+    "fr_FR": "Éditer la collection"
+  },
+  "Edit collection": {
+    "en_US": "Edit collection",
+    "fr_FR": "Modifier la collection"
+  },
+  "Collection name": {
+    "en_US": "Collection name",
+    "fr_FR": "Nom de la collection"
+  },
+  "Collection name example": {
+    "en_US": "e.g. My books",
+    "fr_FR": "ex : Mes livres"
+  },
+  "Collection description": {
+    "en_US": "Collection description",
+    "fr_FR": "Description de la collection"
+  },
+  "optional": {
+    "en_US": "optional",
+    "fr_FR": "facultatif"
+  },
+  "Collection description example": {
+    "en_US": "e.g. My collection of ...",
+    "fr_FR": "ex : Ma collection de ..."
+  },
+  "Collection image": {
+    "en_US": "Collection image",
+    "fr_FR": "Image pour la collection"
+  },
+  "Media library": {
+    "en_US": "Media library",
+    "fr_FR": "Bibliothèque de médias"
+  },
+  "Media URL": {
+    "en_US": "Media URL:",
+    "fr_FR": "URL du média :"
+  },
+  "Open in new tab": {
+    "en_US": "Open in a new tab",
+    "fr_FR": "Ouvrir dans un nouvel onglet"
+  },
+  "Upload file": {
+    "en_US": "Upload a file",
+    "fr_FR": "Envoyer un fichier"
+  },
+  "Drag n drop or choose file": {
+    "en_US": "Drag and drop or click below to choose a file:",
+    "fr_FR": "Glissez-déposez ou cliquez ci-dessous pour choisir un fichier :"
+  },
+  "File uploaded": {
+    "en_US": "Your file has been uploaded",
+    "fr_FR": "Votre fichier a été envoyé"
+  },
+  "Error, please retry": {
+    "en_US": "An error occured. Please retry.",
+    "fr_FR": "Une erreur est survenue. Veuillez réessayer."
+  },
+  "External URL": {
+    "en_US": "External URL",
+    "fr_FR": "URL externe"
+  },
+  "Enter valid URL": {
+    "en_US": "Enter a valid URL:",
+    "fr_FR": "Entrez une URL valide :"
+  },
+  "URL csv example": {
+    "en_US": "e.g. https://mywebsite.com/collection.csv",
+    "fr_FR": "ex : https://monsite.com/collection.csv"
+  },
+  "URL image example": {
+    "en_US": "e.g. https://mywebsite.com/image.jpg",
+    "fr_FR": "ex : https://monsite.com/image.jpg"
+  },
+  "URL video example": {
+    "en_US": "e.g. https://www.youtube.com/watch?v=123456",
+    "fr_FR": "ex : https://www.youtube.com/watch?v=123456"
+  },
+  "URL example": {
+    "en_US": "e.g. https://mywebsite.com/file.pdf",
+    "fr_FR": "ex : https://monsite.com/fichier.pdf"
+  },
+  "No media": {
+    "en_US": "None",
+    "fr_FR": "Aucun"
+  },
+  "Who can see collection": {
+    "en_US": "Who can see this collection?",
+    "fr_FR": "Qui peut voir cette collection ?"
+  },
+  "Properties": {
+    "en_US": "Properties",
+    "fr_FR": "Propriétés"
+  },
+  "Name": {
+    "en_US": "Name",
+    "fr_FR": "Nom"
+  },
+  "Visibility": {
+    "en_US": "Visibility",
+    "fr_FR": "Visibilité"
+  },
+  "Order": {
+    "en_US": "Order",
+    "fr_FR": "Ordre"
+  },
+  "Advanced": {
+    "en_US": "Advanced",
+    "fr_FR": "Avancé"
+  },
+  "Import collection": {
+    "en_US": "Import collection",
+    "fr_FR": "Importer une collection"
+  },
+  "Delete collection": {
+    "en_US": "Delete collection",
+    "fr_FR": "Supprimer la collection"
+  },
+  "Delete collection details": {
+    "en_US": "Delete entire collection.",
+    "fr_FR": "Supprimer toute la collection."
+  },
+  "Confirm delete collection": {
+    "en_US": "Are you sure to delete collection",
+    "fr_FR": "Êtes-vous sûr de supprimer la collection"
+  },
+  "Operation cannot be undone": {
+    "en_US": "This operation cannot be undone.",
+    "fr_FR": "Cette opération est irréversible."
   },
   "Create item": {
     "en_US": "Create item",
@@ -75,6 +239,10 @@
     "en_US": "Cancel",
     "fr_FR": "Annuler"
   },
+  "Failed!": {
+    "en_US": "Failed!",
+    "fr_FR": "Échec !"
+  },
   "Username": {
     "en_US": "Username",
     "fr_FR": "Nom d'utilisateur"
@@ -94,6 +262,14 @@
   "Confirm new password": {
     "en_US": "Confirm new password",
     "fr_FR": "Confirmer le nouveau mot de passe"
+  },
+  "Password changed": {
+    "en_US": "Password changed",
+    "fr_FR": "Mot de passe changé"
+  },
+  "Password not equals!": {
+    "en_US": "Password not equals!",
+    "fr_FR": "Les mots de passe ne correspondent pas !"
   },
   "Server configuration": {
     "en_US": "Server configuration",

@@ -3,7 +3,7 @@
     <Error v-if="errors.length > 0" />
     <template v-else>
       <h1>
-        <template v-if="id">{{ $t("Edit item") }} {{id}}</template>
+        <template v-if="id">{{ $t("Edit item") }} {{ id }}</template>
         <template v-else>{{ $t("New item") }}</template>
       </h1>
       <div v-if="id" class="mt-3 mb-3">
@@ -179,7 +179,7 @@ export default {
           document.location.href = "/collection/" + this.collection.id + "/item/" + response.data.id + "/"
         })
       }
-    }
-  }
+    },
+  },
 }
 </script>

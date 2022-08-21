@@ -24,9 +24,11 @@
         <a href="." class="btn btn-outline-secondary" :disabled="loading">{{ $t("Cancel") }}</a>
       </div>
 
-      <div v-if="result" :class="'alert alert-'+(result.success ? 'success':'danger')" role="alert">
+      <div v-if="result" :class="'alert alert-' + (result.success ? 'success' : 'danger')" role="alert">
         {{ result.text }}<br />
-        <router-link :to="'/collection/' + this.collectionId + '/'">View collection</router-link>
+        <router-link :to="'/collection/' + this.collectionId + '/'">
+          {{ $t("View collection") }}
+        </router-link>
       </div>
       <Loading v-if="loading" info="Please wait, this may take some time..." />
     </form>

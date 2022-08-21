@@ -32,10 +32,10 @@
         <table v-else class="table">
           <thead>
             <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Type</th>
-              <th scope="col">Visibility</th>
-              <th scope="col">Order</th>
+              <th scope="col">{{ $t("Name") }}</th>
+              <th scope="col">{{ $t("Type") }}</th>
+              <th scope="col">{{ $t("Visibility") }}</th>
+              <th scope="col">{{ $t("Order") }}</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -94,7 +94,7 @@
           <strong>{{ $t("Delete collection") }}</strong>
         </div>
         <div class="card-body">
-          <p class="card-text">Delete entire collection.</p>
+          <p class="card-text">{{ $t("Delete collection details") }}</p>
           <router-link to="delete" class="btn btn-danger">{{ $t("Delete collection") }}</router-link>
         </div>
       </div>
@@ -151,7 +151,7 @@ export default {
         }
 
         this.breadcrumbs[0].label = this.name
-        
+
         this.cover = response.data.cover
         this.visibility = response.data.visibility
         this.properties = response.data.properties

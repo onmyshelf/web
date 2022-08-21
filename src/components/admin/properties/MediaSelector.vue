@@ -20,7 +20,7 @@
           @change="toggleSource('none')" :checked="source == 'none'"
         />
         <label class="btn btn-outline-primary" :for="'mediaNone-' + cptId">
-          {{ $t("None") }}
+          {{ $t("No media") }}
         </label>
       </template>
     </div>
@@ -30,23 +30,22 @@
     <div v-if="source == 'media'" class="card-body">
       <div v-if="mediaUrl" class="input-group mb-3">
         <span class="input-group-text" :id="'mediaInfo-' + cptId">
-          Media URL:
+          {{ $t("Media URL") }}
         </span>
         <input v-model="mediaUrl" type="text" disabled
           class="form-control" :aria-describedby="'mediaInfo-' + cptId"
-          placeholder="Click on Upload button to send a new file"
         />
-        <a :href="$mediaUrl(mediaUrl)" class="btn btn-primary" title="Open in a new tab" target="_blank">
+        <a :href="$mediaUrl(mediaUrl)" class="btn btn-secondary" :title="$t('Open in new tab')" target="_blank">
           <i class="bi bi-box-arrow-up-right"></i>
         </a>
       </div>
 
       <a class="btn btn-primary" @click="uploadField = !uploadField">
-        <i class="bi bi-cloud-arrow-up"></i> {{ $t("Upload a new file") }}
+        <i class="bi bi-cloud-arrow-up"></i> {{ $t("Upload file") }}
       </a>
 
       <div v-if="uploadField" class="mt-3">
-        <label class="form-label">{{ $t("Drag and drop or choose a file:") }}</label>
+        <label class="form-label">{{ $t("Drag n drop or choose file") }}</label>
         <div class="input-group">
           <input type="file" :id="'uploadFile-' + cptId" 
             class="form-control" placeholder="" @change="upload"
@@ -57,19 +56,19 @@
       </div>
 
       <div v-if="fileUploaded" class="alert alert-success mt-3" role="alert">
-        {{ $t("Your file has been uploaded.") }}
+        {{ $t("File uploaded") }}
       </div>
       <div v-else-if="uploadError" class="alert alert-danger mt-3" role="alert">
-        {{ $t("An error occured. Please retry.") }}
+        {{ $t("Error, please retry") }}
       </div>
     </div>
 
     <div v-else-if="source == 'url'" class="input-group card-body">
-      <span class="input-group-text" :id="'mediaInfo-' + cptId">{{ $t("Enter a valid URL:") }}</span>
+      <span class="input-group-text" :id="'mediaInfo-' + cptId">{{ $t("Enter valid URL") }}</span>
       <input type="text" class="form-control" :aria-describedby="'mediaInfo-' + cptId" :placeholder="exampleUrl"
         v-model="externalUrl" @input="chosenUrl = externalUrl"
       />
-      <a v-if="externalUrl" :href="externalUrl" class="btn btn-primary" title="Open in a new tab" target="_blank">
+      <a v-if="externalUrl" :href="externalUrl" class="btn btn-secondary" title="Open in a new tab" target="_blank">
         <i class="bi bi-box-arrow-up-right"></i>
       </a>
     </div>
@@ -131,16 +130,12 @@ export default {
     exampleUrl() {
       switch (this.type) {
         case "csv":
-          return "e.g. https://mywebsite.com/collection.csv"
-
         case "image":
-          return "e.g. https://mywebsite.com/image.jpg"
-
         case "video":
-          return "e.g. https://www.youtube.com/watch?v=123456"
+          return this.$t("URL " + this.type + " example")
 
         default:
-          return "e.g. https://mywebsite.com/file.pdf"
+          return this.$t("URL example")
       }
     }
   },

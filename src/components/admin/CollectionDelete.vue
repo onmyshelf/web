@@ -1,9 +1,9 @@
 <template>
   <div class="container delete-confirm">
     <h5>
-      Are you sure to delete collection <strong>{{ $route.params.cid }}</strong>?
+      {{ $t("Confirm delete collection") }} <strong>{{ $route.params.cid }}</strong>?
     </h5>
-    <p>{{ $t("This operation cannot be undone.") }}</p>
+    <p>{{ $t("Operation cannot be undone") }}</p>
 
     <button @click="deleteCollection" type="button" class="btn btn-danger" :disabled="$demoMode()">
       {{ $t("Delete collection") }}

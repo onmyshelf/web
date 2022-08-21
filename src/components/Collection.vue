@@ -17,7 +17,7 @@
           </div>
           <div class="position-sticky pt-3">
             <h4>{{ $t("Search") }}</h4>
-            <input v-model="search" type="text" class="form-control" :placeholder="$t('Search item name')" />
+            <input v-model="search" type="text" class="form-control" :placeholder="$t('Search item')" />
           </div>
           <div v-if="filters.length > 0" class="position-sticky pt-3">
             <h4>Filters</h4>

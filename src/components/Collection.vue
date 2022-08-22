@@ -10,9 +10,9 @@
           <h4>{{ $t("Display mode") }}</h4>
           <div>
             <select v-model="displayMode" @change="toggleDisplay()" class="form-select">
-              <option value="shop">Shop</option>
-              <option value="list">List</option>
-              <option value="mosaic">Mosaic</option>
+              <option value="shop">{{ $t("Shop") }}</option>
+              <option value="list">{{ $t("List") }}</option>
+              <option value="mosaic">{{ $t("Mosaic") }}</option>
             </select>
           </div>
           <div class="position-sticky pt-3">
@@ -20,12 +20,14 @@
             <input v-model="search" type="text" class="form-control" :placeholder="$t('Search item')" />
           </div>
           <div v-if="filters.length > 0 && Object.keys(collection.properties).length > 0" class="position-sticky pt-3">
-            <h4>Filters</h4>
+            <h4>{{ $t("Filters") }}</h4>
             <p v-for="filter in filters" :key="filter">
               <i class="bi-filter-square"></i>&nbsp;
               <PropertyLabel :name="filter.name" :property=collection.properties[filter.name] />
               {{ filter.value }}&nbsp;
-              <a :href="reloadCollection(filters.filter(f => f.name != filter.name),sorting)" title="Clear filter"><i class="bi bi-x-circle"></i></a>
+              <a :href="reloadCollection(filters.filter(f => f.name != filter.name),sorting)" title="Clear filter">
+                <i class="bi bi-x-circle"></i>
+              </a>
             </p>
           </div>
           <div v-if="collection && Object.keys(collection.properties).length > 0" class="position-sticky pt-3">
@@ -34,9 +36,13 @@
               <template v-if="property.isTitle || property.sortable">
                 <PropertyLabel :name="name" :property="property" />
                 <i v-if="sorting == name" class="bi bi-arrow-down-circle-fill"></i>
-                <a v-else :href="reloadCollection(filters,name)"><i class="bi bi-arrow-down-circle"></i></a>&nbsp;
-                <i v-if="sorting == '-'+name" class="bi bi-arrow-up-circle-fill"></i>
-                <a v-else :href="reloadCollection(filters,'-'+name)"><i class="bi bi-arrow-up-circle"></i></a>
+                <a v-else :href="reloadCollection(filters, name)">
+                  <i class="bi bi-arrow-down-circle"></i>
+                </a>&nbsp;
+                <i v-if="sorting == '-' + name" class="bi bi-arrow-up-circle-fill"></i>
+                <a v-else :href="reloadCollection(filters, '-' + name)">
+                  <i class="bi bi-arrow-up-circle"></i>
+                </a>
                 <br />
               </template>
             </template>
@@ -81,8 +87,8 @@
 
         <div v-if="items" :class="'container items items-'+displayMode">
           <template v-if="items.length == 0">
-            <Empty v-if="isMine" label="No items. Create your first item or import them!" />
-            <Empty v-else label="No items" />
+            <Empty v-if="isMine" :label="$t('No items') + '. ' + $t('Create first item')" />
+            <Empty v-else :label="$t('No items')" />
           </template>
           <template v-else>
             <template v-if="this.displayMode == 'mosaic'">

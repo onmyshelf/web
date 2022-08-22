@@ -1,7 +1,7 @@
 <template>
   <main class="form-signin container">
-    <h1 class="h3 mb-3 fw-normal">Password recovery</h1>
-    <ChangePassword v-if='resetToken' :resetToken="resetToken"/>
+    <h1 class="h3 mb-3 fw-normal">{{ $t("Reset password") }}</h1>
+    <ChangePassword v-if="resetToken" :resetToken="resetToken" />
     <div v-else>
       <div v-if="success" class="alert alert-success" role="alert">
         Your request has been sent to the administrator.<br/>
@@ -17,7 +17,7 @@
             :placeholder="$t('Username')"
             required
           />
-          <label>Username</label>
+          <label>{{ $t("Username")}} </label>
         </div>
         <button class="w-100 btn btn-lg btn-primary" type="submit" :disabled="$demoMode()">
           {{ $t("Ask password reset") }}

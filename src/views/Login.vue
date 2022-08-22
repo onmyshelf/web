@@ -39,7 +39,7 @@
       </div>
       <div class="mt-3">
         <router-link to="/resetpassword">
-          {{ $t("Forgot password?") }}
+          {{ $t("Forgot password") }}
         </router-link>
       </div>
     </form>

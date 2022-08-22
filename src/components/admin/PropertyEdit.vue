@@ -20,13 +20,13 @@
         </div>
 
         <div v-if="!id" class="mb-3">
-          <label class="form-label">Property ID (<strong>{{ $t("required") }}</strong>). Use a short name and alphanumeric characters only</label>
-          <input v-model="edit.name" type="text" placeholder="e.g. name" class="form-control"
+          <label class="form-label">{{ $t("Property ID") }} (<strong>{{ $t("required") }}</strong>)</label>
+          <input v-model="edit.name" type="text" :placeholder="$t('Property ID example')" class="form-control"
             pattern="[a-z0-9_]+" maxlength="20" @input="checkNewId" required />
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Description (used only in edition for your own information)</label>
+          <label class="form-label">{{ $t("Description") }} ({{ $t("Property description usage") }})</label>
           <textarea v-model="edit.description" :placeholder="$t('Property description example')" class="form-control" rows="2"></textarea>
         </div>
 
@@ -68,18 +68,18 @@
 
             <div v-if="edit.type == 'image'" class="form-check form-switch">
               <input v-model="edit.isCover" class="form-check-input" type="checkbox" @change="checkPreview" />
-              <label class="form-check-label">Use as cover image</label>
+              <label class="form-check-label">{{ $t("Use property as cover image") }}</label>
             </div>
 
             <div class="mt-3">
-              <label class="form-label">Order (increase to see this property above others)</label>
+              <label class="form-label">{{ $t("Display order") }} ({{ $t("Property order usage") }})</label>
               <input v-model="edit.order" type="number" min="0"
                 class="form-control"
               />
             </div>
 
             <div class="mt-3">
-              <label class="form-label">{{ $t("Who can see this property?") }}</label>
+              <label class="form-label">{{ $t("Who can see property") }}</label>
               <Visibility v-model="edit.visibility" />
             </div>
           </div>
@@ -91,12 +91,12 @@
             <div class="form-check form-switch">
               <input v-model="edit.required" class="form-check-input" type="checkbox" />
               <label class="form-check-label">
-                This property should never be empty
+                {{ $t("Property never empty") }}
               </label>
             </div>
 
             <div class="mt-3">
-              <label class="form-label">Default value if property is empty</label>
+              <label class="form-label">{{ $t("Property default value") }}</label>
               <input v-model="edit.default" type="text" class="form-control" />
             </div>
 
@@ -113,21 +113,21 @@
             <div v-if="canBeFilterable" class="form-check form-switch">
               <input v-model="edit.filterable" class="form-check-input" type="checkbox" />
               <label class="form-check-label">
-                {{ $t("Collection can be filtered by this property") }}
+                {{ $t("Property is filterable") }}
               </label>
             </div>
 
             <div v-if="canBeSearchable" class="form-check form-switch">
               <input v-model="edit.searchable" class="form-check-input" type="checkbox">
               <label class="form-check-label">
-                {{ $t("Searching items will search in this property") }}
+                {{ $t("Property is searchable") }}
               </label>
             </div>
 
             <div v-if="canBeSortable" class="form-check form-switch">
               <input v-model="edit.sortable" class="form-check-input" type="checkbox">
               <label class="form-check-label">
-                {{ $t("Collection can be sorted by this property") }}
+                {{ $t("Property is sortable") }}
               </label>
             </div>
           </div>

@@ -46,13 +46,13 @@
 
       <div v-if="uploadField" class="mt-3">
         <label class="form-label">{{ $t("Drag n drop or choose file") }}</label>
-        <div class="input-group">
+        <div class="input-group mb-3">
           <input type="file" :id="'uploadFile-' + cptId" 
             class="form-control" placeholder="" @change="upload"
             :disabled="$demoMode() || loading"
           />
         </div>
-        <Loading v-if="loading" />
+        <Loading v-if="loading" :info="$t('Uploading file')" />
       </div>
 
       <div v-if="fileUploaded" class="alert alert-success mt-3" role="alert">

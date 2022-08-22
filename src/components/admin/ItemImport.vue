@@ -2,10 +2,10 @@
   <div class="container">
     <Error v-if="errors.length > 0" />
     <template v-else>
-      <h1>Import item from external sources</h1>
+      <h1>{{ $t("Import item from sources") }}</h1>
       <form @submit="validate">
         <div class="mb-3">
-          <label class="form-label">Source:</label>
+          <label class="form-label">Source</label>
           <select v-model="search.module" class="form-select" aria-label="Type of import" required>
             <template v-for="(importModule, name) in search.modules" :key="name">
               <option v-if="importModule.search" :value="name">{{ importModule.name }} {{ moduleTags(importModule.tags) }}</option>
@@ -18,8 +18,8 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label">{{ $t("Search") }}:</label>
-          <input v-model="search.search" name="search" type="text" class="form-control" :placeholder="$t('Search your item here')" required />
+          <label class="form-label">{{ $t("Search") }}</label>
+          <input v-model="search.search" name="search" type="text" class="form-control" :placeholder="$t('Search item here')" required />
         </div>
 
         <div class="mb-3">
@@ -28,12 +28,12 @@
         </div>
       </form>
     </template>
-    
+
     <Loading v-if="loading" />
     <div v-else>
       <div v-if="items" class="container items">
         <template v-if="items.length == 0">
-          <Empty label="Nothing found" />
+          <Empty :label="$t('Nothing found')" />
         </template>
         <template v-else>
           <template v-for="(item, index) in items" :key="index">
@@ -51,7 +51,7 @@
                 </p>
                 <p>
                   <button @click="importItem(index)" class="btn btn-primary" :disabled="$demoMode()">
-                    Import item
+                    {{ $t("Import item") }}
                   </button>
                 </p>
               </div>

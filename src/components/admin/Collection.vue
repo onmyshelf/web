@@ -19,23 +19,21 @@
     <h2>{{ $t("Properties") }}</h2>
     <div class="mb-3">
       <router-link to="property/new" class="btn btn-success mb-3">
-        <i class="bi-plus-lg"></i> {{ $t("Create a new property") }}
+        <i class="bi-plus-lg"></i> {{ $t("Create new property") }}
       </router-link>
 
       <template v-if="properties">
         <div v-if="Object.keys(properties).length == 0" class="alert alert-warning" role="alert">
-          Items are defined by properties.
-          <router-link to="property/new">
-            Create your first property!
-          </router-link>
+          {{ $t("Items are defined by properties") }}<br />
+          {{ $t("Create your first property") }}
         </div>
         <table v-else class="table">
           <thead>
             <tr>
-              <th scope="col">{{ $t("Name") }}</th>
+              <th scope="col">{{ $t("Property") }}</th>
               <th scope="col">{{ $t("Type") }}</th>
               <th scope="col">{{ $t("Visibility") }}</th>
-              <th scope="col">{{ $t("Order") }}</th>
+              <th scope="col">{{ $t("Display order") }}</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -74,6 +72,19 @@
       <Loading v-else />
     </div>
 
+    <div v-if="properties && Object.keys(properties).length > 0" class="mb-3">
+      <h2>{{ $t("Items") }}</h2>
+      <p>
+        <router-link to="../item/new" class="btn btn-success">
+          <i class="bi-plus-lg"></i> {{ $t("Create an item") }}
+        </router-link>
+        &nbsp;
+        <router-link to="../" class="btn btn-outline-secondary">
+          <i class="bi-eye"></i> {{ $t("Show collection") }}
+        </router-link>
+      </p>
+    </div>
+
     <div class="mb-3">
       <h3>{{ $t("Advanced") }}</h3>
       <div class="card mb-3">
@@ -82,7 +93,7 @@
         </div>
         <div class="card-body">
           <p class="card-text">
-            Import collection from CSV, GCstar, Tellico, ... (<a href="https://docs.onmyshelf.cm/user-guide/imports/" target="_blank">{{ $t("more info") }}</a>)
+            {{ $t("Import collection from") }}
           </p>
           <router-link to="import" class="btn btn-primary">
             {{ $t("Import collection") }}

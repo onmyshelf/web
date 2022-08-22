@@ -7,6 +7,18 @@
     "en_US": "About",
     "fr_FR": "À propos"
   },
+  "Powered by OnMyShelf": {
+    "en_US": "This website is powered by OnMyShelf.",
+    "fr_FR": "Ce site est généré par OnMyShelf."
+  },
+  "About OnMyShelf": {
+    "en_US": "OnMyShelf is a powerful free and open source collection manager.",
+    "fr_FR": "OnMyShelf est un puissant gestionnaire de collections libre et open source."
+  },
+  "Official website": {
+    "en_US": "Official website",
+    "fr_FR": "Site officiel"
+  },
   "My profile": {
     "en_US": "My profile",
     "fr_FR": "Mon profil"
@@ -14,6 +26,26 @@
   "Sign in": {
     "en_US": "Sign in",
     "fr_FR": "Se connecter"
+  },
+  "Please sign in": {
+    "en_US": "Please sign in",
+    "fr_FR": "Veuillez vous connecter"
+  },
+  "Login failed": {
+    "en_US": "Login failed. Please retry.",
+    "fr_FR": "Connexion échouée. Veuillez réessayer."
+  },
+  "Forgot password": {
+    "en_US": "Forgot password?",
+    "fr_FR": "Mot de passe oublié?"
+  },
+  "Reset password": {
+    "en_US": "Reset my password",
+    "fr_FR": "Réinitialiser mon mot de passe"
+  },
+  "Ask password reset": {
+    "en_US": "Ask to reset my password",
+    "fr_FR": "Demander la réinitialisation de mon mot de passe"
   },
   "Sign out": {
     "en_US": "Sign out",
@@ -56,8 +88,8 @@
     "fr_FR": "Mode d'affichage"
   },
   "Shop": {
-    "en_US": "Shop",
-    "fr_FR": "Boutique"
+    "en_US": "Shop-like",
+    "fr_FR": "Style \"boutique\""
   },
   "List": {
     "en_US": "List",
@@ -67,13 +99,33 @@
     "en_US": "Mosaic",
     "fr_FR": "Mosaïque"
   },
+  "Import item from sources": {
+    "en_US": "Import item(s) from external sources",
+    "fr_FR": "Importer des objets depuis des sources externes"
+  },
   "Search": {
     "en_US": "Search",
     "fr_FR": "Rechercher"
   },
+  "Search item here": {
+    "en_US": "Search an item here",
+    "fr_FR": "Rechercher un objet ici"
+  },
   "Search item": {
     "en_US": "Search item",
-    "fr_FR": "Rechercher un object"
+    "fr_FR": "Rechercher un objet"
+  },
+  "Nothing found": {
+    "en_US": "Nothing found",
+    "fr_FR": "Rien n'a été trouvé"
+  },
+  "Import item": {
+    "en_US": "Import this item",
+    "fr_FR": "Importer cet objet"
+  },
+  "Filters": {
+    "en_US": "Filters",
+    "fr_FR": "Filtres"
   },
   "Sort by": {
     "en_US": "Sort by",
@@ -86,6 +138,18 @@
   "Create an item": {
     "en_US": "Create an item",
     "fr_FR": "Créer un objet"
+  },
+  "Import": {
+    "en_US": "Import",
+    "fr_FR": "Importer"
+  },
+  "No items": {
+    "en_US": "No items",
+    "fr_FR": "Aucun objet"
+  },
+  "Create first item": {
+    "en_US": "Create your first item or import it!",
+    "fr_FR": "Créez votre premier objet ou importez-le !"
   },
   "Edit collection details": {
     "en_US": "Edit collection details",
@@ -139,6 +203,10 @@
     "en_US": "Drag and drop or click below to choose a file:",
     "fr_FR": "Glissez-déposez ou cliquez ci-dessous pour choisir un fichier :"
   },
+  "Uploading file": {
+    "en_US": "Uploading file...",
+    "fr_FR": "Envoi du fichier..."
+  },
   "File uploaded": {
     "en_US": "Your file has been uploaded",
     "fr_FR": "Votre fichier a été envoyé"
@@ -187,17 +255,33 @@
     "en_US": "Properties",
     "fr_FR": "Propriétés"
   },
-  "Name": {
-    "en_US": "Name",
-    "fr_FR": "Nom"
+  "Create new property": {
+    "en_US": "Create a new property",
+    "fr_FR": "Créer une nouvelle propriété"
+  },
+  "Items are defined by properties": {
+    "en_US": "Collection items are defined by properties.",
+    "fr_FR": "Les objets d'une collection sont définis par des propriétés."
+  },
+  "Create your first property": {
+    "en_US": "You must create at least one property (button above) or import a collection (see below).",
+    "fr_FR": "Vous devez créer au moins une propriété (bouton ci-dessus) ou importer une collection (voir ci-dessous)."
+  },
+  "Property": {
+    "en_US": "Property",
+    "fr_FR": "Propriété"
   },
   "Visibility": {
     "en_US": "Visibility",
     "fr_FR": "Visibilité"
   },
-  "Order": {
-    "en_US": "Order",
-    "fr_FR": "Ordre"
+  "Display order": {
+    "en_US": "Display order",
+    "fr_FR": "Ordre d'affichage"
+  },
+  "New property": {
+    "en_US": "New property",
+    "fr_FR": "Créer une propriété"
   },
   "Edit property": {
     "en_US": "Edit property",
@@ -211,9 +295,21 @@
     "en_US": "Do not show label before value",
     "fr_FR": "Ne pas afficher le label avant la valeur"
   },
+  "Property ID": {
+    "en_US": "Property ID",
+    "fr_FR": "ID de propriété"
+  },
   "required": {
     "en_US": "required",
     "fr_FR": "obligatoire"
+  },
+  "Property ID example": {
+    "en_US": "e.g. title, size, color, ...",
+    "fr_FR": "ex : titre, taille, couleur, ..."
+  },
+  "Property description usage": {
+    "en_US": "optional, can be seen only in item edition",
+    "fr_FR": "facultatif, visible seulement lors de la modification d'un objet"
   },
   "Property description example": {
     "en_US": "e.g. This property contains...",
@@ -239,6 +335,30 @@
     "en_US": "Use as item subtitle",
     "fr_FR": "Utiliser comme sous-titre de l'objet"
   },
+  "Use property as cover image": {
+    "en_US": "Use as item cover image",
+    "fr_FR": "Utiliser comme image de couverture"
+  },
+  "Property order usage": {
+    "en_US": "increase to display this property above the others",
+    "fr_FR": "augmentez pour afficher cette propriété au-dessus des autres"
+  },
+  "Who can see property": {
+    "en_US": "Who can see this property?",
+    "fr_FR": "Qui peut voir cette propriété ?"
+  },
+  "Value": {
+    "en_US": "Value",
+    "fr_FR": "Valeur"
+  },
+  "Property never empty": {
+    "en_US": "This property should never be empty",
+    "fr_FR": "Cette propriété ne doit pas être vide"
+  },
+  "Property default value": {
+    "en_US": "Default value if property is empty",
+    "fr_FR": "Valeur par défaut si la propriété est vide"
+  },
   "Property suffix": {
     "en_US": "Suffix to display after value",
     "fr_FR": "Suffixe à afficher après la valeur"
@@ -250,6 +370,22 @@
   "Search and filters": {
     "en_US": "Search, filters and sort",
     "fr_FR": "Recherche, filtres et tri"
+  },
+  "Property is filterable": {
+    "en_US": "Collection can be filtered by this property",
+    "fr_FR": "La collection peut être filtrée par cette propriété"
+  },
+  "Property is searchable": {
+    "en_US": "Searching items can search inside this property",
+    "fr_FR": "La recherche d'objet pourra rechercher dans cette propriété"
+  },
+  "Property is sortable": {
+    "en_US": "Collection can be sorted by this property",
+    "fr_FR": "La collection peut être triée par cette propriété"
+  },
+  "Create property": {
+    "en_US": "Create property",
+    "fr_FR": "Créer la propriété"
   },
   "Confirm delete property": {
     "en_US": "Are you sure to delete property",
@@ -263,6 +399,10 @@
     "en_US": "Delete property",
     "fr_FR": "Supprimer la propriété"
   },
+  "Show collection": {
+    "en_US": "Show my collection",
+    "fr_FR": "Voir ma collection"
+  },
   "Advanced": {
     "en_US": "Advanced",
     "fr_FR": "Avancé"
@@ -270,6 +410,10 @@
   "Import collection": {
     "en_US": "Import collection",
     "fr_FR": "Importer une collection"
+  },
+  "Import collection from": {
+    "en_US": "Import collection from CSV, GCstar, Tellico, ...",
+    "fr_FR": "Importer une collection depuis un CSV, GCstar, Tellico, ..."
   },
   "Delete collection": {
     "en_US": "Delete collection",

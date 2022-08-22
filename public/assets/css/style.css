@@ -144,6 +144,10 @@ a {
   margin-left: 10px;
 }
 
+.video-player {
+  max-width: 640px;
+}
+
 /*
  * Delete confirmation
  */

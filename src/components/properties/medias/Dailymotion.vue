@@ -1,13 +1,11 @@
 <template>
   <iframe
-    :src="'https://player.vimeo.com/video/' + videoId"
+    :src="'https://www.dailymotion.com/embed/video/' + videoId"
     width="640"
     height="360"
     frameborder="0"
-    allow="autoplay; fullscreen; picture-in-picture"
     allowfullscreen
   ></iframe>
-  <p><a :href="url" target="_blank">Watch on Vimeo.com</a></p>
 </template>
 
 <script>
@@ -20,8 +18,7 @@ export default {
   },
   computed: {
     videoId() {
-      // extract Vimeo ID from URL
-      var regExp = /.*\/([0-9]+).*/
+      var regExp = /.*\/([a-z0-9]+).*/
       return this.url.match(regExp)[1]
     },
   },

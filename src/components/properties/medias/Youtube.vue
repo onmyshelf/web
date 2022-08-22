@@ -1,9 +1,12 @@
 <template>
   <iframe
-    :src="'https://www.youtube.com/embed/' + youtubeID"
-    title="YouTube video player" 
-    width="640" height="360" frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+    :src="'https://www.youtube.com/embed/' + videoId"
+    title="YouTube video player"
+    width="640"
+    height="360"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
   ></iframe>
 </template>
 
@@ -16,7 +19,7 @@ export default {
     },
   },
   computed: {
-    youtubeID() {
+    videoId() {
       // convert youtube URL in youtube ID
       // (source: https://stackoverflow.com/a/8260383)
       var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/

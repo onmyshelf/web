@@ -1,7 +1,15 @@
 # Changelog for OnMyShelf web interface
 
-# 1.0.0 (2022-XX-XX)
-- Filters selector in collection vue
+# 1.0.0 (2022-08-22)
+- New translate system
+- Interface is fully translated in French
+- New button to toggle sidebar for small screens
+- New filters selectors in collection vue
+- Add support for many embeded video players
+- Improved item editor and media selector
+- Many design and UX improvements
+- Various bugfixes
+- Some code improvements
 
 # 1.0 RC 2 (2022-07-22)
 - New demo mode

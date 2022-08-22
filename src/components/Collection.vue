@@ -19,10 +19,12 @@
             <h4>{{ $t("Search") }}</h4>
             <input v-model="search" type="text" class="form-control" :placeholder="$t('Search item')" />
           </div>
-          <div v-if="filters.length > 0" class="position-sticky pt-3">
+          <div v-if="filters.length > 0 && Object.keys(collection.properties).length > 0" class="position-sticky pt-3">
             <h4>Filters</h4>
             <p v-for="filter in filters" :key="filter">
-              <i class="bi-filter-square"></i> <PropertyLabel :name="filter.name" :property=collection.properties[filter.name] />{{filter.value}}&nbsp;
+              <i class="bi-filter-square"></i>&nbsp;
+              <PropertyLabel :name="filter.name" :property=collection.properties[filter.name] />
+              {{ filter.value }}&nbsp;
               <a :href="reloadCollection(filters.filter(f => f.name != filter.name),sorting)" title="Clear filter"><i class="bi bi-x-circle"></i></a>
             </p>
           </div>

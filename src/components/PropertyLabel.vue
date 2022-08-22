@@ -1,7 +1,5 @@
 <template>
-  <div v-if="property && !property.hideLabel" class="property-label">
-    {{ labelTranslated }}:
-  </div>
+  <div class="property-label">{{ labelTranslated }}:</div>
 </template>
 
 <script>

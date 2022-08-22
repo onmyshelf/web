@@ -1,6 +1,6 @@
 <template>
   <template v-if="!property.isCover && !property.isTitle && !property.isSubTitle">
-    <PropertyLabel :name="name" :property="property" />
+    <PropertyLabel v-if="!property.hideLabel" :name="name" :property="property" />
     <template v-if="value">
       <ul v-if="Array.isArray(value)">
         <li v-for="(v, k) in value" :key="k">

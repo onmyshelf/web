@@ -68,7 +68,7 @@
       <input type="text" class="form-control" :aria-describedby="'mediaInfo-' + cptId" :placeholder="exampleUrl"
         v-model="externalUrl" @input="chosenUrl = externalUrl"
       />
-      <a v-if="externalUrl" :href="externalUrl" class="btn btn-secondary" title="Open in a new tab" target="_blank">
+      <a v-if="externalUrl" :href="externalUrl" class="btn btn-secondary" :title="$t('Open in new tab')" target="_blank">
         <i class="bi bi-box-arrow-up-right"></i>
       </a>
     </div>
@@ -135,7 +135,7 @@ export default {
           return this.$t("URL " + this.type + " example")
 
         default:
-          return this.$t("URL example")
+          return this.$t("URL file example")
       }
     }
   },

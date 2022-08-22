@@ -32,8 +32,8 @@
       <template v-else>
         <div v-if="$isLoggedIn()">
           <div class="form-check">
-            <input v-model="filterMine" class="form-check-input" type="checkbox" id="filterMine">
-            <label class="form-check-label" for="filterMine">
+            <input v-model="filterMine" class="form-check-input" type="checkbox">
+            <label class="form-check-label">
               {{ $t("Show only my collections") }}
             </label>
           </div>
@@ -68,9 +68,9 @@
               </div>
             </div>
           </div>
-        </template><!-- loop collections -->
+        </template>
       </template>
-    </template><!-- if collections -->
+    </template>
   </div>
 </template>
 

@@ -53,6 +53,6 @@ export default {
       // return same URL + API path
       return this.rootUrl + import.meta.env.VITE_MEDIA_URL
     },
-  }
+  },
 }
 </script>

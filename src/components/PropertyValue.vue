@@ -63,7 +63,7 @@ export default {
       } catch (e) {
         console.warn("Failed to decode JSON for item property: " + this.name)
       }
-    }
+    },
   },
 }
 </script>

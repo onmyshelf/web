@@ -1,9 +1,9 @@
 <template>
   <div class="container delete-confirm">
     <h5>
-      Are you sure to delete property <strong>{{ $route.params.id }}</strong>?
+      {{ $t("Confirm delete property") }} <strong>{{ $route.params.id }}</strong>?
     </h5>
-    <p>This will delete the property definition and all values of this property in your items.</p>
+    <p>{{ $t("Delete property consequences") }}</p>
 
     <button type="button" class="btn btn-danger" @click="deleteProperty" :disabled="$demoMode()">
       {{ $t("Delete property") }}

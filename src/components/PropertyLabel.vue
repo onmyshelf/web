@@ -22,7 +22,7 @@ export default {
       } else {
         return this.name
       }
-    }
+    },
   },
 }
 </script>

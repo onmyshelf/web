@@ -16,7 +16,7 @@ export default {
         app.config.globalProperties.$apiConfig(options)
       )
     }
-    
+
     app.config.globalProperties.$apiGet = (url, options = {}) => {
       return axios.get(
         import.meta.env.VITE_API_URL + "/" + url,
@@ -87,5 +87,5 @@ export default {
         return url
       }
     }
-  }
+  },
 }

@@ -167,9 +167,13 @@
     "en_US": "e.g. https://www.youtube.com/watch?v=123456",
     "fr_FR": "ex : https://www.youtube.com/watch?v=123456"
   },
-  "URL example": {
+  "URL file example": {
     "en_US": "e.g. https://mywebsite.com/file.pdf",
     "fr_FR": "ex : https://monsite.com/fichier.pdf"
+  },
+  "URL example": {
+    "en_US": "e.g. https://mywebsite.com",
+    "fr_FR": "ex : https://monsite.com"
   },
   "No media": {
     "en_US": "None",
@@ -194,6 +198,70 @@
   "Order": {
     "en_US": "Order",
     "fr_FR": "Ordre"
+  },
+  "Edit property": {
+    "en_US": "Edit property",
+    "fr_FR": "Modifier la propriété"
+  },
+  "Property label example": {
+    "en_US": "e.g. Title, Size, Color, ...",
+    "fr_FR": "ex : Titre, Taille, Couleur, ..."
+  },
+  "Hide property label": {
+    "en_US": "Do not show label before value",
+    "fr_FR": "Ne pas afficher le label avant la valeur"
+  },
+  "required": {
+    "en_US": "required",
+    "fr_FR": "obligatoire"
+  },
+  "Property description example": {
+    "en_US": "e.g. This property contains...",
+    "fr_FR": "ex : Cette propriété contient..."
+  },
+  "Property content type": {
+    "en_US": "Type of content",
+    "fr_FR": "Type de contenu"
+  },
+  "Display": {
+    "en_US": "Display",
+    "fr_FR": "Affichage"
+  },
+  "Display property in item summary": {
+    "en_US": "Display in item summary (shown in collection list view and on top of item page)",
+    "fr_FR": "Afficher dans le résumé de l'objet (visible dans la collection en vue liste et en haut de la page de l'objet)"
+  },
+  "Use property as item title": {
+    "en_US": "Use as item title (main name)",
+    "fr_FR": "Utiliser comme titre de l'objet (nom principal)"
+  },
+  "Use property as item subtitle": {
+    "en_US": "Use as item subtitle",
+    "fr_FR": "Utiliser comme sous-titre de l'objet"
+  },
+  "Property suffix": {
+    "en_US": "Suffix to display after value",
+    "fr_FR": "Suffixe à afficher après la valeur"
+  },
+  "Property suffix example": {
+    "en_US": "e.g. lb, min, $, m², ...",
+    "fr_FR": "ex : kg, min, €, m², ..."
+  },
+  "Search and filters": {
+    "en_US": "Search, filters and sort",
+    "fr_FR": "Recherche, filtres et tri"
+  },
+  "Confirm delete property": {
+    "en_US": "Are you sure to delete property",
+    "fr_FR": "Êtes-vous sûr de supprimer la propriété"
+  },
+  "Delete property consequences": {
+    "en_US": "This will delete the property definition and all values of this property in your items.",
+    "fr_FR": "Cela supprimera la définition de la propriété et toutes les valeurs de cette propriété dans vos objets."
+  },
+  "Delete property": {
+    "en_US": "Delete property",
+    "fr_FR": "Supprimer la propriété"
   },
   "Advanced": {
     "en_US": "Advanced",

@@ -6,6 +6,7 @@ export default {
       en_US: "English",
       fr_FR: "Français",
     }
+
     app.config.globalProperties.$currentLanguage = localStorage.getItem("onmyshelf_lang")
 
     // extract text from a translation object
@@ -37,5 +38,5 @@ export default {
       }
       return app.config.globalProperties.$translate(translations[key])
     }
-  }
+  },
 }

@@ -13,10 +13,14 @@
               <span class="badge text-bg-warning">{{ $t("DEMO") }}</span>
             </li>
             <li class="nav-item">
-              <router-link to="/" class="nav-link active">{{ $t("Home") }}</router-link>
+              <router-link to="/" class="nav-link active">
+                {{ $t("Home") }}
+              </router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/about" class="nav-link">{{ $t("About") }}</router-link>
+              <router-link to="/about" class="nav-link">
+                {{ $t("About") }}
+              </router-link>
             </li>
           </ul>
           <ul class="navbar-nav">

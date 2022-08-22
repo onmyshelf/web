@@ -9,14 +9,14 @@
       </h1>
       <form @submit="validate">
         <div class="mb-3">
-          <label class="form-label">Label</label>
-          <input v-model="edit.label" type="text" placeholder="e.g. Name" class="form-control"
+          <label class="form-label">{{ $t("Label") }}</label>
+          <input v-model="edit.label" type="text" :placeholder="$t('Property label example')" class="form-control"
             @input="labelToNewId" />
         </div>
 
         <div class="form-check form-switch mb-3">
           <input v-model="edit.hideLabel" class="form-check-input" type="checkbox" />
-          <label class="form-check-label">Do not show this label before value</label>
+          <label class="form-check-label">{{ $t("Hide property label") }}</label>
         </div>
 
         <div v-if="!id" class="mb-3">
@@ -27,28 +27,28 @@
 
         <div class="mb-3">
           <label class="form-label">Description (used only in edition for your own information)</label>
-          <textarea v-model="edit.description" placeholder="e.g. This property is used for..." class="form-control" rows="2"></textarea>
+          <textarea v-model="edit.description" :placeholder="$t('Property description example')" class="form-control" rows="2"></textarea>
         </div>
 
         <div class="mb-3">
           <label class="form-label">
-            Type of property (<strong>required</strong>)
+            {{ $t("Property content type") }} (<strong>{{ $t("required") }}</strong>)
           </label>
-          <select v-model="edit.type" class="form-select" aria-label="Type of property" required @change="changedType=true">
-            <option v-for="(obj,key) in $propertyTypes" :key="key" :value="key">
-              {{ obj.label }} <template v-if="obj.description">({{ obj.description }})</template>
+          <select v-model="edit.type" class="form-select" :aria-label="$t('Property content type')" required @change="changedType = true">
+            <option v-for="(obj, key) in $propertyTypes" :key="key" :value="key">
+              {{ $translate(obj.label) }} <template v-if="obj.description">({{ $translate(obj.description) }})</template>
             </option>
           </select>
         </div>
 
         <div class="card mb-3">
-          <div class="card-header">Summary</div>
+          <div class="card-header">{{ $t("Display") }}</div>
           <div class="card-body">
             <div class="form-check form-switch">
               <input v-model="edit.preview" class="form-check-input" type="checkbox"
                 :disabled="edit.visibility > 3 || edit.isCover || edit.isTitle || edit.isSubTitle" />
               <label class="form-check-label">
-                Display in item summary (shown in collection list and on top of item page)
+                {{ $t("Display property in item summary") }}
               </label>
             </div>
 
@@ -56,80 +56,81 @@
               <input v-model="edit.isTitle" class="form-check-input" type="checkbox"
                 :disabled=edit.isSubTitle @change="checkPreview" />
               <label class="form-check-label">
-                Use as item title (main name)
+                {{ $t("Use property as item title") }}
               </label>
             </div>
 
             <div v-if="canBeTitle" class="form-check form-switch">
               <input v-model="edit.isSubTitle" class="form-check-input" type="checkbox"
                 :disabled=edit.isTitle @change="checkPreview" />
-              <label class="form-check-label">Use as item subtitle</label>
+              <label class="form-check-label">{{ $t("Use property as item subtitle") }}</label>
             </div>
 
             <div v-if="edit.type == 'image'" class="form-check form-switch">
               <input v-model="edit.isCover" class="form-check-input" type="checkbox" @change="checkPreview" />
               <label class="form-check-label">Use as cover image</label>
             </div>
+
+            <div class="mt-3">
+              <label class="form-label">Order (increase to see this property above others)</label>
+              <input v-model="edit.order" type="number" min="0"
+                class="form-control"
+              />
+            </div>
+
+            <div class="mt-3">
+              <label class="form-label">{{ $t("Who can see this property?") }}</label>
+              <Visibility v-model="edit.visibility" />
+            </div>
           </div>
         </div>
 
-        <div class="mt-3 mb-3">
-          <label class="form-label">{{ $t("Who can see this property?") }}</label>
-          <select v-model="edit.visibility" class="form-select" aria-label="Visibility">
-            <template v-for="(name,key) in $visibilityLevels" :key="key">
-              <option :value="key">{{ name.label }}</option>
-            </template>
-          </select>
-        </div>
+        <div v-if="canBeFilterable || canBeSearchable || canBeSortable" class="card mb-3">
+          <div class="card-header">{{ $t("Value") }}</div>
+          <div class="card-body">
+            <div class="form-check form-switch">
+              <input v-model="edit.required" class="form-check-input" type="checkbox" />
+              <label class="form-check-label">
+                This property should never be empty
+              </label>
+            </div>
 
-        <div class="form-check form-switch mb-3">
-          <input v-model="edit.required" class="form-check-input" type="checkbox" />
-          <label class="form-check-label">
-            This property should never be empty
-          </label>
-        </div>
+            <div class="mt-3">
+              <label class="form-label">Default value if property is empty</label>
+              <input v-model="edit.default" type="text" class="form-control" />
+            </div>
 
-        <div class="mb-3">
-          <label class="form-label">Default value if property is empty</label>
-          <input v-model="edit.default" type="text" class="form-control" />
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Suffix to display after value</label>
-          <input v-model="edit.suffix" type="text" class="form-control" placeholder="e.g. min, kg, m², ..." />
+            <div class="mt-3">
+              <label class="form-label">{{ $t("Property suffix") }}</label>
+              <input v-model="edit.suffix" type="text" class="form-control" :placeholder="$t('Property suffix example')" />
+            </div>
+          </div>
         </div>
 
         <div v-if="canBeFilterable || canBeSearchable || canBeSortable" class="card mb-3">
-          <div class="card-header">Search and filters</div>
+          <div class="card-header">{{ $t("Search and filters") }}</div>
           <div class="card-body">
             <div v-if="canBeFilterable" class="form-check form-switch">
               <input v-model="edit.filterable" class="form-check-input" type="checkbox" />
               <label class="form-check-label">
-                Collection can be filtered by this property
+                {{ $t("Collection can be filtered by this property") }}
               </label>
             </div>
 
             <div v-if="canBeSearchable" class="form-check form-switch">
               <input v-model="edit.searchable" class="form-check-input" type="checkbox">
               <label class="form-check-label">
-                Searching items will search in this property
+                {{ $t("Searching items will search in this property") }}
               </label>
             </div>
 
             <div v-if="canBeSortable" class="form-check form-switch">
               <input v-model="edit.sortable" class="form-check-input" type="checkbox">
               <label class="form-check-label">
-                Collection can be sorted by this property
+                {{ $t("Collection can be sorted by this property") }}
               </label>
             </div>
           </div>
-        </div>
-
-        <div class="mt-3 mb-3">
-          <label class="form-label">Order (increase to see this property above others)</label>
-          <input v-model="edit.order" type="number" min="0"
-            class="form-control"
-          />
         </div>
 
         <div class="mb-3">
@@ -147,11 +148,13 @@
 <script>
 import Breadcrumbs from "@/components/Breadcrumbs.vue"
 import Error from "@/components/Error.vue"
+import Visibility from "./properties/Visibility.vue"
 
 export default {
   components: {
     Breadcrumbs,
     Error,
+    Visibility,
   },
   data() {
     return {

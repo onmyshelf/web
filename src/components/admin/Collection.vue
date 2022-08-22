@@ -9,7 +9,7 @@
     <p v-if="description && Object.keys(description).length > 0">
       <Translation :text="description" />
     </p>
-    <p v-if="visibility !== null">Visibility: <Visibility :level=visibility /></p>
+    <p v-if="visibility !== null">{{ $t("Visibility") }}: <Visibility :level=visibility /></p>
     <p>
       <router-link to="edit" class="btn btn-primary">
         <i class="bi-pencil"></i>&nbsp;{{ $t("Edit collection details") }}
@@ -47,10 +47,10 @@
               </td>
               <td scope="row">
                 <template v-if="$propertyTypes[property.type]">
-                  <strong v-if="property.isTitle">Item title</strong>
-                  <strong v-else-if="property.isSubTitle">Item subtitle</strong>
-                  <strong v-else-if="property.isCover">Item cover</strong>
-                  <template v-else>{{ $propertyTypes[property.type].label }}</template>
+                  <strong v-if="property.isTitle">{{ $t("Item title") }}</strong>
+                  <strong v-else-if="property.isSubTitle">{{ $t("Item subtitle") }}</strong>
+                  <strong v-else-if="property.isCover">{{ $t("Item cover") }}</strong>
+                  <template v-else>{{ $translate($propertyTypes[property.type].label) }}</template>
                 </template>
               </td>
               <td>

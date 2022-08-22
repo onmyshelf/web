@@ -56,10 +56,10 @@
         v-model="value"
         type="text"
         class="form-control"
-        placeholder="e.g. https://mywebsite.com"
+        :placeholder="$t('URL example')"
         :required="property.required"
       />
-      <a v-if="value" :href="value" class="btn btn-primary" title="Open in a new tab" target="_blank">
+      <a v-if="value" :href="value" class="btn btn-secondary" :title="$t('Open in new tab')" target="_blank">
         <i class="bi bi-box-arrow-up-right"></i>
       </a>
     </div>

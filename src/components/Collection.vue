@@ -234,7 +234,7 @@ export default {
       } else {
         return "Collection " + this.collection.id
       }
-    }
+    },
   },
   methods: {
     reloadCollection(filters, sorting) {

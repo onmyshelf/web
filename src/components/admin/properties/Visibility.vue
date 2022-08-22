@@ -1,8 +1,8 @@
 <template>
-  <select v-model="level" class="form-select" aria-label="Visibility">
+  <select v-model="level" class="form-select" :aria-label="$t('Visibility')">
     <template v-for="(name, key) in $visibilityLevels" :key="key">
       <option v-if="key >= min && key <= max" :value="key">
-        {{ name.label }}
+        {{ $translate(name.label) }}
       </option>
     </template>
   </select>

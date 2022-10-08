@@ -26,8 +26,8 @@
     <Loading v-if="loading"/>
     <template v-if="collections">
       <template v-if="collections.length == 0">
-        <Empty v-if="$isLoggedIn()" label="No collections yet. Create your first collection!"/>
-        <Empty v-else label="No collections yet. Login to create your first collection!"/>
+        <Empty v-if="$isLoggedIn()" :label="$t('No collections') + ' ' + $t('Create first collection')" />
+        <Empty v-else :label="$t('No collections') + ' ' + $t('Login to create first collection')" />
       </template>
       <template v-else>
         <div v-if="$isLoggedIn()">

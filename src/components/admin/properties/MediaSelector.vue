@@ -59,7 +59,7 @@
         {{ $t("File uploaded") }}
       </div>
       <div v-else-if="uploadError" class="alert alert-danger mt-3" role="alert">
-        {{ $t("Error, please retry") }}
+        {{ $t("Error while uploading file") }} {{ $t("Please retry") }}
       </div>
     </div>
 

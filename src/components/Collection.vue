@@ -87,7 +87,7 @@
 
         <div v-if="items" :class="'container items items-'+displayMode">
           <template v-if="items.length == 0">
-            <Empty v-if="isMine" :label="$t('No items') + '. ' + $t('Create first item')" />
+            <Empty v-if="isMine" :label="$t('No items') + ' ' + $t('Create first item')" />
             <Empty v-else :label="$t('No items')" />
           </template>
           <template v-else>

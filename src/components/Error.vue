@@ -1,6 +1,6 @@
 <template>
   <div class="error">
     <img src="/assets/images/error.svg" />
-    <h1>Oops, there is an error...</h1>
+    <h1>{{ $t("Error") }} {{ $t("Please retry") }}</h1>
   </div>
 </template>

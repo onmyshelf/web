@@ -32,8 +32,8 @@
     "fr_FR": "Veuillez vous connecter"
   },
   "Login failed": {
-    "en_US": "Login failed. Please retry.",
-    "fr_FR": "Connexion échouée. Veuillez réessayer."
+    "en_US": "Login failed!",
+    "fr_FR": "Connexion échouée !"
   },
   "Forgot password": {
     "en_US": "Forgot password?",
@@ -54,6 +54,26 @@
   "Welcome_homepage": {
     "en_US": "Welcome",
     "fr_FR": "Bienvenue"
+  },
+  "Error": {
+    "en_US": "Oops, there is an error!",
+    "fr_FR": "Oups, il y a une erreur !"
+  },
+  "Please retry": {
+    "en_US": "Please retry.",
+    "fr_FR": "Veuillez réessayer."
+  },
+  "No collections": {
+    "en_US": "No collections.",
+    "fr_FR": "Aucune collection."
+  },
+  "Create first collection": {
+    "en_US": "Create your first collection!",
+    "fr_FR": "Créez votre première collection !"
+  },
+  "Login to create first collection": {
+    "en_US": "Sign in to create your first collection!",
+    "fr_FR": "Connectez-vous pour créer votre première collection !"
   },
   "Show only my collections": {
     "en_US": "Show only my collections",
@@ -144,8 +164,8 @@
     "fr_FR": "Importer"
   },
   "No items": {
-    "en_US": "No items",
-    "fr_FR": "Aucun objet"
+    "en_US": "No items.",
+    "fr_FR": "Aucun objet."
   },
   "Create first item": {
     "en_US": "Create your first item or import it!",
@@ -211,9 +231,9 @@
     "en_US": "Your file has been uploaded",
     "fr_FR": "Votre fichier a été envoyé"
   },
-  "Error, please retry": {
-    "en_US": "An error occured. Please retry.",
-    "fr_FR": "Une erreur est survenue. Veuillez réessayer."
+  "Error while uploading file": {
+    "en_US": "An error occured while uploading file.",
+    "fr_FR": "Une erreur est survenue pendant l'envoi du fichier."
   },
   "External URL": {
     "en_US": "External URL",

@@ -35,7 +35,7 @@
         {{ $t("Sign in") }}
       </button>
       <div v-if="error" class="alert alert-danger" role="alert">
-        {{ $t("Login failed") }}
+        {{ $t("Login failed") }} {{ $t("Please retry") }}
       </div>
       <div class="mt-3">
         <router-link to="/resetpassword">

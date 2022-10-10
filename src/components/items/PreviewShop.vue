@@ -9,6 +9,7 @@
     <router-link :to="'item/' + item.id + '/'">
       <h1>{{ title }}</h1>
     </router-link>
+    <span v-if="item.lent" class="badge text-bg-danger">{{ $t("Lent") }}</span>
     <div v-if="$parent.isMine" class="mt-3">
       <Visibility :level="item.visibility > $parent.collection.visibility ? item.visibility : $parent.collection.visibility" />
       &nbsp;

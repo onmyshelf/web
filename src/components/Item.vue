@@ -17,7 +17,10 @@
         </div>
         <div class="col">
           <h1>{{ title }}</h1>
-          <h2 v-if="subTitleProperty && properties[subTitleProperty]">{{ properties[subTitleProperty] }}</h2>
+          <h2 v-if="subTitleProperty && properties[subTitleProperty]">
+            {{ properties[subTitleProperty] }}
+          </h2>
+          <a href="#loans"><span v-if="item.lent" class="badge text-bg-danger mb-2">{{ $t("Lent") }}</span></a>
           <div v-if="isMine" class="item-actions">
             <Visibility :level="item.visibility > collection.visibility ? item.visibility : collection.visibility" />
             <router-link to="edit" class="btn btn-outline-primary">
@@ -46,6 +49,62 @@
               </div>
             </template>
           </template>
+          <div id="loans" class="loans">
+            <hr />
+            <h2>{{ $t("Loans") }}</h2>
+            <router-link to="loan/new" class="btn btn-outline-success">
+              <i class="bi bi-plus-lg"></i> {{ $t("Create a loan") }}
+            </router-link>
+            <table v-if="loans && loans.length > 0" class="table">
+              <thead>
+                <tr>
+                  <th scope="col">{{ $t("Loan state") }}</th>
+                  <th scope="col">{{ $t("Date") }}</th>
+                  <th scope="col">{{ $t("Borrower") }}</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(loan, i) of loans" :key="i">
+                  <td scope="row">
+                    <span v-if="loan.state == 'asked'" class="badge text-bg-info">
+                      {{ $translate($loanStates[loan.state].label) }}
+                    </span>
+                    <span v-else-if="loan.state == 'rejected'" class="badge text-bg-warning">
+                      {{ $translate($loanStates[loan.state].label) }}
+                    </span>
+                    <span v-else-if="loan.state == 'accepted'" class="badge text-bg-secondary">
+                      {{ $translate($loanStates[loan.state].label) }}
+                    </span>
+                    <span v-else-if="loan.state == 'lent'" class="badge text-bg-danger">
+                      {{ $translate($loanStates[loan.state].label) }}
+                    </span>
+                    <span v-else-if="loan.state == 'returned'" class="badge text-bg-success">
+                      {{ $translate($loanStates[loan.state].label) }}
+                    </span>
+                  </td>
+                  <td>
+                    <template v-if="loan.state == 'lent'">
+                      {{ new Date(loan.lent * 1000).toLocaleString() }}
+                    </template>
+                    <template v-else-if="loan.state == 'returned'">
+                      {{ new Date(loan.returned * 1000).toLocaleString() }}
+                    </template>
+                    <template v-else>
+                      {{ new Date(loan.date).toLocaleString() }}
+                    </template>
+                  </td>
+                  <td>
+                    {{ loan.borrower }}
+                  </td>
+                  <td>
+                    <router-link :to="'loan/' + loan.id" :title="$t('Edit')"><i class="bi bi-pencil"></i></router-link>&nbsp;&nbsp;
+                    <router-link :to="'loan/' + loan.id + '/delete'" :title="$t('Delete')"><i class="bi bi-x-lg"></i></router-link>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </template>
@@ -78,6 +137,7 @@ export default {
       collection: null,
       item: null,
       properties: null,
+      loans: null,
       errors: [],
       titleProperty: null,
       subTitleProperty: null,
@@ -132,6 +192,11 @@ export default {
             }
           }
         }
+
+        // we get the loans only if we are sure collection is mine
+        if (this.$matchUserId(this.collection.owner)) {
+          this.getLoans()
+        }
       })
       .catch((e) => {
         this.errors.push(e)
@@ -169,6 +234,16 @@ export default {
       }
 
       this.currentItemCopy = id
+    },
+    getLoans() {
+      // get loans history from API
+      this.$apiGet("collections/" + this.$route.params.cid + "/items/" + this.$route.params.id + "/loans")
+        .then((response) => {
+          this.loans = response.data
+        })
+        .catch((e) => {
+          this.errors.push(e)
+        })
     },
   },
 }

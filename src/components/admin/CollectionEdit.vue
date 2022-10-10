@@ -4,7 +4,7 @@
       <template v-if="id">{{ $t("Edit collection") }} {{ id }}</template>
       <template v-else>{{ $t("New collection") }}</template>
     </h1>
-    <Loading v-if="loading"/>
+    <Loading v-if="loading" />
     <form v-else @submit="validate">
       <div class="mb-3">
         <label class="form-label">{{ $t("Collection name") }}</label>

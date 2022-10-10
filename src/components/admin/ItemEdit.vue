@@ -12,7 +12,7 @@
         </button>
       </div>
 
-      <Loading v-if="loading"/>
+      <Loading v-if="loading" />
       <form v-else @submit="validate">
         <div v-for="(property, name) in collection.properties" :key="name" class="item-preview mb-3">
           <label :for="name" class="form-label">
@@ -31,12 +31,12 @@
           </label>
 
           <template v-if="Array.isArray(edit.properties[name])">
-            <PropertyInput v-for="(value, key) in edit.properties[name]" :key="key" v-model="edit.properties[name][key]" :property=property />
+            <PropertyInput v-for="(value, key) in edit.properties[name]" :key="key" v-model="edit.properties[name][key]" :name="name" :property="property" />
           </template>
-          <PropertyInput v-else v-model="edit.properties[name]" :property=property />
+          <PropertyInput v-else v-model="edit.properties[name]" :name="name" :property="property" />
 
           <button v-if="property.multiple" type="button" class="btn btn-outline-primary" @click="addValue(name)">
-            + add value
+            + {{ $t("add value") }}
           </button>
         </div>
 

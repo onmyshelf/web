@@ -96,6 +96,39 @@ export default {
       },
     }
 
+    app.config.globalProperties.$loanStates = {
+      asked: {
+        label: {
+          en_US: "Loan request",
+          fr_FR: "Demande de prêt",
+        },
+      },
+      rejected: {
+        label: {
+          en_US: "Loan rejected",
+          fr_FR: "Prêt refusé",
+        },
+      },
+      accepted: {
+        label: {
+          en_US: "Loan accepted",
+          fr_FR: "Prêt accepté",
+        },
+      },
+      lent: {
+        label: {
+          en_US: "Lent",
+          fr_FR: "Prêté",
+        },
+      },
+      returned: {
+        label: {
+          en_US: "Returned",
+          fr_FR: "Rendu",
+        },
+      },
+    }
+
     app.config.globalProperties.$visibilityLevels = {
       0: {
         label: {

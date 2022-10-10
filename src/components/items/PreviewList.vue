@@ -17,6 +17,7 @@
           <Property v-if="property.preview" :name="name" :property="property" :value="item.properties[name]" />
         </div>
       </div>
+      <span v-if="item.lent" class="badge text-bg-danger">{{ $t("Lent") }}</span>
       <div v-if="$parent.isMine" class="mt-3">
         <Visibility :level="item.visibility > $parent.collection.visibility ? item.visibility : $parent.collection.visibility" />
         &nbsp;

@@ -68,6 +68,18 @@ const router = createRouter({
           path: "item/:id/delete",
           component: () => import("../components/admin/ItemDelete.vue"),
         },
+        {
+          path: "item/:iid/loan/new",
+          component: () => import("../components/admin/LoanEdit.vue"),
+        },
+        {
+          path: "item/:iid/loan/:id",
+          component: () => import("../components/admin/LoanEdit.vue"),
+        },
+        {
+          path: "item/:iid/loan/:id/delete",
+          component: () => import("../components/admin/LoanDelete.vue"),
+        },
       ],
     },
     {

@@ -455,6 +455,26 @@
     "en_US": "Create item",
     "fr_FR": "Créer l'objet"
   },
+  "Lent": {
+    "en_US": "Lent",
+    "fr_FR": "Prêté"
+  },
+  "Loans": {
+    "en_US": "Loans",
+    "fr_FR": "Prêts"
+  },
+  "Create a loan": {
+    "en_US": "Create a loan",
+    "fr_FR": "Créer un prêt"
+  },
+  "Loan state": {
+    "en_US": "State",
+    "fr_FR": "État"
+  },
+  "Borrower": {
+    "en_US": "Borrower",
+    "fr_FR": "Emprunteur"
+  },
   "Edit": {
     "en_US": "Edit",
     "fr_FR": "Modifier"
@@ -482,6 +502,14 @@
   "Confirm delete item": {
     "en_US": "Are you sure to delete item",
     "fr_FR": "Êtes-vous sûr de supprimer l'objet"
+  },
+  "Delete loan": {
+    "en_US": "Delete loan",
+    "fr_FR": "Supprimer le prêt"
+  },
+  "Confirm delete loan": {
+    "en_US": "Are you sure to delete loan",
+    "fr_FR": "Êtes-vous sûr de supprimer le prêt"
   },
   "Username": {
     "en_US": "Username",

@@ -52,7 +52,7 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label">{{ $t("Borrower's name") }}</label>
+          <label class="form-label">{{ $t("Borrower name") }}</label>
           <input v-model="edit.borrower" name="borrower" type="text" class="form-control" :placeholder="$t('Borrower name example')" required />
         </div>
 
@@ -140,12 +140,14 @@ export default {
           date: new Date().toISOString().split("T")[0],
           time: new Date().toISOString().split("T")[1].substring(0, 5),
         }
+        this.edit.lent = new Date(this.lent.date + " " + this.lent.time).getTime() / 1000
       }
       if (!this.edit.returned && this.edit.state == "returned") {
         this.returned = {
           date: new Date().toISOString().split("T")[0],
           time: new Date().toISOString().split("T")[1].substring(0, 5),
         }
+        this.edit.returned = new Date(this.returned.date + " " + this.returned.time).getTime() / 1000
       }
     },
     updateLent() {

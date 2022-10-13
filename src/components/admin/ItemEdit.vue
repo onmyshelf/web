@@ -41,7 +41,7 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label">{{ $t("Who can see this item?") }}</label>
+          <label class="form-label">{{ $t("Who can see item") }}</label>
           <Visibility v-model="edit.visibility" max="3" />
         </div>
 

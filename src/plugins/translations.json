@@ -455,6 +455,18 @@
     "en_US": "Create item",
     "fr_FR": "Créer l'objet"
   },
+  "New item": {
+    "en_US": "Create a new item",
+    "fr_FR": "Créer un nouvel objet"
+  },
+  "Edit item": {
+    "en_US": "Edit item",
+    "fr_FR": "Modifier l'objet'"
+  },
+  "Who can see item": {
+    "en_US": "Who can see this item?",
+    "fr_FR": "Qui peut voir cet objet ?"
+  },
   "Lent": {
     "en_US": "Lent",
     "fr_FR": "Prêté"
@@ -474,6 +486,42 @@
   "Borrower": {
     "en_US": "Borrower",
     "fr_FR": "Emprunteur"
+  },
+  "New loan": {
+    "en_US": "Create a new loan",
+    "fr_FR": "Créer un nouveau prêt"
+  },
+  "Loan item": {
+    "en_US": "Loan",
+    "fr_FR": "Prêter"
+  },
+  "Create loan": {
+    "en_US": "Create the loan",
+    "fr_FR": "Créer le prêt"
+  },
+  "Edit loan": {
+    "en_US": "Edit loan",
+    "fr_FR": "Modifier le prêt"
+  },
+  "Lent on": {
+    "en_US": "Lent on",
+    "fr_FR": "Prêté le"
+  },
+  "Returned on": {
+    "en_US": "Returned",
+    "fr_FR": "Rendu"
+  },
+  "Borrower name": {
+    "en_US": "Borrower's name",
+    "fr_FR": "Nom de l'emprunteur"
+  },
+  "Borrower name example": {
+    "en_US": "e.g. John Doe",
+    "fr_FR": "ex: Jean Dupont"
+  },
+  "Loan notes example": {
+    "en_US": "e.g. Item is a few damaged",
+    "fr_FR": "ex: Objet légèrement abîmé"
   },
   "Edit": {
     "en_US": "Edit",

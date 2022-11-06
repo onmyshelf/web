@@ -6,7 +6,8 @@
       <form @submit="validate">
         <div class="mb-3">
           <label class="form-label">Source</label>
-          <select v-model="search.module" class="form-select" aria-label="Type of import" required>
+          <select v-model="search.module" class="form-select" aria-label="Type of import">
+            <option value="" default>{{ $t("All import sources") }}</option>
             <template v-for="(importModule, name) in search.modules" :key="name">
               <option v-if="importModule.search" :value="name">{{ importModule.name }} {{ moduleTags(importModule.tags) }}</option>
             </template>
@@ -214,20 +215,34 @@ export default {
         },
       }
 
+      let modules = [this.search.module]
+      if (this.search.module == "") {
+        modules = Object.keys(this.search.modules)
+      }
+
+      this.items = []
+
       // search
-      this.$apiGet("collections/" + this.$route.params.cid + "/import/search", data)
-        .then((response) => {
-          if (response.data) {
-            this.items = response.data
-            this.loading = false
-          }
-        })
-        .catch(() => {
-          this.result = {
-            success: false,
-            text: "Internal error. Please retry."
-          }
-        })
+      modules.forEach((module) => {
+        if (!this.search.modules[module].search) {
+          return
+        }
+
+        data.params.module = module
+        this.$apiGet("collections/" + this.$route.params.cid + "/import/search", data)
+          .then((response) => {
+            if (response.data) {
+              this.items.push(...response.data)
+              this.loading = false
+            }
+          })
+          .catch(() => {
+            this.result = {
+              success: false,
+              text: "Internal error. Please retry."
+            }
+          })
+      });
     },
     importItem(id) {
       this.loading = true

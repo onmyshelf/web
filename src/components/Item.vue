@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Error v-if="errors.length > 0" />
+    <Error v-if="error" :status="error" />
     <template v-else>
       <Breadcrumbs v-if="collection && item" :parents="breadcrumbs" :current="title" />
       <div v-if="item && collection && collection.properties" class="row item">
@@ -138,7 +138,7 @@ export default {
       item: null,
       properties: null,
       loans: null,
-      errors: [],
+      error: false,
       titleProperty: null,
       subTitleProperty: null,
       coverProperty: null,
@@ -199,7 +199,7 @@ export default {
         }
       })
       .catch((e) => {
-        this.errors.push(e)
+        this.error = this.$apiErrorStatus(e)
       })
 
     // get item
@@ -209,7 +209,7 @@ export default {
         this.loadItemCopy(0)
       })
       .catch((e) => {
-        this.errors.push(e)
+        this.error = this.$apiErrorStatus(e)
       })
   },
   computed: {
@@ -242,7 +242,7 @@ export default {
           this.loans = response.data
         })
         .catch((e) => {
-          this.errors.push(e)
+          this.error = this.$apiErrorStatus(e)
         })
     },
   },

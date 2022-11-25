@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Error v-if="errors.length > 0" />
+    <Error v-if="error" :status="error" />
     <template v-else>
       <h1>
         <template v-if="id">{{ $t("Edit loan") }} {{ id }}</template>
@@ -93,7 +93,7 @@ export default {
   data() {
     return {
       loading: true,
-      errors: [],
+      error: false,
       id: this.$route.params.id,
       edit: { state: "lent" },
       lent: {
@@ -131,6 +131,9 @@ export default {
 
       // end of loading
       this.loading = false
+    })
+    .catch((e) => {
+      this.error = this.$apiErrorStatus(e)
     })
   },
   methods: {

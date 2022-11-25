@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <Error v-if="errors.length > 0" />
     <template v-else>
       <h1>{{ $t("Import item from sources") }}</h1>
       <form @submit="validate">
@@ -152,7 +151,6 @@ import MediaSelector from "./properties/MediaSelector.vue"
 export default {
   components: {
     Empty,
-    Error,
     Loading,
     Image,
     MediaSelector,
@@ -166,7 +164,6 @@ export default {
         modules: [],
       },
       items: false,
-      errors: [],
       loading: true,
       help: {},
     }

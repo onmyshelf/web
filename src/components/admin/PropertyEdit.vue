@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Error v-if="errors.length > 0" />
+    <Error v-if="error" :status="error" />
     <template v-else>
       <Breadcrumbs v-if="collection" :parents=breadcrumbs :current="id || $t('New property')" />
       <h1>
@@ -176,7 +176,7 @@ export default {
         visibility: 0,
       },
       changedType: false,
-      errors: [],
+      error: false,
     }
   },
   created() {
@@ -236,7 +236,7 @@ export default {
         }
       })
       .catch((e) => {
-        this.errors.push(e)
+        this.error = this.$apiErrorStatus(e)
       })
   },
   computed: {

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Error v-if="errors.length > 0" />
+    <Error v-if="error" :status="error" />
     <template v-else>
       <Loading v-if="loading"/>
       <form v-else @submit="validate">
@@ -39,7 +39,6 @@ export default {
       config: {},
       success: false,
       error: false,
-      errors: [],
       loading: true,
     }
   },
@@ -51,7 +50,7 @@ export default {
         this.loading = false
       })
       .catch((e) => {
-        this.errors.push(e)
+        this.error = this.$apiErrorStatus(e)
       })
   },
   methods: {
@@ -67,8 +66,8 @@ export default {
         .then(() => {
           this.success = true
         })
-        .catch(() => {
-          this.error = true
+        .catch((e) => {
+          this.error = this.$apiErrorStatus(e)
         })
     },
   },

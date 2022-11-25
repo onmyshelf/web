@@ -3,20 +3,8 @@
     <h1>
       {{ $t("Welcome_homepage") }}<span v-if="$isLoggedIn()">, {{ currentUser.username }}</span>!
     </h1>
-    <div v-if="$demoMode() && !$isLoggedIn()" class="alert alert-info" role="alert">
-      <p>
-        This is a demo instance. You can log in with the following credentials:
-      </p>
-      <ul>
-        <li>{{ $t("Username") }}: <strong>onmyshelf</strong></li>
-        <li>{{ $t("Password") }}: <strong>onmyshelf</strong></li>
-      </ul>
-      <p>
-        Please note that in demo mode, you can explore all features, but not make any changes.
-      </p>
-    </div>
   </div>
-  <Error v-if="errors.length > 0" />
+  <Error v-if="error" :status="error" />
   <div v-else class="collections container">
     <p v-if="$isLoggedIn()" class="text-end">
       <router-link to="/collection/new" class="btn btn-outline-success">
@@ -93,7 +81,7 @@ export default {
     return {
       loading: true,
       collections: null,
-      errors: [],
+      error: false,
       filterMine: false,
     }
   },
@@ -122,12 +110,13 @@ export default {
         this.loading = false
       })
       .catch((e) => {
+        // if unauthorized token,
         if (e.response && e.response.status == 401) {
-          // delete local token
+          // delete local token & reload page
           this.$cleanSession()
           document.location.reload()
         } else {
-          this.errors.push(e)
+          this.error = this.$apiErrorStatus(e)
         }
 
         this.loading = false

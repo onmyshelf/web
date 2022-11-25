@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Error v-if="errors.length > 0" />
+    <Error v-if="error" :status="error" />
     <template v-else>
       <h1>
         <template v-if="id">{{ $t("Edit item") }} {{ id }}</template>
@@ -81,7 +81,7 @@ export default {
         properties: {},
         visibility: 0,
       },
-      errors: [],
+      error: false,
       loading: true,
       help: {},
     }
@@ -109,7 +109,7 @@ export default {
         }
       })
       .catch((e) => {
-        this.errors.push(e)
+        this.error = this.$apiErrorStatus(e)
       })
 
     // get item
@@ -121,7 +121,7 @@ export default {
           this.loading = false
         })
         .catch((e) => {
-          this.errors.push(e)
+          this.error = this.$apiErrorStatus(e)
         })
     }
   },

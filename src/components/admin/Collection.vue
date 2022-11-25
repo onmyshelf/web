@@ -1,5 +1,5 @@
 <template>
-  <Error v-if="errors.length > 0" />
+  <Error v-if="error" :status="error" />
   <div v-else class="container">
     <Breadcrumbs v-if="name" :parents="breadcrumbs" :current="$t('Manage')" />
     <h1>
@@ -142,7 +142,7 @@ export default {
       cover: null,
       visibility: null,
       properties: null,
-      errors: [],
+      error: false,
       titleProperty: null,
       loading: true,
     }
@@ -179,7 +179,7 @@ export default {
         this.loading = false
       })
       .catch((e) => {
-        this.errors.push(e)
+        this.error = this.$apiErrorStatus(e)
       })
   },
   methods: {

@@ -55,8 +55,20 @@
     "en_US": "Welcome",
     "fr_FR": "Bienvenue"
   },
-  "Error": {
-    "en_US": "Oops, there is an error!",
+  "Demo mode. Log in with the following:": {
+    "en_US": "This is a demo website. You can log in with the following credentials:",
+    "fr_FR": "Ceci est un site de démonstration. Vous pouvez vous connecter avec les identifiants suivants :"
+  },
+  "In demo mode, you can't make any changes.": {
+    "en_US": "Please note that in demo mode, you can explore all features, but not make any changes.",
+    "fr_FR": "Veuillez noter qu'en mode démo, vous pouvez explorer toutes les fonctionnalités, mais pas faire de changements."
+  },
+  "Page not found": {
+    "en_US": "This page does not exists.",
+    "fr_FR": "Cette page n'existe pas."
+  },
+  "An error occured": {
+    "en_US": "Oops, an error occured!",
     "fr_FR": "Oups, il y a une erreur !"
   },
   "Please retry": {

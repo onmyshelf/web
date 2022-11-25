@@ -40,6 +40,19 @@ export default {
       )
     }
 
+    // manage API errors
+    app.config.globalProperties.$apiErrorStatus = (error) => {
+      let status = error.response.status
+      switch (status) {
+        case 404:
+          return status
+
+        default:
+          return 500
+      }
+    }
+
+    // check if user is logged in
     app.config.globalProperties.$isLoggedIn = () => {
       return localStorage.getItem("onmyshelf_token") !== null
     }

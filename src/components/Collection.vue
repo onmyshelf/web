@@ -1,5 +1,5 @@
 <template>
-  <Error v-if="errors.length > 0" />
+  <Error v-if="error" :status="error" />
   <div v-else class="container-fluid">
     <button class="navbar-toggler" type="button" @click="toggleSidebar()">
       <i class="bi bi-list" style="font-size: 2em"></i>
@@ -145,7 +145,7 @@ export default {
       },
       items: null,
       displayMode: "shop",
-      errors: [],
+      error: false,
       filters: [],
       sorting: null,
       search: "",
@@ -217,7 +217,8 @@ export default {
         }
       })
       .catch((e) => {
-        this.errors.push(e)
+        this.error = this.$apiErrorStatus(e)
+        this.loading = false
       })
 
     // get items
@@ -227,7 +228,7 @@ export default {
         this.loading = false
       })
       .catch((e) => {
-        this.errors.push(e)
+        this.error = this.$apiErrorStatus(e)
         this.loading = false
       })
   },

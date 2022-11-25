@@ -1,37 +1,35 @@
 <template>
   <div class="container">
-    <template>
-      <h1>{{ $t("Import item from sources") }}</h1>
-      <form @submit="validate">
-        <div class="mb-3">
-          <label class="form-label">Source</label>
-          <select v-model="search.module" class="form-select" aria-label="Type of import">
-            <option value="" default>{{ $t("All import sources") }}</option>
-            <template v-for="(importModule, name) in search.modules" :key="name">
-              <option v-if="importModule.search" :value="name">{{ importModule.name }} {{ moduleTags(importModule.tags) }}</option>
-            </template>
-          </select>
-        </div>
+    <h1>{{ $t("Import item from sources") }}</h1>
+    <form @submit="validate">
+      <div class="mb-3">
+        <label class="form-label">Source</label>
+        <select v-model="search.module" class="form-select" aria-label="Type of import">
+          <option value="" default>{{ $t("All import sources") }}</option>
+          <template v-for="(importModule, name) in search.modules" :key="name">
+            <option v-if="importModule.search" :value="name">{{ importModule.name }} {{ moduleTags(importModule.tags) }}</option>
+          </template>
+        </select>
+      </div>
 
-        <div v-if="search.module && search.modules[search.module].requiredSource" class="mb-3">
-          <MediaSelector v-model="search.source" :type="search.module" mandatory="true" />
-        </div>
+      <div v-if="search.module && search.modules[search.module].requiredSource" class="mb-3">
+        <MediaSelector v-model="search.source" :type="search.module" mandatory="true" />
+      </div>
 
-        <div class="mb-3">
-          <label class="form-label">{{ $t("Search") }}</label>
-          <input v-model="search.search" name="search" type="text" class="form-control" :placeholder="$t('Search item here')" required />
-        </div>
+      <div class="mb-3">
+        <label class="form-label">{{ $t("Search") }}</label>
+        <input v-model="search.search" name="search" type="text" class="form-control" :placeholder="$t('Search item here')" required />
+      </div>
 
-        <div class="mb-3">
-          <button class="btn btn-primary" type="submit" :disabled="$demoMode()">{{ $t("Search item") }}</button>&nbsp;
-          <a href=".." class="btn btn-outline-secondary">{{ $t("Cancel") }}</a>
-        </div>
+      <div class="mb-3">
+        <button class="btn btn-primary" type="submit" :disabled="$demoMode()">{{ $t("Search item") }}</button>&nbsp;
+        <a href=".." class="btn btn-outline-secondary">{{ $t("Cancel") }}</a>
+      </div>
 
-        <div v-if="$demoMode()" class="alert alert-warning">
-          {{ $t("Search disabled in demo mode") }}
-        </div>
-      </form>
-    </template>
+      <div v-if="$demoMode()" class="alert alert-warning">
+        {{ $t("Search disabled in demo mode") }}
+      </div>
+    </form>
 
     <Loading v-if="loading" />
     <div v-else>
@@ -147,9 +145,9 @@
 </template>
 
 <script>
-import Loading from "@/components/Loading.vue"
 import Empty from "@/components/Empty.vue"
 import Image from "@/components/properties/medias/Image.vue"
+import Loading from "@/components/Loading.vue"
 import MediaSelector from "./properties/MediaSelector.vue"
 
 export default {

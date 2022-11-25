@@ -2,7 +2,9 @@
 
 # 1.0.0 (2022-1X-XX)
 - Add loans support
-- Upgrade VueJS and axios
+- Improved import item page
+- Improved demo mode
+- Upgrade VueJS and other dependencies
 
 # 1.0 RC 3 (2022-08-22)
 - New translate system

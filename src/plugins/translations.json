@@ -147,6 +147,10 @@
     "en_US": "Search item",
     "fr_FR": "Rechercher un objet"
   },
+  "Search disabled in demo mode": {
+    "en_US": "Search is disabled in demo mode",
+    "fr_FR": "La recherche est désactivée dans le mode demo"
+  },
   "Nothing found": {
     "en_US": "Nothing found",
     "fr_FR": "Rien n'a été trouvé"
@@ -504,8 +508,8 @@
     "fr_FR": "Créer un nouveau prêt"
   },
   "Loan item": {
-    "en_US": "Loan",
-    "fr_FR": "Prêter"
+    "en_US": "Loan this item",
+    "fr_FR": "Prêter cet objet"
   },
   "Create loan": {
     "en_US": "Create the loan",

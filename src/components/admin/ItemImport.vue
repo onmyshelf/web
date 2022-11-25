@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <template v-else>
+    <template>
       <h1>{{ $t("Import item from sources") }}</h1>
       <form @submit="validate">
         <div class="mb-3">
@@ -23,8 +23,12 @@
         </div>
 
         <div class="mb-3">
-          <button class="btn btn-primary" type="submit">{{ $t("Search item") }}</button>&nbsp;
+          <button class="btn btn-primary" type="submit" :disabled="$demoMode()">{{ $t("Search item") }}</button>&nbsp;
           <a href=".." class="btn btn-outline-secondary">{{ $t("Cancel") }}</a>
+        </div>
+
+        <div v-if="$demoMode()" class="alert alert-warning">
+          {{ $t("Search disabled in demo mode") }}
         </div>
       </form>
     </template>
@@ -46,7 +50,7 @@
                 <p>{{ item.description }}</p>
                 <p>
                   <a :id="'item-source-' + index" :href="item.source" target="_blank">
-                    Source <i class="bi bi-box-arrow-up-right"></i>
+                    Source ({{ search.modules[item.importModule].name }}) <i class="bi bi-box-arrow-up-right"></i>
                   </a>
                 </p>
                 <p>
@@ -229,6 +233,9 @@ export default {
         this.$apiGet("collections/" + this.$route.params.cid + "/import/search", data)
           .then((response) => {
             if (response.data) {
+              response.data.forEach((item) => {
+                item.importModule = module
+              });
               this.items.push(...response.data)
               this.loading = false
             }
@@ -238,6 +245,7 @@ export default {
               success: false,
               text: "Internal error. Please retry."
             }
+            this.loading = false
           })
       });
     },
@@ -245,8 +253,8 @@ export default {
       this.loading = true
 
       let data = {
-        module: this.search.module,
-        source: document.getElementById("item-source-" + id).getAttribute("href"),
+        module: this.items[id].importModule,
+        source: this.items[id].source,
       }
 
       // search

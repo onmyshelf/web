@@ -2,14 +2,26 @@ import axios from "axios"
 
 export default {
   install: (app) => {
+    // generate API headers for requests
     app.config.globalProperties.$apiConfig = (options = {}) => {
+
+      // append default language
+      let lang = localStorage.getItem("onmyshelf_lang")
+      if (!lang) {
+        lang = "en_US"
+      }
+
+      options.headers = { "Content-Language": lang }
+
+      // append token if defined
       let token = localStorage.getItem("onmyshelf_token")
       if (token) {
-        options.headers = { Authorization: "Bearer " + token }
+        options.headers.Authorization = "Bearer " + token
       }
       return options
     }
 
+    // send a DELETE request to the API
     app.config.globalProperties.$apiDelete = (url, options = {}) => {
       return axios.delete(
         import.meta.env.VITE_API_URL + "/" + url,
@@ -17,6 +29,7 @@ export default {
       )
     }
 
+    // send a GET request to the API
     app.config.globalProperties.$apiGet = (url, options = {}) => {
       return axios.get(
         import.meta.env.VITE_API_URL + "/" + url,
@@ -24,6 +37,7 @@ export default {
       )
     }
 
+    // send a PATCH request to the API
     app.config.globalProperties.$apiPatch = (url, data, options = {}) => {
       return axios.patch(
         import.meta.env.VITE_API_URL + "/" + url,
@@ -32,6 +46,7 @@ export default {
       )
     }
 
+    // send a POST request to the API
     app.config.globalProperties.$apiPost = (url, data, options = {}) => {
       return axios.post(
         import.meta.env.VITE_API_URL + "/" + url,
@@ -57,6 +72,7 @@ export default {
       return localStorage.getItem("onmyshelf_token") !== null
     }
 
+    // get current user data
     app.config.globalProperties.$currentUser = () => {
       return {
         id: localStorage.getItem("onmyshelf_userID"),
@@ -64,6 +80,7 @@ export default {
       }
     }
 
+    // test if user ID matches
     app.config.globalProperties.$matchUserId = (id) => {
       if (!localStorage.getItem("onmyshelf_userID")) {
         return false
@@ -71,10 +88,12 @@ export default {
       return localStorage.getItem("onmyshelf_userID") == id
     }
 
+    // test if running in demo mode
     app.config.globalProperties.$demoMode = () => {
       return localStorage.getItem("onmyshelf_readonly") == "true"
     }
 
+    // clean user data session
     app.config.globalProperties.$cleanSession = () => {
       localStorage.removeItem("onmyshelf_token")
       localStorage.removeItem("onmyshelf_userID")

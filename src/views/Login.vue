@@ -1,14 +1,7 @@
 <template>
   <main class="form-signin container">
     <h1 class="h3 mb-3 fw-normal">{{ $t("Please sign in") }}</h1>
-    <div v-if="$demoMode() && !$isLoggedIn()" class="alert alert-info" role="alert">
-      <p>This is a demo instance. You can log in with the following credentials:</p>
-      <ul>
-        <li>{{ $t("Username") }}: <strong>onmyshelf</strong></li>
-        <li>{{ $t("Password") }}: <strong>onmyshelf</strong></li>
-      </ul>
-      <p>Please note that in demo mode, you can explore all features, but not make any changes.</p>
-    </div>
+    <DemoWarning />
     <form @submit="login" class="container">
       <div class="form-floating">
         <input
@@ -47,7 +40,12 @@
 </template>
 
 <script>
+import DemoWarning from "@/components/DemoWarning.vue"
+
 export default {
+  components: {
+    DemoWarning,
+  },
   data() {
     return {
       username: null,

@@ -7,6 +7,8 @@ import api from './plugins/api.js'
 import globalvars from './plugins/global.js'
 import i18n from './plugins/i18n.js'
 
+import './assets/main.css'
+
 const app = createApp(App)
 
 // app.use(createPinia())

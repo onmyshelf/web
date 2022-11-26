@@ -58,7 +58,7 @@ export default {
       // prevent form to reload page
       e.preventDefault()
 
-      this.$apiPost("login", { username: this.username, password: this.password })
+      this.$apiPost("login", { username: this.username, password: btoa(this.password) })
         .then((response) => {
           localStorage.setItem("onmyshelf_token", response.data.token)
           localStorage.setItem("onmyshelf_userID", response.data.userid)

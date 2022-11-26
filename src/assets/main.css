@@ -107,48 +107,6 @@ a {
 }
 
 /*
- *  Item properties view
- */
-
-.property-color-view {
-  display: block;
-  border-radius: 100%;
-  font-size: 1.6em;
-  width: 1.6em;
-  height: 1.6em;
-  line-height: 1.6em;
-  text-align: center;
-  box-shadow: 0 0 0 1px #dee0e3;
-  cursor: default;
-}
-
-.property-rating-view {
-  color: #ffc400;
-}
-.property-rating-view .rating {
-  font-weight: bold;
-  margin-left: 10px;
-}
-
-.property-yesno-view {
-  font-size: 1.6em;
-}
-.property-yesno-view-yes {
-  color: #008000;
-}
-.property-yesno-view-no {
-  color: #c00000;
-}
-
-.property-filter {
-  margin-left: 10px;
-}
-
-.video-player {
-  max-width: 640px;
-}
-
-/*
  * Delete confirmation
  */
 .delete-confirm {

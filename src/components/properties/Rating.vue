@@ -11,9 +11,19 @@
       <i v-if="stars.mid == 1" class="bi-star-half"></i>
       <i v-for="i in stars.empty" :key="i" class="bi-star"></i>
     </span>
-    <span class="rating">{{ stars.label }}</span>
+    <span class="rating-label">{{ stars.label }}</span>
   </div>
 </template>
+
+<style scoped>
+.property-rating-view {
+  color: #ffc400;
+}
+.property-rating-view .rating-label {
+  font-weight: bold;
+  margin-left: 10px;
+}
+</style>
 
 <script>
 export default {

@@ -8,7 +8,7 @@
     <a v-else-if="property.type == 'url'" :href="value">
       Open link &nbsp;<i class="bi bi-box-arrow-up-right"></i>
     </a>
-    <div v-else-if="property.type == 'color'" :style="'background:' + value" class="property-color-view"></div>
+    <Color v-else-if="property.type == 'color'" :value="value" />
     <template v-else>
       <ul v-if="Array.isArray(value)">
         <li class="value" v-for="val in value" :key="val">{{ val }}
@@ -34,7 +34,14 @@
   </div>
 </template>
 
+<style scoped>
+.property-filter {
+  margin-left: 10px;
+}
+</style>
+
 <script>
+import Color from "./properties/Color.vue"
 import Image from "./properties/medias/Image.vue"
 import Json from "./properties/Json.vue"
 import Rating from "./properties/Rating.vue"
@@ -43,6 +50,7 @@ import YesNo from "./properties/YesNo.vue"
 
 export default {
   components: {
+    Color,
     Image,
     Json,
     Rating,

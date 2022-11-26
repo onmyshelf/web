@@ -1,11 +1,24 @@
 <template>
-  <Youtube v-if="isYoutube" :url="url" />
-  <Vimeo v-else-if="isVimeo" :url="url" />
-  <Allocine v-else-if="isAllocine" :url="url" />
-  <Dailymotion v-else-if="isDailymotion" :url="url" />
-  <video v-else-if="isMediaLibrary" :src="$mediaUrl(url)" class="video-player" controls></video>
-  <Embeded v-else :url="url" />
+  <div class="video" :data-video-source="url">
+    <Youtube v-if="isYoutube" :url="url" />
+    <Vimeo v-else-if="isVimeo" :url="url" />
+    <Allocine v-else-if="isAllocine" :url="url" />
+    <Dailymotion v-else-if="isDailymotion" :url="url" />
+    <video
+      v-else-if="isMediaLibrary"
+      :src="$mediaUrl(url)"
+      class="video-player"
+      controls
+    ></video>
+    <Embeded v-else :url="url" />
+  </div>
 </template>
+
+<style scoped>
+.video-player {
+  max-width: 640px;
+}
+</style>
 
 <script>
 import Allocine from "./Allocine.vue"

@@ -60,7 +60,7 @@
               </div>
             </template>
           </template>
-          <div id="loans" class="loans">
+          <div v-if="isMine" id="loans" class="loans">
             <hr />
             <h2>{{ $t("Loans") }}</h2>
             <router-link v-if="!item.lent" to="loan/new" class="btn btn-outline-success">

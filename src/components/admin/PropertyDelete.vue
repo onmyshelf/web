@@ -1,7 +1,7 @@
 <template>
   <div class="container delete-confirm">
     <h5>
-      {{ $t("Confirm delete property") }} <strong>{{ $route.params.id }}</strong>?
+      {{ $t("Confirm delete property") }} <span class="object-id">{{ $route.params.id }}</span> ?
     </h5>
     <p>{{ $t("Delete property consequences") }}</p>
 
@@ -13,6 +13,18 @@
     </button>
   </div>
 </template>
+
+<style scoped>
+.delete-confirm {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.object-id {
+  font-weight: bold;
+  font-style: italic;
+}
+</style>
 
 <script>
 export default {

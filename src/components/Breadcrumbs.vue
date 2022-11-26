@@ -1,5 +1,5 @@
 <template>
-  <nav aria-label="breadcrumb">
+  <nav id="breadcrumb" aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
         <router-link to="/"><i class="bi-house-fill"></i></router-link>

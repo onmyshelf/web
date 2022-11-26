@@ -67,27 +67,48 @@
       <Loading v-if="loading"/>
       <div v-else class="collection col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <Breadcrumbs v-if="collection.name" :current="title" />
-        <h1>{{ title }}</h1>
-        <p v-if="collection.description">{{ collection.description }}</p>
-        <p v-if="items">{{ $t("Items") }}: {{ items.length }}</p>
+        <h1 id="collectionTitle">{{ title }}</h1>
+        <p v-if="collection.description" id="collectionDescription">
+          {{ collection.description }}
+        </p>
+        <p v-if="items" id="itemsCount">
+          {{ $t("Items") }}: <span class="items-count">{{ items.length }}</span>
+        </p>
 
-        <p v-if="isMine" style="text-align: right">
-          <router-link v-if="collection && Object.keys(collection.properties).length > 0"
-            to="item/new" class="btn btn-outline-success">
+        <p v-if="isMine" id="manageButtons">
+          <router-link
+            v-if="collection && Object.keys(collection.properties).length > 0"
+            to="item/new"
+            id="itemCreateButton"
+            class="btn btn-outline-success"
+          >
             <i class="bi bi-plus-lg"></i> {{ $t("Create an item") }}
-          </router-link>&nbsp;
-          <router-link v-if="collection"
-            to="import/item" class="btn btn-outline-primary">
+          </router-link>
+          &nbsp;
+          <router-link
+            v-if="collection"
+            to="import/item"
+            id="importItemButton"
+            class="btn btn-outline-primary"
+          >
             <i class="bi bi-box-arrow-in-down-left"></i> {{ $t("Import") }}
-          </router-link>&nbsp;
-          <router-link to="manage/" class="btn btn-outline-secondary">
+          </router-link>
+          &nbsp;
+          <router-link
+            to="manage/"
+            id="collectionManageButton"
+            class="btn btn-outline-secondary"
+          >
             <i class="bi-gear-fill"></i> {{ $t("Manage") }}
           </router-link>
         </p>
 
-        <div v-if="items" :class="'container items items-'+displayMode">
+        <div v-if="items" :class="'container items items-' + displayMode">
           <template v-if="items.length == 0">
-            <Empty v-if="isMine" :label="$t('No items') + ' ' + $t('Create first item')" />
+            <Empty
+              v-if="isMine"
+              :label="$t('No items') + ' ' + $t('Create first item')"
+            />
             <Empty v-else :label="$t('No items')" />
           </template>
           <template v-else>
@@ -108,6 +129,12 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+#manageButtons {
+  text-align: right;
+}
+</style>
 
 <script>
 import PreviewList from "./items/PreviewList.vue"

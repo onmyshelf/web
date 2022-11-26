@@ -2,6 +2,14 @@
   <div class="property-label">{{ labelTranslated }}:</div>
 </template>
 
+<style scoped>
+.property-label {
+  display: inline;
+  margin-right: 0.5em;
+  vertical-align: top;
+}
+</style>
+
 <script>
 export default {
   props: {

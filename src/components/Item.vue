@@ -127,6 +127,20 @@
   </div>
 </template>
 
+<style scoped>
+.item-actions {
+  margin-bottom: 10px;
+}
+
+.item-actions a {
+  margin-right: 10px;
+}
+
+.item-copies li {
+  margin-left: 10px;
+}
+</style>
+
 <script>
 import Breadcrumbs from "./Breadcrumbs.vue"
 import Image from "./properties/medias/Image.vue"

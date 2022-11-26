@@ -35,8 +35,13 @@
 </template>
 
 <style scoped>
+.property-value {
+  display: inline-block;
+  margin-right: 0.5em;
+}
+
 .property-filter {
-  margin-left: 10px;
+  margin-left: 0.5em;
 }
 </style>
 

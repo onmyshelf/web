@@ -42,21 +42,6 @@ a {
   padding: 0.5em;
 }
 
-.property-label {
-  display: inline;
-  margin-right: 0.5em;
-  vertical-align: top;
-}
-
-.property-value {
-  display: inline-block;
-  margin-right: 0.5em;
-}
-
-.property-filter {
-  margin-left: 0.2em;
-}
-
 .gallery img {
   margin: 1em 0.2em;
   max-height: 80px;
@@ -75,7 +60,7 @@ a {
 }
 
 /*
- * Collection page
+ *  Navbar
  */
 .navbar-toggler {
   display: none;
@@ -85,31 +70,4 @@ a {
   .navbar-toggler {
     display: block;
   }
-}
-
-.items-shop .item {
-  text-align: center;
-}
-
-/*
- *  Item page
- */
-.item-actions {
-  margin-bottom: 10px;
-}
-
-.item-actions a {
-  margin-right: 10px;
-}
-
-.item-copies li {
-  margin-left: 10px;
-}
-
-/*
- * Delete confirmation
- */
-.delete-confirm {
-  text-align: center;
-  margin-top: 100px;
 }

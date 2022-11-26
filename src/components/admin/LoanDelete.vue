@@ -1,19 +1,14 @@
 <template>
-  <div class="container delete-confirm">
-    <h5>
-      {{ $t("Confirm delete loan") }} <strong>{{ $route.params.id }}</strong>?
-    </h5>
-    <p>{{ $t("Operation cannot be undone") }}</p>
-
-    <button type="button" class="btn btn-danger" @click="deleteLoan" :disabled="$demoMode()">
-      {{ $t("Delete loan") }}
-    </button>&nbsp;
-    <a href="../../" class="btn btn-outline-secondary">{{ $t("Cancel") }}</a>
-  </div>
+  <DeleteConfirm obj="loan" :id="$route.params.id" action="deleteLoan" />
 </template>
 
 <script>
+import DeleteConfirm from "./DeleteConfirm.vue"
+
 export default {
+  components: {
+    DeleteConfirm,
+  },
   methods: {
     deleteLoan() {
       this.$apiDelete("collections/" + this.$route.params.cid + "/items/" + this.$route.params.iid + "/loans/" + this.$route.params.id)

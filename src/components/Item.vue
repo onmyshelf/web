@@ -6,28 +6,35 @@
       <div v-if="item && collection && collection.properties" class="row item">
         <div class="col-4 item-cover">
           <Image v-if="properties && coverProperty && properties[coverProperty]" :url="properties[coverProperty]"
-            :cover="true" :linked="true" />
-          <Image v-else :url="collection.cover" :cover="true" />
+            :cover="true" :linked="true" id="itemImage" />
+          <Image v-else :url="collection.cover" id="itemImage" :cover="true" />
 
           <div v-if="gallery.length > 0" class="gallery">
             <template v-for="property in gallery" :key="property">
-              <Image v-if="properties[property] && !collection.properties[property].isCover" :url="properties[property]" :linked="true" />
+              <Image v-if="properties[property] && !collection.properties[property].isCover" 
+                :url="properties[property]"
+                :linked="true"
+                :id="'property-' + property"
+              />
             </template>
           </div>
         </div>
         <div class="col">
-          <h1>{{ title }}</h1>
-          <h2 v-if="subTitleProperty && properties[subTitleProperty]">
+          <h1 id="itemTitle">{{ title }}</h1>
+          <h2 v-if="subTitleProperty && properties[subTitleProperty]" id="itemSubtitle">
             {{ properties[subTitleProperty] }}
           </h2>
           <a href="#loans"><span v-if="item.lent" class="badge text-bg-danger mb-2">{{ $t("Lent") }}</span></a>
           <div v-if="isMine" class="item-actions">
-            <Visibility :level="item.visibility > collection.visibility ? item.visibility : collection.visibility" />
-            <router-link to="edit" class="btn btn-outline-primary">
+            <Visibility
+              :level="item.visibility > collection.visibility ? item.visibility : collection.visibility"
+              id="itemVisibility"
+            />
+            <router-link to="edit" id="itemEditButton" class="btn btn-outline-primary">
               <i class="bi-pencil"></i> {{ $t("Edit") }}
             </router-link>
             &nbsp;
-            <router-link to="delete" class="btn btn-outline-danger">
+            <router-link to="delete" id="itemDeleteButton" class="btn btn-outline-danger">
               <i class="bi-x-lg"></i> {{ $t("Delete") }}
             </router-link>
             <hr />
@@ -44,7 +51,11 @@
           </div>
           <template v-if="properties">
             <template v-for="(property, name) of collection.properties" :key="name">
-              <div v-if="!property.shown && (properties[name] || property.default)" class="item-preview">
+              <div
+                v-if="!property.shown && (properties[name] || property.default)"
+                :id="'property-' + name"
+                class="item-preview"
+              >
                 <Property :name="name" :property="property" :value="properties[name]" />
               </div>
             </template>
@@ -61,12 +72,12 @@
                   <th scope="col">{{ $t("Loan state") }}</th>
                   <th scope="col">{{ $t("Date") }}</th>
                   <th scope="col">{{ $t("Borrower") }}</th>
-                  <th scope="col"></th>
+                  <th scope="col">{{ $t("Actions") }}</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(loan, i) of loans" :key="i">
-                  <td scope="row">
+                <tr v-for="(loan, i) of loans" :key="i" :id="'loan-' + loan.id">
+                  <td scope="row" class="loan-state" :data-loan-state="loan.state">
                     <span v-if="loan.state == 'asked'" class="badge text-bg-info">
                       {{ $translate($loanStates[loan.state].label) }}
                     </span>
@@ -83,7 +94,7 @@
                       {{ $translate($loanStates[loan.state].label) }}
                     </span>
                   </td>
-                  <td>
+                  <td class="loan-date">
                     <template v-if="loan.state == 'lent'">
                       {{ new Date(loan.lent * 1000).toLocaleString() }}
                     </template>
@@ -94,12 +105,17 @@
                       {{ new Date(loan.date).toLocaleString() }}
                     </template>
                   </td>
-                  <td>
+                  <td class="loan-borrower">
                     {{ loan.borrower }}
                   </td>
-                  <td>
-                    <router-link :to="'loan/' + loan.id" :title="$t('Edit')"><i class="bi bi-pencil"></i></router-link>&nbsp;&nbsp;
-                    <router-link :to="'loan/' + loan.id + '/delete'" :title="$t('Delete')"><i class="bi bi-x-lg"></i></router-link>
+                  <td class="loan-actions">
+                    <router-link :to="'loan/' + loan.id" :title="$t('Edit')" class="loan-edit">
+                      <i class="bi bi-pencil"></i>
+                    </router-link>
+                    &nbsp;
+                    <router-link :to="'loan/' + loan.id + '/delete'" :title="$t('Delete')" class="loan-delete">
+                      <i class="bi bi-x-lg"></i>
+                    </router-link>
                   </td>
                 </tr>
               </tbody>

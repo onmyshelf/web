@@ -1,5 +1,11 @@
 <template>
-  <div v-if="stars" :title="stars.label" class="property-rating-view">
+  <div
+    v-if="stars"
+    :title="stars.label"
+    class="property-rating-view"
+    :data-rating-value="value"
+    :data-rating-max="max"
+  >
     <span :title="stars.label" class="stars">
       <i v-for="i in stars.full" :key="i" class="bi-star-fill"></i>
       <i v-if="stars.mid == 1" class="bi-star-half"></i>

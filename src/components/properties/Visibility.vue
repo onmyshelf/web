@@ -1,5 +1,8 @@
 <template>
-  <a :title="$t('Visibility') + ': ' + $translate($visibilityLevels[level].label)">
+  <a
+    :title="$t('Visibility') + ': ' + $translate($visibilityLevels[level].label)"
+    :data-visibility-level="level"
+  >
     <i :class="'bi-' + $visibilityLevels[level].icon"></i>
   </a>
 </template>

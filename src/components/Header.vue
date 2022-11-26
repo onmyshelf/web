@@ -2,7 +2,9 @@
   <header>
     <nav class="navbar navbar-expand navbar-light bg-light">
       <div class="container container-fluid">
-        <a class="navbar-brand" href="#">OnMyShelf</a>
+        <a class="navbar-brand" href="#">
+          <img src="/assets/images/logo.svg" /> OnMyShelf
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topmenu" aria-controls="topmenu" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -52,6 +54,13 @@
     </nav>
   </header>
 </template>
+
+<style scoped>
+.navbar-brand img {
+  max-height: 2em;
+  margin-right: 0.5em;
+}
+</style>
 
 <script>
 export default {

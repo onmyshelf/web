@@ -4,5 +4,6 @@
     <p>{{ $t("Powered by OnMyShelf") }}</p>
     <p>{{ $t("About OnMyShelf") }}</p>
     <p>{{ $t("Official website") }}: <a href="https://onmyshelf.cm">https://onmyshelf.cm</a></p>
+    <img src="/assets/images/logo.svg" />
   </div>
 </template>

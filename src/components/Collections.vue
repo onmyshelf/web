@@ -1,11 +1,9 @@
 <template>
-  <div class="container">
-    <h1>
-      {{ $t("Welcome_homepage") }}<span v-if="$isLoggedIn()">, {{ currentUser.username }}</span>!
-    </h1>
-  </div>
+  <h1>
+    {{ $t("Welcome_homepage") }}<span v-if="$isLoggedIn()">, {{ currentUser.username }}</span>!
+  </h1>
   <Error v-if="error" :status="error" />
-  <div v-else class="collections container">
+  <div v-else class="collections">
     <p v-if="$isLoggedIn()" class="text-end">
       <router-link to="/collection/new" class="btn btn-outline-success">
         <i class="bi-plus"></i> {{ $t("Create a collection") }}

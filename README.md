@@ -6,7 +6,8 @@ The easiest way to install OnMyShelf is to use the [docker project here](https:/
 If you want to install the web interface manually, here are the instructions:
 
 ## Requirements
-- A web server
+- npm on your machine
+- A web server (nginx, apache, ...)
 
 ## Build & copy sources
 Go into the project folder then run:
@@ -23,9 +24,16 @@ If you have installed the web interface manually, rebuild the sources (see above
 # Development
 If you want to install OnMyShelf development environment, run:
 ```bash
+npm install
 npm run dev
 ```
+Please note that you will need to reach an available API instance with `DEV_MODE` enabled.
 
+Create a `.env.development.local` file here with the following content to reach your API:
+```
+VITE_API_URL=http://<mylocalapi>/api/v1
+VITE_MEDIA_URL=http://<mylocalapi>/media
+```
 # License
 This project is licensed under the MIT License. See [LICENSE.md](LICENSE.md) for the full license text.
 

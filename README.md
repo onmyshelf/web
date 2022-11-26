@@ -6,7 +6,7 @@ The easiest way to install OnMyShelf is to use the [docker project here](https:/
 If you want to install the web interface manually, here are the instructions:
 
 ## Requirements
-- npm on your machine
+- npm on your local machine
 - A web server (nginx, apache, ...)
 
 ## Build & copy sources
@@ -14,7 +14,7 @@ Go into the project folder then run:
 ```bash
 npm run build
 ```
-Then you can copy the files inside `dist` to your server.
+Then you can copy the files of the `dist` folder to your server.
 
 # Upgrade
 If you uses the docker project, you have nothing to do.

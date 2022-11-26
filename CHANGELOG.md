@@ -1,9 +1,10 @@
 # Changelog for OnMyShelf web interface
 
-# 1.0.0 (2022-1X-XX)
+# 1.0.0 RC 4 (2022-11-26)
 - Add loans support
 - Improved import item page
 - Improved demo mode
+- Various code improvements
 - Upgrade VueJS and other dependencies
 
 # 1.0 RC 3 (2022-08-22)

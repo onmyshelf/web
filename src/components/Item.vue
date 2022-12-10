@@ -63,7 +63,7 @@
           <div v-if="isMine" id="loans" class="loans">
             <hr />
             <h2>{{ $t("Loans") }}</h2>
-            <router-link v-if="!item.lent" to="loan/new" class="btn btn-outline-success">
+            <router-link to="loan/new" class="btn btn-outline-success">
               <i class="bi bi-box-arrow-up"></i> {{ $t("Loan item") }}
             </router-link>
             <table v-if="loans && loans.length > 0" class="table">

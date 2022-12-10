@@ -1,5 +1,9 @@
 # Changelog for OnMyShelf web interface
 
+# 1.0.0 (202X-XX-XX)
+- Fixed loans bad date times
+- Upgrade axios
+
 # 1.0.0 RC 4 (2022-11-26)
 - Add loans support
 - Improved import item page

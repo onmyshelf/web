@@ -8,12 +8,15 @@
       <div id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
         <div class="position-sticky pt-3">
           <h4>{{ $t("Display mode") }}</h4>
-          <div>
-            <select v-model="displayMode" @change="toggleDisplay()" class="form-select">
-              <option value="shop">{{ $t("Shop") }}</option>
-              <option value="list">{{ $t("List") }}</option>
-              <option value="mosaic">{{ $t("Mosaic") }}</option>
-            </select>
+          <div class="btn-group" role="group" aria-label="Toggle display mode">
+            <input type="radio" class="btn-check" id="displaymode-shop" autocomplete="off" @change="toggleDisplay('shop')" :checked="displayMode == 'shop'">
+            <label class="btn btn-outline-secondary" for="displaymode-shop"><i class="bi bi-grid" :title="$t('Shop')"></i></label>
+
+            <input type="radio" class="btn-check" id="displaymode-list" autocomplete="off" @change="toggleDisplay('list')" :checked="displayMode == 'list'">
+            <label class="btn btn-outline-secondary" for="displaymode-list"><i class="bi bi-list" :title="$t('List')"></i></label>
+
+            <input type="radio" class="btn-check" id="displaymode-mosaic" autocomplete="off" @change="toggleDisplay('mosaic')" :checked="displayMode == 'mosaic'">
+            <label class="btn btn-outline-secondary" for="displaymode-mosaic"><i class="bi bi-grid-3x3" :title="$t('Mosaic')"></i></label>
           </div>
           <div class="position-sticky pt-3">
             <h4>{{ $t("Search") }}</h4>
@@ -180,7 +183,7 @@ export default {
     }
   },
   created() {
-    // get display mode
+    // get display mode from user local config
     if (localStorage.getItem("onmyshelf_displayMode")) {
       this.displayMode = localStorage.getItem("onmyshelf_displayMode")
     }
@@ -284,8 +287,9 @@ export default {
 
       return "?" + query.join("&")
     },
-    toggleDisplay() {
-      localStorage.setItem("onmyshelf_displayMode", this.displayMode)
+    toggleDisplay(mode) {
+      this.displayMode = mode
+      localStorage.setItem("onmyshelf_displayMode", mode)
     },
     filterBy(name) {
       document.location = "./?p_" + name + "=" + document.getElementById("filter-" + name).value

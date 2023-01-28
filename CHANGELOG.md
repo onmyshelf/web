@@ -2,6 +2,7 @@
 
 # 1.0.0 (202X-XX-XX)
 - Fixed loans bad date times
+- Add missing translations
 - Upgrade axios
 
 # 1.0.0 RC 4 (2022-11-26)

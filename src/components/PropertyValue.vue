@@ -6,7 +6,7 @@
     <Rating v-else-if="property.type == 'rating'" :label="name" :value="value" />
     <Json v-else-if="property.type == 'json'" :obj="jsonDecode(value)" />
     <a v-else-if="property.type == 'url'" :href="value">
-      Open link &nbsp;<i class="bi bi-box-arrow-up-right"></i>
+      {{ $t("Open link") }} &nbsp;<i class="bi bi-box-arrow-up-right"></i>
     </a>
     <Color v-else-if="property.type == 'color'" :value="value" />
     <template v-else>

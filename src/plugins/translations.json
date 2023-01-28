@@ -139,6 +139,10 @@
     "en_US": "Search",
     "fr_FR": "Rechercher"
   },
+  "All import sources": {
+    "en_US": "All",
+    "fr_FR": "Toutes"
+  },
   "Search item here": {
     "en_US": "Search an item here",
     "fr_FR": "Rechercher un objet ici"
@@ -226,6 +230,10 @@
   "Media URL": {
     "en_US": "Media URL:",
     "fr_FR": "URL du média :"
+  },
+  "Open link": {
+    "en_US": "Open link",
+    "fr_FR": "Ouvrir le lien"
   },
   "Open in new tab": {
     "en_US": "Open in a new tab",

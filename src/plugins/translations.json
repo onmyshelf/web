@@ -239,6 +239,10 @@
     "en_US": "Open in a new tab",
     "fr_FR": "Ouvrir dans un nouvel onglet"
   },
+  "Store into media library": {
+    "en_US": "Store into media library",
+    "fr_FR": "Enregistrer dans la bibliothèque"
+  },
   "Upload file": {
     "en_US": "Upload a file",
     "fr_FR": "Envoyer un fichier"
@@ -258,6 +262,10 @@
   "Error while uploading file": {
     "en_US": "An error occured while uploading file.",
     "fr_FR": "Une erreur est survenue pendant l'envoi du fichier."
+  },
+  "Error while downloading file": {
+    "en_US": "An error occured while downloading file.",
+    "fr_FR": "Une erreur est survenue pendant le téléchargement du fichier."
   },
   "External URL": {
     "en_US": "External URL",

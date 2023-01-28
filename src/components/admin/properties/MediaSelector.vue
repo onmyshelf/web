@@ -71,6 +71,13 @@
       <a v-if="externalUrl" :href="externalUrl" class="btn btn-secondary" :title="$t('Open in new tab')" target="_blank">
         <i class="bi bi-box-arrow-up-right"></i>
       </a>
+      <a v-if="externalUrl" class="btn btn-primary" @click="download" :title="$t('Store into media library')">
+        <i class="bi bi-cloud-arrow-down"></i>
+      </a>
+    </div>
+    <Loading v-if="loading" />
+    <div v-if="downloadError" class="alert alert-danger mt-3" role="alert">
+      {{ $t("Error while downloading file") }} {{ $t("Please retry") }}
     </div>
   </div>
 
@@ -104,6 +111,7 @@ export default {
       uploadField: false,
       uploadError: false,
       fileUploaded: false,
+      downloadError: false,
       cptId: Date.now().toString().substr(7),
     }
   },
@@ -172,7 +180,7 @@ export default {
       }
 
       // API call
-      this.$apiPost("upload", data, options)
+      this.$apiPost("media/upload", data, options)
         .then((response) => {
           // save media URL in input fields
           if (response.data && response.data.url) {
@@ -188,6 +196,29 @@ export default {
           // hide loading
           this.loading = false
           this.uploadError = true
+        })
+    },
+    download() {
+      this.loading = true
+
+      // API call
+      this.$apiPost("media/download", { url: this.externalUrl })
+        .then((response) => {
+          // save media URL in input fields
+          if (response.data && response.data.url) {
+            this.source = "media"
+            this.mediaUrl = response.data.url
+            this.chosenUrl = this.mediaUrl
+          }
+
+          this.loading = false
+          this.downloadError = false
+          this.uploadField = false
+          this.fileUploaded = true
+        })
+        .catch(() => {
+          this.loading = false
+          this.downloadError = true
         })
     },
   },

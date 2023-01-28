@@ -9,6 +9,11 @@ export default {
   components: {
     DeleteConfirm,
   },
+  data() {
+    return {
+      loading: false,
+    }
+  },
   methods: {
     deleteCollection() {
       this.$apiDelete("collections/" + this.$route.params.cid)
@@ -16,7 +21,7 @@ export default {
           document.location.href = "../../.."
         })
         .catch(() => {
-          alert("Error")
+          alert("Error, please retry")
         })
     },
   },

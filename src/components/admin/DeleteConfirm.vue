@@ -12,8 +12,8 @@
       type="button"
       id="deleteButton"
       class="btn btn-danger"
-      @click="$parent[action]"
-      :disabled="$demoMode()"
+      @click="clickConfirm"
+      :disabled="$demoMode() || loading"
     >
       {{ $t("Delete " + obj) }}
     </button>
@@ -21,6 +21,7 @@
     <a href="." id="cancelButton" class="btn btn-outline-secondary">
       {{ $t("Cancel") }}
     </a>
+    <Loading v-if="loading" class="mt-3" />
   </div>
 </template>
 
@@ -37,6 +38,8 @@
 </style>
 
 <script>
+import Loading from "@/components/Loading.vue"
+
 export default {
   props: {
     obj: {
@@ -50,6 +53,21 @@ export default {
     },
     consequences: {
       default: false,
+    }
+  },
+  components: {
+    Loading,
+  },
+  data() {
+    return {
+      loading: false,
+    }
+  },
+  methods: {
+    clickConfirm() {
+      this.loading = true
+      // run parent function
+      this.$parent[this.action]()
     }
   },
 }

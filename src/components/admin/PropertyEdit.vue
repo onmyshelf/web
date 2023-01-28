@@ -10,24 +10,46 @@
       <form @submit="validate">
         <div class="mb-3">
           <label class="form-label">{{ $t("Label") }}</label>
-          <input v-model="edit.label" type="text" :placeholder="$t('Property label example')" class="form-control"
-            @input="labelToNewId" />
+          <input
+            v-model="edit.label"
+            name="property-label"
+            type="text"
+            :placeholder="$t('Property label example')"
+            class="form-control"
+            @input="labelToNewId"
+          />
         </div>
 
         <div class="form-check form-switch mb-3">
           <input v-model="edit.hideLabel" class="form-check-input" type="checkbox" />
-          <label class="form-check-label">{{ $t("Hide property label") }}</label>
+          <label class="form-check-label">
+            {{ $t("Hide property label") }}
+          </label>
         </div>
 
         <div v-if="!id" class="mb-3">
           <label class="form-label">{{ $t("Property ID") }} (<strong>{{ $t("required") }}</strong>)</label>
-          <input v-model="edit.name" type="text" :placeholder="$t('Property ID example')" class="form-control"
-            pattern="[a-z0-9_]+" maxlength="20" @input="checkNewId" required />
+          <input
+            v-model="edit.name"
+            name="property-name"
+            type="text"
+            :placeholder="$t('Property ID example')"
+            class="form-control"
+            pattern="[a-z0-9_]+"
+            maxlength="20"
+            @input="checkNewId"
+            required
+          />
         </div>
 
         <div class="mb-3">
           <label class="form-label">{{ $t("Description") }} ({{ $t("Property description usage") }})</label>
-          <textarea v-model="edit.description" :placeholder="$t('Property description example')" class="form-control" rows="2"></textarea>
+          <textarea
+            v-model="edit.description"
+            :placeholder="$t('Property description example')"
+            class="form-control"
+            rows="2"
+          ></textarea>
         </div>
 
         <div class="mb-3">
@@ -89,20 +111,37 @@
           <div class="card-header">{{ $t("Value") }}</div>
           <div class="card-body">
             <div class="form-check form-switch">
-              <input v-model="edit.required" class="form-check-input" type="checkbox" />
+              <input
+                v-model="edit.required"
+                class="form-check-input"
+                type="checkbox"
+              />
               <label class="form-check-label">
                 {{ $t("Property never empty") }}
               </label>
             </div>
 
             <div class="mt-3">
-              <label class="form-label">{{ $t("Property default value") }}</label>
-              <input v-model="edit.default" type="text" class="form-control" />
+              <label class="form-label">
+                {{ $t("Property default value") }}
+              </label>
+              <input
+                v-model="edit.default"
+                name="property-default-value"
+                type="text"
+                class="form-control"
+              />
             </div>
 
             <div class="mt-3">
               <label class="form-label">{{ $t("Property suffix") }}</label>
-              <input v-model="edit.suffix" type="text" class="form-control" :placeholder="$t('Property suffix example')" />
+              <input
+                v-model="edit.suffix"
+                name="property-suffix"
+                type="text"
+                class="form-control"
+                :placeholder="$t('Property suffix example')"
+              />
             </div>
           </div>
         </div>

@@ -8,10 +8,19 @@
     <form v-else @submit="validate">
       <div class="mb-3">
         <label class="form-label">{{ $t("Collection name") }}</label>
-        <input v-model="edit.name" type="text" class="form-control" :placeholder="$t('Collection name example')" required />
+        <input
+          v-model="edit.name"
+          name="collection-name"
+          type="text"
+          class="form-control"
+          :placeholder="$t('Collection name example')"
+          required
+        />
       </div>
       <div class="mb-3">
-        <label class="form-label">{{ $t("Collection description") }} ({{ $t("optional") }})</label>
+        <label class="form-label">
+          {{ $t("Collection description") }} ({{ $t("optional") }})
+        </label>
         <textarea
           v-model="edit.description"
           :placeholder="$t('Collection description example')"

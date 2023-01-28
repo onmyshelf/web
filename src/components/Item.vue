@@ -11,11 +11,21 @@
 
           <div v-if="gallery.length > 0" class="gallery">
             <template v-for="property in gallery" :key="property">
-              <Image v-if="properties[property] && !collection.properties[property].isCover" 
-                :url="properties[property]"
-                :linked="true"
-                :id="'property-' + property"
-              />
+              <template v-if="properties[property] && !collection.properties[property].isCover">
+                <template v-if="Array.isArray(properties[property])">
+                  <Image v-for="(img, i) in properties[property]" :key="i"
+                    :url="img"
+                    :linked="true"
+                    :id="'property-' + property + '-' + i"
+                    :data-property="property"
+                  />
+                </template>
+                <Image v-else
+                  :url="properties[property]"
+                  :linked="true"
+                  :id="'property-' + property"
+                />
+              </template>
             </template>
           </div>
         </div>

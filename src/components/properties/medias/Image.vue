@@ -1,8 +1,8 @@
 <template>
   <a v-if="linked" :href="imgUrl">
-    <img :src="imgUrl" alt="Image not found" :class="classes" />
+    <img :src="imgUrl" :alt="cover ? 'Cover' : 'Image'" :class="classes" />
   </a>
-  <img v-else :src="imgUrl" alt="Image not found" :class="classes" />
+  <img v-else :src="imgUrl" :alt="cover ? 'Cover' : 'Image'" :class="classes" />
 </template>
 
 <script>

@@ -51,10 +51,6 @@
     "en_US": "Sign out",
     "fr_FR": "Se déconnecter"
   },
-  "Welcome_homepage": {
-    "en_US": "Welcome",
-    "fr_FR": "Bienvenue"
-  },
   "Demo mode. Log in with the following:": {
     "en_US": "This is a demo website. You can log in with the following credentials:",
     "fr_FR": "Ceci est un site de démonstration. Vous pouvez vous connecter avec les identifiants suivants :"

@@ -1,10 +1,7 @@
 <template>
-  <h1>
-    {{ $t("Welcome_homepage") }}<span v-if="$isLoggedIn()">, {{ currentUser.username }}</span>!
-  </h1>
   <Error v-if="error" :status="error" />
   <div v-else class="collections">
-    <p v-if="$isLoggedIn()" class="text-end">
+    <p v-if="$isLoggedIn()" class="mt-3">
       <router-link to="/collection/new" class="btn btn-outline-success">
         <i class="bi-plus"></i> {{ $t("Create a collection") }}
       </router-link>

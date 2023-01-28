@@ -83,10 +83,6 @@
       class="form-control"
       :required="property.required"
     />
-
-    <span v-if="property.suffix" class="input-group-text">
-      {{ property.suffix }}
-    </span>
   </div>
 </template>
 

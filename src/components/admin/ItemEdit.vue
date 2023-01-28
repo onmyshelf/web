@@ -28,6 +28,7 @@
                 <i class="bi bi-info-circle"></i> {{ $translate(property.description) }}
               </div>
             </span>
+            <span v-if="property.suffix">({{ property.suffix }})</span>
           </label>
 
           <template v-if="Array.isArray(edit.properties[name])">

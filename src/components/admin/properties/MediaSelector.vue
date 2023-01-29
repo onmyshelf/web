@@ -52,7 +52,6 @@
             :disabled="$demoMode() || loading"
           />
         </div>
-        <Loading v-if="loading" :info="$t('Uploading file')" />
       </div>
 
       <div v-if="fileUploaded" class="alert alert-success mt-3" role="alert">
@@ -75,11 +74,12 @@
         <i class="bi bi-cloud-arrow-down"></i>
       </a>
     </div>
-    <Loading v-if="loading" />
     <div v-if="downloadError" class="alert alert-danger mt-3" role="alert">
       {{ $t("Error while downloading file") }} {{ $t("Please retry") }}
     </div>
   </div>
+
+  <Loading v-if="loading" :info="$t('Uploading file')" />
 
   <input type="hidden" v-model="chosenUrl" disabled />
 </template>

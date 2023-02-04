@@ -4,7 +4,7 @@
     <form @submit="validate">
       <div class="mb-3">
         <label class="form-label">Source</label>
-        <select v-model="search.module" class="form-select" aria-label="Type of import">
+        <select v-model="search.module" name="import-source" class="form-select" aria-label="Type of import">
           <option value="" default>{{ $t("All import sources") }}</option>
           <template v-for="(importModule, name) in search.modules" :key="name">
             <option v-if="importModule.search" :value="name">{{ importModule.name }} {{ moduleTags(importModule.tags) }}</option>

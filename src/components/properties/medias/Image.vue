@@ -5,6 +5,13 @@
   <img v-else :src="imgUrl" :alt="cover ? 'Cover' : 'Image'" :class="classes" />
 </template>
 
+<style scoped>
+.gallery img {
+  margin: 1em 0.2em;
+  max-height: 80px;
+}
+</style>
+
 <script>
 export default {
   props: {

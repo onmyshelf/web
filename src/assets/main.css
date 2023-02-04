@@ -42,11 +42,6 @@ a {
   padding: 0.5em;
 }
 
-.gallery img {
-  margin: 1em 0.2em;
-  max-height: 80px;
-}
-
 .error {
   text-align: center;
 }

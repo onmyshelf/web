@@ -17,6 +17,7 @@
 
 <style scoped>
 .property-rating-view {
+  display: inline-block;
   color: #ffc400;
 }
 .property-rating-view .rating-label {

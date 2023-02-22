@@ -180,7 +180,7 @@ export default {
           document.location.href = "/collection/" + this.collection.id + "/item/" + this.id + "/"
         })
       } else {
-        // create new collection
+        // create new item
         this.$apiPost("collections/" + this.collection.id + "/items/", data)
         .then((response) => {
           document.location.href = "/collection/" + this.collection.id + "/item/" + response.data.id + "/"

@@ -437,12 +437,8 @@ export default {
       // copy edit object (to avoid cloning events)
       let data = Object.assign({}, this.edit)
 
-      if (data.label) {
-        data.label = this.$i18nObject(data.label)
-      }
-      if (data.description) {
-        data.description = this.$i18nObject(data.description)
-      }
+      data.label = this.$i18nObject(data.label)
+      data.description = this.$i18nObject(data.description)
 
       // transform boolean values
       // TODO: remove this dirty work!

@@ -97,10 +97,7 @@ export default {
       let data = Object.assign({}, this.edit)
 
       data.name = this.$i18nObject(data.name)
-
-      if (data.description) {
-        data.description = this.$i18nObject(data.description)
-      }
+      data.description = this.$i18nObject(data.description)
 
       // API call
       if (this.id) {

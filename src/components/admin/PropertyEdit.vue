@@ -102,7 +102,7 @@
 
             <div class="mt-3">
               <label class="form-label">{{ $t("Who can see property") }}</label>
-              <Visibility v-model="edit.visibility" />
+              <Visibility v-model="edit.visibility" max="3" />
             </div>
           </div>
         </div>

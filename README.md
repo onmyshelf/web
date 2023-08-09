@@ -38,6 +38,6 @@ VITE_MEDIA_URL=http://<mylocalapi>/media
 This project is licensed under the MIT License. See [LICENSE.md](LICENSE.md) for the full license text.
 
 # Credits
-Website: https://onmyshelf.cm
+Website: https://onmyshelf.app
 
 Source code: https://github.com/onmyshelf/web

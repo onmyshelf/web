@@ -1,6 +1,6 @@
 {
   "name": "onmyshelf",
-  "version": "1.0.0-rc.5+2023060601",
+  "version": "1.0.0-rc.5+2023080901",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -16,7 +16,7 @@
     "axios": "^1.4.0",
     "pinia": "^2.0.30",
     "vue": "^3.3.4",
-    "vue-router": "^4.2.2"
+    "vue-router": "^4.2.4"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",

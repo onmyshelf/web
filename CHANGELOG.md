@@ -1,16 +1,20 @@
 # Changelog for OnMyShelf web interface
 
-# 1.0.0 (202X-XX-XX)
+# 1.0.0 RC 5 (2023-08-09)
+- Added missing translations
+- Temporary disabled hiding properties to avoid loosing control on it (to be fixed)
+- Hide loans when user is not logged in
 - Fixed loans bad date times
-- Add missing translations
-- Upgrade axios
+- Fixed image gallery when there are multiple values
+- Other fixes and improvements
+- Updated libraries
 
 # 1.0.0 RC 4 (2022-11-26)
 - Add loans support
 - Improved import item page
 - Improved demo mode
 - Various code improvements
-- Upgrade VueJS and other dependencies
+- Updated libraries
 
 # 1.0 RC 3 (2022-08-22)
 - New translate system

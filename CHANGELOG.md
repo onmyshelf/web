@@ -1,5 +1,8 @@
 # Changelog for OnMyShelf web interface
 
+# 1.0.0 (2023-11-25)
+- Updated libraries
+
 # 1.0.0 RC 5 (2023-08-09)
 - Added missing translations
 - Temporary disabled hiding properties to avoid loosing control on it (to be fixed)

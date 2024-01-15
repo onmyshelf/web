@@ -171,6 +171,14 @@
     "en_US": "Filter by",
     "fr_FR": "Filtrer par"
   },
+  "Yes": {
+    "en_US": "Yes",
+    "fr_FR": "Oui"
+  },
+  "No": {
+    "en_US": "No",
+    "fr_FR": "Non"
+  },
   "Create an item": {
     "en_US": "Create an item",
     "fr_FR": "Créer un objet"

@@ -22,28 +22,17 @@
             <h4>{{ $t("Search") }}</h4>
             <input v-model="search" type="text" class="form-control" :placeholder="$t('Search item')" />
           </div>
-          <div v-if="filters.length > 0 && Object.keys(collection.properties).length > 0" class="position-sticky pt-3">
-            <h4>{{ $t("Filters") }}</h4>
-            <p v-for="filter in filters" :key="filter">
-              <i class="bi-filter-square"></i>&nbsp;
-              <PropertyLabel :name="filter.name" :property=collection.properties[filter.name] />
-              {{ filter.value }}&nbsp;
-              <a :href="reloadCollection(filters.filter(f => f.name != filter.name),sorting)" title="Clear filter">
-                <i class="bi bi-x-circle"></i>
-              </a>
-            </p>
-          </div>
           <div v-if="collection && Object.keys(collection.properties).length > 0" class="position-sticky pt-3">
             <h4>{{ $t("Sort by") }}</h4>
             <template v-for="(property, name) of collection.properties" :key="name">
               <template v-if="property.isTitle || property.sortable">
                 <PropertyLabel :name="name" :property="property" />
                 <i v-if="sorting == name" class="bi bi-arrow-down-circle-fill"></i>
-                <a v-else :href="reloadCollection(filters, name)">
+                <a v-else :href="reloadUrl(filters, name)">
                   <i class="bi bi-arrow-down-circle"></i>
                 </a>&nbsp;
                 <i v-if="sorting == '-' + name" class="bi bi-arrow-up-circle-fill"></i>
-                <a v-else :href="reloadCollection(filters, '-' + name)">
+                <a v-else :href="reloadUrl(filters, '-' + name)">
                   <i class="bi bi-arrow-up-circle"></i>
                 </a>
                 <br />
@@ -51,16 +40,33 @@
             </template>
             <div class="position-sticky pt-3">
               <h4>{{ $t("Filter by") }}</h4>
-              <template v-for="(property, name) of collection.properties" :key="name">
-                <template v-if="property.filterable">
-                  <PropertyLabel :name="name" :property=collection.properties[name] />
-                  <select :id="'filter-' + name" @change="filterBy(name)" class="form-select">
-                    <option value=""></option>
-                    <template v-for="filter in property.values" :key="filter">
-                      <option :value="filter">{{ filter }}</option>
+              <template v-for="(property, filterName) of collection.properties" :key="filterName">
+                <div v-if="property.filterable" class="filter">
+                  <PropertyLabel :name="filterName" :property=collection.properties[filterName] />
+                  <a
+                    v-if="getFilter(filterName)"
+                    :href="reloadUrl(filters.filter(f => f.name != filterName), sorting)"
+                    title="Clear filter"
+                  >
+                    <i class="bi bi-x-circle"></i>
+                  </a>
+                  <div class="filter-value">
+                    <template v-if="collection.properties[filterName].type == 'yesno'">
+                      <input class="form-check-input" type="checkbox" @change="filterBy(filterName, 1)" :checked="getFilter(filterName) && getFilter(filterName).value == 1" />&nbsp;{{ $t("Yes") }}<br />
+                      <input class="form-check-input" type="checkbox" @change="filterBy(filterName, 0)" :checked="getFilter(filterName) && getFilter(filterName).value == 0" />&nbsp;{{ $t("No") }}
                     </template>
-                  </select>
-                </template>
+                    <select
+                      v-else
+                      @change="filterBy(filterName, $event.target.value)"
+                      class="form-select"
+                    >
+                      <option value=""></option>
+                      <template v-for="filter in property.values" :key="filter">
+                        <option :value="filter" :selected="getFilter(filterName) && getFilter(filterName).value == filter">{{ filter }}</option>
+                      </template>
+                    </select>
+                  </div>
+                </div>
               </template>
             </div>
           </div>
@@ -276,7 +282,14 @@ export default {
     },
   },
   methods: {
-    reloadCollection(filters, sorting) {
+    getFilter(name) {
+      let filter = this.filters.filter(f => f.name == name)
+      if (filter.length == 0) {
+        return false
+      }
+      return filter[0]
+    },
+    reloadUrl(filters = this.filters, sorting = this.sorting) {
       var query = []
       filters.forEach((filter) => {
         query.push("p_" + filter.name + "=" + encodeURIComponent(filter.value))
@@ -291,8 +304,17 @@ export default {
       this.displayMode = mode
       localStorage.setItem("onmyshelf_displayMode", mode)
     },
-    filterBy(name) {
-      document.location = "./?p_" + name + "=" + document.getElementById("filter-" + name).value
+    filterBy(name, value) {
+      // get all filters except this property
+      let filters = this.filters.filter(f => f.name != name)
+      // append filter
+      filters.push({
+        name: name,
+        value: value
+      })
+
+      // reload collection
+      document.location = this.reloadUrl(filters)
     },
     toggleSidebar() {
       let sidebar = document.getElementById("sidebarMenu")

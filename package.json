@@ -1,6 +1,6 @@
 {
   "name": "onmyshelf",
-  "version": "1.0.1-beta.1+2024011501",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "dev": "vite",

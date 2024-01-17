@@ -1,5 +1,9 @@
 # Changelog for OnMyShelf web interface
 
+# 1.0.1 (2024-01-18)
+- Improvements and fixes for item filters
+- Updated libraries
+
 # 1.0.0 (2023-11-25)
 - Updated libraries
 

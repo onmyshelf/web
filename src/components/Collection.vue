@@ -52,8 +52,8 @@
                   </a>
                   <div class="filter-value">
                     <template v-if="collection.properties[filterName].type == 'yesno'">
-                      <input class="form-check-input" type="checkbox" @change="filterBy(filterName, 1)" :checked="getFilter(filterName) && getFilter(filterName).value == 1" />&nbsp;{{ $t("Yes") }}<br />
-                      <input class="form-check-input" type="checkbox" @change="filterBy(filterName, 0)" :checked="getFilter(filterName) && getFilter(filterName).value == 0" />&nbsp;{{ $t("No") }}
+                      <input class="form-check-input" type="checkbox" @change="filterBy(filterName, true)" :checked="getFilter(filterName) && getFilter(filterName).value == 'true'" />&nbsp;{{ $t("Yes") }}<br />
+                      <input class="form-check-input" type="checkbox" @change="filterBy(filterName, false)" :checked="getFilter(filterName) && getFilter(filterName).value == 'false'" />&nbsp;{{ $t("No") }}
                     </template>
                     <select
                       v-else

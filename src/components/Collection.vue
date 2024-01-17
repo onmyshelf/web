@@ -51,7 +51,17 @@
                     <i class="bi bi-x-circle"></i>
                   </a>
                   <div class="filter-value">
-                    <template v-if="collection.properties[filterName].type == 'yesno'">
+                    <select
+                      v-if="collection.properties[filterName].type == 'rating'"
+                      @change="filterBy(filterName, '>' + $event.target.value)"
+                      class="form-select"
+                    >
+                      <option value=""></option>
+                      <template v-for="filter in property.values" :key="filter">
+                        <option :value="filter" :selected="getFilter(filterName) && getFilter(filterName).value == '>' + filter">{{ filter }}+</option>
+                      </template>
+                    </select>
+                    <template v-else-if="collection.properties[filterName].type == 'yesno'">
                       <input class="form-check-input" type="checkbox" @change="filterBy(filterName, true)" :checked="getFilter(filterName) && getFilter(filterName).value == 'true'" />&nbsp;{{ $t("Yes") }}<br />
                       <input class="form-check-input" type="checkbox" @change="filterBy(filterName, false)" :checked="getFilter(filterName) && getFilter(filterName).value == 'false'" />&nbsp;{{ $t("No") }}
                     </template>

@@ -93,6 +93,9 @@
         <p v-if="items" id="itemsCount">
           {{ $t("Items") }}: <span class="items-count">{{ items.length }}</span>
         </p>
+        <div v-if="isMine" class="collection-dates">
+          {{ $t("Last changes:") }} {{ collection.updated }}
+        </div>
 
         <p v-if="isMine" id="manageButtons">
           <router-link
@@ -150,6 +153,12 @@
 </template>
 
 <style scoped>
+.collection-dates {
+  margin-bottom: 1em;
+  text-align: right;
+  font-style: italic;
+}
+
 #manageButtons {
   text-align: right;
 }
@@ -188,6 +197,7 @@ export default {
         titleProperty: null,
         coverProperty: null,
         visibility: null,
+        updated: null,
       },
       items: null,
       displayMode: "shop",
@@ -242,6 +252,7 @@ export default {
         this.collection.owner = response.data.owner
         this.collection.properties = response.data.properties
         this.collection.visibility = response.data.visibility
+        this.collection.updated = response.data.updated
 
         // search title property
         if (response.data.properties) {

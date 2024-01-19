@@ -9,6 +9,7 @@
 
 <style scoped>
 .property-yesno-view {
+  display: inline;
   font-size: 1.6em;
 }
 .property-yesno-view-yes {

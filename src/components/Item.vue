@@ -70,6 +70,13 @@
               </div>
             </template>
           </template>
+          <div v-if="isMine" class="item-dates">
+            {{ $t("Item added on:") }} {{ item.created }}
+            <template v-if="item.updated != item.created">
+              <br />
+              {{ $t("Last changes:") }} {{ item.updated }}
+            </template>
+          </div>
           <div v-if="isMine" id="loans" class="loans">
             <hr />
             <h2>{{ $t("Loans") }}</h2>
@@ -148,6 +155,12 @@
 
 .item-copies li {
   margin-left: 10px;
+}
+
+.item-dates {
+  margin-top: 1em;
+  text-align: right;
+  font-style: italic;
 }
 </style>
 

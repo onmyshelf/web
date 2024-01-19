@@ -179,6 +179,10 @@
     "en_US": "No",
     "fr_FR": "Non"
   },
+  "Last changes:": {
+    "en_US": "Last changes:",
+    "fr_FR": "Dernières modifications:"
+  },
   "Create an item": {
     "en_US": "Create an item",
     "fr_FR": "Créer un objet"
@@ -502,6 +506,10 @@
   "Who can see item": {
     "en_US": "Who can see this item?",
     "fr_FR": "Qui peut voir cet objet ?"
+  },
+  "Item added on:": {
+    "en_US": "Item added on:",
+    "fr_FR": "Objet ajouté le:"
   },
   "Lent": {
     "en_US": "Lent",

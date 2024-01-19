@@ -38,6 +38,16 @@
                 <br />
               </template>
             </template>
+            <div class="property-label">{{ $t('Creation date') }}:</div>
+            <i v-if="sorting == 'created'" class="bi bi-arrow-down-circle-fill"></i>
+            <a v-else :href="reloadUrl(filters, 'created')">
+              <i class="bi bi-arrow-down-circle"></i>
+            </a>&nbsp;
+            <i v-if="sorting == '-created'" class="bi bi-arrow-up-circle-fill"></i>
+            <a v-else :href="reloadUrl(filters, '-' + 'created')">
+              <i class="bi bi-arrow-up-circle"></i>
+            </a>
+            <br />
             <div class="position-sticky pt-3">
               <h4>{{ $t("Filter by") }}</h4>
               <template v-for="(property, filterName) of collection.properties" :key="filterName">

@@ -159,13 +159,13 @@
     "en_US": "Import this item",
     "fr_FR": "Importer cet objet"
   },
-  "Filters": {
-    "en_US": "Filters",
-    "fr_FR": "Filtres"
-  },
   "Sort by": {
     "en_US": "Sort by",
     "fr_FR": "Trier par"
+  },
+  "Creation date": {
+    "en_US": "Creation date",
+    "fr_FR": "Date d'ajout"
   },
   "Filter by": {
     "en_US": "Filter by",

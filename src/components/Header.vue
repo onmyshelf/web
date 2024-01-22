@@ -38,6 +38,9 @@
             </li>
 
             <template v-if="$isLoggedIn()">
+              <li v-if="$currentUser().username == 'onmyshelf'" class="nav-item">
+                <router-link to="/config" class="nav-link">{{ $t("Configuration") }}</router-link>
+              </li>
               <li class="nav-item">
                 <router-link to="/profile" class="nav-link">{{ $t("My profile") }}</router-link>
               </li>

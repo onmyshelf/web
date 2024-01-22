@@ -87,6 +87,16 @@ const router = createRouter({
       component: () => import("../views/Login.vue"),
     },
     {
+      path: "/config/",
+      component: () => import("../components/admin/configuration/ServerConfig.vue"),
+      children: [
+        {
+          path: "",
+          component: () => import("../components/admin/configuration/ServerConfig.vue"),
+        },
+      ],
+    },
+    {
       path: "/profile/",
       component: () => import("../components/user/Profile.vue"),
     },

@@ -2,12 +2,13 @@
   <div class="container">
     <Error v-if="error" :status="error" />
     <template v-else>
-      <Loading v-if="loading"/>
+      <Loading v-if="loading" />
       <form v-else @submit="validate">
-        <template v-for="(value, param) in config" :key="param" >
+        <h3>{{ $t("Server configuration") }}</h3>
+        <template v-for="(value, param) in config" :key="param">
           <div v-if="param != 'version'" class="item-preview mb-3">
-            <label class="form-label">{{ param }}:</label>
-            <input v-model="config[param]" type="text" class="form-control">
+            <label class="form-label">{{ $t(param) }}:</label>
+            <input v-model="config[param]" type="text" class="form-control" />
           </div>
         </template>
 

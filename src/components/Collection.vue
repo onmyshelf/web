@@ -25,10 +25,7 @@
           <div v-if="collection && Object.keys(collection.properties).length > 0" class="position-sticky pt-3">
             <h4>{{ $t("Sort by") }}</h4>
             <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-              <select
-                @change="sortBy($event.target.value)"
-                class="form-select"
-              >
+              <select @change="sortBy($event.target.value)" class="form-select">
                 <template v-for="(property, name) of collection.properties" :key="name">
                   <option v-if="property.isTitle || property.sortable" :value="name" :selected="sorting == name || sorting == '-' + name">
                     {{ $translate(property.label) ? $translate(property.label) : name }}
@@ -67,23 +64,38 @@
                       @change="filterBy(filterName, '>' + $event.target.value)"
                       class="form-select"
                     >
-                      <option value=""></option>
+                      <option v-if="!getFilter(filterName)" value=""></option>
                       <template v-for="filter in property.values" :key="filter">
                         <option :value="filter" :selected="getFilter(filterName) && getFilter(filterName).value == '>' + filter">{{ filter }}+</option>
                       </template>
                     </select>
                     <template v-else-if="collection.properties[filterName].type == 'yesno'">
-                      <input class="form-check-input" type="checkbox" @change="filterBy(filterName, true)" :checked="getFilter(filterName) && getFilter(filterName).value == 'true'" />&nbsp;{{ $t("Yes") }}<br />
-                      <input class="form-check-input" type="checkbox" @change="filterBy(filterName, false)" :checked="getFilter(filterName) && getFilter(filterName).value == 'false'" />&nbsp;{{ $t("No") }}
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        @change="filterBy(filterName, true)"
+                        :checked="getFilter(filterName) && getFilter(filterName).value == 'true'"
+                      />&nbsp;{{ $t("Yes") }}<br />
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        @change="filterBy(filterName, false)"
+                        :checked="getFilter(filterName) && getFilter(filterName).value == 'false'"
+                      />&nbsp;{{ $t("No") }}
                     </template>
                     <select
                       v-else
                       @change="filterBy(filterName, $event.target.value)"
                       class="form-select"
                     >
-                      <option value=""></option>
+                      <option v-if="!getFilter(filterName)" value=""></option>
                       <template v-for="filter in property.values" :key="filter">
-                        <option :value="filter" :selected="getFilter(filterName) && getFilter(filterName).value == filter">{{ filter }}</option>
+                        <option
+                          :value="filter"
+                          :selected="getFilter(filterName) && getFilter(filterName).value == filter"
+                        >
+                          {{ filter }}
+                        </option>
                       </template>
                     </select>
                   </div>

@@ -24,30 +24,31 @@
           </div>
           <div v-if="collection && Object.keys(collection.properties).length > 0" class="position-sticky pt-3">
             <h4>{{ $t("Sort by") }}</h4>
-            <template v-for="(property, name) of collection.properties" :key="name">
-              <template v-if="property.isTitle || property.sortable">
-                <PropertyLabel :name="name" :property="property" />
-                <i v-if="sorting == name" class="bi bi-arrow-down-circle-fill"></i>
-                <a v-else :href="reloadUrl(filters, name)">
-                  <i class="bi bi-arrow-down-circle"></i>
-                </a>&nbsp;
-                <i v-if="sorting == '-' + name" class="bi bi-arrow-up-circle-fill"></i>
-                <a v-else :href="reloadUrl(filters, '-' + name)">
-                  <i class="bi bi-arrow-up-circle"></i>
+            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+              <select
+                @change="sortBy($event.target.value)"
+                class="form-select"
+              >
+                <template v-for="(property, name) of collection.properties" :key="name">
+                  <option v-if="property.isTitle || property.sortable" :value="name" :selected="sorting == name || sorting == '-' + name">
+                    {{ $translate(property.label) ? $translate(property.label) : name }}
+                  </option>
+                </template>
+                <option value="created" :selected="sorting.match(/^-*created$/)">
+                  {{ $t('Creation date') }}
+                </option>
+              </select>
+              <button type="button" :class="'btn ' + (sorting.substring(0, 1) != '-' ? 'btn-secondary' : 'btn-outline-secondary')">
+                <a :href="sorting.substring(0, 1) == '-' ? reloadUrl(filters, sorting.substring(1)) : '#'">
+                  <i class="bi bi-sort-down-alt"></i>
                 </a>
-                <br />
-              </template>
-            </template>
-            <div class="property-label">{{ $t('Creation date') }}:</div>
-            <i v-if="sorting == 'created'" class="bi bi-arrow-down-circle-fill"></i>
-            <a v-else :href="reloadUrl(filters, 'created')">
-              <i class="bi bi-arrow-down-circle"></i>
-            </a>&nbsp;
-            <i v-if="sorting == '-created'" class="bi bi-arrow-up-circle-fill"></i>
-            <a v-else :href="reloadUrl(filters, '-' + 'created')">
-              <i class="bi bi-arrow-up-circle"></i>
-            </a>
-            <br />
+              </button>
+              <button type="button" :class="'btn ' + (sorting.substring(0, 1) == '-' ? 'btn-secondary' : 'btn-outline-secondary')">
+                <a :href="sorting.substring(0, 1) != '-' ? reloadUrl(filters, '-' + sorting) : '#'">
+                  <i class="bi bi-sort-up"></i>
+                </a>
+              </button>
+            </div>
             <div class="position-sticky pt-3">
               <h4>{{ $t("Filter by") }}</h4>
               <template v-for="(property, filterName) of collection.properties" :key="filterName">
@@ -334,6 +335,10 @@ export default {
     toggleDisplay(mode) {
       this.displayMode = mode
       localStorage.setItem("onmyshelf_displayMode", mode)
+    },
+    sortBy(property) {
+      // reload collection
+      document.location = this.reloadUrl(this.filters, property)
     },
     filterBy(name, value) {
       // get all filters except this property

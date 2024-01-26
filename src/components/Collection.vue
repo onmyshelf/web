@@ -103,10 +103,26 @@
               </template>
             </div>
           </div>
+          <div class="position-sticky pt-3">
+            <h4>{{ $t("Items per page") }}</h4>
+            <select
+              @change="changeItemsPerPage($event.target.value)"
+              class="form-select"
+            >
+              <option
+                v-for="i in ([20, 100, 200])" :key="i"
+                :value="i"
+                :selected="itemsPerPage == i"
+              >
+                {{ i }}
+              </option>
+              <option value="0" :selected="itemsPerPage == 0">{{ $t("Unlimited") }}</option>
+            </select>
+          </div>
         </div><!-- .position-sticky -->
       </div><!-- sidebar -->
 
-      <Loading v-if="loading"/>
+      <Loading v-if="loading" />
       <div v-else class="collection col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <Breadcrumbs v-if="collection.name" :current="title" />
         <h1 id="collectionTitle">{{ title }}</h1>
@@ -114,7 +130,7 @@
           {{ collection.description }}
         </p>
         <p v-if="items" id="itemsCount">
-          {{ $t("Items") }}: <span class="items-count">{{ items.length }}</span>
+          {{ $t("Items") }}: <span class="items-count">{{ nbOfItems }}</span>
         </p>
         <div v-if="isMine" class="collection-dates">
           {{ $t("Last changes:") }} {{ collection.updated }}
@@ -170,6 +186,22 @@
             </template>
           </template>
         </div>
+
+        <nav v-if="itemsPerPage > 0 && nbOfItems > 0" aria-label="Page navigation">
+          <ul class="pagination pagination-lg justify-content-center">
+            <li
+              v-for="p in maxPage()" :key="p"
+              :class="'page-item' + (p == page ? ' active' : '')"
+            >
+              <a
+                :href="(p == page ? '#' : reloadUrl(filters, sorting, p))"
+                class="page-link"
+              >
+                {{ p }}
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </div>
@@ -223,7 +255,10 @@ export default {
         updated: null,
       },
       items: null,
+      nbOfItems: 0,
       displayMode: "shop",
+      itemsPerPage: 100,
+      page: 1,
       error: false,
       filters: [],
       sorting: null,
@@ -235,6 +270,11 @@ export default {
     // get display mode from user local config
     if (localStorage.getItem("onmyshelf_displayMode")) {
       this.displayMode = localStorage.getItem("onmyshelf_displayMode")
+    }
+
+    // get items per page to display from user local config
+    if (localStorage.getItem("onmyshelf_itemsPerPage")) {
+      this.itemsPerPage = localStorage.getItem("onmyshelf_itemsPerPage")
     }
 
     // prepare API query parameters
@@ -254,6 +294,13 @@ export default {
     if (this.$route.query.sort) {
       options.params.sort = this.$route.query.sort
       this.sorting = this.$route.query.sort
+    }
+
+    // get page number
+    if (this.$route.query.page) {
+      this.page = this.$route.query.page
+      options.params.limit = this.itemsPerPage
+      options.params.offset = (this.page - 1) * this.itemsPerPage
     }
 
     // get collection details
@@ -304,7 +351,8 @@ export default {
     // get items
     this.$apiGet("collections/" + this.collection.id + "/items", options)
       .then((response) => {
-        this.items = response.data
+        this.items = response.data.items
+        this.nbOfItems = response.data.total
         this.loading = false
       })
       .catch((e) => {
@@ -333,14 +381,22 @@ export default {
       }
       return filter[0]
     },
-    reloadUrl(filters = this.filters, sorting = this.sorting) {
+
+    reloadUrl(filters = this.filters, sorting = this.sorting, page = this.page) {
       var query = []
+
+      // append filters
       filters.forEach((filter) => {
         query.push("p_" + filter.name + "=" + encodeURIComponent(filter.value))
       })
+
+      // append sortby
       if (sorting) {
         query.push("sort=" + sorting)
       }
+
+      // append page
+      query.push("page=" + page)
 
       return "?" + query.join("&")
     },
@@ -348,6 +404,18 @@ export default {
       this.displayMode = mode
       localStorage.setItem("onmyshelf_displayMode", mode)
     },
+
+    changeItemsPerPage(nb) {
+      // save config
+      localStorage.setItem("onmyshelf_itemsPerPage", nb)
+
+      // reset page
+      this.page = 1
+
+      // reload collection
+      document.location = this.reloadUrl()
+    },
+
     sortBy(property) {
       // reload collection
       document.location = this.reloadUrl(this.filters, property)
@@ -372,6 +440,17 @@ export default {
       } else {
         sidebar.style.display = "block"
       }
+    },
+
+    // returns the maximum of pages to display
+    maxPage() {
+      let max = Math.floor(this.nbOfItems / this.itemsPerPage)
+
+      if (this.nbOfItems % this.itemsPerPage > 0) {
+        max++
+      }
+
+      return max
     },
   },
 }

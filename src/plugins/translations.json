@@ -183,6 +183,14 @@
     "en_US": "Last changes:",
     "fr_FR": "Dernières modifications:"
   },
+  "Items per page": {
+    "en_US": "Items per page",
+    "fr_FR": "Objets par page"
+  },
+  "Unlimited": {
+    "en_US": "Unlimited",
+    "fr_FR": "Illimité"
+  },
   "Create an item": {
     "en_US": "Create an item",
     "fr_FR": "Créer un objet"

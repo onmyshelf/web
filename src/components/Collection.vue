@@ -9,19 +9,49 @@
         <div class="position-sticky pt-3">
           <h4>{{ $t("Display mode") }}</h4>
           <div class="btn-group" role="group" aria-label="Toggle display mode">
-            <input type="radio" class="btn-check" id="displaymode-shop" autocomplete="off" @change="toggleDisplay('shop')" :checked="displayMode == 'shop'">
-            <label class="btn btn-outline-secondary" for="displaymode-shop"><i class="bi bi-grid" :title="$t('Shop')"></i></label>
+            <input
+              type="radio"
+              class="btn-check"
+              id="displaymode-shop"
+              autocomplete="off"
+              @change="toggleDisplay('shop')"
+              :checked="displayMode == 'shop'"
+            />
+            <label class="btn btn-outline-secondary" for="displaymode-shop">
+              <i class="bi bi-grid" :title="$t('Shop style')"></i>
+            </label>
 
-            <input type="radio" class="btn-check" id="displaymode-list" autocomplete="off" @change="toggleDisplay('list')" :checked="displayMode == 'list'">
-            <label class="btn btn-outline-secondary" for="displaymode-list"><i class="bi bi-list" :title="$t('List')"></i></label>
+            <input
+              type="radio"
+              class="btn-check"
+              id="displaymode-list"
+              autocomplete="off"
+              @change="toggleDisplay('list')"
+              :checked="displayMode == 'list'"
+            />
+            <label class="btn btn-outline-secondary" for="displaymode-list">
+              <i class="bi bi-list" :title="$t('List')"></i>
+            </label>
 
-            <input type="radio" class="btn-check" id="displaymode-mosaic" autocomplete="off" @change="toggleDisplay('mosaic')" :checked="displayMode == 'mosaic'">
-            <label class="btn btn-outline-secondary" for="displaymode-mosaic"><i class="bi bi-grid-3x3" :title="$t('Mosaic')"></i></label>
+            <input
+              type="radio"
+              class="btn-check"
+              id="displaymode-mosaic"
+              autocomplete="off"
+              @change="toggleDisplay('mosaic')"
+              :checked="displayMode == 'mosaic'"
+            />
+            <label class="btn btn-outline-secondary" for="displaymode-mosaic">
+              <i class="bi bi-grid-3x3" :title="$t('Mosaic')"></i>
+            </label>
           </div>
+          <!-- end of select display mode -->
+
           <div class="position-sticky pt-3">
             <h4>{{ $t("Search") }}</h4>
             <input v-model="search" type="text" class="form-control" :placeholder="$t('Search item')" />
           </div>
+
           <div v-if="collection && Object.keys(collection.properties).length > 0" class="position-sticky pt-3">
             <h4>{{ $t("Sort by") }}</h4>
             <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
@@ -46,6 +76,8 @@
                 </a>
               </button>
             </div>
+            <!-- end of select sorting -->
+
             <div class="position-sticky pt-3">
               <h4>{{ $t("Filter by") }}</h4>
               <template v-for="(property, filterName) of collection.properties" :key="filterName">
@@ -102,7 +134,9 @@
                 </div>
               </template>
             </div>
+            <!-- end of filters -->
           </div>
+
           <div class="position-sticky pt-3">
             <h4>{{ $t("Items per page") }}</h4>
             <select
@@ -119,8 +153,11 @@
               <option value="0" :selected="itemsPerPage == 0">{{ $t("Unlimited") }}</option>
             </select>
           </div>
-        </div><!-- .position-sticky -->
-      </div><!-- sidebar -->
+          <!-- end of select nb of items/page -->
+        </div>
+        <!-- end of position-sticky -->
+      </div>
+      <!-- end of sidebar -->
 
       <Loading v-if="loading" />
       <div v-else class="collection col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -186,6 +223,7 @@
             </template>
           </template>
         </div>
+        <!-- end of items list -->
 
         <nav v-if="itemsPerPage > 0 && nbOfItems > 0" aria-label="Page navigation">
           <ul class="pagination pagination-lg justify-content-center">
@@ -202,9 +240,14 @@
             </li>
           </ul>
         </nav>
+        <!-- end of navigation pages -->
+
       </div>
+      <!-- end of collection container -->
     </div>
+    <!-- end of row -->
   </div>
+  <!-- end of container-fluid -->
 </template>
 
 <style scoped>
@@ -360,11 +403,13 @@ export default {
         this.loading = false
       })
   },
+
   computed: {
     // check if collection is mine
     isMine() {
       return this.$matchUserId(this.collection.owner)
     },
+
     title() {
       if (this.collection.name) {
         return this.collection.name
@@ -373,9 +418,10 @@ export default {
       }
     },
   },
+
   methods: {
     getFilter(name) {
-      let filter = this.filters.filter(f => f.name == name)
+      let filter = this.filters.filter((f) => f.name == name)
       if (filter.length == 0) {
         return false
       }
@@ -400,6 +446,7 @@ export default {
 
       return "?" + query.join("&")
     },
+
     toggleDisplay(mode) {
       this.displayMode = mode
       localStorage.setItem("onmyshelf_displayMode", mode)
@@ -420,9 +467,10 @@ export default {
       // reload collection
       document.location = this.reloadUrl(this.filters, property)
     },
+
     filterBy(name, value) {
       // get all filters except this property
-      let filters = this.filters.filter(f => f.name != name)
+      let filters = this.filters.filter((f) => f.name != name)
       // append filter
       filters.push({
         name: name,
@@ -432,6 +480,7 @@ export default {
       // reload collection
       document.location = this.reloadUrl(filters)
     },
+
     toggleSidebar() {
       let sidebar = document.getElementById("sidebarMenu")
 

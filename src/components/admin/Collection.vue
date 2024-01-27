@@ -96,6 +96,7 @@
             {{ $t("Import collection from") }}
           </p>
           <router-link to="import" class="btn btn-primary">
+            <i class="bi bi-box-arrow-in-down-left"></i>
             {{ $t("Import collection") }}
           </router-link>
         </div>
@@ -106,7 +107,10 @@
         </div>
         <div class="card-body">
           <p class="card-text">{{ $t("Delete collection details") }}</p>
-          <router-link to="delete" class="btn btn-danger">{{ $t("Delete collection") }}</router-link>
+          <router-link to="delete" class="btn btn-danger">
+            <i class="bi bi-x-lg"></i>
+            {{ $t("Delete collection") }}
+          </router-link>
         </div>
       </div>
     </div>

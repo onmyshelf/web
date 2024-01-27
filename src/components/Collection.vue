@@ -201,6 +201,14 @@
           </router-link>
         </p>
 
+        <template v-if="Object.keys(collection.properties).length == 0">
+          <Empty
+            v-if="isMine"
+            :label="$t('No items') + ' ' + $t('Create first item')"
+          />
+          <Empty v-else :label="$t('No items')" />
+        </template>
+
         <div v-if="items" :class="'container items items-' + displayMode">
           <template v-if="items.length == 0">
             <Empty
@@ -304,7 +312,7 @@ export default {
       page: 1,
       error: false,
       filters: [],
-      sorting: "",
+      sorting: null,
       search: "",
       loading: true,
     }

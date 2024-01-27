@@ -330,14 +330,45 @@ export default {
     },
     idToNewType() {
       // try to guess property type using property name
+
+      // do it only if new property; if edit mode, don't do anything
       if (this.id) {
         return
       }
+      // do not change type if user has already set it manually
       if (this.changedType) {
         return
       }
 
+      // reset choices
+      this.edit.isTitle = false
+      this.edit.isSubTitle = false
+      this.edit.isCover = false
+
       switch (this.edit.name) {
+        // probably the item title
+        case "name":
+        case "nom":
+        case "title":
+        case "titre":
+          this.edit.isTitle = true
+          break
+
+        // probably the item subtitle
+        case "subtitle":
+        case "soustitre":
+          this.edit.isSubTitle = true
+          break
+
+        // probably the item cover
+        case "cover":
+        case "couverture":
+        case "poster":
+          this.edit.type = "image"
+          this.edit.isCover = true
+          break
+
+        // when name = type
         case "color":
         case "date":
         case "datetime":
@@ -351,6 +382,7 @@ export default {
           this.edit.type = this.edit.name
           break
 
+        // other guesses
         case "colour":
         case "couleur":
           this.edit.type = "color"
@@ -365,6 +397,7 @@ export default {
           break
 
         case "comment":
+        case "commentary":
         case "description":
         case "resume":
         case "synopsis":
@@ -373,7 +406,6 @@ export default {
           this.edit.type = "longtext"
           break
 
-        case "cover":
         case "img":
         case "photo":
         case "picture":
@@ -382,6 +414,7 @@ export default {
 
         case "id":
         case "year":
+        case "annee":
           this.edit.type = "number"
           break
 
@@ -396,6 +429,7 @@ export default {
           break
       }
     },
+
     checkNewId() {
       if (this.id) {
         return

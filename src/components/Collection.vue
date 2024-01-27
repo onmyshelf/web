@@ -304,7 +304,7 @@ export default {
       page: 1,
       error: false,
       filters: [],
-      sorting: null,
+      sorting: "",
       search: "",
       loading: true,
     }

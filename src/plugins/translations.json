@@ -1,4 +1,8 @@
 {
+  "e.g.": {
+    "en_US": "e.g.",
+    "fr_FR": "ex:"
+  },
   "Home": {
     "en_US": "Home",
     "fr_FR": "Accueil"

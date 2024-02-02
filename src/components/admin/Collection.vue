@@ -18,13 +18,13 @@
 
     <h2>{{ $t("Properties") }}</h2>
     <div class="mb-3">
+      <p>{{ $t("Items are defined by properties") }}</p>
       <router-link to="property/new" class="btn btn-success mb-3">
         <i class="bi-plus-lg"></i> {{ $t("Create new property") }}
       </router-link>
 
       <template v-if="properties">
         <div v-if="Object.keys(properties).length == 0" class="alert alert-warning" role="alert">
-          {{ $t("Items are defined by properties") }}<br />
           {{ $t("Create your first property") }}
         </div>
         <table v-else class="table">
@@ -75,10 +75,6 @@
     <div v-if="properties && Object.keys(properties).length > 0" class="mb-3">
       <h2>{{ $t("Items") }}</h2>
       <p>
-        <router-link to="../item/new" class="btn btn-success">
-          <i class="bi-plus-lg"></i> {{ $t("Create an item") }}
-        </router-link>
-        &nbsp;
         <router-link to="../" class="btn btn-outline-secondary">
           <i class="bi-eye"></i> {{ $t("Show collection") }}
         </router-link>

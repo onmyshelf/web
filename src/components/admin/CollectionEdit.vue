@@ -62,6 +62,7 @@ export default {
     MediaSelector,
     Visibility,
   },
+
   data() {
     return {
       loading: true,
@@ -69,6 +70,7 @@ export default {
       edit: { visibility: 0 },
     }
   },
+
   created() {
     // new collection: do not load data
     if (!this.id) {

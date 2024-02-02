@@ -157,6 +157,7 @@ export default {
     Image,
     MediaSelector,
   },
+
   data() {
     return {
       search: {
@@ -200,6 +201,7 @@ export default {
     trimPreview(string) {
       return String(string).substring(0, 50)
     },
+
     validate(e) {
       // prevent form to reload page
       e.preventDefault()
@@ -247,6 +249,7 @@ export default {
           })
       });
     },
+
     importItem(id) {
       this.loading = true
 
@@ -270,6 +273,7 @@ export default {
           }
         })
     },
+
     moduleTags(tags) {
       if (tags) {
         return "(tags: " + tags.join(", ") + ")"

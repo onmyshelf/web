@@ -7,7 +7,9 @@
         <select v-model="search.module" name="import-source" class="form-select" aria-label="Type of import">
           <option value="" default>{{ $t("All import sources") }}</option>
           <template v-for="(importModule, name) in search.modules" :key="name">
-            <option v-if="importModule.search" :value="name">{{ importModule.name }} {{ moduleTags(importModule.tags) }}</option>
+            <option :value="name">
+              {{ importModule.name }} {{ moduleTags(importModule.tags) }}
+            </option>
           </template>
         </select>
       </div>
@@ -164,20 +166,50 @@ export default {
         module: "",
         source: "",
         search: "",
-        modules: [],
+        modules: {},
       },
+      collection: null,
       items: false,
       loading: true,
       help: {},
     }
   },
+
+  // when page is loaded
   created() {
-    // get import modules
-    this.$apiGet("import/modules")
+    // get collection
+    this.$apiGet("collections/" + this.$route.params.cid)
       .then((response) => {
         if (response.data) {
-          this.search.modules = response.data
-          this.loading = false
+          this.collection = response.data
+
+          // get import modules
+          this.$apiGet("import/modules")
+            .then((response) => {
+              if (response.data) {
+                for (const [name, module] of Object.entries(response.data)) {
+                  if (!module.search) {
+                    continue
+                  }
+
+                  if (this.collection.type && module.tags) {
+                    if (!module.tags.includes(this.collection.type)) {
+                      continue
+                    }
+                  }
+
+                  this.search.modules[name] = module
+                }
+              }
+
+              this.loading = false
+            })
+            .catch(() => {
+              this.result = {
+                success: false,
+                text: "Internal error. Please retry.",
+              }
+            })
         }
       })
       .catch(() => {
@@ -225,10 +257,6 @@ export default {
 
       // search
       modules.forEach((module) => {
-        if (!this.search.modules[module].search) {
-          return
-        }
-
         data.params.module = module
         this.$apiGet("collections/" + this.$route.params.cid + "/import/search", data)
           .then((response) => {

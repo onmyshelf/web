@@ -28,7 +28,9 @@
         </div>
 
         <div v-if="!id" class="mb-3">
-          <label class="form-label">{{ $t("Property ID") }} (<strong>{{ $t("required") }}</strong>)</label>
+          <label class="form-label">
+            {{ $t("Property ID") }} (<strong>{{ $t("required") }}</strong>)
+          </label>
           <input
             v-model="edit.name"
             name="property-name"
@@ -43,7 +45,9 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label">{{ $t("Description") }} ({{ $t("Property description usage") }})</label>
+          <label class="form-label">
+            {{ $t("Description") }} ({{ $t("Property description usage") }})
+          </label>
           <textarea
             v-model="edit.description"
             :placeholder="$t('Property description example')"
@@ -250,6 +254,7 @@ export default {
         let booleans = [
           "isCover",
           "isTitle",
+          "isSubTitle",
           "preview",
           "hideLabel",
           "filterable",
@@ -479,6 +484,7 @@ export default {
       let booleans = [
         "isCover",
         "isTitle",
+        "isSubTitle",
         "preview",
         "hideLabel",
         "filterable",
@@ -499,15 +505,15 @@ export default {
       if (this.id) {
         // modify property
         this.$apiPatch("collections/" + this.$route.params.cid + "/properties/" + this.id, data)
-          .then(() => {
-            document.location.href = redirect
-          })
+        .then(() => {
+          document.location.href = redirect
+        })
       } else {
         // create new property
         this.$apiPost("collections/" + this.$route.params.cid + "/properties", data)
-          .then(() => {
-            document.location.href = redirect
-          })
+        .then(() => {
+          document.location.href = redirect
+        })
       }
     },
   },

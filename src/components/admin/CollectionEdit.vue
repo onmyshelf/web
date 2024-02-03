@@ -150,12 +150,22 @@ export default {
       if (this.id) {
         // modify collection
         this.$apiPatch("collections/" + this.id, data).then(() => {
+          // redirect page
           document.location.href = "/collection/" + this.id + "/manage/"
         })
       } else {
         // create new collection
         this.$apiPost("collections", data).then((response) => {
-          document.location.href = "/collection/" + response.data.id + "/manage/"
+          // redirect to collection page
+          let redirect = "/collection/" + response.data.id
+
+          // if custom type of collection, redirect to manage page
+          // to create properties
+          if (!this.edit.type) {
+            redirect += "/manage/"
+          }
+
+          document.location.href = redirect
         })
       }
     },

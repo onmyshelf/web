@@ -166,7 +166,7 @@
         <p v-if="collection.description" id="collectionDescription">
           {{ collection.description }}
         </p>
-        <p v-if="items" id="itemsCount">
+        <p id="itemsCount">
           {{ $t("Items") }}: <span class="items-count">{{ nbOfItems }}</span>
         </p>
         <div v-if="isMine" class="collection-dates">
@@ -210,7 +210,7 @@
         </template>
 
         <div v-if="items" :class="'container items items-' + displayMode">
-          <template v-if="items.length == 0">
+          <template v-if="nbOfItems == 0">
             <Empty
               v-if="isMine"
               :label="$t('No items') + ' ' + $t('Create first item')"

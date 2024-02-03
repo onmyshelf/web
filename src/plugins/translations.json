@@ -223,9 +223,17 @@
     "en_US": "Collection name",
     "fr_FR": "Nom de la collection"
   },
+  "Collection name example for books": {
+    "en_US": "My books",
+    "fr_FR": "Mes livres"
+  },
+  "Collection name example for movies": {
+    "en_US": "My movies",
+    "fr_FR": "Mes films"
+  },
   "Collection name example": {
-    "en_US": "e.g. My books",
-    "fr_FR": "ex : Mes livres"
+    "en_US": "My stuff",
+    "fr_FR": "Mes objets"
   },
   "Collection description": {
     "en_US": "Collection description",
@@ -234,10 +242,6 @@
   "optional": {
     "en_US": "optional",
     "fr_FR": "facultatif"
-  },
-  "Collection description example": {
-    "en_US": "e.g. My collection of ...",
-    "fr_FR": "ex : Ma collection de ..."
   },
   "Collection image": {
     "en_US": "Collection image",
@@ -332,8 +336,8 @@
     "fr_FR": "Créer une nouvelle propriété"
   },
   "Items are defined by properties": {
-    "en_US": "Collection items are defined by properties.",
-    "fr_FR": "Les objets d'une collection sont définis par des propriétés."
+    "en_US": "Collection items are defined with some properties (e.g. title, size, image, ...).",
+    "fr_FR": "Les objets d'une collection sont définis par des propriétés (ex: titre, taille, image, ...)."
   },
   "Create your first property": {
     "en_US": "You must create at least one property (button above) or import a collection (see below).",

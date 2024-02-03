@@ -7,14 +7,32 @@
     <Loading v-if="loading" />
     <form v-else @submit="validate">
       <div class="mb-3">
+        <label class="form-label">{{ $t("Collection type") }}</label>
+        <select
+          v-if="templates"
+          v-model="edit.type"
+          class="form-select"
+          :aria-label="$t('Collection type')"
+          @change="defaultName()"
+        >
+          <option v-for="(template, key) in templates" :key="key" :value="template.type">
+            {{ $translate(template.name) }}
+          </option>
+          <option value="">{{ $t("Other collection type") }}</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
         <label class="form-label">{{ $t("Collection name") }}</label>
         <input
           v-model="edit.name"
           name="collection-name"
           type="text"
           class="form-control"
-          :placeholder="$t('Collection name example')"
           required
+          :placeholder="placeholderName"
+          :disabled="edit.type === null"
+          @change="changedName = true"
         />
       </div>
       <div class="mb-3">
@@ -23,7 +41,6 @@
         </label>
         <textarea
           v-model="edit.description"
-          :placeholder="$t('Collection description example')"
           rows="3"
           class="form-control"
         ></textarea>
@@ -40,7 +57,7 @@
       </div>
 
       <div class="mt-3">
-        <button class="btn btn-primary" type="submit" :disabled="$demoMode()">
+        <button class="btn btn-primary" type="submit" :disabled="notReady()">
           <template v-if="id">{{ $t("Save changes") }}</template>
           <template v-else>{{ $t("Create collection") }}</template>
         </button>&nbsp;
@@ -67,14 +84,24 @@ export default {
     return {
       loading: true,
       id: this.$route.params.cid,
-      edit: { visibility: 0 },
+      edit: { type: null, visibility: 0 },
+      templates: null,
+      changedName: false,
+      placeholderName: "",
     }
   },
 
   created() {
-    // new collection: do not load data
-    if (!this.id) {
+    // get collection templates
+    this.$apiGet("collectiontemplates")
+    .then((response) => {
+      this.templates = response.data
+      // end of loading
       this.loading = false
+    })
+
+    // if new collection, stop here
+    if (!this.id) {
       return
     }
 
@@ -85,6 +112,11 @@ export default {
 
       this.edit.name = this.$translate(response.data.name)
       this.edit.description = this.$translate(response.data.description)
+
+      // force empty type if not defined
+      if (!this.edit.type) {
+        this.edit.type = ""
+      }
 
       // end of loading
       this.loading = false
@@ -101,6 +133,19 @@ export default {
       data.name = this.$i18nObject(data.name)
       data.description = this.$i18nObject(data.description)
 
+      // if new collection & type is defined,
+      if (!this.id && this.edit.type) {
+        // get data from template
+        this.templates.forEach((template) => {
+          if (template.type != this.edit.type) {
+            return
+          }
+
+          // append properties definition from the template
+          data.properties = template.properties
+        })
+      }
+
       // API call
       if (this.id) {
         // modify collection
@@ -113,6 +158,37 @@ export default {
           document.location.href = "/collection/" + response.data.id + "/manage/"
         })
       }
+    },
+
+    defaultName() {
+      if (this.changedName) {
+        return
+      }
+
+      let translationKey = "Collection name example for " + this.edit.type
+      let translation = this.$t(translationKey)
+
+      // default translation
+      if (translation == translationKey) {
+        this.edit.name = ""
+        translation = this.$t("Collection name example")
+      } else {
+        this.edit.name = translation
+      }
+
+      this.placeholderName = this.$t("e.g.") + " " + translation
+    },
+
+    notReady() {
+      if (this.$demoMode()) {
+        return true
+      }
+
+      if (!this.id && this.type === null) {
+        return true
+      }
+
+      return false
     },
   },
 }

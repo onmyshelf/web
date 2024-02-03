@@ -18,7 +18,7 @@
       {{ $t("Delete " + obj) }}
     </button>
     &nbsp;
-    <a href="." id="cancelButton" class="btn btn-outline-secondary">
+    <a :href="cancelUrl" id="cancelButton" class="btn btn-outline-secondary">
       {{ $t("Cancel") }}
     </a>
     <Loading v-if="loading" class="mt-3" />
@@ -53,7 +53,10 @@ export default {
     },
     consequences: {
       default: false,
-    }
+    },
+    cancelUrl: {
+      default: ".",
+    },
   },
   components: {
     Loading,

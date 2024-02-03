@@ -1,5 +1,10 @@
 <template>
-  <DeleteConfirm obj="loan" :id="$route.params.id" action="deleteLoan" />
+  <DeleteConfirm
+    obj="loan"
+    :id="$route.params.id"
+    action="deleteLoan"
+    cancelUrl="../.."
+  />
 </template>
 
 <script>

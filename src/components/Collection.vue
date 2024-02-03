@@ -5,6 +5,7 @@
       <i class="bi bi-list" style="font-size: 2em"></i>
     </button>
     <div class="row">
+      <Loading v-if="loading" />
       <div id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
         <div class="position-sticky pt-3">
           <h4>{{ $t("Display mode") }}</h4>
@@ -159,8 +160,7 @@
       </div>
       <!-- end of sidebar -->
 
-      <Loading v-if="loading" />
-      <div v-else class="collection col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div v-if="!loading" class="collection col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <Breadcrumbs v-if="collection.name" :current="title" />
         <h1 id="collectionTitle">{{ title }}</h1>
         <p v-if="collection.description" id="collectionDescription">
@@ -236,11 +236,13 @@
         <nav v-if="itemsPerPage > 0 && nbOfItems > 0" aria-label="Page navigation">
           <ul class="pagination pagination-lg justify-content-center">
             <li
-              v-for="p in maxPage()" :key="p"
+              v-for="p in rangePages()" :key="p"
               :class="'page-item' + (p == page ? ' active' : '')"
             >
+              <span v-if="p == '...'" class="page-link">...</span>
               <a
-                :href="(p == page ? '#' : reloadUrl(filters, sorting, p))"
+                v-else
+                :href="p == page ? '#' : reloadUrl(filters, sorting, p)"
                 class="page-link"
               >
                 {{ p }}
@@ -499,15 +501,47 @@ export default {
       }
     },
 
-    // returns the maximum of pages to display
-    maxPage() {
+    // returns array for pagination
+    rangePages() {
       let max = Math.floor(this.nbOfItems / this.itemsPerPage)
 
       if (this.nbOfItems % this.itemsPerPage > 0) {
         max++
       }
 
-      return max
+      let pages = [1]
+
+      // if single page, quit
+      if (max == 1) {
+        return pages
+      }
+
+      let limit = 2
+      let startPage = parseInt(this.page)
+
+      for (let p = 2; p < max; p++) {
+        if (p > startPage + limit) {
+          pages.push("...")
+          break
+        }
+
+        if (p < startPage - limit) {
+          continue
+        }
+
+        if (p == startPage - limit) {
+          if (p > limit) {
+            pages.push("...")
+          }
+        }
+
+        pages.push(p)
+      }
+
+      // append last page
+      pages.push(max)
+
+      return pages
     },
   },
 }

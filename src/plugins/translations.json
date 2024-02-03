@@ -219,6 +219,14 @@
     "en_US": "Edit collection",
     "fr_FR": "Modifier la collection"
   },
+  "Collection type": {
+    "en_US": "Type of collection",
+    "fr_FR": "Type de collection"
+  },
+  "Other collection type": {
+    "en_US": "Other (custom)",
+    "fr_FR": "Autre (personnalisé)"
+  },
   "Collection name": {
     "en_US": "Collection name",
     "fr_FR": "Nom de la collection"

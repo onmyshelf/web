@@ -14,6 +14,7 @@
           class="form-select"
           :aria-label="$t('Collection type')"
           @change="defaultName()"
+          required
         >
           <option v-for="(template, key) in templates" :key="key" :value="template.type">
             {{ $translate(template.name) }}
@@ -57,7 +58,7 @@
       </div>
 
       <div class="mt-3">
-        <button class="btn btn-primary" type="submit" :disabled="notReady()">
+        <button class="btn btn-primary" type="submit" :disabled="$demoMode()">
           <template v-if="id">{{ $t("Save changes") }}</template>
           <template v-else>{{ $t("Create collection") }}</template>
         </button>&nbsp;
@@ -171,7 +172,7 @@ export default {
     },
 
     defaultName() {
-      if (this.changedName) {
+      if (this.id || this.changedName) {
         return
       }
 
@@ -187,18 +188,6 @@ export default {
       }
 
       this.placeholderName = this.$t("e.g.") + " " + translation
-    },
-
-    notReady() {
-      if (this.$demoMode()) {
-        return true
-      }
-
-      if (!this.id && this.type === null) {
-        return true
-      }
-
-      return false
     },
   },
 }

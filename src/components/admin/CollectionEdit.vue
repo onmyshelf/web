@@ -54,7 +54,7 @@
 
       <div class="mb-3">
         <label class="form-label">{{ $t("Who can see collection") }}</label>
-        <Visibility v-model="edit.visibility" max="3" />
+        <VisibilitySelector v-model="edit.visibility" max="3" />
       </div>
 
       <div class="mt-3">
@@ -72,13 +72,13 @@
 <script>
 import Loading from "@/components/Loading.vue"
 import MediaSelector from "./properties/MediaSelector.vue"
-import Visibility from "./properties/Visibility.vue"
+import VisibilitySelector from "./properties/VisibilitySelector.vue"
 
 export default {
   components: {
     Loading,
     MediaSelector,
-    Visibility,
+    VisibilitySelector,
   },
 
   data() {

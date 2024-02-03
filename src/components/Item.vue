@@ -5,24 +5,31 @@
       <Breadcrumbs v-if="collection && item" :parents="breadcrumbs" :current="title" />
       <div v-if="item && collection && collection.properties" class="row item">
         <div class="col-4 item-cover">
-          <Image v-if="properties && coverProperty && properties[coverProperty]" :url="properties[coverProperty]"
-            :cover="true" :linked="true" id="itemImage" />
-          <Image v-else :url="collection.cover" id="itemImage" :cover="true" />
+          <Image
+            v-if="properties && coverProperty && properties[coverProperty]"
+            :url="properties[coverProperty]"
+            cover="true"
+            linked="true"
+            id="itemImage"
+          />
+          <Image v-else :url="collection.cover" id="itemImage" cover="true" />
 
           <div v-if="gallery.length > 0" class="gallery">
             <template v-for="property in gallery" :key="property">
               <template v-if="properties[property] && !collection.properties[property].isCover">
                 <template v-if="Array.isArray(properties[property])">
-                  <Image v-for="(img, i) in properties[property]" :key="i"
+                  <Image
+                    v-for="(img, i) in properties[property]" :key="i"
                     :url="img"
-                    :linked="true"
+                    linked="true"
                     :id="'property-' + property + '-' + i"
                     :data-property="property"
                   />
                 </template>
-                <Image v-else
+                <Image
+                  v-else
                   :url="properties[property]"
-                  :linked="true"
+                  linked="true"
                   :id="'property-' + property"
                 />
               </template>

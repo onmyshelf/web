@@ -52,7 +52,11 @@
                 </template>
               </td>
               <td>
-                <Visibility :level="property.visibility > visibility ? property.visibility : visibility" />
+                <i v-if="property.hidden" class="bi bi-eye-slash"></i>
+                <Visibility
+                  v-else
+                  :level="property.visibility > visibility ? property.visibility : visibility"
+                />
                 <template v-if="property.preview">
                   ,&nbsp;<a title="In item summary"><i class="bi-bookmark-fill"></i></a>
                 </template>

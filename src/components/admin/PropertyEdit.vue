@@ -70,9 +70,14 @@
         <div class="card mb-3">
           <div class="card-header">{{ $t("Display") }}</div>
           <div class="card-body">
-            <div class="form-check form-switch">
+            <div class="mb-3">
+              <label class="form-label">{{ $t("Who can see property") }}</label>
+              <VisibilitySelector v-model="edit.visibility" />
+            </div>
+
+            <div v-if="edit.visibility < 4" class="form-check form-switch">
               <input v-model="edit.preview" class="form-check-input" type="checkbox"
-                :disabled="edit.visibility > 3 || edit.isCover || edit.isTitle || edit.isSubTitle" />
+                :disabled="edit.isCover || edit.isTitle || edit.isSubTitle" />
               <label class="form-check-label">
                 {{ $t("Display property in item summary") }}
               </label>
@@ -80,7 +85,7 @@
 
             <div v-if="canBeTitle" class="form-check form-switch">
               <input v-model="edit.isTitle" class="form-check-input" type="checkbox"
-                :disabled=edit.isSubTitle @change="checkPreview" />
+                :disabled="edit.isSubTitle" @change="checkPreview" />
               <label class="form-check-label">
                 {{ $t("Use property as item title") }}
               </label>
@@ -88,7 +93,7 @@
 
             <div v-if="canBeTitle" class="form-check form-switch">
               <input v-model="edit.isSubTitle" class="form-check-input" type="checkbox"
-                :disabled=edit.isTitle @change="checkPreview" />
+                :disabled="edit.isTitle" @change="checkPreview" />
               <label class="form-check-label">{{ $t("Use property as item subtitle") }}</label>
             </div>
 
@@ -97,16 +102,15 @@
               <label class="form-check-label">{{ $t("Use property as cover image") }}</label>
             </div>
 
-            <div class="mt-3">
+            <div v-if="edit.visibility < 4" class="mt-3">
               <label class="form-label">{{ $t("Display order") }} ({{ $t("Property order usage") }})</label>
-              <input v-model="edit.order" type="number" min="0"
+              <input
+                v-model="edit.order"
+                type="number"
+                min="0"
                 class="form-control"
+                :disabled="edit.visibility > 3"
               />
-            </div>
-
-            <div class="mt-3">
-              <label class="form-label">{{ $t("Who can see property") }}</label>
-              <Visibility v-model="edit.visibility" max="3" />
             </div>
           </div>
         </div>
@@ -191,13 +195,13 @@
 <script>
 import Breadcrumbs from "@/components/Breadcrumbs.vue"
 import Error from "@/components/Error.vue"
-import Visibility from "./properties/Visibility.vue"
+import VisibilitySelector from "./properties/VisibilitySelector.vue"
 
 export default {
   components: {
     Breadcrumbs,
     Error,
-    Visibility,
+    VisibilitySelector,
   },
   data() {
     return {
@@ -249,6 +253,10 @@ export default {
 
         this.edit = this.collection.properties[this.id]
 
+        if (this.edit.hidden) {
+          this.edit.visibility = 4
+        }
+
         // transform boolean values
         // TODO: remove this dirty work!
         let booleans = [
@@ -260,6 +268,7 @@ export default {
           "filterable",
           "searchable",
           "sortable",
+          "hidden",
         ]
         booleans.forEach((key) => {
           if (this.edit[key] == 1) {
@@ -285,6 +294,10 @@ export default {
   },
   computed: {
     canBeTitle() {
+      if (this.edit.visibility > 3) {
+        return false
+      }
+
       switch (this.edit.type) {
         case "text":
         case "number":
@@ -292,6 +305,7 @@ export default {
         case "datetime":
           return true
       }
+
       return false
     },
     canBeFilterable() {
@@ -455,6 +469,7 @@ export default {
 
       this.idToNewType()
     },
+
     checkPreview() {
       if (this.edit.isCover || this.edit.isTitle || this.edit.isSubTitle) {
         this.edit.preview = true
@@ -469,6 +484,7 @@ export default {
         }
       }
     },
+
     validate(e) {
       // prevent form to reload page
       e.preventDefault()
@@ -478,6 +494,18 @@ export default {
 
       data.label = this.$i18nObject(data.label)
       data.description = this.$i18nObject(data.description)
+
+      // validate choices
+      if (!this.canBeTitle) {
+        data.isTitle = false
+      }
+
+      if (data.visibility <= 3) {
+        data.hidden = false
+      } else {
+        data.visibility = 3
+        data.hidden = true
+      }
 
       // transform boolean values
       // TODO: remove this dirty work!
@@ -490,6 +518,7 @@ export default {
         "filterable",
         "searchable",
         "sortable",
+        "hidden",
       ]
       booleans.forEach((key) => {
         if (data[key]) {

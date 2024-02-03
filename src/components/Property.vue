@@ -1,5 +1,7 @@
 <template>
-  <template v-if="!property.isCover && !property.isTitle && !property.isSubTitle">
+  <template
+    v-if="!property.hidden && !property.isCover && !property.isTitle && !property.isSubTitle"
+  >
     <PropertyLabel v-if="!property.hideLabel" :name="name" :property="property" />
     <template v-if="value">
       <ul v-if="Array.isArray(value)">

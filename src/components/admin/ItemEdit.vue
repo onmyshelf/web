@@ -43,7 +43,7 @@
 
         <div class="mb-3">
           <label class="form-label">{{ $t("Who can see item") }}</label>
-          <Visibility v-model="edit.visibility" max="3" />
+          <VisibilitySelector v-model="edit.visibility" max="3" />
         </div>
 
         <div class="mb-3">
@@ -63,14 +63,14 @@
 import Error from "@/components/Error.vue"
 import Loading from "@/components/Loading.vue"
 import PropertyInput from "./properties/PropertyInput.vue"
-import Visibility from "./properties/Visibility.vue"
+import VisibilitySelector from "./properties/VisibilitySelector.vue"
 
 export default {
   components: {
     Error,
     Loading,
     PropertyInput,
-    Visibility,
+    VisibilitySelector,
   },
   data() {
     return {

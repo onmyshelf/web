@@ -41,3 +41,8 @@ This project is licensed under the MIT License. See [LICENSE.md](LICENSE.md) for
 Website: https://onmyshelf.app
 
 Source code: https://github.com/onmyshelf/web
+
+Used in this project:
+- CSS: https://getbootstrap.com
+- Icons: https://icons.getbootstrap.com
+- Images: https://undraw.co

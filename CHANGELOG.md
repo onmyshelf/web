@@ -1,5 +1,15 @@
 # Changelog for OnMyShelf web interface
 
+# 1.1.0 RC 1 (2024-02-03)
+- New collection templates selector
+- New created/updated informations for collections and items
+- New pagination system for items
+- Improved filters and sorting interface
+- New interface to hide properties
+- Various UX improvements
+- Updated libraries, CSS and icons
+- Other fixes and code improvements
+
 # 1.0.1 (2024-01-18)
 - Improvements and fixes for item filters
 - Updated libraries

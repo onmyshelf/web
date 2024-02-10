@@ -82,7 +82,7 @@
             <div class="position-sticky pt-3">
               <h4>{{ $t("Filter by") }}</h4>
               <template v-for="(property, filterName) of collection.properties" :key="filterName">
-                <div v-if="property.filterable" class="filter">
+                <div v-if="property.filterable && property.values.length > 0" class="filter">
                   <PropertyLabel :name="filterName" :property=collection.properties[filterName] />
                   <a
                     v-if="getFilter(filterName)"

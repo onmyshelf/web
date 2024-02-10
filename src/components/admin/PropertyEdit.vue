@@ -16,7 +16,7 @@
             type="text"
             :placeholder="$t('Property label example')"
             class="form-control"
-            @input="labelToNewId"
+            @input="labelToNewName"
           />
         </div>
 
@@ -39,7 +39,7 @@
             class="form-control"
             pattern="[a-z0-9_]+"
             maxlength="20"
-            @input="checkNewId"
+            @input="validateNewName"
             required
           />
         </div>
@@ -220,6 +220,7 @@ export default {
       // default form values
       edit: {
         type: "text",
+        order: 0,
         visibility: 0,
       },
       changedType: false,
@@ -340,17 +341,45 @@ export default {
     }
   },
   methods: {
-    labelToNewId() {
+    // transform label to property name
+    labelToNewName() {
+      // do nothing if editing an existing property
       if (this.id) {
         return
       }
-      this.edit.name = this.edit.label
-      this.checkNewId()
-    },
-    idToNewType() {
-      // try to guess property type using property name
 
-      // do it only if new property; if edit mode, don't do anything
+      // copy name from label & validate it
+      this.edit.name = this.edit.label
+      this.validateNewName()
+    },
+
+    // validate new property name
+    validateNewName() {
+      // do nothing if editing an existing property
+      if (this.id) {
+        return
+      }
+
+      // put to lower case & replace spaces
+      let name = this.edit.name.toLowerCase().trim().replace(/\s+/g, "_")
+
+      // remove accents, swap ñ for n, etc
+      let from = "àáäâèéëêìíïîòóöôùúüûñç"
+      let to   = "aaaaeeeeiiiioooouuuunc"
+      for (let i=0, l = from.length; i < l; i++) {
+        name = name.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
+      }
+
+      // remove invalid chars, keeps only the 30th first characters
+      name = name.replace(/[^a-z0-9_]/g, "").substring(0, 30)
+
+      this.edit.name = name
+      this.nameToNewType()
+    },
+
+    // try to guess property type using property name
+    nameToNewType() {
+      // do nothing if editing an existing property
       if (this.id) {
         return
       }
@@ -449,39 +478,16 @@ export default {
       }
     },
 
-    checkNewId() {
-      if (this.id) {
-        return
-      }
-
-      let newId = this.edit.name.toLowerCase().replace(/\s+/g, "") // delete spaces
-
-      // remove accents, swap ñ for n, etc
-      let from = "àáäâèéëêìíïîòóöôùúüûñç"
-      let to   = "aaaaeeeeiiiioooouuuunc"
-      for (let i=0, l = from.length; i < l; i++) {
-        newId = newId.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
-      }
-
-      newId = newId.replace(/[^a-z0-9]/g, "").substring(0, 20) // remove invalid chars
-
-      this.edit.name = newId
-
-      this.idToNewType()
-    },
-
+    // check if property should be in preview
     checkPreview() {
+      // force preview
       if (this.edit.isCover || this.edit.isTitle || this.edit.isSubTitle) {
         this.edit.preview = true
       }
 
-      if (this.edit.isTitle) {
-        if (!this.edit.filterable) {
-          this.edit.filterable = true
-        }
-        if (!this.edit.searchable) {
-          this.edit.searchable = true
-        }
+      if (this.edit.isTitle || this.edit.isSubTitle) {
+        this.edit.searchable = true
+        this.edit.sortable = true
       }
     },
 

@@ -158,12 +158,12 @@ export default {
         // create new collection
         this.$apiPost("collections", data).then((response) => {
           // redirect to collection page
-          let redirect = "/collection/" + response.data.id
+          let redirect = "/collection/" + response.data.id + "/"
 
           // if custom type of collection, redirect to manage page
           // to create properties
           if (!this.edit.type) {
-            redirect += "/manage/"
+            redirect += "manage/"
           }
 
           document.location.href = redirect

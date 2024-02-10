@@ -37,7 +37,7 @@
           <PropertyInput v-else v-model="edit.properties[name]" :name="name" :property="property" />
 
           <button v-if="property.multiple" type="button" class="btn btn-outline-primary" @click="addValue(name)">
-            + {{ $t("add value") }}
+            + {{ $t("Add value") }}
           </button>
         </div>
 

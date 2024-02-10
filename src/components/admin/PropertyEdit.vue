@@ -60,7 +60,13 @@
           <label class="form-label">
             {{ $t("Property content type") }} (<strong>{{ $t("required") }}</strong>)
           </label>
-          <select v-model="edit.type" class="form-select" :aria-label="$t('Property content type')" required @change="changedType = true">
+          <select
+            v-model="edit.type"
+            class="form-select"
+            :aria-label="$t('Property content type')"
+            required
+            @change="changedType = true"
+          >
             <option v-for="(obj, key) in $propertyTypes" :key="key" :value="key">
               {{ $translate(obj.label) }} <template v-if="obj.description">({{ $translate(obj.description) }})</template>
             </option>
@@ -333,19 +339,28 @@ export default {
     },
     canBeFilterable() {
       switch (this.edit.type) {
+        case "file":
         case "image":
+        case "json":
         case "longtext":
         case "object":
         case "url":
+        case "video":
           return false
       }
       return true
     },
     canBeSearchable() {
       switch (this.edit.type) {
+        case "color":
+        case "date":
+        case "datetime":
         case "image":
+        case "json":
+        case "number":
         case "object":
         case "rating":
+        case "video":
         case "yesno":
           return false
       }
@@ -353,14 +368,19 @@ export default {
     },
     canBeSortable() {
       switch (this.edit.type) {
+        case "color":
+        case "file":
         case "image":
+        case "json":
         case "longtext":
         case "object":
         case "url":
+        case "video":
+        case "yesno":
           return false
       }
       return true
-    }
+    },
   },
   methods: {
     // transform label to property name

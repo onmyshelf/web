@@ -531,6 +531,10 @@
     "en_US": "Edit item",
     "fr_FR": "Modifier l'objet"
   },
+  "Add value": {
+    "en_US": "Add a value",
+    "fr_FR": "Ajouter une valeur"
+  },
   "Who can see item": {
     "en_US": "Who can see this item?",
     "fr_FR": "Qui peut voir cet objet ?"

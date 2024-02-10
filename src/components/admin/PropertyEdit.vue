@@ -115,42 +115,55 @@
           </div>
         </div>
 
-        <div v-if="canBeFilterable || canBeSearchable || canBeSortable" class="card mb-3">
-          <div class="card-header">{{ $t("Value") }}</div>
+        <div v-if="canBeMultiple || canBeFilterable || canBeSearchable || canBeSortable" class="card mb-3">
+          <div class="card-header">{{ $t("Values") }}</div>
           <div class="card-body">
-            <div class="form-check form-switch">
+            <div v-if="canBeMultiple" class="form-check form-switch">
               <input
-                v-model="edit.required"
+                v-model="edit.multiple"
                 class="form-check-input"
                 type="checkbox"
               />
               <label class="form-check-label">
-                {{ $t("Property never empty") }}
+                {{ $t("Property has multiple values") }}
               </label>
             </div>
 
-            <div class="mt-3">
-              <label class="form-label">
-                {{ $t("Property default value") }}
-              </label>
-              <input
-                v-model="edit.default"
-                name="property-default-value"
-                type="text"
-                class="form-control"
-              />
-            </div>
+            <template v-if="canBeFilterable || canBeSearchable || canBeSortable">
+              <div class="form-check form-switch">
+                <input
+                  v-model="edit.required"
+                  class="form-check-input"
+                  type="checkbox"
+                />
+                <label class="form-check-label">
+                  {{ $t("Property never empty") }}
+                </label>
+              </div>
 
-            <div class="mt-3">
-              <label class="form-label">{{ $t("Property suffix") }}</label>
-              <input
-                v-model="edit.suffix"
-                name="property-suffix"
-                type="text"
-                class="form-control"
-                :placeholder="$t('Property suffix example')"
-              />
-            </div>
+              <div class="mt-3">
+                <label class="form-label">
+                  {{ $t("Property default value") }}
+                </label>
+                <input
+                  v-model="edit.default"
+                  name="property-default-value"
+                  type="text"
+                  class="form-control"
+                />
+              </div>
+
+              <div class="mt-3">
+                <label class="form-label">{{ $t("Property suffix") }}</label>
+                <input
+                  v-model="edit.suffix"
+                  name="property-suffix"
+                  type="text"
+                  class="form-control"
+                  :placeholder="$t('Property suffix example')"
+                />
+              </div>
+            </template>
           </div>
         </div>
 
@@ -269,6 +282,7 @@ export default {
           "filterable",
           "searchable",
           "sortable",
+          "multiple",
           "hidden",
         ]
         booleans.forEach((key) => {
@@ -308,6 +322,14 @@ export default {
       }
 
       return false
+    },
+    canBeMultiple() {
+      switch (this.edit.type) {
+        case "json":
+        case "yesno":
+          return false
+      }
+      return true
     },
     canBeFilterable() {
       switch (this.edit.type) {
@@ -524,6 +546,7 @@ export default {
         "filterable",
         "searchable",
         "sortable",
+        "multiple",
         "hidden",
       ]
       booleans.forEach((key) => {

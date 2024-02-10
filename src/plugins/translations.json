@@ -431,9 +431,13 @@
     "en_US": "Who can see this property?",
     "fr_FR": "Qui peut voir cette propriété ?"
   },
-  "Value": {
-    "en_US": "Value",
-    "fr_FR": "Valeur"
+  "Values": {
+    "en_US": "Values",
+    "fr_FR": "Valeurs"
+  },
+  "Property has multiple values": {
+    "en_US": "This property can contain multiple values",
+    "fr_FR": "Cette propriété peut contenir plusieurs valeurs"
   },
   "Property never empty": {
     "en_US": "This property should never be empty",

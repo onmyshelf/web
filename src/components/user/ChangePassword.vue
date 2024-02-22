@@ -54,12 +54,15 @@ export default {
 
       // API config
       let url = "resetpassword"
-      let data = { resetToken: this.resetToken, newpassword: btoa(this.newPassword) }
+      let data = {
+        resetToken: this.resetToken,
+        newpassword: btoa(this.newPassword),
+      }
 
       // if change password for connected user
       if (!this.resetToken) {
         url = "users/" + this.$currentUser().id + "/password"
-        data.password = this.oldPassword
+        data.password = btoa(this.oldPassword)
       }
 
       // API request

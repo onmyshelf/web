@@ -4,11 +4,18 @@
     <form @submit="validate">
       <div class="mb-3">
         <label class="form-label">Import module</label>
-        <select v-model="data.module" class="form-select" aria-label="Type of import" required>
+        <select
+          v-model="data.module"
+          class="form-select"
+          aria-label="Type of import"
+          required
+        >
           <template v-for="(importModule, name) in importModules" :key="name">
             <option v-if="importModule.importCollection" :value="name">
               {{ importModule.name }}
-              <template v-if="importModule.description">: {{ importModule.description }}</template>
+              <template v-if="importModule.description">
+                : {{ importModule.description }}
+              </template>
             </option>
           </template>
         </select>
@@ -16,12 +23,19 @@
 
       <div class="mb-3">
         <label class="form-label">Source</label>
-        <MediaSelector v-model="data.source" :type="data.module" mandatory="true" />
+        <MediaSelector
+          v-model="data.source"
+          :type="data.module"
+          mandatory="true"
+        />
       </div>
 
       <div class="mb-3">
-        <button class="btn btn-primary" type="submit" :disabled="$demoMode() || ! data.source || loading">Import</button>&nbsp;
-        <a href="." class="btn btn-outline-secondary" :disabled="loading">{{ $t("Cancel") }}</a>
+        <button
+          class="btn btn-primary" type="submit" :disabled="$demoMode() || ! data.source || loading">Import</button>&nbsp;
+        <a href="." class="btn btn-outline-secondary" :disabled="loading">
+          {{ $t("Cancel") }}
+        </a>
       </div>
 
       <div v-if="result" :class="'alert alert-' + (result.success ? 'success' : 'danger')" role="alert">
@@ -86,7 +100,7 @@ export default {
           if (response.data.imported) {
             this.result = {
               success: true,
-              text: "Imported " + response.data.imported.items + " items"
+              text: "Imported " + response.data.imported.items.length + " items"
             }
           }
           this.loading = false

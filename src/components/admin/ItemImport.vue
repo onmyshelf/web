@@ -4,28 +4,109 @@
     <form @submit="validate">
       <div class="mb-3">
         <label class="form-label">Source</label>
-        <select v-model="search.module" name="import-source" class="form-select" aria-label="Type of import">
-          <option value="" default>{{ $t("All import sources") }}</option>
+        <select
+          v-model="search.module"
+          name="import-source"
+          class="form-select"
+          aria-label="Type of import"
+          required
+        >
+          <option v-if="importType == 'search'" value="" default>
+            {{ $t("All import sources") }}
+          </option>
           <template v-for="(importModule, name) in search.modules" :key="name">
             <option :value="name">
-              {{ importModule.name }} {{ moduleTags(importModule.tags) }}
+              {{ importModule.name }}
+              <template v-if="importModule.tags">
+                (tags: {{ importModule.tags.join(", ") }})
+              </template>
             </option>
           </template>
         </select>
       </div>
 
-      <div v-if="search.module && search.modules[search.module].requiredSource" class="mb-3">
-        <MediaSelector v-model="search.source" :type="search.module" mandatory="true" />
+      <div class="">
+        <div class="btn-group card-body" role="group">
+          <input
+            type="radio"
+            class="btn-check"
+            id="import-search"
+            name="import-search"
+            autocomplete="off"
+            @change="importType = 'search'"
+            :checked="importType == 'search'"
+          />
+          <label class="btn btn-outline-primary" for="import-search">
+            {{ $t("Search") }}
+          </label>
+
+          <input
+            type="radio"
+            class="btn-check"
+            id="import-url"
+            name="import-url"
+            autocomplete="off"
+            @change="importType = 'url'"
+            :checked="importType == 'url'"
+          />
+          <label class="btn btn-outline-primary" for="import-url">
+            {{ $t("External URL") }}
+          </label>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div v-if="importType == 'search'" class="card-body">
+          <input
+            v-model="search.search"
+            name="search"
+            type="text"
+            class="form-control"
+            :placeholder="$t('Search item here')"
+            required
+          />
+        </div>
+
+        <div v-else-if="importType == 'url'" class="input-group card-body">
+          <span class="input-group-text" id="import-url">
+            {{ $t("Enter valid URL") }}
+          </span>
+          <input
+            type="text"
+            class="form-control"
+            aria-describedby="import-url"
+            :placeholder="$t('URL example')"
+            v-model="search.source"
+          />
+          <a
+            v-if="search.source"
+            :href="search.source"
+            class="btn btn-secondary"
+            :title="$t('Open in new tab')"
+            target="_blank"
+          >
+            <i class="bi bi-box-arrow-up-right"></i>
+          </a>
+        </div>
       </div>
 
       <div class="mb-3">
-        <label class="form-label">{{ $t("Search") }}</label>
-        <input v-model="search.search" name="search" type="text" class="form-control" :placeholder="$t('Search item here')" required />
-      </div>
-
-      <div class="mb-3">
-        <button class="btn btn-primary" type="submit" :disabled="$demoMode()">{{ $t("Search item") }}</button>&nbsp;
-        <a href=".." class="btn btn-outline-secondary">{{ $t("Cancel") }}</a>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          :disabled="$demoMode() || (importType == 'url' && !search.source)"
+        >
+          <template v-if="importType == 'url'">
+            {{ $t("Import item") }}
+          </template>
+          <template v-else>
+            {{ $t("Search item") }}
+          </template>
+        </button>
+        &nbsp;
+        <a href=".." class="btn btn-outline-secondary">
+          {{ $t("Cancel") }}
+        </a>
       </div>
 
       <div v-if="$demoMode()" class="alert alert-warning">
@@ -54,89 +135,14 @@
                   </a>
                 </p>
                 <p>
-                  <button @click="importItem(index)" class="btn btn-primary" :disabled="$demoMode()">
+                  <button
+                    class="btn btn-primary"
+                    :disabled="$demoMode()"
+                    @click="importItem(item.importModule, item.source)"
+                  >
                     {{ $t("Import item") }}
                   </button>
                 </p>
-              </div>
-            </div>
-            <div v-if="false" class="accordion" id="accordionExample">
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingOne">
-                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Import item information
-                  </button>
-                </h2>
-                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                  <div class="accordion-body">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th scope="col">Property</th>
-                          <th scope="col">Item property</th>
-                          <th scope="col">Options</th>
-                          <th scope="col">Preview</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">title</th>
-                          <td>
-                            <select class="form-select" aria-label="Destination property">
-                              <option value="key">title</option>
-                              <option value="key"></option>
-                            </select>
-                          </td>
-                          <td>
-                            <select class="form-select" aria-label="Options">
-                              <option value="key"></option>
-                            </select>
-                          </td>
-                          <td>{{ trimPreview(item.name) }}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">cover</th>
-                          <td>
-                            <select class="form-select" aria-label="Destination property">
-                              <option value="key">image</option>
-                              <option value="key"></option>
-                            </select>
-                          </td>
-                          <td>
-                            <select class="form-select" aria-label="Options">
-                              <option value="key"></option>
-                              <option value="key">download</option>
-                            </select>
-                          </td>
-                          <td>{{ trimPreview(item.image) }}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">description</th>
-                          <td>
-                            <select class="form-select" aria-label="Destination property">
-                              <option value="key">description</option>
-                            </select>
-                          </td>
-                          <td>
-                            <select class="form-select" aria-label="Options">
-                              <option value="key">to string</option>
-                            </select>
-                          </td>
-                          <td>{{ trimPreview(item.description) }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <p>
-                      <button class="btn btn-primary">Import into item</button>
-                    </p>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                      <label class="form-check-label" for="flexCheckChecked">
-                        Remember my choices
-                      </label>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </template>
@@ -150,23 +156,22 @@
 import Empty from "@/components/Empty.vue"
 import Image from "@/components/properties/medias/Image.vue"
 import Loading from "@/components/Loading.vue"
-import MediaSelector from "./properties/MediaSelector.vue"
 
 export default {
   components: {
     Empty,
     Loading,
     Image,
-    MediaSelector,
   },
 
   data() {
     return {
+      importType: "search",
       search: {
+        modules: {},
         module: "",
         source: "",
         search: "",
-        modules: {},
       },
       collection: null,
       items: false,
@@ -230,14 +235,17 @@ export default {
     }
   },
   methods: {
-    trimPreview(string) {
-      return String(string).substring(0, 50)
-    },
-
     validate(e) {
       // prevent form to reload page
       e.preventDefault()
 
+      // if url source mode, import item
+      if (this.importType == "url") {
+        this.importItem(this.search.module, this.search.source)
+        return
+      }
+
+      // search
       this.loading = true
 
       let data = {
@@ -278,21 +286,28 @@ export default {
       });
     },
 
-    importItem(id) {
+    importItem(module, source) {
       this.loading = true
 
       let data = {
-        module: this.items[id].importModule,
-        source: this.items[id].source,
+        module: module,
+        source: source,
       }
 
-      // search
+      // import
       this.$apiPost("collections/" + this.$route.params.cid + "/import", data)
         .then((response) => {
+          let redirection = "../"
+
           if (response.data) {
-            this.items = response.data
-            document.location.href = "../"
+            // if imported item id is defined, redirect to item page
+            if (response.data.imported && response.data.imported.items.length > 0) {
+              redirection += "item/" + response.data.imported.items[0]
+            }
           }
+
+          // redirect to item page or collection
+          document.location.href = redirection
         })
         .catch(() => {
           this.result = {
@@ -300,14 +315,6 @@ export default {
             text: "Internal error. Please retry."
           }
         })
-    },
-
-    moduleTags(tags) {
-      if (tags) {
-        return "(tags: " + tags.join(", ") + ")"
-      } else {
-        return ""
-      }
     },
   },
 }

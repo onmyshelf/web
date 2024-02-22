@@ -1,11 +1,21 @@
 # Changelog for OnMyShelf web interface
 
+# 1.1.0 RC 2 (2024-02-22)
+## New features
+- Import item from a custom URL
+## Bugfixes and improvements
+- Import item now redirects to item page
+- Fixed bug when user changes password
+- Updated libraries
+
 # 1.1.0 RC 1 (2024-02-03)
+## New features
 - New collection templates selector
 - New created/updated informations for collections and items
 - New pagination system for items
-- Improved filters and sorting interface
 - New interface to hide properties
+## Bugfixes and improvements
+- Improved filters and sorting interface
 - Various UX improvements
 - Updated libraries, CSS and icons
 - Other fixes and code improvements

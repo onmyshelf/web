@@ -8,8 +8,8 @@
           v-model="search.module"
           name="import-source"
           class="form-select"
-          aria-label="Type of import"
-          required
+          aria-label="Import module"
+          :required="importType != 'search'"
         >
           <option v-if="importType == 'search'" value="" default>
             {{ $t("All import sources") }}
@@ -115,39 +115,40 @@
     </form>
 
     <Loading v-if="loading" />
-    <div v-else>
-      <div v-if="items" class="container items">
-        <template v-if="items.length == 0">
-          <Empty :label="$t('Nothing found')" />
-        </template>
-        <template v-else>
-          <template v-for="(item, index) in items" :key="index">
-            <div :id="'item-' + index" class="row">
-              <div class="col-4 item-cover">
-                <Image :url="item.image" :cover="true" />
-              </div>
-              <div class="col">
-                <h1>{{ item.name }}</h1>
-                <p>{{ item.description }}</p>
-                <p>
-                  <a :id="'item-source-' + index" :href="item.source" target="_blank">
-                    Source ({{ search.modules[item.importModule].name }}) <i class="bi bi-box-arrow-up-right"></i>
-                  </a>
-                </p>
-                <p>
-                  <button
-                    class="btn btn-primary"
-                    :disabled="$demoMode()"
-                    @click="importItem(item.importModule, item.source)"
-                  >
-                    {{ $t("Import item") }}
-                  </button>
-                </p>
-              </div>
-            </div>
-          </template>
-        </template>
+    <div v-if="items" class="container items">
+      <div v-for="(error, index) in errors" :key="index" class="alert alert-danger" role="alert">
+        {{ search.modules[error.module].name + ': ' + error.text }}
       </div>
+      <template v-if="items.length == 0">
+        <Empty :label="$t('Nothing found')" />
+      </template>
+      <template v-else>
+        <template v-for="(item, index) in items" :key="index">
+          <div :id="'item-' + index" class="row">
+            <div class="col-4 item-cover">
+              <Image :url="item.image" :cover="true" />
+            </div>
+            <div class="col">
+              <h1>{{ item.name }}</h1>
+              <p>{{ item.description }}</p>
+              <p>
+                <a :id="'item-source-' + index" :href="item.source" target="_blank">
+                  Source ({{ search.modules[item.importModule].name }}) <i class="bi bi-box-arrow-up-right"></i>
+                </a>
+              </p>
+              <p>
+                <button
+                  class="btn btn-primary"
+                  :disabled="$demoMode()"
+                  @click="importItem(item.importModule, item.source)"
+                >
+                  {{ $t("Import item") }}
+                </button>
+              </p>
+            </div>
+          </div>
+        </template>
+      </template>
     </div>
   </div>
 </template>
@@ -175,6 +176,7 @@ export default {
       },
       collection: null,
       items: false,
+      errors: [],
       loading: true,
       help: {},
     }
@@ -262,6 +264,7 @@ export default {
       }
 
       this.items = []
+      this.errors = []
 
       // search
       modules.forEach((module) => {
@@ -277,11 +280,10 @@ export default {
             }
           })
           .catch(() => {
-            this.result = {
-              success: false,
-              text: "Internal error. Please retry."
-            }
-            this.loading = false
+            this.errors.push({
+              module: module,
+              text: this.$t("An error occured") + " " + this.$t("Please retry")
+            })
           })
       });
     },

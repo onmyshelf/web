@@ -1,6 +1,6 @@
 {
   "name": "onmyshelf",
-  "version": "1.1.0-rc.2",
+  "version": "1.1.0-rc.3+2024030201",
   "private": true,
   "type": "module",
   "scripts": {
@@ -16,7 +16,7 @@
   "dependencies": {
     "axios": "^1.6.7",
     "pinia": "^2.1.7",
-    "vue": "^3.4.19",
+    "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {

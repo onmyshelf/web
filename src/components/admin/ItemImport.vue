@@ -304,7 +304,7 @@ export default {
           if (response.data) {
             // if imported item id is defined, redirect to item page
             if (response.data.imported && response.data.imported.items.length > 0) {
-              redirection += "item/" + response.data.imported.items[0]
+              redirection += "item/" + response.data.imported.items[0] + "/"
             }
           }
 

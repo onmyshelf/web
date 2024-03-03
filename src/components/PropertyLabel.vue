@@ -26,7 +26,8 @@ export default {
       if (translation) {
         return translation
       } else {
-        return this.name
+        let name = this.name.replace(/_/g, " ")
+        return name[0].toUpperCase() + name.slice(1)
       }
     },
   },

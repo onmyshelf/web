@@ -263,7 +263,7 @@ export default {
         modules = Object.keys(this.search.modules)
       }
 
-      this.items = []
+      this.items = false
       this.errors = []
 
       // search
@@ -271,6 +271,10 @@ export default {
         data.params.module = module
         this.$apiGet("collections/" + this.$route.params.cid + "/import/search", data)
           .then((response) => {
+            if (this.items === false) {
+              this.items = []
+            }
+
             if (response.data) {
               response.data.forEach((item) => {
                 item.importModule = module

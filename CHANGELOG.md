@@ -1,12 +1,21 @@
 # Changelog for OnMyShelf web interface
 
+# 1.1.0 (2024-03-16)
+## Improvements
+- Properties are prettier if no translation found
+- Manage import search errors
+## Bugfixes
+- Fixed bad redirection after item import
+- Fixed infinite loading in import search
+
 # 1.1.0 RC 2 (2024-02-22)
 ## New features
 - Import item from a custom URL
-## Bugfixes and improvements
+## Improvements
 - Import item now redirects to item page
-- Fixed bug when user changes password
 - Updated libraries
+## Bugfixes
+- Fixed bug when user changes password
 
 # 1.1.0 RC 1 (2024-02-03)
 ## New features

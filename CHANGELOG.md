@@ -1,5 +1,8 @@
 # Changelog for OnMyShelf web interface
 
+# 1.1.1 (2024-03-31)
+- Fixed pagination not working when page number is not set
+
 # 1.1.0 (2024-03-16)
 ## Improvements
 - Properties are prettier if no translation found

@@ -352,9 +352,11 @@ export default {
     // get page number
     if (this.$route.query.page) {
       this.page = this.$route.query.page
-      options.params.limit = this.itemsPerPage
-      options.params.offset = (this.page - 1) * this.itemsPerPage
     }
+
+    // set limit & offset
+    options.params.limit = this.itemsPerPage
+    options.params.offset = (this.page - 1) * this.itemsPerPage
 
     // get collection details
     this.$apiGet("collections/" + this.collection.id)

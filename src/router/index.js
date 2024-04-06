@@ -98,7 +98,7 @@ const router = createRouter({
     },
     {
       path: "/profile/",
-      component: () => import("../components/user/Profile.vue"),
+      component: () => import("../views/Profile.vue"),
     },
     {
       path: "/resetpassword",

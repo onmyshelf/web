@@ -27,6 +27,14 @@
     "en_US": "My profile",
     "fr_FR": "Mon profil"
   },
+  "Email address": {
+    "en_US": "Email address",
+    "fr_FR": "Addresse email"
+  },
+  "Profile updated": {
+    "en_US": "Your profile has been updated",
+    "fr_FR": "Votre profil a été mis à jour."
+  },
   "Sign in": {
     "en_US": "Sign in",
     "fr_FR": "Se connecter"
@@ -50,6 +58,14 @@
   "Ask password reset": {
     "en_US": "Ask to reset my password",
     "fr_FR": "Demander la réinitialisation de mon mot de passe"
+  },
+  "Reset password link sent": {
+    "en_US": "Your reset link has been sent to you by email.",
+    "fr_FR": "Votre lien de réinitilisation vous a été envoyé par email."
+  },
+  "Reset password link trouble": {
+    "en_US": "If you don't receive email in few minutes, please contact your administrator.",
+    "fr_FR": "Si vous ne recevez aucun email d'ici quelques minutes, contactez votre administrateur."
   },
   "Sign out": {
     "en_US": "Sign out",

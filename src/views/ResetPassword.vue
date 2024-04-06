@@ -4,8 +4,8 @@
     <ChangePassword v-if="resetToken" :resetToken="resetToken" />
     <div v-else>
       <div v-if="success" class="alert alert-success" role="alert">
-        Your request has been sent to the administrator.<br/>
-        For more information, please <a href="https://docs.onmyshelf.app/user-guide/#reset-user-password">read documentation here</a>.
+        {{ $t("Reset password link sent") }}<br />
+        {{ $t("Reset password link trouble") }}
       </div>
       <form v-else @submit="askReset">
         <div class="form-floating">

@@ -1,7 +1,7 @@
 <template>
   <main class="form-signin container">
+    <DemoWarning v-if="$demoMode() && !$isLoggedIn()" />
     <h1 class="h3 mb-3 fw-normal">{{ $t("Please sign in") }}</h1>
-    <DemoWarning />
     <form @submit="login" class="container">
       <div class="form-floating">
         <input
@@ -51,6 +51,12 @@ export default {
       username: null,
       password: null,
       error: null,
+    }
+  },
+  created() {
+    // if already logged in, redirect to homepage
+    if (this.$isLoggedIn()) {
+      document.location.href = "/"
     }
   },
   methods: {

@@ -1,10 +1,8 @@
 <template>
-  <div class="home">
-    <div class="container">
-      <DemoWarning />
-      <Collections />
-    </div>
-  </div>
+  <main class="container">
+    <DemoWarning v-if="$demoMode() && !$isLoggedIn()" />
+    <Collections />
+  </main>
 </template>
 
 <script>

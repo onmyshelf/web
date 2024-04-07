@@ -5,12 +5,32 @@
       <Loading v-if="loading" />
       <form v-else @submit="validate">
         <h3>{{ $t("Server configuration") }}</h3>
+
         <template v-for="(value, param) in config" :key="param">
           <div v-if="param != 'version'" class="item-preview mb-3">
             <label class="form-label">{{ $t(param) }}:</label>
             <input v-model="config[param]" type="text" class="form-control" />
           </div>
         </template>
+
+        <div class="input-group mb-3">
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            id="newKey"
+            @click="addConfig()"
+          >
+            + {{ $t("Add new config key") }}
+          </button>
+          <input
+            v-model="newKey"
+            type="text"
+            class="form-control"
+            placeholder="e.g. custom_api_key"
+            aria-label="Example text with button addon"
+            aria-describedby="newKey"
+          />
+        </div>
 
         <div class="mb-3">
           <button class="btn btn-primary" type="submit" :disabled="$demoMode()">
@@ -38,6 +58,7 @@ export default {
   data() {
     return {
       config: {},
+      newKey: null,
       success: false,
       error: false,
       loading: true,
@@ -48,6 +69,7 @@ export default {
     this.$apiGet("config")
       .then((response) => {
         this.config = response.data
+        delete this.config.version
         this.loading = false
       })
       .catch((e) => {
@@ -55,6 +77,10 @@ export default {
       })
   },
   methods: {
+    addConfig() {
+      this.config[this.newKey] = ''
+      this.newKey = null
+    },
     validate(e) {
       // prevent form to reload page
       e.preventDefault()

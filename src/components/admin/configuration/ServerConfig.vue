@@ -78,7 +78,7 @@ export default {
   },
   methods: {
     addConfig() {
-      this.config[this.newKey] = ''
+      this.config[this.newKey] = ""
       this.newKey = null
     },
     validate(e) {

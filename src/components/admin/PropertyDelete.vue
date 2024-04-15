@@ -1,46 +1,20 @@
 <template>
-  <div class="container delete-confirm">
-    <h5>
-      {{ $t("Confirm delete property") }} <span class="object-id">{{ $route.params.id }}</span> ?
-    </h5>
+  <DeleteConfirm
+    obj="property"
+    :id="$route.params.id"
+    :url="'collections/' + $route.params.cid + '/properties/' + $route.params.id"
+    cancelUrl="../.."
+  >
     <p>{{ $t("Delete property consequences") }}</p>
-
-    <button type="button" class="btn btn-danger" @click="deleteProperty" :disabled="$demoMode()">
-      {{ $t("Delete property") }}
-    </button>&nbsp;
-    <button type="button" class="btn btn-outline-secondary" @click="goBack">
-      {{ $t("Cancel") }}
-    </button>
-  </div>
+  </DeleteConfirm>
 </template>
 
-<style scoped>
-.delete-confirm {
-  text-align: center;
-  margin-top: 100px;
-}
-
-.object-id {
-  font-weight: bold;
-  font-style: italic;
-}
-</style>
-
 <script>
+import DeleteConfirm from "@/components/admin/DeleteConfirm.vue"
+
 export default {
-  methods: {
-    goBack() {
-      document.location.href = "../.."
-    },
-    deleteProperty() {
-      this.$apiDelete("collections/" + this.$route.params.cid + "/properties/" + this.$route.params.id)
-        .then(() => {
-          this.goBack()
-        })
-        .catch(() => {
-          alert("Error")
-        })
-    },
+  components: {
+    DeleteConfirm,
   },
 }
 </script>

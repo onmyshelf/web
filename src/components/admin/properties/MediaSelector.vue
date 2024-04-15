@@ -112,7 +112,7 @@ export default {
       uploadError: false,
       fileUploaded: false,
       downloadError: false,
-      cptId: Date.now().toString().substr(7),
+      cptId: Date.now().toString().substring(7),
     }
   },
   created() {

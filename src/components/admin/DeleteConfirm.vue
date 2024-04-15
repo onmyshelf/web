@@ -4,24 +4,28 @@
       {{ $t("Confirm delete " + obj) }} <span class="object-id">{{ id }}</span> ?
     </h5>
 
-    <p v-if="consequences">{{ $t("Delete " + obj + " consequences") }}</p>
+    <slot></slot>
 
     <p>{{ $t("Operation cannot be undone") }}</p>
 
-    <button
-      type="button"
-      id="deleteButton"
-      class="btn btn-danger"
-      @click="clickConfirm"
-      :disabled="$demoMode() || loading"
-    >
-      {{ $t("Delete " + obj) }}
-    </button>
-    &nbsp;
-    <a :href="cancelUrl" id="cancelButton" class="btn btn-outline-secondary">
-      {{ $t("Cancel") }}
-    </a>
+    <div class="mb-3">
+      <button
+        type="button"
+        id="deleteButton"
+        class="btn btn-danger"
+        @click="clickConfirm"
+        :disabled="$demoMode() || loading"
+      >
+        {{ $t("Delete " + obj) }}
+      </button>
+      &nbsp;
+      <a :href="cancelUrl" id="cancelButton" class="btn btn-outline-secondary">
+        {{ $t("Cancel") }}
+      </a>
+    </div>
+
     <Loading v-if="loading" class="mt-3" />
+    <SuccessMessage :status="success" />
   </div>
 </template>
 
@@ -39,6 +43,7 @@
 
 <script>
 import Loading from "@/components/Loading.vue"
+import SuccessMessage from "@/components/SuccessMessage.vue"
 
 export default {
   props: {
@@ -48,11 +53,11 @@ export default {
     id: {
       required: true,
     },
-    action: {
+    url: {
       required: true,
     },
-    consequences: {
-      default: false,
+    successUrl: {
+      default: "../..",
     },
     cancelUrl: {
       default: ".",
@@ -60,17 +65,28 @@ export default {
   },
   components: {
     Loading,
+    SuccessMessage,
   },
   data() {
     return {
       loading: false,
+      success: null,
     }
   },
   methods: {
     clickConfirm() {
       this.loading = true
-      // run parent function
-      this.$parent[this.action]()
+      this.success = null
+
+      // API call
+      this.$apiDelete(this.url)
+        .then(() => {
+          document.location.href = this.successUrl
+        })
+        .catch(() => {
+          this.loading = false
+          this.success = false
+        })
     }
   },
 }

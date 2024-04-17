@@ -204,7 +204,9 @@
             <template v-if="id">{{ $t("Save changes") }}</template>
             <template v-else>{{ $t("Create property") }}</template>
           </button>&nbsp;
-          <a href=".." class="btn btn-outline-secondary">{{ $t("Cancel") }}</a>
+          <a href=".." class="btn btn-outline-secondary">
+            {{ $t("Cancel") }}
+          </a>
         </div>
       </form>
     </template>

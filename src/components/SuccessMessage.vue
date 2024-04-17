@@ -27,7 +27,7 @@ export default {
       if (this.success) {
         return this.success
       } else {
-        return this.$t("Operation successful!")
+        return this.$t("Operation successful")
       }
     },
     displayError() {

@@ -3,10 +3,10 @@
     <h1 class="h3 mb-3 fw-normal">{{ $t("Reset password") }}</h1>
     <ChangePassword v-if="resetToken" :resetToken="resetToken" />
     <div v-else>
-      <div v-if="success" class="alert alert-success" role="alert">
-        {{ $t("Reset password link sent") }}<br />
-        {{ $t("Reset password link trouble") }}
-      </div>
+      <SuccessMessage v-if="success !== null"
+        :status="success"
+        :success="$t('Reset password link sent') + ' ' + $t('Reset password link trouble')"
+      />
       <form v-else @submit="askReset">
         <div class="form-floating">
           <input
@@ -19,12 +19,13 @@
           />
           <label>{{ $t("Username")}} </label>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit" :disabled="$demoMode()">
+        <button
+          class="w-100 btn btn-lg btn-primary"
+          type="submit"
+          :disabled="$demoMode()"
+        >
           {{ $t("Ask password reset") }}
         </button>
-        <div v-if="error" class="alert alert-danger" role="alert">
-          {{ $t("Failed, please retry") }}
-        </div>
       </form>
     </div>
   </main>
@@ -32,10 +33,12 @@
 
 <script>
 import ChangePassword from "@/components/user/ChangePassword.vue"
+import SuccessMessage from "@/components/SuccessMessage.vue"
 
 export default {
   components: {
     ChangePassword,
+    SuccessMessage,
   },
   created() {
     if (this.$route.query.token) {
@@ -46,8 +49,7 @@ export default {
     return {
       username: null,
       resetToken: null,
-      success: false,
-      error: false,
+      success: null,
     }
   },
   methods: {
@@ -59,10 +61,8 @@ export default {
         .then(() => {
           this.success = true
         })
-        .catch(e => {
-          if (e.response && e.response.status) {
-            this.error = true
-          }
+        .catch(() => {
+          this.success = false
         })
     },
   },

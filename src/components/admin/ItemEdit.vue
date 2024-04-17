@@ -51,8 +51,9 @@
             <template v-if="id">{{ $t("Save changes") }}</template>
             <template v-else>{{ $t("Create item") }}</template>
           </button>&nbsp;
-          <a v-if="id" href="." class="btn btn-outline-secondary">{{ $t("Cancel") }}</a>
-          <a v-else href=".." class="btn btn-outline-secondary">{{ $t("Cancel") }}</a>
+          <a :href="id ? '.' : '..'" class="btn btn-outline-secondary">
+            {{ $t("Cancel") }}
+          </a>
         </div>
       </form>
     </template>

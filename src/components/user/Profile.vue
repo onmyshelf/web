@@ -30,22 +30,20 @@
           </button>
         </div>
       </form>
-      <div v-if="success" class="alert alert-success" role="alert">
-        {{ $t("Profile updated") }}
-      </div>
-      <div v-if="success === false" class="alert alert-danger" role="alert">
-        {{ $t("Failed!") }} {{ $t("Please retry") }}
-      </div>
+
+      <SuccessMessage :status="success" :success="$t('Profile updated')" />
     </div>
   </template>
 </template>
 
 <script>
 import Error from "@/components/Error.vue"
+import SuccessMessage from "@/components/SuccessMessage.vue"
 
 export default {
   components: {
     Error,
+    SuccessMessage,
   },
   data() {
     return {
@@ -71,6 +69,8 @@ export default {
       // prevent form to reload page
       e.preventDefault()
 
+      this.success = null
+
       // copy edit object (to avoid cloning events)
       let data = Object.assign({}, this.profile)
       data.password = btoa(data.password)
@@ -79,10 +79,8 @@ export default {
         .then(() => {
           this.success = true
         })
-        .catch((e) => {
-          if (e.response && e.response.status) {
-            this.success = false
-          }
+        .catch(() => {
+          this.success = false
         })
     },
   },

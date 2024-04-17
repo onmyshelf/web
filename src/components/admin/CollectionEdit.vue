@@ -62,8 +62,12 @@
           <template v-if="id">{{ $t("Save changes") }}</template>
           <template v-else>{{ $t("Create collection") }}</template>
         </button>&nbsp;
-        <a v-if="id" href="." class="btn btn-outline-secondary">{{ $t("Cancel") }}</a>
-        <router-link v-else to="/" class="btn btn-outline-secondary">{{ $t("Cancel") }}</router-link>
+        <a v-if="id" href="." class="btn btn-outline-secondary">
+          {{ $t("Cancel") }}
+        </a>
+        <router-link v-else to="/" class="btn btn-outline-secondary">
+          {{ $t("Cancel") }}
+        </router-link>
       </div>
     </form>
   </div>

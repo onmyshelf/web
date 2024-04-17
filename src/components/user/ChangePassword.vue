@@ -1,34 +1,68 @@
 <template>
   <form @submit="changePassword">
     <div v-if="!resetToken" class="form-floating">
-      <input v-model="oldPassword" type="password" class="form-control" id="oldPassword" :placeholder="$t('Current password')" required>
+      <input
+        v-model="oldPassword"
+        type="password"
+        class="form-control"
+        id="oldPassword"
+        :placeholder="$t('Current password')"
+        required
+      />
       <label for="oldPassword">{{ $t("Current password") }}</label>
     </div>
+
     <div class="form-floating">
-      <input v-model="newPassword" type="password" class="form-control" id="newPassword" :placeholder="$t('New password')" required>
+      <input
+        v-model="newPassword"
+        type="password"
+        class="form-control"
+        id="newPassword"
+        :placeholder="$t('New password')"
+        required
+      />
       <label for="newPassword">{{ $t("New password") }}</label>
     </div>
+
     <div class="form-floating">
-      <input v-model="confirmPassword" type="password" class="form-control" id="confirmPassword" :placeholder="$t('Confirm new password')" required>
+      <input
+        v-model="confirmPassword"
+        type="password"
+        class="form-control"
+        id="confirmPassword"
+        :placeholder="$t('Confirm new password')"
+        required
+      />
       <label for="confirmPassword">{{ $t("Confirm new password") }}</label>
     </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit" :disabled="$demoMode()">{{ $t("Change password") }}</button>
-    <div v-if="success" class="alert alert-success" role="alert">
-      {{ $t("Password changed") }}
-    </div>
+
+    <button class="w-100 btn btn-lg btn-primary" type="submit" :disabled="$demoMode()">
+      {{ $t("Change password") }}
+    </button>
+
     <div v-if="notSimilar" class="alert alert-danger" role="alert">
-      {{ $t("Passwords not equals!") }}
+      {{ $t("Passwords not equals") }}
     </div>
-    <div v-if="error" class="alert alert-danger" role="alert">{{ $t("Failed!") }}</div>
+
+    <SuccessMessage
+      :status="success"
+      :success="$t('Password changed')"
+      :error="$t('Failed')"
+    />
   </form>
 </template>
 
 <script>
+import SuccessMessage from "@/components/SuccessMessage.vue"
+
 export default {
   props: {
     resetToken: {
       type: String,
     },
+  },
+  components: {
+    SuccessMessage,
   },
   data() {
     return {
@@ -36,8 +70,7 @@ export default {
       newPassword: null,
       confirmPassword: null,
       notSimilar: false,
-      success: false,
-      error: false,
+      success: null,
     }
   },
   methods: {
@@ -51,6 +84,8 @@ export default {
         this.notSimilar = true
         return
       }
+
+      this.success = null
 
       // API config
       let url = "resetpassword"
@@ -68,16 +103,13 @@ export default {
       // API request
       this.$apiPost(url, data)
         .then(() => {
-          this.error = false
           this.success = true
           this.oldPassword = ""
           this.newPassword = ""
           this.confirmPassword = ""
         })
-        .catch((e) => {
-          if (e.response && e.response.status) {
-            this.error = true
-          }
+        .catch(() => {
+          this.success = false
         })
     },
   },

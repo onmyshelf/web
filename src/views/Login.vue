@@ -1,7 +1,9 @@
 <template>
   <main class="form-signin container">
     <DemoWarning v-if="$demoMode() && !$isLoggedIn()" />
+
     <h1 class="h3 mb-3 fw-normal">{{ $t("Please sign in") }}</h1>
+
     <form @submit="login" class="container">
       <div class="form-floating">
         <input
@@ -14,6 +16,7 @@
         />
         <label>{{ $t("Username") }}</label>
       </div>
+
       <div class="form-floating">
         <input
           v-model="password"
@@ -24,12 +27,16 @@
         />
         <label>{{ $t("Password") }}</label>
       </div>
+
       <button class="w-100 btn btn-lg btn-primary" type="submit">
         {{ $t("Sign in") }}
       </button>
-      <div v-if="error" class="alert alert-danger" role="alert">
-        {{ $t("Login failed") }} {{ $t("Please retry") }}
-      </div>
+
+      <SuccessMessage
+        :status="success"
+        :error="$t('Login failed') + ' ' + $t('Please retry')"
+      />
+
       <div class="mt-3">
         <router-link to="/resetpassword">
           {{ $t("Forgot password") }}
@@ -41,16 +48,18 @@
 
 <script>
 import DemoWarning from "@/components/DemoWarning.vue"
+import SuccessMessage from "@/components/SuccessMessage.vue"
 
 export default {
   components: {
     DemoWarning,
+    SuccessMessage,
   },
   data() {
     return {
       username: null,
       password: null,
-      error: null,
+      success: null,
     }
   },
   created() {
@@ -63,6 +72,8 @@ export default {
     login(e) {
       // prevent form to reload page
       e.preventDefault()
+
+      this.success = null
 
       let data = {
         username: this.username,
@@ -77,10 +88,8 @@ export default {
           localStorage.setItem("onmyshelf_readonly", response.data.readonly)
           document.location.href = "/"
         })
-        .catch((e) => {
-          if (e.response && e.response.status) {
-            this.error = true
-          }
+        .catch(() => {
+          this.success = false
         })
     },
   },

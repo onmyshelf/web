@@ -38,10 +38,8 @@
           </button>
         </div>
       </form>
-      <div v-if="success" class="alert alert-success" role="alert">
-        Config changed
-      </div>
-      <div v-if="error" class="alert alert-danger" role="alert">Failed!</div>
+
+      <SuccessMessage :status="success" />
     </template>
   </div>
 </template>
@@ -49,17 +47,19 @@
 <script>
 import Error from "@/components/Error.vue"
 import Loading from "@/components/Loading.vue"
+import SuccessMessage from "@/components/SuccessMessage.vue"
 
 export default {
   components: {
     Error,
     Loading,
+    SuccessMessage,
   },
   data() {
     return {
       config: {},
       newKey: null,
-      success: false,
+      success: null,
       error: false,
       loading: true,
     }
@@ -78,12 +78,17 @@ export default {
   },
   methods: {
     addConfig() {
-      this.config[this.newKey] = ""
-      this.newKey = null
+      if (this.newKey) {
+        this.config[this.newKey] = ""
+        this.newKey = null
+      }
     },
     validate(e) {
       // prevent form to reload page
       e.preventDefault()
+
+      this.loading = true
+      this.success = null
 
       // copy edit object (to avoid cloning events)
       let data = Object.assign({}, this.config)
@@ -91,10 +96,12 @@ export default {
       // API call
       this.$apiPatch("config", data)
         .then(() => {
+          this.loading = false
           this.success = true
         })
-        .catch((e) => {
-          this.error = this.$apiErrorStatus(e)
+        .catch(() => {
+          this.loading = false
+          this.success = false
         })
     },
   },

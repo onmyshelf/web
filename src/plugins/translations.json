@@ -83,6 +83,10 @@
     "en_US": "This page does not exists.",
     "fr_FR": "Cette page n'existe pas."
   },
+  "Operation successful": {
+    "en_US": "Operation succeeded!",
+    "fr_FR": "Opération réussie !"
+  },
   "An error occured": {
     "en_US": "Oops, an error occured!",
     "fr_FR": "Oups, il y a une erreur !"
@@ -679,7 +683,7 @@
     "en_US": "Password changed",
     "fr_FR": "Mot de passe changé"
   },
-  "Password not equals!": {
+  "Password not equals": {
     "en_US": "Password not equals!",
     "fr_FR": "Les mots de passe ne correspondent pas !"
   },

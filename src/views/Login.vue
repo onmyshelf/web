@@ -77,7 +77,7 @@ export default {
 
       let data = {
         username: this.username,
-        password: btoa(this.password)
+        password: this.password,
       }
 
       this.$apiPost("login", data)

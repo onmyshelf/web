@@ -73,7 +73,6 @@ export default {
 
       // copy edit object (to avoid cloning events)
       let data = Object.assign({}, this.profile)
-      data.password = btoa(data.password)
 
       this.$apiPatch("users/" + this.$currentUser().id, data)
         .then(() => {

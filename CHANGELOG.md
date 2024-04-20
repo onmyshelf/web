@@ -1,5 +1,13 @@
 # Changelog for OnMyShelf web interface
 
+# 1.2.0 BETA 1 (2024-04-20)
+## New features
+- New server configuration page
+- New users management pages
+## Improvements
+- Updated libraries
+- Various code refactoring
+
 # 1.1.1 (2024-03-31)
 - Fixed pagination not working when page number is not set
 

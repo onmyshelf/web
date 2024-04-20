@@ -88,11 +88,32 @@ const router = createRouter({
     },
     {
       path: "/config/",
-      component: () => import("../components/admin/configuration/ServerConfig.vue"),
+      component: () => import("../views/Config.vue"),
       children: [
         {
           path: "",
           component: () => import("../components/admin/configuration/ServerConfig.vue"),
+        },
+        {
+          path: "users",
+          children: [
+            {
+              path: "",
+              component: () => import("../components/admin/configuration/users/Users.vue"),
+            },
+            {
+              path: "new",
+              component: () => import("../components/admin/configuration/users/UserEdit.vue"),
+            },
+            {
+              path: ":id",
+              component: () => import("../components/admin/configuration/users/UserEdit.vue"),
+            },
+            {
+              path: ":id/delete",
+              component: () => import("../components/admin/configuration/users/UserDelete.vue"),
+            },
+          ],
         },
       ],
     },

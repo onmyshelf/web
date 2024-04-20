@@ -690,5 +690,25 @@
   "Server configuration": {
     "en_US": "Server configuration",
     "fr_FR": "Configuration serveur"
+  },
+  "Users": {
+    "en_US": "Users",
+    "fr_FR": "Utilisateurs"
+  },
+  "Create new user": {
+    "en_US": "Create an user",
+    "fr_FR": "Créer un utilisateur"
+  },
+  "Confirm delete user": {
+    "en_US": "Are you sure to delete user",
+    "fr_FR": "Êtes-vous sûr de supprimer l'utilisateur"
+  },
+  "Delete user consequences": {
+    "en_US": "This will also delete all its collections.",
+    "fr_FR": "Cela supprimera également toutes ses collections."
+  },
+  "Delete user": {
+    "en_US": "Delete user",
+    "fr_FR": "Supprimer l'utilisateur"
   }
 }

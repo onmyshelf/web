@@ -117,7 +117,7 @@
     <Loading v-if="loading" />
     <div v-if="items" class="container items">
       <div v-for="(error, index) in errors" :key="index" class="alert alert-danger" role="alert">
-        {{ search.modules[error.module].name + ': ' + error.text }}
+        {{ search.modules[error.module].name + ": " + error.text }}
       </div>
       <template v-if="items.length == 0">
         <Empty :label="$t('Nothing found')" />
@@ -132,7 +132,11 @@
               <h1>{{ item.name }}</h1>
               <p>{{ item.description }}</p>
               <p>
-                <a :id="'item-source-' + index" :href="item.source" target="_blank">
+                <a
+                  :id="'item-source-' + index"
+                  :href="item.source"
+                  target="_blank"
+                >
                   Source ({{ search.modules[item.importModule].name }}) <i class="bi bi-box-arrow-up-right"></i>
                 </a>
               </p>

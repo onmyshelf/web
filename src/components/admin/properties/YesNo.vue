@@ -1,6 +1,9 @@
 <template>
   <div class="form-check form-switch mb-3">
     <input v-model="check" class="form-check-input" type="checkbox" />
+    <label class="form-check-label">
+      {{ label }}
+    </label>
   </div>
 </template>
 
@@ -8,6 +11,9 @@
 export default {
   props: {
     modelValue: {},
+    label: {
+      default: "",
+    },
   },
   computed: {
     check: {

@@ -103,6 +103,10 @@ export default {
       // API request
       this.$apiPost(url, data)
         .then(() => {
+          if (this.resetToken) {
+            document.location.href = "/login"
+          }
+
           this.success = true
           this.oldPassword = ""
           this.newPassword = ""

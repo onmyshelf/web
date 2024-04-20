@@ -3,7 +3,8 @@
     <h1 class="h3 mb-3 fw-normal">{{ $t("Reset password") }}</h1>
     <ChangePassword v-if="resetToken" :resetToken="resetToken" />
     <div v-else>
-      <SuccessMessage v-if="success !== null"
+      <SuccessMessage
+        v-if="success !== null"
         :status="success"
         :success="$t('Reset password link sent') + ' ' + $t('Reset password link trouble')"
       />

@@ -57,6 +57,10 @@ export default {
 
     // manage API errors
     app.config.globalProperties.$apiErrorStatus = (error) => {
+      if (!error.response) {
+        return 500
+      }
+
       let status = error.response.status
       switch (status) {
         case 404:

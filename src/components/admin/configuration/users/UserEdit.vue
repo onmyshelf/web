@@ -1,0 +1,184 @@
+<template>
+  <div class="container">
+    <h1>
+      <template v-if="id">{{ $t("Edit user") }} {{ id }}</template>
+      <template v-else>{{ $t("New user") }}</template>
+    </h1>
+    <Loading v-if="loading" />
+    <form v-else @submit="validate">
+      <template v-if="!id">
+        <div class="mb-3">
+          <label class="form-label">{{ $t("Username") }}</label>
+          <input
+            v-model="edit.username"
+            name="username"
+            type="text"
+            class="form-control"
+            placeholder=""
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">{{ $t("New password") }}</label>
+          <input
+            v-model="edit.newPassword"
+            type="password"
+            class="form-control"
+            :placeholder="$t('New password')"
+            required
+          />
+          <input
+            v-model="edit.confirmPassword"
+            type="password"
+            class="form-control"
+            :placeholder="$t('Confirm new password')"
+            required
+          />
+        </div>
+      </template>
+
+      <div class="mb-3">
+        <label class="form-label">{{ $t("Email") }}</label>
+        <input
+          v-model="edit.email"
+          name="email"
+          type="email"
+          class="form-control"
+          :placeholder="placeholderName"
+        />
+      </div>
+
+      <YesNo
+        v-model="edit.enabled"
+        :label="$t('Account is ' + (edit.enabled ? 'enabled' : 'disabled'))"
+        class="mb-3"
+      />
+
+      <div class="mb-3">
+        <label class="form-label">
+          {{ $t("Avatar") }} ({{ $t("optional") }})
+        </label>
+        <MediaSelector type="image" v-model="edit.avatar" />
+      </div>
+
+      <div v-if="notSimilar" class="alert alert-danger" role="alert">
+        {{ $t("Passwords not equals") }}
+      </div>
+
+      <div class="mb-3">
+        <button class="btn btn-primary" type="submit" :disabled="$demoMode()">
+          <template v-if="id">{{ $t("Save changes") }}</template>
+          <template v-else>{{ $t("Create user") }}</template>
+        </button>&nbsp;
+        <a href="." class="btn btn-outline-secondary">
+          {{ $t("Cancel") }}
+        </a>
+      </div>
+    </form>
+  </div>
+</template>
+
+<script>
+import Loading from "@/components/Loading.vue"
+import MediaSelector from "@/components/admin/properties/MediaSelector.vue"
+import YesNo from "@/components/admin/properties/YesNo.vue"
+
+export default {
+  components: {
+    Loading,
+    MediaSelector,
+    YesNo,
+  },
+
+  data() {
+    return {
+      loading: false,
+      id: this.$route.params.id,
+      edit: {
+        username: null,
+        newPassword: null,
+        confirmPassword: null,
+        email: null,
+        enabled: true,
+        avatar: null,
+      },
+      notSimilar: false,
+    }
+  },
+
+  created() {
+    // if new user, stop here
+    if (!this.id) {
+      return
+    }
+
+    this.loading = true
+
+    // get user profile
+    this.$apiGet("users/" + this.id)
+    .then((response) => {
+      this.edit = response.data
+
+      // end of loading
+      this.loading = false
+    })
+  },
+  methods: {
+    validate(e) {
+      // prevent form to reload page
+      e.preventDefault()
+
+      // copy edit object (to avoid cloning events)
+      let data = Object.assign({}, this.edit)
+
+      if (data.newPassword) {
+        if (data.newPassword == data.confirmPassword) {
+          this.notSimilar = false
+        } else {
+          this.notSimilar = true
+          return
+        }
+
+        delete data.confirmPassword
+      }
+
+      if (!data.enabled) {
+        data.enabled = false
+      }
+
+      // API call
+      if (this.id) {
+        // modify user
+        this.$apiPatch("users/" + this.id, data).then(() => {
+          document.location.href = "/config/users/"
+        })
+      } else {
+        // create new user
+        this.$apiPost("users", data).then(() => {
+          document.location.href = "/config/users/"
+        })
+      }
+    },
+
+    defaultName() {
+      if (this.id || this.changedName) {
+        return
+      }
+
+      let translationKey = "Collection name example for " + this.edit.type
+      let translation = this.$t(translationKey)
+
+      // default translation
+      if (translation == translationKey) {
+        this.edit.name = ""
+        translation = this.$t("Collection name example")
+      } else {
+        this.edit.name = translation
+      }
+
+      this.placeholderName = this.$t("e.g.") + " " + translation
+    },
+  },
+}
+</script>

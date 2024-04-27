@@ -95,12 +95,29 @@
           <p class="card-text">
             {{ $t("Import collection from") }}
           </p>
-          <router-link to="import" class="btn btn-primary">
+          <router-link to="import" class="btn btn-success">
             <i class="bi bi-box-arrow-in-down-left"></i>
             {{ $t("Import collection") }}
           </router-link>
         </div>
       </div>
+
+      <div class="card mb-3">
+        <div class="card-header">
+          <strong>{{ $t("Export collection") }}</strong>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            {{ $t("Export collection to") }}
+          </p>
+          <button class="btn btn-primary" @click="exportCollection()">
+            <i class="bi bi-box-arrow-up"></i>
+            {{ $t("Export collection") }}
+          </button>
+          <success-message :status="exportStatus" />
+        </div>
+      </div>
+
       <div class="card">
         <div class="card-header">
           <strong>{{ $t("Delete collection") }}</strong>
@@ -121,6 +138,7 @@
 import Breadcrumbs from "@/components/Breadcrumbs.vue"
 import Error from "@/components/Error.vue"
 import Loading from "@/components/Loading.vue"
+import SuccessMessage from "@/components/SuccessMessage.vue"
 import Translation from "@/components/properties/Translation.vue"
 import Visibility from "@/components/properties/Visibility.vue"
 
@@ -129,6 +147,7 @@ export default {
     Breadcrumbs,
     Error,
     Loading,
+    SuccessMessage,
     Translation,
     Visibility,
   },
@@ -149,6 +168,7 @@ export default {
       error: false,
       titleProperty: null,
       loading: true,
+      exportStatus: null,
     }
   },
   created() {
@@ -248,6 +268,21 @@ export default {
         // quit loop
         return
       }
+    },
+
+    exportCollection() {
+      this.exportStatus = 'started'
+
+      // get collection details
+      this.$apiGet("collections/" + this.id + "/export")
+        .then((response) => {
+          console.log(response)
+          this.$downloadFile("collection.json", JSON.stringify(response.data, null, 2))
+          this.exportStatus = true
+        })
+        .catch(() => {
+          this.exportStatus = false
+        })
     },
   },
 }

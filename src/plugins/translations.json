@@ -523,6 +523,14 @@
     "en_US": "Import collection from CSV, GCstar, Tellico, ...",
     "fr_FR": "Importer une collection depuis un CSV, GCstar, Tellico, ..."
   },
+  "Export collection": {
+    "en_US": "Export collection",
+    "fr_FR": "Exporter la collection"
+  },
+  "Export collection to": {
+    "en_US": "Export collection to a JSON file",
+    "fr_FR": "Exporter la collection vers un fichier JSON"
+  },
   "Delete collection": {
     "en_US": "Delete collection",
     "fr_FR": "Supprimer la collection"

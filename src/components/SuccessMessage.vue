@@ -1,16 +1,22 @@
 <template>
   <div class="container">
-    <div v-if="status" class="alert alert-success" role="alert">
+    <loading v-if="status == 'started'" />
+    <div v-if="status === true" class="alert alert-success" role="alert">
       {{ displaySuccess() }}
     </div>
-    <div v-if="status == false" class="alert alert-danger" role="alert">
+    <div v-if="status === false" class="alert alert-danger" role="alert">
       {{ displayError() }}
     </div>
   </div>
 </template>
 
 <script>
+import Loading from "./Loading.vue"
+
 export default {
+  components: {
+    Loading,
+  },
   props: {
     status: {
       required: true,

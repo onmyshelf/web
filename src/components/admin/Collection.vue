@@ -9,7 +9,9 @@
     <p v-if="description && Object.keys(description).length > 0">
       <Translation :text="description" />
     </p>
-    <p v-if="visibility !== null">{{ $t("Visibility") }}: <Visibility :level=visibility /></p>
+    <p v-if="visibility !== null">
+      {{ $t("Visibility") }}: <Visibility :level="visibility" />
+    </p>
     <p>
       <router-link to="edit" class="btn btn-primary">
         <i class="bi-pencil"></i>&nbsp;{{ $t("Edit collection details") }}
@@ -24,7 +26,11 @@
       </router-link>
 
       <template v-if="properties">
-        <div v-if="Object.keys(properties).length == 0" class="alert alert-warning" role="alert">
+        <div
+          v-if="Object.keys(properties).length == 0"
+          class="alert alert-warning"
+          role="alert"
+        >
           {{ $t("Create your first property") }}
         </div>
         <table v-else class="table">
@@ -40,15 +46,25 @@
           <tbody>
             <tr v-for="(property, name) of properties" :key="name">
               <td scope="row">
-                <template v-if="this.$translate(property.label)">{{ this.$translate(property.label) }}</template>
+                <template v-if="this.$translate(property.label)">
+                  {{ this.$translate(property.label) }}
+                </template>
                 <template v-else>{{ name }}</template>
               </td>
               <td scope="row">
                 <template v-if="$propertyTypes[property.type]">
-                  <strong v-if="property.isTitle">{{ $t("Item title") }}</strong>
-                  <strong v-else-if="property.isSubTitle">{{ $t("Item subtitle") }}</strong>
-                  <strong v-else-if="property.isCover">{{ $t("Item cover") }}</strong>
-                  <template v-else>{{ $translate($propertyTypes[property.type].label) }}</template>
+                  <strong v-if="property.isTitle">
+                    {{ $t("Item title") }}
+                  </strong>
+                  <strong v-else-if="property.isSubTitle">
+                    {{ $t("Item subtitle") }}
+                  </strong>
+                  <strong v-else-if="property.isCover">
+                    {{ $t("Item cover") }}
+                  </strong>
+                  <template v-else>
+                    {{ $translate($propertyTypes[property.type].label) }}
+                  </template>
                 </template>
               </td>
               <td>
@@ -58,16 +74,26 @@
                   :level="property.visibility > visibility ? property.visibility : visibility"
                 />
                 <template v-if="property.preview">
-                  ,&nbsp;<a title="In item summary"><i class="bi-bookmark-fill"></i></a>
+                  ,&nbsp;<a title="In item summary">
+                    <i class="bi-bookmark-fill"></i>
+                  </a>
                 </template>
               </td>
               <td>
-                <a title="Move up" @click="orderProperty(name)"><i class="bi bi-arrow-up-circle-fill"></i></a>&nbsp;
-                <a title="Move down" @click="orderProperty(name, -1)"><i class="bi bi-arrow-down-circle"></i></a>
+                <a title="Move up" @click="orderProperty(name)">
+                  <i class="bi bi-arrow-up-circle-fill"></i>
+                </a>&nbsp;
+                <a title="Move down" @click="orderProperty(name, -1)">
+                  <i class="bi bi-arrow-down-circle"></i>
+                </a>
               </td>
               <td>
-                <router-link :to="'property/' + name" :title="$t('Edit')"><i class="bi bi-pencil"></i></router-link>&nbsp;&nbsp;
-                <router-link :to="'property/' + name + '/delete'" :title="$t('Delete')"><i class="bi bi-x-lg"></i></router-link>
+                <router-link :to="'property/' + name" :title="$t('Edit')">
+                  <i class="bi bi-pencil"></i>
+                </router-link>&nbsp;&nbsp;
+                <router-link :to="'property/' + name + '/delete'" :title="$t('Delete')">
+                  <i class="bi bi-x-lg"></i>
+                </router-link>
               </td>
             </tr>
           </tbody>
@@ -114,7 +140,7 @@
             <i class="bi bi-box-arrow-up"></i>
             {{ $t("Export collection") }}
           </button>
-          <success-message :status="exportStatus" />
+          <SuccessMessage :status="exportStatus" class="mt-3" />
         </div>
       </div>
 

@@ -1,5 +1,9 @@
 # Changelog for OnMyShelf web interface
 
+# 1.2.0 (2024-04-27)
+## New features
+- New export collection tool
+
 # 1.2.0 BETA 1 (2024-04-20)
 ## New features
 - New server configuration page

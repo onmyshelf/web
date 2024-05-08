@@ -77,21 +77,21 @@ export default {
     if (!localStorage.getItem("onmyshelf_lang")) {
       localStorage.setItem("onmyshelf_lang", "en_US")
       // refresh page
-      this.$router.go()
+      location.reload()
     }
   },
   methods: {
     changeLanguage(lang) {
       localStorage.setItem("onmyshelf_lang", lang)
       // refresh page
-      this.$router.go()
+      location.reload()
     },
     logout() {
       // tell API to delete token
       this.$apiDelete("token").then(() => {
         // clean local storage
         this.$cleanSession()
-        this.$router.go("/")
+        document.location.href = "/"
       })
     },
   },

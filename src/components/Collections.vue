@@ -82,10 +82,9 @@ export default {
   },
   created() {
     // get API info
-    this.$apiGet("")
-      .then((response) => {
-        localStorage.setItem("onmyshelf_readonly", response.data.readonly)
-      })
+    this.$apiGet("").then((response) => {
+      localStorage.setItem("onmyshelf_readonly", response.data.readonly)
+    })
 
     // get collections list
     this.$apiGet("collections")

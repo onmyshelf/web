@@ -15,6 +15,10 @@
     "en_US": "This website is powered by OnMyShelf.",
     "fr_FR": "Ce site est généré par OnMyShelf."
   },
+  "API version": {
+    "en_US": "API version",
+    "fr_FR": "Version de l'API"
+  },
   "About OnMyShelf": {
     "en_US": "OnMyShelf is a powerful free and open source collection manager.",
     "fr_FR": "OnMyShelf est un puissant gestionnaire de collections libre et open source."

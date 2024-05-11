@@ -8,17 +8,17 @@
         :status="success"
         :success="$t('Reset password link sent') + ' ' + $t('Reset password link trouble')"
       />
-      <form v-else @submit="askReset">
+      <form v-else @submit="validate">
         <div class="form-floating">
           <input
-            v-model="username"
+            v-model="login"
             name="username"
             type="text"
             class="form-control"
-            :placeholder="$t('Username')"
+            :placeholder="$t('Username or email')"
             required
           />
-          <label>{{ $t("Username")}} </label>
+          <label>{{ $t("Username or email")}} </label>
         </div>
         <button
           class="w-100 btn btn-lg btn-primary"
@@ -41,24 +41,29 @@ export default {
     ChangePassword,
     SuccessMessage,
   },
-  created() {
-    if (this.$route.query.token) {
-      this.resetToken = this.$route.query.token
-    }
-  },
   data() {
     return {
-      username: null,
+      login: null,
       resetToken: null,
       success: null,
     }
   },
+  created() {
+    // if already logged in, redirect to homepage
+    if (this.$isLoggedIn()) {
+      location.href = "/"
+    }
+
+    if (this.$route.query.token) {
+      this.resetToken = this.$route.query.token
+    }
+  },
   methods: {
-    askReset(e) {
+    validate(e) {
       // prevent form to reload page
       e.preventDefault()
 
-      this.$apiPost("resetpassword", { username: this.username })
+      this.$apiPost("resetpassword", { login: this.login })
         .then(() => {
           this.success = true
         })

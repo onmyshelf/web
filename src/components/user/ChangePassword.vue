@@ -1,5 +1,5 @@
 <template>
-  <form @submit="changePassword">
+  <form @submit="validate">
     <div v-if="!resetToken" class="form-floating">
       <input
         v-model="oldPassword"
@@ -74,7 +74,7 @@ export default {
     }
   },
   methods: {
-    changePassword(e) {
+    validate(e) {
       // prevent form to reload page
       e.preventDefault()
 
@@ -103,14 +103,18 @@ export default {
       // API request
       this.$apiPost(url, data)
         .then(() => {
-          if (this.resetToken) {
-            document.location.href = "/login"
-          }
-
           this.success = true
           this.oldPassword = ""
           this.newPassword = ""
           this.confirmPassword = ""
+
+          // if from lost password token
+          if (this.resetToken) {
+            // wait 1s then redirect to login page
+            setTimeout(() => {
+              location.href = "/login"
+            }, 1000);
+          }
         })
         .catch(() => {
           this.success = false

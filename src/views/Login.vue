@@ -4,17 +4,17 @@
 
     <h1 class="h3 mb-3 fw-normal">{{ $t("Please sign in") }}</h1>
 
-    <form @submit="login" class="container">
+    <form @submit="validate" class="container">
       <div class="form-floating">
         <input
-          v-model="username"
-          name="username"
+          v-model="login"
+          name="login"
           type="text"
           class="form-control"
-          :placeholder="$t('Username')"
+          :placeholder="$t('Username or email')"
           required
         />
-        <label>{{ $t("Username") }}</label>
+        <label>{{ $t("Username or email") }}</label>
       </div>
 
       <div class="form-floating">
@@ -65,18 +65,18 @@ export default {
   created() {
     // if already logged in, redirect to homepage
     if (this.$isLoggedIn()) {
-      document.location.href = "/"
+      location.href = "/"
     }
   },
   methods: {
-    login(e) {
+    validate(e) {
       // prevent form to reload page
       e.preventDefault()
 
       this.success = null
 
       let data = {
-        username: this.username,
+        login: this.login,
         password: this.password,
       }
 
@@ -84,9 +84,9 @@ export default {
         .then((response) => {
           localStorage.setItem("onmyshelf_token", response.data.token)
           localStorage.setItem("onmyshelf_userID", response.data.userid)
-          localStorage.setItem("onmyshelf_username", this.username)
+          localStorage.setItem("onmyshelf_username", response.data.username)
           localStorage.setItem("onmyshelf_readonly", response.data.readonly)
-          document.location.href = "/"
+          location.href = "/"
         })
         .catch(() => {
           this.success = false

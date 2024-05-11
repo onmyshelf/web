@@ -39,6 +39,10 @@
     "en_US": "Your profile has been updated",
     "fr_FR": "Votre profil a été mis à jour."
   },
+  "Username or email": {
+    "en_US": "Username or email address",
+    "fr_FR": "Nom d'utilisateur ou adresse email"
+  },
   "Sign in": {
     "en_US": "Sign in",
     "fr_FR": "Se connecter"

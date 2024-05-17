@@ -6,6 +6,23 @@
 
       <form @submit="validate">
         <div class="mb-3">
+          <label class="form-label">{{ $t("Firstname/Lastname") }}</label>
+          <input
+            v-model="profile.firstname"
+            name="firstname"
+            type="text"
+            :placeholder="$t('First name')"
+            class="form-control"
+          />
+          <input
+            v-model="profile.lastname"
+            name="lastname"
+            type="text"
+            :placeholder="$t('Last name')"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
           <label class="form-label">{{ $t("Email address") }}</label>
           <input
             v-model="profile.email"
@@ -13,15 +30,6 @@
             type="email"
             :placeholder="$t('Email address')"
             class="form-control"
-          />
-        </div>
-        <div class="mb-3">
-          <input
-            v-model="profile.password"
-            type="password"
-            class="form-control"
-            :placeholder="$t('Current password')"
-            required
           />
         </div>
         <div class="mb-3">
@@ -47,9 +55,7 @@ export default {
   },
   data() {
     return {
-      profile: {
-        password: "",
-      },
+      profile: {},
       error: false,
       success: null,
     }

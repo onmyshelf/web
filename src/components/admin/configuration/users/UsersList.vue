@@ -12,6 +12,7 @@
             <tr>
               <th scope="col">{{ $t("ID") }}</th>
               <th scope="col">{{ $t("Username") }}</th>
+              <th scope="col">{{ $t("Email") }}</th>
               <th scope="col">{{ $t("Enabled") }}</th>
               <th scope="col"></th>
             </tr>
@@ -20,6 +21,7 @@
             <tr v-for="(user, key) in users" :key="key">
               <td scope="row">{{ user.id }}</td>
               <td scope="row">{{ user.username }}</td>
+              <td scope="row">{{ user.email }}</td>
               <td>
                 <i :class="'bi bi-' + (user.enabled ? 'check-lg' : 'ban')"></i>
               </td>

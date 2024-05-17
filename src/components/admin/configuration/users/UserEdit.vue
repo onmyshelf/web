@@ -39,6 +39,24 @@
       </template>
 
       <div class="mb-3">
+        <label class="form-label">{{ $t("Firstname/Lastname") }}</label>
+        <input
+          v-model="edit.firstname"
+          name="firstname"
+          type="text"
+          :placeholder="$t('First name')"
+          class="form-control"
+        />
+        <input
+          v-model="edit.lastname"
+          name="lastname"
+          type="text"
+          :placeholder="$t('Last name')"
+          class="form-control"
+        />
+      </div>
+
+      <div class="mb-3">
         <label class="form-label">{{ $t("Email") }}</label>
         <input
           v-model="edit.email"

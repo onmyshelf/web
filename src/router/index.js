@@ -99,7 +99,7 @@ const router = createRouter({
           children: [
             {
               path: "",
-              component: () => import("../components/admin/configuration/users/Users.vue"),
+              component: () => import("../components/admin/configuration/users/UsersList.vue"),
             },
             {
               path: "new",

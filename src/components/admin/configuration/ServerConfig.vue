@@ -7,9 +7,16 @@
         <h3>{{ $t("Server configuration") }}</h3>
 
         <template v-for="(value, param) in config" :key="param">
-          <div v-if="param != 'version'" class="item-preview mb-3">
-            <label class="form-label">{{ $t(param) }}:</label>
-            <input v-model="config[param]" type="text" class="form-control" />
+          <div class="item-preview mb-3">
+            <template v-if="param == 'loans'">
+              <label class="form-label">{{ $t("Enable loans") }}:</label>
+              <YesNo v-model="config[param]" />
+            </template>
+
+            <template v-else>
+              <label class="form-label">{{ $t(param) }}:</label>
+              <input v-model="config[param]" type="text" class="form-control" />
+            </template>
           </div>
         </template>
 
@@ -20,13 +27,13 @@
             id="newKey"
             @click="addConfig()"
           >
-            + {{ $t("Add new config key") }}
+            {{ $t("Add config key") }}:
           </button>
           <input
             v-model="newKey"
             type="text"
             class="form-control"
-            placeholder="e.g. custom_api_key"
+            :placeholder="$t('Config key exemple')"
             aria-label="Example text with button addon"
             aria-describedby="newKey"
           />
@@ -39,7 +46,7 @@
         </div>
       </form>
 
-      <SuccessMessage :status="success" />
+      <SuccessMessage :status="success" :details="details" />
     </template>
   </div>
 </template>
@@ -48,12 +55,14 @@
 import Error from "@/components/Error.vue"
 import Loading from "@/components/Loading.vue"
 import SuccessMessage from "@/components/SuccessMessage.vue"
+import YesNo from "@/components/admin/properties/YesNo.vue"
 
 export default {
   components: {
     Error,
     Loading,
     SuccessMessage,
+    YesNo,
   },
   data() {
     return {
@@ -61,6 +70,7 @@ export default {
       newKey: null,
       success: null,
       error: false,
+      details: null,
       loading: true,
     }
   },
@@ -69,7 +79,6 @@ export default {
     this.$apiGet("config")
       .then((response) => {
         this.config = response.data
-        delete this.config.version
         this.loading = false
       })
       .catch((e) => {
@@ -99,9 +108,12 @@ export default {
           this.loading = false
           this.success = true
         })
-        .catch(() => {
+        .catch((e) => {
           this.loading = false
           this.success = false
+          if (e.response.data && e.response.data.error) {
+            this.details = e.response.data.error
+          }
         })
     },
   },

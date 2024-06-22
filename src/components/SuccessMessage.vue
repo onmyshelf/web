@@ -6,6 +6,7 @@
     </div>
     <div v-if="status === false" class="alert alert-danger" role="alert">
       {{ displayError() }}
+      <p v-if="details">{{ $t("Details") }}: {{ details }}</p>
     </div>
   </div>
 </template>
@@ -25,6 +26,9 @@ export default {
       default: null,
     },
     error: {
+      default: null,
+    },
+    details: {
       default: null,
     },
   },

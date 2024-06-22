@@ -707,13 +707,53 @@
     "en_US": "Server configuration",
     "fr_FR": "Configuration serveur"
   },
+  "Enable loans": {
+    "en_US": "Enable loans",
+    "fr_FR": "Activer le système de prêts"
+  },
+  "Add config key": {
+    "en_US": "Add a new config key",
+    "fr_FR": "Ajouter une nouvelle clé de configuration"
+  },
+  "Config key exemple": {
+    "en_US": "e.g. my_custom_api_key",
+    "fr_FR": "ex: ma_cle_api"
+  },
   "Users": {
     "en_US": "Users",
     "fr_FR": "Utilisateurs"
   },
   "Create new user": {
-    "en_US": "Create an user",
+    "en_US": "Create a new user",
     "fr_FR": "Créer un utilisateur"
+  },
+  "Firstname/Lastname": {
+    "en_US": "Firstname/Lastname",
+    "fr_FR": "Prénom/Nom"
+  },
+  "Firstname": {
+    "en_US": "Firstname",
+    "fr_FR": "Prénom"
+  },
+  "Lastname": {
+    "en_US": "Lastname",
+    "fr_FR": "Nom"
+  },
+  "Email example": {
+    "en_US": "e.g. my@email.com",
+    "fr_FR": "ex: mon@email.com"
+  },
+  "Account is enabled": {
+    "en_US": "User account is enabled",
+    "fr_FR": "Le compte utilisateur est activé"
+  },
+  "Account is disabled": {
+    "en_US": "User account is disabled",
+    "fr_FR": "Le compte utilisateur est désactivé"
+  },
+  "Create user": {
+    "en_US": "Create user",
+    "fr_FR": "Créer l'utilisateur"
   },
   "Confirm delete user": {
     "en_US": "Are you sure to delete user",

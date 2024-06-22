@@ -162,8 +162,8 @@ export default {
       },
       4: {
         label: {
-          en_US: "Nobody (hidden)",
-          fr_FR: "Personne (caché)",
+          en_US: "Nobody",
+          fr_FR: "Personne",
         },
         icon: "eye-slash-fill",
       },

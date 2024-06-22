@@ -2,7 +2,7 @@
   <div class="container">
     <h1>
       <template v-if="id">{{ $t("Edit user") }} {{ id }}</template>
-      <template v-else>{{ $t("New user") }}</template>
+      <template v-else>{{ $t("Create new user") }}</template>
     </h1>
     <Loading v-if="loading" />
     <form v-else @submit="validate">
@@ -14,7 +14,6 @@
             name="username"
             type="text"
             class="form-control"
-            placeholder=""
             required
           />
         </div>
@@ -39,31 +38,35 @@
       </template>
 
       <div class="mb-3">
-        <label class="form-label">{{ $t("Firstname/Lastname") }}</label>
+        <label class="form-label">
+          {{ $t("Firstname/Lastname") }} ({{ $t("optional") }})
+        </label>
         <input
           v-model="edit.firstname"
           name="firstname"
           type="text"
-          :placeholder="$t('First name')"
+          :placeholder="$t('Firstname')"
           class="form-control"
         />
         <input
           v-model="edit.lastname"
           name="lastname"
           type="text"
-          :placeholder="$t('Last name')"
+          :placeholder="$t('Lastname')"
           class="form-control"
         />
       </div>
 
       <div class="mb-3">
-        <label class="form-label">{{ $t("Email") }}</label>
+        <label class="form-label">
+          {{ $t("Email address") }} ({{ $t("optional") }})
+        </label>
         <input
           v-model="edit.email"
           name="email"
           type="email"
           class="form-control"
-          :placeholder="placeholderName"
+          :placeholder="$t('Email example')"
         />
       </div>
 

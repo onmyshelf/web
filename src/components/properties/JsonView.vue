@@ -1,6 +1,6 @@
 <template>
   <template v-if="Array.isArray(obj)">
-    <Json v-for="value in obj" :key="value" :obj="value" />
+    <JsonView v-for="value in obj" :key="value" :obj="value" />
   </template>
   <ul v-else>
     <li v-for="(value, key) of obj" :key=key>
@@ -11,7 +11,7 @@
         </ul>
       </template>
       <template v-else-if="typeof value == 'object'">
-        {{ key }}: <Json :obj="value" />
+        {{ key }}: <JsonView :obj="value" />
       </template>
       <template v-else>{{ key }}: {{ value }}</template>
     </li>

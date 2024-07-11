@@ -2,7 +2,7 @@
   <div v-if="!$parent.search || title.toLowerCase().includes($parent.search.toLowerCase())" class="row">
     <div class="col-4 item-cover">
       <router-link :to="'item/' + item.id + '/'">
-        <Image :url="coverUrl" :cover="true" />
+        <ImageView :url="coverUrl" :cover="true" />
       </router-link>
     </div>
     <div class="col">
@@ -18,27 +18,31 @@
         </div>
       </div>
       <span v-if="item.lent" class="badge text-bg-danger">{{ $t("Lent") }}</span>
-      <div v-if="$parent.isMine" class="mt-3">
-        <Visibility :level="item.visibility > $parent.collection.visibility ? item.visibility : $parent.collection.visibility" />
-        &nbsp;
-        <router-link :to="'item/' + item.id + '/edit'" class="btn btn-outline-primary">
-          <i class="bi-pencil"></i> {{ $t("Edit") }}
-        </router-link>
+      <div class="mt-3">
+        <template v-if="$parent.isMine">
+          <VisibilityIcon
+            :level="item.visibility > $parent.collection.visibility ? item.visibility : $parent.collection.visibility"
+          />
+          &nbsp;
+          <router-link :to="'item/' + item.id + '/edit'" class="btn btn-outline-primary">
+            <i class="bi-pencil"></i> {{ $t("Edit") }}
+          </router-link>
+        </template>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Image from "@/components/properties/medias/Image.vue"
+import ImageView from "@/components/properties/ImageView.vue"
 import Property from "@/components/Property.vue"
-import Visibility from "@/components/properties/Visibility.vue"
+import VisibilityIcon from "@/components/properties/VisibilityIcon.vue"
 
 export default {
   components: {
-    Image,
+    ImageView,
     Property,
-    Visibility,
+    VisibilityIcon,
   },
   props: {
     item: {

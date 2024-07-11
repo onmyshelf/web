@@ -5,20 +5,20 @@
       <Breadcrumbs v-if="collection && item" :parents="breadcrumbs" :current="title" />
       <div v-if="item && collection && collection.properties" class="row item">
         <div class="col-4 item-cover">
-          <Image
+          <ImageView
             v-if="properties && coverProperty && properties[coverProperty]"
             :url="properties[coverProperty]"
             cover="true"
             linked="true"
             id="itemImage"
           />
-          <Image v-else :url="collection.cover" id="itemImage" cover="true" />
+          <ImageView v-else :url="collection.cover" id="itemImage" cover="true" />
 
           <div v-if="gallery.length > 0" class="gallery">
             <template v-for="property in gallery" :key="property">
               <template v-if="properties[property] && !collection.properties[property].isCover">
                 <template v-if="Array.isArray(properties[property])">
-                  <Image
+                  <ImageView
                     v-for="(img, i) in properties[property]" :key="i"
                     :url="img"
                     linked="true"
@@ -26,7 +26,7 @@
                     :data-property="property"
                   />
                 </template>
-                <Image
+                <ImageView
                   v-else
                   :url="properties[property]"
                   linked="true"
@@ -43,7 +43,7 @@
           </h2>
           <a href="#loans"><span v-if="item.lent" class="badge text-bg-danger mb-2">{{ $t("Lent") }}</span></a>
           <div v-if="isMine" class="item-actions">
-            <Visibility
+            <VisibilityIcon
               :level="item.visibility > collection.visibility ? item.visibility : collection.visibility"
               id="itemVisibility"
             />
@@ -173,18 +173,18 @@
 
 <script>
 import Breadcrumbs from "./Breadcrumbs.vue"
-import Image from "./properties/medias/Image.vue"
+import ImageView from "./properties/ImageView.vue"
 import Error from "./Error.vue"
 import Property from "./Property.vue"
-import Visibility from "./properties/Visibility.vue"
+import VisibilityIcon from "./properties/VisibilityIcon.vue"
 
 export default {
   components: {
     Breadcrumbs,
-    Image,
+    ImageView,
     Error,
     Property,
-    Visibility,
+    VisibilityIcon,
   },
   data() {
     return {

@@ -126,7 +126,7 @@
         <template v-for="(item, index) in items" :key="index">
           <div :id="'item-' + index" class="row">
             <div class="col-4 item-cover">
-              <Image :url="item.image" :cover="true" />
+              <ImageView :url="item.image" :cover="true" />
             </div>
             <div class="col">
               <h1>{{ item.name }}</h1>
@@ -159,14 +159,14 @@
 
 <script>
 import Empty from "@/components/Empty.vue"
-import Image from "@/components/properties/medias/Image.vue"
+import ImageView from "@/components/properties/ImageView.vue"
 import Loading from "@/components/Loading.vue"
 
 export default {
   components: {
     Empty,
     Loading,
-    Image,
+    ImageView,
   },
 
   data() {

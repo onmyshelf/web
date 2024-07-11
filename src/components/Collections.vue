@@ -26,13 +26,15 @@
           <div v-if="!filterMine || collection.owner == currentUser.id" class="row">
             <div class="col-4 item-cover">
               <router-link :to="'/collection/' + collection.id + '/'">
-                <Image :url="collection.cover" :cover="true" style="max-height:8em" />
+                <ImageView :url="collection.cover" :cover="true" style="max-height:8em" />
               </router-link>
             </div>
             <div class="col">
               <router-link :to="'/collection/' + collection.id + '/'">
                 <h1>
-                  <template v-if="collection.name">{{ collection.name }}</template>
+                  <template v-if="collection.name">
+                    {{ collection.name }}
+                  </template>
                   <template v-else>Collection {{ collection.id }}</template>
                 </h1>
               </router-link>
@@ -43,7 +45,7 @@
               <div v-if="collection.owner == currentUser.id">
                 <p>
                   <span class="badge text-bg-light">{{ $t("Mine") }}</span>&nbsp;
-                  <Visibility :level="collection.visibility" />&nbsp;
+                  <VisibilityIcon :level="collection.visibility" />&nbsp;
                   <router-link :to="'/collection/' + collection.id + '/manage/'" class="btn btn-outline-secondary">
                     <i class="bi-gear-fill"></i> {{ $t("Manage") }}
                   </router-link>
@@ -58,19 +60,19 @@
 </template>
 
 <script>
-import Image from "./properties/medias/Image.vue"
+import ImageView from "./properties/ImageView.vue"
 import Empty from "@/components/Empty.vue"
 import Error from "@/components/Error.vue"
 import Loading from "@/components/Loading.vue"
-import Visibility from "@/components/properties/Visibility.vue"
+import VisibilityIcon from "@/components/properties/VisibilityIcon.vue"
 
 export default {
   components: {
-    Image,
+    ImageView,
     Empty,
     Error,
     Loading,
-    Visibility,
+    VisibilityIcon,
   },
   data() {
     return {

@@ -3,16 +3,20 @@
     v-if="!$parent.search || title.toLowerCase().includes($parent.search.toLowerCase())"
     :to="'item/' + item.id + '/'"
   >
-    <Image :url="coverUrl" :title="item.properties[collection.titleProperty]" :cover="true" />
+    <ImageView
+      :url="coverUrl"
+      :title="item.properties[collection.titleProperty]"
+      :cover="true"
+    />
   </router-link>
 </template>
 
 <script>
-import Image from "@/components/properties/medias/Image.vue"
+import ImageView from "@/components/properties/ImageView.vue"
 
 export default {
   components: {
-    Image,
+    ImageView,
   },
   props: {
     item: {

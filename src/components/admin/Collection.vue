@@ -3,14 +3,12 @@
   <div v-else class="container">
     <Breadcrumbs v-if="name" :parents="breadcrumbs" :current="$t('Manage')" />
     <h1>
-      <Translation v-if="name && Object.keys(name).length > 0" :text="name" />
-      <template v-else>Collection {{ $route.params.cid }}</template>
+      <template v-if="name">{{ $translate(name) }}</template>
+      <template v-else>{{ $t("Collection") }} {{ $route.params.cid }}</template>
     </h1>
-    <p v-if="description && Object.keys(description).length > 0">
-      <Translation :text="description" />
-    </p>
+    <p v-if="description">{{ $translate(description) }}</p>
     <p v-if="visibility !== null">
-      {{ $t("Visibility") }}: <Visibility :level="visibility" />
+      {{ $t("Visibility") }}: <VisibilityIcon :level="visibility" />
     </p>
     <p>
       <router-link to="edit" class="btn btn-primary">
@@ -69,7 +67,7 @@
               </td>
               <td>
                 <i v-if="property.hidden" class="bi bi-eye-slash"></i>
-                <Visibility
+                <VisibilityIcon
                   v-else
                   :level="property.visibility > visibility ? property.visibility : visibility"
                 />
@@ -165,8 +163,7 @@ import Breadcrumbs from "@/components/Breadcrumbs.vue"
 import Error from "@/components/Error.vue"
 import Loading from "@/components/Loading.vue"
 import SuccessMessage from "@/components/SuccessMessage.vue"
-import Translation from "@/components/properties/Translation.vue"
-import Visibility from "@/components/properties/Visibility.vue"
+import VisibilityIcon from "@/components/properties/VisibilityIcon.vue"
 
 export default {
   components: {
@@ -174,8 +171,7 @@ export default {
     Error,
     Loading,
     SuccessMessage,
-    Translation,
-    Visibility,
+    VisibilityIcon,
   },
   data() {
     return {

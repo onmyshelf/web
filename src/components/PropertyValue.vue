@@ -1,14 +1,14 @@
 <template>
   <div class="property-value">
-    <Image v-if="property.type == 'image'" :url="value" />
-    <Video v-else-if="property.type == 'video'" :url="value" />
+    <ImageView v-if="property.type == 'image'" :url="value" />
+    <VideoPlayer v-else-if="property.type == 'video'" :url="value" />
     <YesNo v-else-if="property.type == 'yesno'" :label="name" :value="value" />
-    <Rating v-else-if="property.type == 'rating'" :label="name" :value="value" />
-    <Json v-else-if="property.type == 'json'" :obj="jsonDecode(value)" />
+    <RatingView v-else-if="property.type == 'rating'" :label="name" :value="value" />
+    <JsonView v-else-if="property.type == 'json'" :obj="jsonDecode(value)" />
     <a v-else-if="property.type == 'url'" :href="value">
       {{ $t("Open link") }} &nbsp;<i class="bi bi-box-arrow-up-right"></i>
     </a>
-    <Color v-else-if="property.type == 'color'" :value="value" />
+    <ColorView v-else-if="property.type == 'color'" :value="value" />
     <template v-else>
       <ul v-if="Array.isArray(value)">
         <li class="value" v-for="val in value" :key="val">{{ val }}
@@ -46,20 +46,20 @@
 </style>
 
 <script>
-import Color from "./properties/Color.vue"
-import Image from "./properties/medias/Image.vue"
-import Json from "./properties/Json.vue"
-import Rating from "./properties/Rating.vue"
-import Video from "./properties/medias/Video.vue"
+import ColorView from "./properties/ColorView.vue"
+import ImageView from "./properties/ImageView.vue"
+import JsonView from "./properties/JsonView.vue"
+import RatingView from "./properties/RatingView.vue"
+import VideoPlayer from "./properties/video/VideoPlayer.vue"
 import YesNo from "./properties/YesNo.vue"
 
 export default {
   components: {
-    Color,
-    Image,
-    Json,
-    Rating,
-    Video,
+    ColorView,
+    ImageView,
+    JsonView,
+    RatingView,
+    VideoPlayer,
     YesNo,
   },
   props: {

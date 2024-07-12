@@ -1,5 +1,18 @@
 # Changelog for OnMyShelf web interface
 
+# 1.3.0 BETA 1 (2024-07-12)
+## New features
+- Edit user firstname & lastname
+- Permit users to log in with email address
+- Print API version when admin is logged in
+## Improvements
+- Updated libraries
+- Integration of Bootstrap inside project
+- Various code refactoring
+## Bugfixes
+- Fixed bad redirection when user logs out
+- Fixed various translations
+
 # 1.2.0 (2024-04-27)
 ## New features
 - New export collection tool

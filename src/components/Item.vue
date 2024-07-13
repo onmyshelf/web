@@ -47,7 +47,7 @@
             {{ properties[subTitleProperty] }}
           </h2>
           <a href="#loans">
-            <LentBadge v-if="item.lent" class="mb-2" />
+            <LoanBadge v-if="item.lent" state="lent" class="mb-2" />
           </a>
           <div v-if="isMine" class="item-actions">
             <VisibilityIcon
@@ -55,6 +55,7 @@
               id="itemVisibility"
             />
             <EditItemButton />
+            <LoanItemButton v-if="!item.lent" />
             <router-link to="delete" id="itemDeleteButton" class="btn btn-outline-danger">
               <i class="bi-x-lg"></i> {{ $t("Delete") }}
             </router-link>
@@ -70,6 +71,7 @@
             </li>
             <hr />
           </div>
+
           <template v-if="properties">
             <template v-for="(property, name) of collection.properties" :key="name">
               <div
@@ -81,6 +83,7 @@
               </div>
             </template>
           </template>
+
           <div v-if="isMine" class="item-dates">
             {{ $t("Item added on:") }} {{ item.created }}
             <template v-if="item.updated != item.created">
@@ -88,12 +91,11 @@
               {{ $t("Last changes:") }} {{ item.updated }}
             </template>
           </div>
-          <div v-if="isMine" id="loans" class="loans">
+
+          <div v-if="isMine && loans && loans.length > 0" id="loans" class="loans">
             <hr />
             <h2>{{ $t("Loans") }}</h2>
-            <router-link to="loan/new" class="btn btn-outline-success">
-              <i class="bi bi-box-arrow-up"></i> {{ $t("Loan item") }}
-            </router-link>
+            <LoanItemButton />
             <table v-if="loans && loans.length > 0" class="table">
               <thead>
                 <tr>
@@ -106,21 +108,7 @@
               <tbody>
                 <tr v-for="(loan, i) of loans" :key="i" :id="'loan-' + loan.id">
                   <td scope="row" class="loan-state" :data-loan-state="loan.state">
-                    <span v-if="loan.state == 'asked'" class="badge text-bg-info">
-                      {{ $translate($loanStates[loan.state].label) }}
-                    </span>
-                    <span v-else-if="loan.state == 'rejected'" class="badge text-bg-warning">
-                      {{ $translate($loanStates[loan.state].label) }}
-                    </span>
-                    <span v-else-if="loan.state == 'accepted'" class="badge text-bg-secondary">
-                      {{ $translate($loanStates[loan.state].label) }}
-                    </span>
-                    <span v-else-if="loan.state == 'lent'" class="badge text-bg-danger">
-                      {{ $translate($loanStates[loan.state].label) }}
-                    </span>
-                    <span v-else-if="loan.state == 'returned'" class="badge text-bg-success">
-                      {{ $translate($loanStates[loan.state].label) }}
-                    </span>
+                    <LoanBadge :state="loan.state" />
                   </td>
                   <td class="loan-date">
                     <template v-if="loan.state == 'lent'">
@@ -186,7 +174,8 @@
 import Breadcrumbs from "./Breadcrumbs.vue"
 import EditItemButton from "./items/EditItemButton.vue"
 import ImageView from "./properties/ImageView.vue"
-import LentBadge from "./items/LentBadge.vue"
+import LoanBadge from "./loans/LoanBadge.vue"
+import LoanItemButton from "./loans/LoanItemButton.vue"
 import Error from "./Error.vue"
 import Property from "./Property.vue"
 import VisibilityIcon from "./properties/VisibilityIcon.vue"
@@ -196,7 +185,8 @@ export default {
     Breadcrumbs,
     EditItemButton,
     ImageView,
-    LentBadge,
+    LoanBadge,
+    LoanItemButton,
     Error,
     Property,
     VisibilityIcon,

@@ -1,8 +1,9 @@
 <template>
   <ActionItemButton
-    action="edit"
-    icon="pencil"
-    :label="$t('Edit')"
+    :action="'loan/' + loan"
+    buttonStyle="success"
+    :icon="'box-arrow-' + (loan == 'new' ? 'up' : 'down')"
+    :label="loan == 'new' ? $t('Loan item') : $t('Get back item')"
     :baseUrl="baseUrl"
     :item="item"
     :small="small"
@@ -10,7 +11,7 @@
 </template>
 
 <script>
-import ActionItemButton from "./ActionItemButton.vue"
+import ActionItemButton from "@/components/items/ActionItemButton.vue"
 
 export default {
   components: {
@@ -19,6 +20,9 @@ export default {
   props: {
     item: {
       default: "",
+    },
+    loan: {
+      default: "new",
     },
     baseUrl: {
       default: "",

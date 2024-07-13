@@ -12,7 +12,7 @@
           {{ item.properties[collection.subTitleProperty] }}
         </h2>
       </router-link>
-      <LentBadge v-if="item.lent" class="mb-1" />
+      <LoanBadge v-if="item.lent" state="lent" class="mb-1" />
       <div v-if="item.properties" class="item-preview">
         <div v-for="(property, name) of collection.properties" :key="name">
           <Property v-if="property.preview" :name="name" :property="property" :value="item.properties[name]" />
@@ -24,7 +24,7 @@
             :level="item.visibility > $parent.collection.visibility ? item.visibility : $parent.collection.visibility"
           />
           <EditItemButton :item="item.id" />
-          <LoansItemButton :item="item.id" />
+          <LoanItemButton v-if="!item.lent" :item="item.id" />
         </template>
       </div>
     </div>
@@ -34,8 +34,8 @@
 <script>
 import EditItemButton from "./EditItemButton.vue"
 import ImageView from "@/components/properties/ImageView.vue"
-import LentBadge from "./LentBadge.vue"
-import LoansItemButton from "./LoansItemButton.vue"
+import LoanBadge from "@/components/loans/LoanBadge.vue"
+import LoanItemButton from "@/components/loans/LoanItemButton.vue"
 import Property from "@/components/Property.vue"
 import VisibilityIcon from "@/components/properties/VisibilityIcon.vue"
 
@@ -43,8 +43,8 @@ export default {
   components: {
     EditItemButton,
     ImageView,
-    LentBadge,
-    LoansItemButton,
+    LoanBadge,
+    LoanItemButton,
     Property,
     VisibilityIcon,
   },

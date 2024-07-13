@@ -616,8 +616,12 @@
     "fr_FR": "Créer un nouveau prêt"
   },
   "Loan item": {
-    "en_US": "Loan this item",
-    "fr_FR": "Prêter cet objet"
+    "en_US": "Loan",
+    "fr_FR": "Prêter"
+  },
+  "Get back item": {
+    "en_US": "Get back",
+    "fr_FR": "Récupérer"
   },
   "Create loan": {
     "en_US": "Create the loan",

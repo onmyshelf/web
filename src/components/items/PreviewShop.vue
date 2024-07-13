@@ -9,7 +9,7 @@
     <router-link :to="'item/' + item.id + '/'">
       <h1>{{ title }}</h1>
     </router-link>
-    <LentBadge v-if="item.lent" />
+    <LoanBadge v-if="item.lent" state="lent" />
     <div class="mt-3">
       <template v-if="$parent.isMine">
         <VisibilityIcon
@@ -17,7 +17,7 @@
         />
         <div class="btn-group" role="group">
           <EditItemButton :item="item.id" small="true" />
-          <LoansItemButton :item="item.id" small="true" />
+          <LoanItemButton v-if="!item.lent" :item="item.id" small="true" />
         </div>
       </template>
     </div>
@@ -27,16 +27,16 @@
 <script>
 import EditItemButton from "./EditItemButton.vue"
 import ImageView from "@/components/properties/ImageView.vue"
-import LentBadge from "./LentBadge.vue"
-import LoansItemButton from "./LoansItemButton.vue"
+import LoanBadge from "@/components/loans/LoanBadge.vue"
+import LoanItemButton from "@/components/loans/LoanItemButton.vue"
 import VisibilityIcon from "@/components/properties/VisibilityIcon.vue"
 
 export default {
   components: {
     EditItemButton,
     ImageView,
-    LentBadge,
-    LoansItemButton,
+    LoanBadge,
+    LoanItemButton,
     VisibilityIcon,
   },
   props: {

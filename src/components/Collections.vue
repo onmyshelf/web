@@ -22,11 +22,15 @@
           </div>
         </div>
 
-        <template v-for="collection of collections" :key="collection.id" class="row">
+        <template v-for="collection of collections" :key="collection.id">
           <div v-if="!filterMine || collection.owner == currentUser.id" class="row">
             <div class="col-4 item-cover">
               <router-link :to="'/collection/' + collection.id + '/'">
-                <ImageView :url="collection.cover" :cover="true" style="max-height:8em" />
+                <ImageView
+                  :url="collection.cover"
+                  cover="true"
+                  style="max-height: 8em"
+                />
               </router-link>
             </div>
             <div class="col">
@@ -39,14 +43,17 @@
                 </h1>
               </router-link>
               <p v-if="collection.description">
-                <template v-if="collection.description">{{ collection.description }}</template>
+                {{ collection.description }}
               </p>
               <p>{{ $t("Items") }}: {{ collection.items }}</p>
               <div v-if="collection.owner == currentUser.id">
                 <p>
-                  <span class="badge text-bg-light">{{ $t("Mine") }}</span>&nbsp;
-                  <VisibilityIcon :level="collection.visibility" />&nbsp;
-                  <router-link :to="'/collection/' + collection.id + '/manage/'" class="btn btn-outline-secondary">
+                  <MineBadge />
+                  <VisibilityIcon :level="collection.visibility" />
+                  <router-link
+                    :to="'/collection/' + collection.id + '/manage/'"
+                    class="btn btn-outline-secondary"
+                  >
                     <i class="bi-gear-fill"></i> {{ $t("Manage") }}
                   </router-link>
                 </p>
@@ -64,6 +71,7 @@ import ImageView from "./properties/ImageView.vue"
 import Empty from "@/components/Empty.vue"
 import Error from "@/components/Error.vue"
 import Loading from "@/components/Loading.vue"
+import MineBadge from "@/components/collections/MineBadge.vue"
 import VisibilityIcon from "@/components/properties/VisibilityIcon.vue"
 
 export default {
@@ -72,6 +80,7 @@ export default {
     Empty,
     Error,
     Loading,
+    MineBadge,
     VisibilityIcon,
   },
   data() {

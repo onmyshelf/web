@@ -8,49 +8,89 @@
       </h1>
       <div v-if="id" class="mt-3 mb-3">
         <button class="btn btn-success" @click="duplicate()">
-          <i class="bi bi-arrow-left-right"></i> Duplicate item
+          <i class="bi bi-copy"></i> {{ $t("Duplicate item") }}
         </button>
+        <a class="btn btn-outline-danger ms-3" href="delete">
+          <i class="bi bi-x-lg"></i> {{ $t("Delete item") }}
+        </a>
       </div>
 
       <Loading v-if="loading" />
       <form v-else @submit="validate">
-        <div v-for="(property, name) in collection.properties" :key="name" class="item-preview mb-3">
-          <label :for="name" class="form-label">
-            {{ label(property.label, name) }}:
-            <span v-if="helpProperty(property)">
-              <a href="#" @click="toggleHelp(name)"
-                title="Informations about this property" data-bs-toggle="collapse"
-                aria-expanded="false" :aria-controls="'help-' + name"
+
+        <div class="card mb-3">
+          <div class="card-header">{{ $t("Display") }}</div>
+          <div class="card-body">
+            <label class="form-label">{{ $t("Who can see item") }}</label>
+            <div class="form-check form-switch mb-2">
+              <input
+                v-model="customVisibility"
+                type="checkbox"
+                class="form-check-input"
+                @change="toggleVisibility()"
+              />
+              <label class="form-check-label mb-2">
+                {{ customVisibility ? $t("Custom visibility") : $t("Default visibility") }}
+              </label>
+              <VisibilitySelector
+                v-model="edit.visibility"
+                :min="collection.visibility"
+                max="3"
+                :disabled="!customVisibility"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-3">
+          <div class="card-header">{{ $t("Properties") }}</div>
+          <div class="card-body">
+            <div v-for="(property, name) in collection.properties" :key="name" class="item-preview mb-3">
+              <label :for="name" class="form-label">
+                {{ label(property.label, name) }}:
+                <span v-if="helpProperty(property)">
+                  <a
+                    href="#"
+                    @click="toggleHelp(name)"
+                    title="Informations about this property"
+                    data-bs-toggle="collapse"
+                    aria-expanded="false"
+                    :aria-controls="'help-' + name"
+                  >
+                    <i class="bi bi-info-circle"></i>
+                  </a>
+                  <div :id="'help-' + name" class="card card-body bg-light" style="display:none">
+                    <i class="bi bi-info-circle"></i> {{ $translate(property.description) }}
+                  </div>
+                </span>
+                <span v-if="property.suffix">({{ property.suffix }})</span>
+              </label>
+
+              <template v-if="Array.isArray(edit.properties[name])">
+                <PropertyInput v-for="(value, key) in edit.properties[name]" :key="key" v-model="edit.properties[name][key]" :name="name" :property="property" />
+              </template>
+              <PropertyInput v-else v-model="edit.properties[name]" :name="name" :property="property" />
+
+              <button
+                v-if="property.multiple"
+                type="button"
+                class="btn btn-outline-primary"
+                @click="addValue(name)"
               >
-                <i class="bi bi-info-circle"></i>
-              </a>
-              <div :id="'help-' + name" class="card card-body bg-light" style="display:none">
-                <i class="bi bi-info-circle"></i> {{ $translate(property.description) }}
-              </div>
-            </span>
-            <span v-if="property.suffix">({{ property.suffix }})</span>
-          </label>
+                + {{ $t("Add value") }}
+              </button>
+            </div>
+          </div>
+        </div>
 
-          <template v-if="Array.isArray(edit.properties[name])">
-            <PropertyInput v-for="(value, key) in edit.properties[name]" :key="key" v-model="edit.properties[name][key]" :name="name" :property="property" />
-          </template>
-          <PropertyInput v-else v-model="edit.properties[name]" :name="name" :property="property" />
-
-          <button v-if="property.multiple" type="button" class="btn btn-outline-primary" @click="addValue(name)">
-            + {{ $t("Add value") }}
+        <div class="mb-3">
+          <button
+            type="submit"
+            class="btn btn-primary me-3"
+            :disabled="$demoMode()"
+          >
+            {{ id ? $t("Save changes") : $t("Create item") }}
           </button>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">{{ $t("Who can see item") }}</label>
-          <VisibilitySelector v-model="edit.visibility" max="3" />
-        </div>
-
-        <div class="mb-3">
-          <button class="btn btn-primary" type="submit" :disabled="$demoMode()">
-            <template v-if="id">{{ $t("Save changes") }}</template>
-            <template v-else>{{ $t("Create item") }}</template>
-          </button>&nbsp;
           <a :href="id ? '.' : '..'" class="btn btn-outline-secondary">
             {{ $t("Cancel") }}
           </a>
@@ -83,6 +123,7 @@ export default {
         properties: {},
         visibility: 0,
       },
+      customVisibility: false,
       error: false,
       loading: true,
       help: {},
@@ -102,6 +143,7 @@ export default {
         }
 
         if (!this.id) {
+          this.edit.visibility = this.collection.visibility
           this.loading = false
         }
 
@@ -119,6 +161,13 @@ export default {
       this.$apiGet("collections/" + this.collection.id + "/items/" + this.id)
         .then((response) => {
           this.edit = response.data
+
+          if (this.edit.visibility > 0) {
+            this.customVisibility = true
+          }
+          if (this.edit.visibility < this.collection.visibility) {
+            this.edit.visibility = this.collection.visibility
+          }
 
           this.loading = false
         })
@@ -152,6 +201,11 @@ export default {
         obj.style.display = "none"
       }
     },
+    toggleVisibility() {
+      if (!this.customVisibility) {
+        this.edit.visibility = this.collection.visibility
+      }
+    },
     label(label, name) {
       let translation = this.$translate(label)
       if (translation) {
@@ -172,6 +226,11 @@ export default {
 
       // copy edit object (to avoid cloning events)
       let data = Object.assign({}, this.edit)
+
+      // no custom visibility: reset changes
+      if (!this.customVisibility) {
+        data.visibility = 0
+      }
 
       // API call
       if (this.id) {

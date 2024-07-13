@@ -6,7 +6,7 @@
     <ImageView
       :url="coverUrl"
       :title="item.properties[collection.titleProperty]"
-      :cover="true"
+      cover="true"
     />
   </router-link>
 </template>

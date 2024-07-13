@@ -12,7 +12,12 @@
             linked="true"
             id="itemImage"
           />
-          <ImageView v-else :url="collection.cover" id="itemImage" cover="true" />
+          <ImageView
+            v-else
+            :url="collection.cover"
+            id="itemImage"
+            cover="true"
+          />
 
           <div v-if="gallery.length > 0" class="gallery">
             <template v-for="property in gallery" :key="property">
@@ -41,16 +46,15 @@
           <h2 v-if="subTitleProperty && properties[subTitleProperty]" id="itemSubtitle">
             {{ properties[subTitleProperty] }}
           </h2>
-          <a href="#loans"><span v-if="item.lent" class="badge text-bg-danger mb-2">{{ $t("Lent") }}</span></a>
+          <a href="#loans">
+            <LentBadge v-if="item.lent" class="mb-2" />
+          </a>
           <div v-if="isMine" class="item-actions">
             <VisibilityIcon
               :level="item.visibility > collection.visibility ? item.visibility : collection.visibility"
               id="itemVisibility"
             />
-            <router-link to="edit" id="itemEditButton" class="btn btn-outline-primary">
-              <i class="bi-pencil"></i> {{ $t("Edit") }}
-            </router-link>
-            &nbsp;
+            <EditItemButton />
             <router-link to="delete" id="itemDeleteButton" class="btn btn-outline-danger">
               <i class="bi-x-lg"></i> {{ $t("Delete") }}
             </router-link>
@@ -133,11 +137,18 @@
                     {{ loan.borrower }}
                   </td>
                   <td class="loan-actions">
-                    <router-link :to="'loan/' + loan.id" :title="$t('Edit')" class="loan-edit">
+                    <router-link
+                      :to="'loan/' + loan.id"
+                      :title="$t('Edit')"
+                      class="loan-edit me-3"
+                    >
                       <i class="bi bi-pencil"></i>
                     </router-link>
-                    &nbsp;
-                    <router-link :to="'loan/' + loan.id + '/delete'" :title="$t('Delete')" class="loan-delete">
+                    <router-link
+                      :to="'loan/' + loan.id + '/delete'"
+                      :title="$t('Delete')"
+                      class="loan-delete"
+                    >
                       <i class="bi bi-x-lg"></i>
                     </router-link>
                   </td>
@@ -173,7 +184,9 @@
 
 <script>
 import Breadcrumbs from "./Breadcrumbs.vue"
+import EditItemButton from "./items/EditItemButton.vue"
 import ImageView from "./properties/ImageView.vue"
+import LentBadge from "./items/LentBadge.vue"
 import Error from "./Error.vue"
 import Property from "./Property.vue"
 import VisibilityIcon from "./properties/VisibilityIcon.vue"
@@ -181,7 +194,9 @@ import VisibilityIcon from "./properties/VisibilityIcon.vue"
 export default {
   components: {
     Breadcrumbs,
+    EditItemButton,
     ImageView,
+    LentBadge,
     Error,
     Property,
     VisibilityIcon,

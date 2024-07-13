@@ -25,8 +25,9 @@
       </template>
     </template>
     <span v-if="property.filterable" class="property-filter">
-      <a :href="'/collection/' + this.$parent.collection.id + '/?p_' + name + '=' + encodeURIComponent(value)"
-        :title="$t('Filter by') + ' ' + value" force
+      <a
+        :href="'/collection/' + this.$parent.collection.id + '/?p_' + name + '=' + encodeURIComponent(value)"
+        :title="$t('Filter by') + ' ' + value"
       >
         <i class="bi-filter-square-fill"></i>
       </a>

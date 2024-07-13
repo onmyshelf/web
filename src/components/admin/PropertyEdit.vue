@@ -200,10 +200,13 @@
         </div>
 
         <div class="mb-3">
-          <button class="btn btn-primary" type="submit" :disabled="$demoMode()">
-            <template v-if="id">{{ $t("Save changes") }}</template>
-            <template v-else>{{ $t("Create property") }}</template>
-          </button>&nbsp;
+          <button
+            type="submit"
+            class="btn btn-primary me-3"
+            :disabled="$demoMode()"
+          >
+            {{ id ? $t("Save changes") : $t("Create property") }}
+          </button>
           <a href=".." class="btn btn-outline-secondary">
             {{ $t("Cancel") }}
           </a>

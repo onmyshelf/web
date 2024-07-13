@@ -2,7 +2,7 @@
   <div v-if="!$parent.search || title.toLowerCase().includes($parent.search.toLowerCase())" class="row">
     <div class="col-4 item-cover">
       <router-link :to="'item/' + item.id + '/'">
-        <ImageView :url="coverUrl" :cover="true" />
+        <ImageView :url="coverUrl" cover="true" />
       </router-link>
     </div>
     <div class="col">
@@ -12,21 +12,19 @@
           {{ item.properties[collection.subTitleProperty] }}
         </h2>
       </router-link>
+      <LentBadge v-if="item.lent" class="mb-1" />
       <div v-if="item.properties" class="item-preview">
         <div v-for="(property, name) of collection.properties" :key="name">
           <Property v-if="property.preview" :name="name" :property="property" :value="item.properties[name]" />
         </div>
       </div>
-      <span v-if="item.lent" class="badge text-bg-danger">{{ $t("Lent") }}</span>
       <div class="mt-3">
         <template v-if="$parent.isMine">
           <VisibilityIcon
             :level="item.visibility > $parent.collection.visibility ? item.visibility : $parent.collection.visibility"
           />
-          &nbsp;
-          <router-link :to="'item/' + item.id + '/edit'" class="btn btn-outline-primary">
-            <i class="bi-pencil"></i> {{ $t("Edit") }}
-          </router-link>
+          <EditItemButton :item="item.id" />
+          <LoansItemButton :item="item.id" />
         </template>
       </div>
     </div>
@@ -34,13 +32,19 @@
 </template>
 
 <script>
+import EditItemButton from "./EditItemButton.vue"
 import ImageView from "@/components/properties/ImageView.vue"
+import LentBadge from "./LentBadge.vue"
+import LoansItemButton from "./LoansItemButton.vue"
 import Property from "@/components/Property.vue"
 import VisibilityIcon from "@/components/properties/VisibilityIcon.vue"
 
 export default {
   components: {
+    EditItemButton,
     ImageView,
+    LentBadge,
+    LoansItemButton,
     Property,
     VisibilityIcon,
   },

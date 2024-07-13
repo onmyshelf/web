@@ -48,7 +48,9 @@
       </div>
 
       <div class="mb-3">
-        <label class="form-label">{{ $t("Collection image") }} ({{ $t("optional") }})</label>
+        <label class="form-label">
+          {{ $t("Collection image") }} ({{ $t("optional") }})
+        </label>
         <MediaSelector type="image" v-model="edit.cover" />
       </div>
 
@@ -58,14 +60,14 @@
       </div>
 
       <div class="mt-3">
-        <button class="btn btn-primary" type="submit" :disabled="$demoMode()">
-          <template v-if="id">{{ $t("Save changes") }}</template>
-          <template v-else>{{ $t("Create collection") }}</template>
-        </button>&nbsp;
-        <a v-if="id" href="." class="btn btn-outline-secondary">
-          {{ $t("Cancel") }}
-        </a>
-        <router-link v-else to="/" class="btn btn-outline-secondary">
+        <button
+          type="submit"
+          class="btn btn-primary me-3"
+          :disabled="$demoMode()"
+        >
+           {{ id ? $t("Save changes") : $t("Create collection") }}
+        </button>
+        <router-link :to="id ? '.' : '/'" class="btn btn-outline-secondary">
           {{ $t("Cancel") }}
         </router-link>
       </div>

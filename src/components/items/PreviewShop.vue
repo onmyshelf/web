@@ -9,7 +9,11 @@
     <router-link :to="'item/' + item.id + '/'">
       <h1>{{ title }}</h1>
     </router-link>
+
     <LoanBadge v-if="item.lent" state="lent" />
+    <LoanBadge v-if="item.pendingLoans" state="accepted" />
+    <LoanBadge v-if="item.askingLoans" state="asked" />
+
     <div class="mt-3">
       <template v-if="$parent.isMine">
         <VisibilityIcon
@@ -17,7 +21,11 @@
         />
         <div class="btn-group" role="group">
           <EditItemButton :item="item.id" small="true" />
-          <LoanItemButton v-if="!item.lent" :item="item.id" small="true" />
+          <LoanItemButton
+            v-if="!item.lent && !item.pendingLoans && !item.askingLoans"
+            :item="item.id"
+            small="true"
+          />
         </div>
       </template>
     </div>

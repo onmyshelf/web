@@ -12,7 +12,11 @@
           {{ item.properties[collection.subTitleProperty] }}
         </h2>
       </router-link>
-      <LoanBadge v-if="item.lent" state="lent" class="mb-1" />
+
+      <LoanBadge v-if="item.lent" state="lent" />
+      <LoanBadge v-if="item.pendingLoans" state="accepted" />
+      <LoanBadge v-if="item.askingLoans" state="asked" />
+
       <div v-if="item.properties" class="item-preview">
         <div v-for="(property, name) of collection.properties" :key="name">
           <Property v-if="property.preview" :name="name" :property="property" :value="item.properties[name]" />
@@ -24,7 +28,10 @@
             :level="item.visibility > $parent.collection.visibility ? item.visibility : $parent.collection.visibility"
           />
           <EditItemButton :item="item.id" />
-          <LoanItemButton v-if="!item.lent" :item="item.id" />
+          <LoanItemButton
+            v-if="!item.lent && !item.pendingLoans && !item.askingLoans"
+            :item="item.id"
+          />
         </template>
       </div>
     </div>

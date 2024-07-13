@@ -2,7 +2,12 @@
   <div class="container">
     <Error v-if="error" :status="error" />
     <template v-else>
-      <Breadcrumbs v-if="collection && item" :parents="breadcrumbs" :current="title" />
+      <Breadcrumbs
+        v-if="collection && item"
+        :parents="breadcrumbs"
+        :current="title"
+      />
+
       <div v-if="item && collection && collection.properties" class="row item">
         <div class="col-4 item-cover">
           <ImageView
@@ -43,12 +48,21 @@
         </div>
         <div class="col">
           <h1 id="itemTitle">{{ title }}</h1>
-          <h2 v-if="subTitleProperty && properties[subTitleProperty]" id="itemSubtitle">
+          <h2
+            v-if="subTitleProperty && properties[subTitleProperty]"
+            id="itemSubtitle"
+          >
             {{ properties[subTitleProperty] }}
           </h2>
-          <a href="#loans">
-            <LoanBadge v-if="item.lent" state="lent" class="mb-2" />
-          </a>
+
+          <div class="mb-3">
+            <a href="#loans">
+              <LoanBadge v-if="item.lent" state="lent" />
+              <LoanBadge v-if="item.pendingLoans" state="accepted" />
+              <LoanBadge v-if="item.askingLoans" state="asked" />
+            </a>
+          </div>
+
           <div v-if="isMine" class="item-actions">
             <VisibilityIcon
               :level="item.visibility > collection.visibility ? item.visibility : collection.visibility"
@@ -56,6 +70,7 @@
             />
             <EditItemButton />
             <LoanItemButton
+              v-if="item.lent || (!item.pendingLoans && !item.askingLoans)"
               :loan="item.lent && currentLoan ? currentLoan + '?state=returned' : 'new'"
             />
             <router-link to="delete" id="itemDeleteButton" class="btn btn-outline-danger">
@@ -238,6 +253,8 @@ export default {
       properties: null,
       loans: null,
       currentLoan: null,
+      pendingLoan: null,
+      askingLoan: null,
       error: false,
       titleProperty: null,
       subTitleProperty: null,

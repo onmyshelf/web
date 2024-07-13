@@ -363,6 +363,10 @@
     "en_US": "Who can see this collection?",
     "fr_FR": "Qui peut voir cette collection ?"
   },
+  "Who can borrow items": {
+    "en_US": "Who can borrow items?",
+    "fr_FR": "Qui peut emprunter des objets ?"
+  },
   "Properties": {
     "en_US": "Properties",
     "fr_FR": "Propriétés"
@@ -579,13 +583,17 @@
     "en_US": "Who can see this item?",
     "fr_FR": "Qui peut voir cet objet ?"
   },
-  "Default visibility": {
-    "en_US": "Default visibility",
-    "fr_FR": "Visibilité par défaut"
+  "Who can borrow item": {
+    "en_US": "Who can borrow this item?",
+    "fr_FR": "Qui peut emprunter cet objet ?"
   },
-  "Custom visibility": {
-    "en_US": "Custom visibility",
-    "fr_FR": "Visibilité personnalisée"
+  "Default collection config": {
+    "en_US": "Default value set for this collection",
+    "fr_FR": "Valeur par défaut définie pour cette collection"
+  },
+  "Custom item config": {
+    "en_US": "Custom ",
+    "fr_FR": "Valeur personnalisée"
   },
   "Item added on:": {
     "en_US": "Item added on:",

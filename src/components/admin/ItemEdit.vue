@@ -17,31 +17,6 @@
 
       <Loading v-if="loading" />
       <form v-else @submit="validate">
-
-        <div class="card mb-3">
-          <div class="card-header">{{ $t("Display") }}</div>
-          <div class="card-body">
-            <label class="form-label">{{ $t("Who can see item") }}</label>
-            <div class="form-check form-switch mb-2">
-              <input
-                v-model="customVisibility"
-                type="checkbox"
-                class="form-check-input"
-                @change="toggleVisibility()"
-              />
-              <label class="form-check-label mb-2">
-                {{ customVisibility ? $t("Custom visibility") : $t("Default visibility") }}
-              </label>
-              <VisibilitySelector
-                v-model="edit.visibility"
-                :min="collection.visibility"
-                max="3"
-                :disabled="!customVisibility"
-              />
-            </div>
-          </div>
-        </div>
-
         <div class="card mb-3">
           <div class="card-header">{{ $t("Properties") }}</div>
           <div class="card-body">
@@ -79,6 +54,50 @@
               >
                 + {{ $t("Add value") }}
               </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-3">
+          <div class="card-header">{{ $t("Display") }}</div>
+          <div class="card-body">
+            <label class="form-label">{{ $t("Who can see item") }}</label>
+            <div class="form-check form-switch mb-2">
+              <input
+                v-model="customVisibility"
+                type="checkbox"
+                class="form-check-input"
+                @change="toggleVisibility()"
+              />
+              <label class="form-check-label mb-2">
+                {{ customVisibility ? $t("Custom item config") : $t("Default collection config") }}
+              </label>
+              <VisibilitySelector
+                v-model="edit.visibility"
+                :min="collection.visibility"
+                max="3"
+                :disabled="!customVisibility"
+                @change="changeBorrowable()"
+              />
+            </div>
+
+            <label class="form-label">{{ $t("Who can borrow item") }}</label>
+            <div class="form-check form-switch mb-2">
+              <input
+                v-model="customBorrowable"
+                type="checkbox"
+                class="form-check-input"
+                @change="toggleBorrowable()"
+              />
+              <label class="form-check-label mb-2">
+                {{ customBorrowable ? $t("Custom item config") : $t("Default collection config") }}
+              </label>
+              <VisibilitySelector
+                v-model="edit.borrowable"
+                :min="collection.borrowable"
+                max="3"
+                :disabled="!customBorrowable"
+              />
             </div>
           </div>
         </div>
@@ -122,8 +141,10 @@ export default {
       edit: {
         properties: {},
         visibility: 0,
+        borrowable: 0,
       },
       customVisibility: false,
+      customBorrowable: false,
       error: false,
       loading: true,
       help: {},
@@ -144,6 +165,7 @@ export default {
 
         if (!this.id) {
           this.edit.visibility = this.collection.visibility
+          this.edit.borrowable = this.collection.borrowable
           this.loading = false
         }
 
@@ -167,6 +189,13 @@ export default {
           }
           if (this.edit.visibility < this.collection.visibility) {
             this.edit.visibility = this.collection.visibility
+          }
+
+          if (this.edit.borrowable > 0) {
+            this.customBorrowable = true
+          }
+          if (this.edit.borrowable < this.collection.borrowable) {
+            this.edit.borrowable = this.collection.borrowable
           }
 
           this.loading = false
@@ -204,6 +233,16 @@ export default {
     toggleVisibility() {
       if (!this.customVisibility) {
         this.edit.visibility = this.collection.visibility
+      }
+    },
+    toggleBorrowable() {
+      if (!this.customBorrowable) {
+        this.edit.borrowable = this.collection.borrowable
+      }
+    },
+    changeBorrowable() {
+      if (this.edit.borrowable < this.edit.visibility) {
+        this.edit.borrowable = this.edit.visibility
       }
     },
     label(label, name) {

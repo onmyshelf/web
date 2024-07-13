@@ -56,7 +56,20 @@
 
       <div class="mb-3">
         <label class="form-label">{{ $t("Who can see collection") }}</label>
-        <VisibilitySelector v-model="edit.visibility" max="3" />
+        <VisibilitySelector
+          v-model="edit.visibility"
+          max="3"
+          @change="changeBorrowable()"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">{{ $t("Who can borrow items") }}</label>
+        <VisibilitySelector
+          v-model="edit.borrowable"
+          :min="edit.visibility"
+          max="3"
+        />
       </div>
 
       <div class="mt-3">
@@ -91,7 +104,7 @@ export default {
     return {
       loading: true,
       id: this.$route.params.cid,
-      edit: { type: null, visibility: 0 },
+      edit: { type: null, visibility: 0, borrowable: 0 },
       templates: null,
       changedName: false,
       placeholderName: "",
@@ -124,6 +137,9 @@ export default {
       if (!this.edit.type) {
         this.edit.type = ""
       }
+
+      // reload borrowable
+      this.changeBorrowable()
 
       // end of loading
       this.loading = false
@@ -194,6 +210,12 @@ export default {
       }
 
       this.placeholderName = this.$t("e.g.") + " " + translation
+    },
+
+    changeBorrowable() {
+      if (this.edit.borrowable < this.edit.visibility) {
+        this.edit.borrowable = this.edit.visibility
+      }
     },
   },
 }

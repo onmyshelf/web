@@ -377,6 +377,7 @@ export default {
         this.collection.owner = response.data.owner
         this.collection.properties = response.data.properties
         this.collection.visibility = response.data.visibility
+        this.collection.borrowable = response.data.borrowable
         this.collection.updated = response.data.updated
 
         // search title property

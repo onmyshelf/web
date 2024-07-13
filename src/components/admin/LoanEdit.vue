@@ -2,30 +2,36 @@
   <div class="container">
     <Error v-if="error" :status="error" />
     <template v-else>
-      <h1>
-        <template v-if="id">{{ $t("Edit loan") }} {{ id }}</template>
-        <template v-else>{{ $t("New loan") }}</template>
-      </h1>
+      <h1>{{ id ? $t("Edit loan") : $t("New loan") }}</h1>
 
       <Loading v-if="loading" />
       <form v-else @submit="validate">
         <div class="mb-3">
           <label class="form-label">{{ $t("Loan state") }}</label>
-          <LoanState v-model="edit.state" @change="prepareDate()" />
+          <LoanState
+            v-model="edit.state"
+            @change="prepareDate()"
+            :disabled="$route.query.state"
+          />
         </div>
 
-        <div v-if="edit.state == 'lent' || edit.state == 'returned'" class="mb-3">
+        <div
+          v-if="edit.state == 'lent' || edit.state == 'returned'"
+          class="mb-3"
+        >
           <label class="form-label">{{ $t("Lent on") }}</label>
           <div class="input-group">
             <input
               v-model="lent.date"
-              type="date" class="form-control"
+              type="date"
+              class="form-control"
               required
               @change="updateLent()"
             />
             <input
               v-model="lent.time"
-              type="time" class="form-control"
+              type="time"
+              class="form-control"
               required
               @change="updateLent()"
             />
@@ -37,14 +43,17 @@
           <div class="input-group">
             <input
               v-model="returned.date"
-              type="date" class="form-control"
-              :min="lent.date" :max="currentDate().toISOString().split('T')[0]"
+              type="date"
+              class="form-control"
+              :min="lent.date"
+              :max="currentDate().toISOString().split('T')[0]"
               required
               @change="updateReturned()"
             />
             <input
               v-model="returned.time"
-              type="time" class="form-control"
+              type="time"
+              class="form-control"
               required
               @change="updateReturned()"
             />
@@ -53,11 +62,20 @@
 
         <div class="mb-3">
           <label class="form-label">{{ $t("Borrower name") }}</label>
-          <input v-model="edit.borrower" name="borrower" type="text" class="form-control" :placeholder="$t('Borrower name example')" required />
+          <input
+            v-model="edit.borrower"
+            name="borrower"
+            type="text"
+            class="form-control"
+            :placeholder="$t('Borrower name example')"
+            required
+          />
         </div>
 
         <div class="mb-3">
-          <label class="form-label">{{ $t("Notes") }} ({{ $t("optional") }})</label>
+          <label class="form-label">
+            {{ $t("Notes") }} ({{ $t("optional") }})
+          </label>
           <textarea
             v-model="edit.notes"
             :placeholder="$t('Loan notes example')"
@@ -67,10 +85,13 @@
         </div>
 
         <div class="mb-3">
-          <button class="btn btn-primary" type="submit" :disabled="$demoMode()">
-            <template v-if="id">{{ $t("Save changes") }}</template>
-            <template v-else>{{ $t("Create loan") }}</template>
-          </button>&nbsp;
+          <button
+            type="submit"
+            class="btn btn-primary me-3"
+            :disabled="$demoMode()"
+          >
+            {{ id ? $t("Save changes") : $t("Create loan") }}
+          </button>
           <a href=".." class="btn btn-outline-secondary">
             {{ $t("Cancel") }}
           </a>
@@ -135,6 +156,11 @@ export default {
 
         // end of loading
         this.loading = false
+
+        // set state from options
+        if (this.$route.query.state) {
+          this.edit.state = this.$route.query.state
+        }
       })
       .catch((e) => {
         this.error = this.$apiErrorStatus(e)

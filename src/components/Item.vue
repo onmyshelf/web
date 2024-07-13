@@ -55,7 +55,9 @@
               id="itemVisibility"
             />
             <EditItemButton />
-            <LoanItemButton v-if="!item.lent" />
+            <LoanItemButton
+              :loan="item.lent && currentLoan ? currentLoan + '?state=returned' : 'new'"
+            />
             <router-link to="delete" id="itemDeleteButton" class="btn btn-outline-danger">
               <i class="bi-x-lg"></i> {{ $t("Delete") }}
             </router-link>
@@ -124,20 +126,52 @@
                   <td class="loan-borrower">
                     {{ loan.borrower }}
                   </td>
-                  <td class="loan-actions">
+                  <td class="loan-actions text-end">
+                    <span v-if="loan.state == 'asked'" class="me-4">
+                      <router-link
+                        :to="'loan/' + loan.id + '?state=accepted'"
+                        :title="$t('Accept')"
+                        class="loan-accept me-3"
+                      >
+                        <i class="bi bi-check-square text-success" />
+                      </router-link>
+                      <router-link
+                        :to="'loan/' + loan.id + '?state=rejected'"
+                        :title="$t('Reject')"
+                        class="loan-reject"
+                      >
+                        <i class="bi bi-x-square text-danger" />
+                      </router-link>
+                    </span>
+                    <router-link
+                      v-if="loan.state == 'accepted' && !item.lent"
+                      :to="'loan/' + loan.id + '?state=lent'"
+                      :title="$t('Loan item')"
+                      class="loan-lent me-4"
+                    >
+                      <i class="bi bi-box-arrow-up text-success" />
+                    </router-link>
+                    <router-link
+                      v-if="loan.state == 'lent'"
+                      :to="'loan/' + loan.id + '?state=returned'"
+                      :title="$t('Get back item')"
+                      class="loan-return me-4"
+                    >
+                      <i class="bi bi-box-arrow-down text-success" />
+                    </router-link>
                     <router-link
                       :to="'loan/' + loan.id"
                       :title="$t('Edit')"
                       class="loan-edit me-3"
                     >
-                      <i class="bi bi-pencil"></i>
+                      <i class="bi bi-pencil" />
                     </router-link>
                     <router-link
                       :to="'loan/' + loan.id + '/delete'"
                       :title="$t('Delete')"
                       class="loan-delete"
                     >
-                      <i class="bi bi-x-lg"></i>
+                      <i class="bi bi-x-lg" />
                     </router-link>
                   </td>
                 </tr>
@@ -203,6 +237,7 @@ export default {
       item: null,
       properties: null,
       loans: null,
+      currentLoan: null,
       error: false,
       titleProperty: null,
       subTitleProperty: null,
@@ -305,6 +340,13 @@ export default {
       this.$apiGet("collections/" + this.$route.params.cid + "/items/" + this.$route.params.id + "/loans")
         .then((response) => {
           this.loans = response.data
+
+          // search for current loan id
+          response.data.forEach((loan) => {
+            if (loan.state == "lent" && !loan.returned) {
+              this.currentLoan = loan.id
+            }
+          })
         })
         .catch((e) => {
           this.error = this.$apiErrorStatus(e)

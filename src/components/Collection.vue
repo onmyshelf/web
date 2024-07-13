@@ -6,7 +6,10 @@
     </button>
     <div class="row">
       <Loading v-if="loading" />
-      <div id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div
+        id="sidebarMenu"
+        class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
+      >
         <div class="position-sticky pt-3">
           <h4>{{ $t("Display mode") }}</h4>
           <div class="btn-group" role="group" aria-label="Toggle display mode">

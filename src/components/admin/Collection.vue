@@ -3,8 +3,7 @@
   <div v-else class="container">
     <Breadcrumbs v-if="name" :parents="breadcrumbs" :current="$t('Manage')" />
     <h1>
-      <template v-if="name">{{ $translate(name) }}</template>
-      <template v-else>{{ $t("Collection") }} {{ $route.params.cid }}</template>
+      {{ name ? $translate(name) : $t("Collection") + " " + $route.params.cid }}
     </h1>
     <p v-if="description">{{ $translate(description) }}</p>
     <p v-if="visibility !== null">
@@ -44,10 +43,7 @@
           <tbody>
             <tr v-for="(property, name) of properties" :key="name">
               <td scope="row">
-                <template v-if="this.$translate(property.label)">
-                  {{ this.$translate(property.label) }}
-                </template>
-                <template v-else>{{ name }}</template>
+                {{ $translate(property.label) ? $translate(property.label) : name }}
               </td>
               <td scope="row">
                 <template v-if="$propertyTypes[property.type]">
@@ -71,24 +67,22 @@
                   v-else
                   :level="property.visibility > visibility ? property.visibility : visibility"
                 />
-                <template v-if="property.preview">
-                  ,&nbsp;<a title="In item summary">
-                    <i class="bi-bookmark-fill"></i>
-                  </a>
-                </template>
+                <a v-if="property.preview" :title="$t('In item summary')">
+                  <i class="bi-bookmark-fill" />
+                </a>
               </td>
               <td>
-                <a title="Move up" @click="orderProperty(name)">
+                <a title="Move up" @click="orderProperty(name)" class="me-3">
                   <i class="bi bi-arrow-up-circle-fill"></i>
-                </a>&nbsp;
+                </a>
                 <a title="Move down" @click="orderProperty(name, -1)">
                   <i class="bi bi-arrow-down-circle"></i>
                 </a>
               </td>
               <td>
-                <router-link :to="'property/' + name" :title="$t('Edit')">
+                <router-link :to="'property/' + name" :title="$t('Edit')" class="me-3">
                   <i class="bi bi-pencil"></i>
-                </router-link>&nbsp;&nbsp;
+                </router-link>
                 <router-link :to="'property/' + name + '/delete'" :title="$t('Delete')">
                   <i class="bi bi-x-lg"></i>
                 </router-link>
@@ -293,7 +287,7 @@ export default {
     },
 
     exportCollection() {
-      this.exportStatus = 'started'
+      this.exportStatus = "started"
 
       // get collection details
       this.$apiGet("collections/" + this.id + "/export")

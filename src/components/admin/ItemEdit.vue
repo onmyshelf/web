@@ -3,11 +3,10 @@
     <Error v-if="error" :status="error" />
     <template v-else>
       <h1>
-        <template v-if="id">{{ $t("Edit item") }} {{ id }}</template>
-        <template v-else>{{ $t("New item") }}</template>
+        {{ id ? $t("Edit item") : $t("New item") }}
       </h1>
       <div v-if="id" class="mt-3 mb-3">
-        <button class="btn btn-success" @click="duplicate()">
+        <button class="btn btn-outline-success" @click="duplicate()">
           <i class="bi bi-copy"></i> {{ $t("Duplicate item") }}
         </button>
         <a class="btn btn-outline-danger ms-3" href="delete">
@@ -42,9 +41,20 @@
               </label>
 
               <template v-if="Array.isArray(edit.properties[name])">
-                <PropertyInput v-for="(value, key) in edit.properties[name]" :key="key" v-model="edit.properties[name][key]" :name="name" :property="property" />
+                <PropertyInput
+                  v-for="(value, key) in edit.properties[name]"
+                  :key="key"
+                  v-model="edit.properties[name][key]"
+                  :name="name"
+                  :property="property"
+                />
               </template>
-              <PropertyInput v-else v-model="edit.properties[name]" :name="name" :property="property" />
+              <PropertyInput
+                v-else
+                v-model="edit.properties[name]"
+                :name="name"
+                :property="property"
+              />
 
               <button
                 v-if="property.multiple"
@@ -209,7 +219,9 @@ export default {
     addValue(propertyName) {
       // transform values to array if not
       if (!Array.isArray(this.edit.properties[propertyName])) {
-        this.edit.properties[propertyName] = [ this.edit.properties[propertyName] ]
+        this.edit.properties[propertyName] = [
+          this.edit.properties[propertyName]
+        ]
       }
       // append empty value
       this.edit.properties[propertyName].push("")

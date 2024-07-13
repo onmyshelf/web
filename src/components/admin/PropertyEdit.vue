@@ -2,10 +2,13 @@
   <div class="container">
     <Error v-if="error" :status="error" />
     <template v-else>
-      <Breadcrumbs v-if="collection" :parents=breadcrumbs :current="id || $t('New property')" />
+      <Breadcrumbs
+        v-if="collection"
+        :parents="breadcrumbs"
+        :current="id ? $t('Property') + ' ' + id : $t('New property')"
+      />
       <h1>
-        <template v-if="id">{{ $t("Edit property") }}: {{ id }}</template>
-        <template v-else>{{ $t("New property") }}</template>
+        {{ id ? $t("Edit property") + " " + id : $t("New property") }}
       </h1>
       <form @submit="validate">
         <div class="mb-3">
@@ -21,7 +24,11 @@
         </div>
 
         <div class="form-check form-switch mb-3">
-          <input v-model="edit.hideLabel" class="form-check-input" type="checkbox" />
+          <input
+            v-model="edit.hideLabel"
+            type="checkbox"
+            class="form-check-input"
+          />
           <label class="form-check-label">
             {{ $t("Hide property label") }}
           </label>
@@ -82,34 +89,59 @@
             </div>
 
             <div v-if="edit.visibility < 4" class="form-check form-switch">
-              <input v-model="edit.preview" class="form-check-input" type="checkbox"
-                :disabled="edit.isCover || edit.isTitle || edit.isSubTitle" />
+              <input
+                v-model="edit.preview"
+                type="checkbox"
+                class="form-check-input"
+                :disabled="edit.isCover || edit.isTitle || edit.isSubTitle"
+              />
               <label class="form-check-label">
                 {{ $t("Display property in item summary") }}
               </label>
             </div>
 
             <div v-if="canBeTitle" class="form-check form-switch">
-              <input v-model="edit.isTitle" class="form-check-input" type="checkbox"
-                :disabled="edit.isSubTitle" @change="checkPreview" />
+              <input
+                v-model="edit.isTitle"
+                type="checkbox"
+                class="form-check-input"
+                :disabled="edit.isSubTitle"
+                @change="checkPreview"
+              />
               <label class="form-check-label">
                 {{ $t("Use property as item title") }}
               </label>
             </div>
 
             <div v-if="canBeTitle" class="form-check form-switch">
-              <input v-model="edit.isSubTitle" class="form-check-input" type="checkbox"
-                :disabled="edit.isTitle" @change="checkPreview" />
-              <label class="form-check-label">{{ $t("Use property as item subtitle") }}</label>
+              <input
+                v-model="edit.isSubTitle"
+                type="checkbox"
+                class="form-check-input"
+                :disabled="edit.isTitle"
+                @change="checkPreview"
+              />
+              <label class="form-check-label">
+                {{ $t("Use property as item subtitle") }}
+              </label>
             </div>
 
             <div v-if="edit.type == 'image'" class="form-check form-switch">
-              <input v-model="edit.isCover" class="form-check-input" type="checkbox" @change="checkPreview" />
-              <label class="form-check-label">{{ $t("Use property as cover image") }}</label>
+              <input
+                v-model="edit.isCover"
+                type="checkbox"
+                class="form-check-input"
+                @change="checkPreview"
+              />
+              <label class="form-check-label">
+                {{ $t("Use property as cover image") }}
+              </label>
             </div>
 
             <div v-if="edit.visibility < 4" class="mt-3">
-              <label class="form-label">{{ $t("Display order") }} ({{ $t("Property order usage") }})</label>
+              <label class="form-label">
+                {{ $t("Display order") }} ({{ $t("Property order usage") }})
+              </label>
               <input
                 v-model="edit.order"
                 type="number"
@@ -121,7 +153,10 @@
           </div>
         </div>
 
-        <div v-if="canBeMultiple || canBeFilterable || canBeSearchable || canBeSortable" class="card mb-3">
+        <div
+          v-if="canBeMultiple || canBeFilterable || canBeSearchable || canBeSortable"
+          class="card mb-3"
+        >
           <div class="card-header">{{ $t("Values") }}</div>
           <div class="card-body">
             <div v-if="canBeMultiple" class="form-check form-switch">
@@ -173,25 +208,40 @@
           </div>
         </div>
 
-        <div v-if="canBeFilterable || canBeSearchable || canBeSortable" class="card mb-3">
+        <div
+          v-if="canBeFilterable || canBeSearchable || canBeSortable"
+          class="card mb-3"
+        >
           <div class="card-header">{{ $t("Search and filters") }}</div>
           <div class="card-body">
             <div v-if="canBeFilterable" class="form-check form-switch">
-              <input v-model="edit.filterable" class="form-check-input" type="checkbox" />
+              <input
+                v-model="edit.filterable"
+                type="checkbox"
+                class="form-check-input"
+              />
               <label class="form-check-label">
                 {{ $t("Property is filterable") }}
               </label>
             </div>
 
             <div v-if="canBeSearchable" class="form-check form-switch">
-              <input v-model="edit.searchable" class="form-check-input" type="checkbox">
+              <input
+                v-model="edit.searchable"
+                type="checkbox"
+                class="form-check-input"
+              />
               <label class="form-check-label">
                 {{ $t("Property is searchable") }}
               </label>
             </div>
 
             <div v-if="canBeSortable" class="form-check form-switch">
-              <input v-model="edit.sortable" class="form-check-input" type="checkbox">
+              <input
+                v-model="edit.sortable"
+                type="checkbox"
+                class="form-check-input"
+              />
               <label class="form-check-label">
                 {{ $t("Property is sortable") }}
               </label>
@@ -413,7 +463,7 @@ export default {
       // remove accents, swap ñ for n, etc
       let from = "àáäâèéëêìíïîòóöôùúüûñç"
       let to   = "aaaaeeeeiiiioooouuuunc"
-      for (let i=0, l = from.length; i < l; i++) {
+      for (let i = 0, l = from.length; i < l; i++) {
         name = name.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
       }
 

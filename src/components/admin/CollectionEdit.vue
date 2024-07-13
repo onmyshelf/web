@@ -1,8 +1,7 @@
 <template>
   <div class="container">
     <h1>
-      <template v-if="id">{{ $t("Edit collection") }} {{ id }}</template>
-      <template v-else>{{ $t("New collection") }}</template>
+      {{ id ? $t("Edit collection") : $t("New collection") }}
     </h1>
     <Loading v-if="loading" />
     <form v-else @submit="validate">
@@ -78,7 +77,7 @@
           class="btn btn-primary me-3"
           :disabled="$demoMode()"
         >
-           {{ id ? $t("Save changes") : $t("Create collection") }}
+          {{ id ? $t("Save changes") : $t("Create collection") }}
         </button>
         <router-link :to="id ? '.' : '/'" class="btn btn-outline-secondary">
           {{ $t("Cancel") }}

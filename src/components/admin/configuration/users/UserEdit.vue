@@ -1,8 +1,7 @@
 <template>
   <div class="container">
     <h1>
-      <template v-if="id">{{ $t("Edit user") }} {{ id }}</template>
-      <template v-else>{{ $t("Create new user") }}</template>
+      {{ id ? $t("Edit user") : $t("Create new user") }}
     </h1>
     <Loading v-if="loading" />
     <form v-else @submit="validate">
@@ -88,10 +87,13 @@
       </div>
 
       <div class="mb-3">
-        <button class="btn btn-primary" type="submit" :disabled="$demoMode()">
-          <template v-if="id">{{ $t("Save changes") }}</template>
-          <template v-else>{{ $t("Create user") }}</template>
-        </button>&nbsp;
+        <button
+          type="submit"
+          class="btn btn-primary me-3"
+          :disabled="$demoMode()"
+        >
+          {{ id ? $t("Save changes") : $t("Create user") }}
+        </button>
         <a href="." class="btn btn-outline-secondary">
           {{ $t("Cancel") }}
         </a>

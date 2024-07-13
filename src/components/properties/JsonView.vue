@@ -3,7 +3,7 @@
     <JsonView v-for="value in obj" :key="value" :obj="value" />
   </template>
   <ul v-else>
-    <li v-for="(value, key) of obj" :key=key>
+    <li v-for="(value, key) of obj" :key="key">
       <template v-if="Array.isArray(value)">
         {{ key }}:
         <ul>

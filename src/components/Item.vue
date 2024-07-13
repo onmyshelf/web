@@ -73,30 +73,46 @@
               v-if="item.lent || (!item.pendingLoans && !item.askingLoans)"
               :loan="item.lent && currentLoan ? currentLoan + '?state=returned' : 'new'"
             />
-            <router-link to="delete" id="itemDeleteButton" class="btn btn-outline-danger">
-              <i class="bi-x-lg"></i> {{ $t("Delete") }}
+            <router-link
+              to="delete"
+              id="itemDeleteButton"
+              class="btn btn-outline-danger"
+            >
+              <i class="bi-x-lg" /> {{ $t("Delete") }}
             </router-link>
             <hr />
           </div>
           <div v-if="itemCopies && itemCopies.length > 1" class="item-copies">
             {{ $t("Copies") }}:
-            <li v-for="(itemCopy, i) in itemCopies" :key="i" @click="loadItemCopy(i)"
+            <li
+              v-for="(itemCopy, i) in itemCopies"
+              :key="i"
+              @click="loadItemCopy(i)"
               :class="'btn btn-' + (i == currentItemCopy ? '' : 'outline-') + 'secondary'"
             >
-              <template v-if="itemCopy.description">{{ itemCopy.description }}</template>
+              <template v-if="itemCopy.description">
+                {{ itemCopy.description }}
+              </template>
               <template v-else>{{ $t("Copy") }} #{{ itemCopy.id }}</template>
             </li>
             <hr />
           </div>
 
           <template v-if="properties">
-            <template v-for="(property, name) of collection.properties" :key="name">
+            <template
+              v-for="(property, name) of collection.properties"
+              :key="name"
+            >
               <div
                 v-if="!property.shown && (properties[name] || property.default)"
                 :id="'property-' + name"
                 class="item-preview"
               >
-                <Property :name="name" :property="property" :value="properties[name]" />
+                <Property
+                  :name="name"
+                  :property="property"
+                  :value="properties[name]"
+                />
               </div>
             </template>
           </template>
@@ -109,7 +125,11 @@
             </template>
           </div>
 
-          <div v-if="isMine && loans && loans.length > 0" id="loans" class="loans">
+          <div
+            v-if="isMine && loans && loans.length > 0"
+            id="loans"
+            class="loans"
+          >
             <hr />
             <h2>{{ $t("Loans") }}</h2>
             <LoanItemButton />
@@ -119,14 +139,19 @@
                   <th scope="col">{{ $t("Loan state") }}</th>
                   <th scope="col">{{ $t("Date") }}</th>
                   <th scope="col">{{ $t("Borrower") }}</th>
-                  <th scope="col">{{ $t("Actions") }}</th>
+                  <th scope="col"></th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="(loan, i) of loans" :key="i" :id="'loan-' + loan.id">
-                  <td scope="row" class="loan-state" :data-loan-state="loan.state">
+                  <td
+                    scope="row"
+                    class="loan-state"
+                    :data-loan-state="loan.state"
+                  >
                     <LoanBadge :state="loan.state" />
                   </td>
+
                   <td class="loan-date">
                     <template v-if="loan.state == 'lent'">
                       {{ new Date(loan.lent * 1000).toLocaleString() }}
@@ -138,9 +163,11 @@
                       {{ new Date(loan.date).toLocaleString() }}
                     </template>
                   </td>
+
                   <td class="loan-borrower">
                     {{ loan.borrower }}
                   </td>
+
                   <td class="loan-actions text-end">
                     <span v-if="loan.state == 'asked'" class="me-4">
                       <router-link
@@ -362,6 +389,12 @@ export default {
           response.data.forEach((loan) => {
             if (loan.state == "lent" && !loan.returned) {
               this.currentLoan = loan.id
+            }
+            if (loan.state == "accepted") {
+              this.pendingLoan = loan.id
+            }
+            if (loan.state == "asked") {
+              this.askingLoan = loan.id
             }
           })
         })

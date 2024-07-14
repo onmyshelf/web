@@ -11,7 +11,7 @@
     </p>
     <p>
       <router-link to="edit" class="btn btn-primary">
-        <i class="bi-pencil"></i>&nbsp;{{ $t("Edit collection details") }}
+        <i class="bi-pencil me-2" />{{ $t("Edit collection details") }}
       </router-link>
     </p>
 
@@ -19,7 +19,7 @@
     <div class="mb-3">
       <p>{{ $t("Items are defined by properties") }}</p>
       <router-link to="property/new" class="btn btn-success mb-3">
-        <i class="bi-plus-lg"></i> {{ $t("Create new property") }}
+        <i class="bi-plus-lg me-1" />{{ $t("Create new property") }}
       </router-link>
 
       <template v-if="properties">
@@ -80,11 +80,18 @@
                 </a>
               </td>
               <td>
-                <router-link :to="'property/' + name" :title="$t('Edit')" class="me-3">
-                  <i class="bi bi-pencil"></i>
+                <router-link
+                  :to="'property/' + name"
+                  :title="$t('Edit')"
+                  class="me-3"
+                >
+                  <i class="bi bi-pencil" />
                 </router-link>
-                <router-link :to="'property/' + name + '/delete'" :title="$t('Delete')">
-                  <i class="bi bi-x-lg"></i>
+                <router-link
+                  :to="'property/' + name + '/delete'"
+                  :title="$t('Delete')"
+                >
+                  <i class="bi bi-x-lg" />
                 </router-link>
               </td>
             </tr>
@@ -98,7 +105,7 @@
       <h2>{{ $t("Items") }}</h2>
       <p>
         <router-link to="../" class="btn btn-outline-secondary">
-          <i class="bi-eye"></i> {{ $t("Show collection") }}
+          <i class="bi-eye me-1" />{{ $t("Show collection") }}
         </router-link>
       </p>
     </div>
@@ -114,7 +121,7 @@
             {{ $t("Import collection from") }}
           </p>
           <router-link to="import" class="btn btn-success">
-            <i class="bi bi-box-arrow-in-down-left"></i>
+            <i class="bi bi-box-arrow-in-down-left me-1" />
             {{ $t("Import collection") }}
           </router-link>
         </div>
@@ -129,7 +136,7 @@
             {{ $t("Export collection to") }}
           </p>
           <button class="btn btn-primary" @click="exportCollection()">
-            <i class="bi bi-box-arrow-up"></i>
+            <i class="bi bi-box-arrow-up me-1" />
             {{ $t("Export collection") }}
           </button>
           <SuccessMessage :status="exportStatus" class="mt-3" />
@@ -143,7 +150,7 @@
         <div class="card-body">
           <p class="card-text">{{ $t("Delete collection details") }}</p>
           <router-link to="delete" class="btn btn-danger">
-            <i class="bi bi-x-lg"></i>
+            <i class="bi bi-x-lg" />
             {{ $t("Delete collection") }}
           </router-link>
         </div>

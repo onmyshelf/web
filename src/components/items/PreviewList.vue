@@ -14,12 +14,17 @@
       </router-link>
 
       <LoanBadge v-if="item.lent" state="lent" />
-      <LoanBadge v-if="item.pendingLoans" state="accepted" />
-      <LoanBadge v-if="item.askingLoans" state="asked" />
+      <LoanBadge v-if="$parent.isMine && item.pendingLoans" state="accepted" />
+      <LoanBadge v-if="$parent.isMine && item.askingLoans" state="asked" />
 
       <div v-if="item.properties" class="item-preview">
         <div v-for="(property, name) of collection.properties" :key="name">
-          <Property v-if="property.preview" :name="name" :property="property" :value="item.properties[name]" />
+          <Property
+            v-if="property.preview"
+            :name="name"
+            :property="property"
+            :value="item.properties[name]"
+          />
         </div>
       </div>
       <div class="mt-3">
@@ -32,6 +37,14 @@
             v-if="!item.lent && !item.pendingLoans && !item.askingLoans"
             :item="item.id"
           />
+          <router-link
+            v-else
+            :to="'item/' + item.id + '/?tab=Loans'"
+            class="btn btn-outline-success"
+            :title="$t('Loans')"
+          >
+            <i class="bi-arrow-left-right me-2" />{{ $t("Loans") }}
+          </router-link>
         </template>
       </div>
     </div>

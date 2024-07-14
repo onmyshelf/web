@@ -53,7 +53,12 @@
 
           <div class="position-sticky pt-3">
             <h4>{{ $t("Search") }}</h4>
-            <input v-model="search" type="text" class="form-control" :placeholder="$t('Search item')" />
+            <input
+              v-model="search"
+              type="text"
+              class="form-control"
+              :placeholder="$t('Search item')"
+            />
           </div>
 
           <div v-if="collection && Object.keys(collection.properties).length > 0" class="position-sticky pt-3">
@@ -148,13 +153,16 @@
               class="form-select"
             >
               <option
-                v-for="i in ([20, 100, 200])" :key="i"
+                v-for="i in [20, 100, 200]"
+                :key="i"
                 :value="i"
                 :selected="itemsPerPage == i"
               >
                 {{ i }}
               </option>
-              <option value="0" :selected="itemsPerPage == 0">{{ $t("Unlimited") }}</option>
+              <option value="0" :selected="itemsPerPage == 0">
+                {{ $t("Unlimited") }}
+              </option>
             </select>
           </div>
           <!-- end of select nb of items/page -->
@@ -163,7 +171,10 @@
       </div>
       <!-- end of sidebar -->
 
-      <div v-if="!loading" class="collection col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div
+        v-if="!loading"
+        class="collection col-md-9 ms-sm-auto col-lg-10 px-md-4"
+      >
         <Breadcrumbs v-if="collection.name" :current="title" />
         <h1 id="collectionTitle">{{ title }}</h1>
         <p v-if="collection.description" id="collectionDescription">
@@ -181,26 +192,24 @@
             v-if="collection && Object.keys(collection.properties).length > 0"
             to="item/new"
             id="itemCreateButton"
-            class="btn btn-outline-success"
+            class="btn btn-outline-success me-3"
           >
-            <i class="bi bi-plus-lg"></i> {{ $t("Create an item") }}
+            <i class="bi bi-plus-lg" /> {{ $t("Create an item") }}
           </router-link>
-          &nbsp;
           <router-link
             v-if="collection"
             to="import/item"
             id="importItemButton"
-            class="btn btn-outline-primary"
+            class="btn btn-outline-primary me-3"
           >
-            <i class="bi bi-box-arrow-in-down-left"></i> {{ $t("Import") }}
+            <i class="bi bi-box-arrow-in-down-left" /> {{ $t("Import") }}
           </router-link>
-          &nbsp;
           <router-link
             to="manage/"
             id="collectionManageButton"
             class="btn btn-outline-secondary"
           >
-            <i class="bi-gear-fill"></i> {{ $t("Manage") }}
+            <i class="bi-gear-fill" /> {{ $t("Manage") }}
           </router-link>
         </p>
 
@@ -212,7 +221,10 @@
           <Empty v-else :label="$t('No items')" />
         </template>
 
-        <div v-if="items" :class="'container items items-' + displayMode">
+        <div
+          v-if="items"
+          :class="'container items items-' + displayMode + ' ' + (displayMode == 'shop' ? 'row' : '')"
+        >
           <template v-if="nbOfItems == 0">
             <Empty
               v-if="isMine"
@@ -221,22 +233,19 @@
             <Empty v-else :label="$t('No items')" />
           </template>
           <template v-else>
-            <template v-if="this.displayMode == 'mosaic'">
-              <PreviewMosaic v-for="item of items" :key="item.id" :item="item" />
-            </template>
-            <template v-else-if="this.displayMode == 'shop'">
-              <div class="row">
-                <PreviewShop v-for="item of items" :key="item.id" :item="item" />
-              </div>
-            </template>
-            <template v-else>
-              <PreviewList v-for="item of items" :key="item.id" :item="item" />
+            <template v-for="item of items" :key="item.id">
+              <PreviewMosaic v-if="displayMode == 'mosaic'" :item="item" />
+              <PreviewShop v-else-if="displayMode == 'shop'" :item="item" />
+              <PreviewList v-else :item="item" />
             </template>
           </template>
         </div>
         <!-- end of items list -->
 
-        <nav v-if="itemsPerPage > 0 && nbOfItems > 0" aria-label="Page navigation">
+        <nav
+          v-if="itemsPerPage > 0 && nbOfItems > 0"
+          aria-label="Page navigation"
+        >
           <ul class="pagination pagination-lg justify-content-center">
             <li
               v-for="p in rangePages()" :key="p"
@@ -254,7 +263,6 @@
           </ul>
         </nav>
         <!-- end of navigation pages -->
-
       </div>
       <!-- end of collection container -->
     </div>

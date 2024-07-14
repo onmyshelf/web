@@ -92,7 +92,7 @@
           >
             {{ id ? $t("Save changes") : $t("Create loan") }}
           </button>
-          <a href=".." class="btn btn-outline-secondary">
+          <a href="../?tab=Loans" class="btn btn-outline-secondary">
             {{ $t("Cancel") }}
           </a>
         </div>
@@ -230,13 +230,13 @@ export default {
         // modify
         this.$apiPatch("collections/" + this.$route.params.cid + "/items/" + this.$route.params.iid + "/loans/" + this.id, data)
         .then(() => {
-          document.location.href = ".."
+          document.location.href = "../?tab=Loans"
         })
       } else {
         // create
         this.$apiPost("collections/" + this.$route.params.cid + "/items/" + this.$route.params.iid + "/loans/", data)
         .then(() => {
-          document.location.href = ".."
+          document.location.href = "../?tab=Loans"
         })
       }
     },

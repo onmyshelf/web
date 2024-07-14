@@ -26,11 +26,15 @@
                 <i :class="'bi bi-' + (user.enabled ? 'check-lg' : 'ban')"></i>
               </td>
               <td>
-                <router-link :to="'' + user.id" :title="$t('Edit')">
-                  <i class="bi bi-pencil"></i>
-                </router-link>&nbsp;&nbsp;
-                <router-link :to="'' + user.id + '/delete'" :title="$t('Delete')">
-                  <i class="bi bi-x-lg"></i>
+                <router-link
+                  :to="'' + user.id"
+                  :title="$t('Edit')"
+                  class="me-3"
+                >
+                  <i class="bi bi-pencil" />
+                </router-link>
+                <router-link :to="user.id + '/delete'" :title="$t('Delete')">
+                  <i class="bi bi-x-lg" />
                 </router-link>
               </td>
             </tr>

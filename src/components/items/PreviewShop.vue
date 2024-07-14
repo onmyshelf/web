@@ -11,8 +11,8 @@
     </router-link>
 
     <LoanBadge v-if="item.lent" state="lent" />
-    <LoanBadge v-if="item.pendingLoans" state="accepted" />
-    <LoanBadge v-if="item.askingLoans" state="asked" />
+    <LoanBadge v-if="$parent.isMine && item.pendingLoans" state="accepted" />
+    <LoanBadge v-if="$parent.isMine && item.askingLoans" state="asked" />
 
     <div class="mt-3">
       <template v-if="$parent.isMine">
@@ -26,6 +26,14 @@
             :item="item.id"
             small="true"
           />
+          <router-link
+            v-else
+            :to="'item/' + item.id + '/?tab=Loans'"
+            class="btn btn-outline-success"
+            :title="$t('Loans')"
+          >
+            <i class="bi-arrow-left-right" />
+          </router-link>
         </div>
       </template>
     </div>

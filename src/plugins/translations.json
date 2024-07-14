@@ -631,9 +631,13 @@
     "en_US": "Get back",
     "fr_FR": "Récupérer"
   },
+  "Manage loan request": {
+    "en_US": "Manage loan request",
+    "fr_FR": "Gérer la demande de prêt"
+  },
   "Create loan": {
-    "en_US": "Create the loan",
-    "fr_FR": "Créer le prêt"
+    "en_US": "Create a loan",
+    "fr_FR": "Créer un prêt"
   },
   "Edit loan": {
     "en_US": "Edit loan",

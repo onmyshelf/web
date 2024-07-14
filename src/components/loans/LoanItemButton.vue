@@ -1,9 +1,9 @@
 <template>
   <ActionItemButton
-    :action="'loan/' + loan"
+    :action="'loan/' + (loan ? loan + '?state=' + state : 'new')"
     buttonStyle="success"
-    :icon="'box-arrow-' + (loan == 'new' ? 'up' : 'down')"
-    :label="loan == 'new' ? $t('Loan item') : $t('Get back item')"
+    :icon="stateIcon"
+    :label="stateLabel"
     :baseUrl="baseUrl"
     :item="item"
     :small="small"
@@ -22,13 +22,36 @@ export default {
       default: "",
     },
     loan: {
-      default: "new",
+      default: "",
+    },
+    state: {
+      default: "lent",
     },
     baseUrl: {
       default: "",
     },
     small: {
       default: false,
+    },
+  },
+  computed: {
+    stateIcon() {
+      switch (this.state) {
+        case "returned":
+          return "box-arrow-down"
+
+        default:
+          return "box-arrow-up"
+      }
+    },
+    stateLabel() {
+      switch (this.state) {
+        case "returned":
+          return this.$t("Get back item")
+
+        default:
+          return this.$t("Loan item")
+      }
     },
   },
 }

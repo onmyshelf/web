@@ -1,14 +1,6 @@
 <template>
-  <a
-    v-if="!$parent.search || title.toLowerCase().includes($parent.search.toLowerCase())"
-    :href="'#item-' + item.id"
-    @click="$parent.getItem(item.id)"
-  >
-    <ImageView
-      :url="coverUrl"
-      :title="item.properties[collection.titleProperty]"
-      cover="true"
-    />
+  <a :href="'#item-' + item.id" @click="$parent.getItem(item.id)">
+    <ImageView :url="cover" :title="title" cover="true" />
   </a>
 </template>
 
@@ -24,32 +16,13 @@ export default {
       type: Object,
       required: true,
     },
-  },
-  computed: {
-    collection() {
-      return this.$parent.collection
+    title: {
+      type: String,
+      required: true,
     },
-    coverUrl() {
-      if (this.item.properties[this.collection.coverProperty]) {
-        if (this.item.thumbnail.small) {
-          return this.item.thumbnail.small
-        } else {
-          return this.item.properties[this.collection.coverProperty]
-        }
-      } else {
-        if (this.collection.thumbnail.small) {
-          return this.collection.thumbnail.small
-        } else {
-          return this.collection.cover
-        }
-      }
-    },
-    title() {
-      if (this.item.properties[this.collection.titleProperty]) {
-        return this.item.properties[this.collection.titleProperty]
-      } else {
-        return "Item " + this.item.id
-      }
+    cover: {
+      type: String,
+      required: true,
     },
   },
 }

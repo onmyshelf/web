@@ -1,12 +1,8 @@
 <template>
-  <div
-    v-if="!$parent.search || title.toLowerCase().includes($parent.search.toLowerCase())"
-    :id="'item-' + item.id"
-    class="row"
-  >
+  <div class="row">
     <div class="col-4 item-cover">
       <a :href="'#item-' + item.id" @click="$parent.getItem(item.id)">
-        <ImageView :url="coverUrl" cover="true" />
+        <ImageView :url="cover" cover="true" />
       </a>
     </div>
     <div class="col">
@@ -36,9 +32,10 @@
           <VisibilityIcon
             :level="item.visibility > $parent.collection.visibility ? item.visibility : $parent.collection.visibility"
           />
-          <EditItemButton :item="item.id" />
+          <EditItemButton :collection="collection.id" :item="item.id" />
           <LoanItemButton
             v-if="!item.lent && !item.pendingLoans && !item.askingLoans"
+            :collection="collection.id"
             :item="item.id"
           />
           <router-link
@@ -77,32 +74,18 @@ export default {
       type: Object,
       required: true,
     },
+    title: {
+      type: String,
+      required: true,
+    },
+    cover: {
+      type: String,
+      required: true,
+    },
   },
   computed: {
     collection() {
       return this.$parent.collection
-    },
-    coverUrl() {
-      if (this.item.properties[this.collection.coverProperty]) {
-        if (this.item.thumbnail.normal) {
-          return this.item.thumbnail.normal
-        } else {
-          return this.item.properties[this.collection.coverProperty]
-        }
-      } else {
-        if (this.collection.thumbnail.normal) {
-          return this.collection.thumbnail.normal
-        } else {
-          return this.collection.cover
-        }
-      }
-    },
-    title() {
-      if (this.item.properties[this.collection.titleProperty]) {
-        return this.item.properties[this.collection.titleProperty]
-      } else {
-        return "Item " + this.item.id
-      }
     },
   },
 }

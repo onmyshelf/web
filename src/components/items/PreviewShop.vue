@@ -1,11 +1,7 @@
 <template>
-  <div
-    v-if="!$parent.search || title.toLowerCase().includes($parent.search.toLowerCase())"
-    :id="'item-' + item.id"
-    class="item col-lg-3 col-md-6 col-sm-12 mb-3"
-  >
+  <div class="item col-lg-3 col-md-6 col-sm-12 mb-3">
     <a :href="'#item-' + item.id" @click="$parent.getItem(item.id)">
-      <ImageView :url="coverUrl" cover="true" />
+      <ImageView :url="cover" cover="true" />
       <h1>{{ title }}</h1>
     </a>
 
@@ -19,9 +15,14 @@
           :level="item.visibility > $parent.collection.visibility ? item.visibility : $parent.collection.visibility"
         />
         <div class="btn-group" role="group">
-          <EditItemButton :item="item.id" small="true" />
+          <EditItemButton
+            :collection="collection.id"
+            :item="item.id"
+            small="true"
+          />
           <LoanItemButton
             v-if="!item.lent && !item.pendingLoans && !item.askingLoans"
+            :collection="collection.id"
             :item="item.id"
             small="true"
           />
@@ -59,32 +60,18 @@ export default {
       type: Object,
       required: true,
     },
+    title: {
+      type: String,
+      required: true,
+    },
+    cover: {
+      type: String,
+      required: true,
+    },
   },
   computed: {
     collection() {
       return this.$parent.collection
-    },
-    coverUrl() {
-      if (this.item.properties[this.collection.coverProperty]) {
-        if (this.item.thumbnail.normal) {
-          return this.item.thumbnail.normal
-        } else {
-          return this.item.properties[this.collection.coverProperty]
-        }
-      } else {
-        if (this.collection.thumbnail.normal) {
-          return this.collection.thumbnail.normal
-        } else {
-          return this.collection.cover
-        }
-      }
-    },
-    title() {
-      if (this.item.properties[this.collection.titleProperty]) {
-        return this.item.properties[this.collection.titleProperty]
-      } else {
-        return "Item " + this.item.id
-      }
     },
   },
 }

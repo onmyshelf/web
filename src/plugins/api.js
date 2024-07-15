@@ -4,7 +4,6 @@ export default {
   install: (app) => {
     // generate API headers for requests
     app.config.globalProperties.$apiConfig = (options = {}) => {
-
       // append default language
       let lang = localStorage.getItem("onmyshelf_lang")
       if (!lang) {

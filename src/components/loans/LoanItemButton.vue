@@ -4,7 +4,7 @@
     buttonStyle="success"
     :icon="stateIcon"
     :label="stateLabel"
-    :baseUrl="baseUrl"
+    :collection="collection"
     :item="item"
     :small="small"
   />
@@ -18,17 +18,17 @@ export default {
     ActionItemButton,
   },
   props: {
+    collection: {
+      required: true,
+    },
     item: {
-      default: "",
+      required: true,
     },
     loan: {
       default: "",
     },
     state: {
       default: "lent",
-    },
-    baseUrl: {
-      default: "",
     },
     small: {
       default: false,

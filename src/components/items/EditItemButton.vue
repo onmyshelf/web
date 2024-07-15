@@ -3,7 +3,7 @@
     action="edit"
     icon="pencil"
     :label="$t('Edit')"
-    :baseUrl="baseUrl"
+    :collection="collection"
     :item="item"
     :small="small"
   />
@@ -17,11 +17,11 @@ export default {
     ActionItemButton,
   },
   props: {
-    item: {
-      default: "",
+    collection: {
+      required: true,
     },
-    baseUrl: {
-      default: "",
+    item: {
+      required: true,
     },
     small: {
       default: false,

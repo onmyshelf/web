@@ -70,34 +70,43 @@
                 :level="item.visibility > collection.visibility ? item.visibility : collection.visibility"
                 id="itemVisibility"
               />
-              <EditItemButton />
+              <EditItemButton :collection="collection.id" :item="item.id" />
               <LoanItemButton
                 v-if="!item.lent && !pendingLoan && !askingLoan"
+                :collection="collection.id"
+                :item="item.id"
               />
               <LoanItemButton
                 v-if="item.lent && currentLoan"
+                :collection="collection.id"
+                :item="item.id"
                 :loan="currentLoan"
                 state="returned"
               />
               <LoanItemButton
                 v-if="!item.lent && pendingLoan"
+                :collection="collection.id"
+                :item="item.id"
                 :loan="pendingLoan"
                 state="lent"
               />
               <ActionItemButton
                 v-if="askingLoan"
+                :collection="collection.id"
+                :item="item.id"
                 :action="'loan/' + askingLoan"
+                :label="$t('Manage loan request')"
                 buttonStyle="secondary"
                 icon="signpost-split"
-                :label="$t('Manage loan request')"
               />
-              <router-link
-                to="delete"
-                id="itemDeleteButton"
-                class="btn btn-outline-danger"
-              >
-                <i class="bi-x-lg" /> {{ $t("Delete") }}
-              </router-link>
+              <ActionItemButton
+                :collection="collection.id"
+                :item="item.id"
+                action="delete"
+                :label="$t('Delete')"
+                buttonStyle="danger"
+                icon="x-lg"
+              />
             </template>
           </div>
 
@@ -149,13 +158,13 @@
           </div>
 
           <div v-if="isMine && currentTab == 'Loans'">
-            <router-link
-              to="loan/new"
-              class="btn btn-outline-success"
-              :title="$t('Loans')"
-            >
-              <i class="bi-plus-lg me-2" />{{ $t("Create loan") }}
-            </router-link>
+            <LoanItemButton
+              :collection="collection.id"
+              :item="item.id"
+              :label="$t('Create loan')"
+              buttonStyle="success"
+              icon="plus-lg"
+            />
 
             <table v-if="loans && loans.length > 0" class="table mt-2">
               <thead>
@@ -193,52 +202,61 @@
                   </td>
 
                   <td class="loan-actions text-end">
-                    <span v-if="loan.state == 'asked'" class="me-4">
-                      <router-link
-                        :to="'loan/' + loan.id + '?state=accepted'"
-                        :title="$t('Accept')"
-                        class="loan-accept me-3"
-                      >
-                        <i class="bi bi-check-square text-success" />
-                      </router-link>
-                      <router-link
-                        :to="'loan/' + loan.id + '?state=rejected'"
-                        :title="$t('Reject')"
-                        class="loan-reject"
-                      >
-                        <i class="bi bi-x-square text-danger" />
-                      </router-link>
+                    <span v-if="loan.state == 'asked'" class="me-2">
+                      <ActionLoanIcon
+                        :collection="collection.id"
+                        :item="item.id"
+                        :loan="loan.id"
+                        action="?state=accepted"
+                        icon="check-square"
+                        iconStyle="success"
+                        :label="$t('Accept')"
+                      />
+                      <ActionLoanIcon
+                        :collection="collection.id"
+                        :item="item.id"
+                        :loan="loan.id"
+                        action="?state=rejected"
+                        icon="x-square"
+                        iconStyle="danger"
+                        :label="$t('Reject')"
+                      />
                     </span>
-                    <router-link
+                    <ActionLoanIcon
                       v-if="loan.state == 'accepted' && !item.lent"
-                      :to="'loan/' + loan.id + '?state=lent'"
-                      :title="$t('Loan item')"
-                      class="loan-lent me-4"
-                    >
-                      <i class="bi bi-box-arrow-up text-success" />
-                    </router-link>
-                    <router-link
+                      :collection="collection.id"
+                      :item="item.id"
+                      :loan="loan.id"
+                      action="?state=lent"
+                      icon="box-arrow-up"
+                      iconStyle="success"
+                      :label="$t('Loan item')"
+                    />
+                    <ActionLoanIcon
                       v-if="loan.state == 'lent'"
-                      :to="'loan/' + loan.id + '?state=returned'"
-                      :title="$t('Get back item')"
-                      class="loan-return me-4"
-                    >
-                      <i class="bi bi-box-arrow-down text-success" />
-                    </router-link>
-                    <router-link
-                      :to="'loan/' + loan.id"
-                      :title="$t('Edit')"
-                      class="loan-edit me-3"
-                    >
-                      <i class="bi bi-pencil" />
-                    </router-link>
-                    <router-link
-                      :to="'loan/' + loan.id + '/delete'"
-                      :title="$t('Delete')"
-                      class="loan-delete"
-                    >
-                      <i class="bi bi-x-lg" />
-                    </router-link>
+                      :collection="collection.id"
+                      :item="item.id"
+                      :loan="loan.id"
+                      action="?state=returned"
+                      icon="box-arrow-down"
+                      iconStyle="success"
+                      :label="$t('Get back item')"
+                    />
+                    <ActionLoanIcon
+                      :collection="collection.id"
+                      :item="item.id"
+                      :loan="loan.id"
+                      icon="pencil"
+                      :label="$t('Edit')"
+                    />
+                    <ActionLoanIcon
+                      :collection="collection.id"
+                      :item="item.id"
+                      :loan="loan.id"
+                      action="delete"
+                      icon="x-lg"
+                      :label="$t('Delete')"
+                    />
                   </td>
                 </tr>
               </tbody>
@@ -272,7 +290,7 @@
 
 <script>
 import ActionItemButton from "./items/ActionItemButton.vue"
-import Breadcrumbs from "./Breadcrumbs.vue"
+import ActionLoanIcon from "./loans/ActionLoanIcon.vue"
 import EditItemButton from "./items/EditItemButton.vue"
 import ImageView from "./properties/ImageView.vue"
 import LoanBadge from "./loans/LoanBadge.vue"
@@ -285,7 +303,7 @@ import VisibilityIcon from "./properties/VisibilityIcon.vue"
 export default {
   components: {
     ActionItemButton,
-    Breadcrumbs,
+    ActionLoanIcon,
     EditItemButton,
     ImageView,
     LoanBadge,

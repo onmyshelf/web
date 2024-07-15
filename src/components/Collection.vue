@@ -92,7 +92,10 @@
               <h4>{{ $t("Filter by") }}</h4>
               <template v-for="(property, filterName) of collection.properties" :key="filterName">
                 <div v-if="property.filterable && property.values.length > 0" class="filter">
-                  <PropertyLabel :name="filterName" :property=collection.properties[filterName] />
+                  <PropertyLabel
+                    :name="filterName"
+                    :property="collection.properties[filterName]"
+                  />
                   <a
                     v-if="getFilter(filterName)"
                     :href="reloadUrl(filters.filter(f => f.name != filterName), sorting)"
@@ -108,22 +111,37 @@
                     >
                       <option v-if="!getFilter(filterName)" value=""></option>
                       <template v-for="filter in property.values" :key="filter">
-                        <option :value="filter" :selected="getFilter(filterName) && getFilter(filterName).value == '>' + filter">{{ filter }}+</option>
+                        <option
+                          :value="filter"
+                          :selected="getFilter(filterName) && getFilter(filterName).value == '>' + filter"
+                        >
+                          {{ filter }}+
+                        </option>
                       </template>
                     </select>
                     <template v-else-if="collection.properties[filterName].type == 'yesno'">
-                      <input
-                        type="checkbox"
-                        class="form-check-input"
-                        @change="filterBy(filterName, true)"
-                        :checked="getFilter(filterName) && getFilter(filterName).value == 'true'"
-                      />&nbsp;{{ $t("Yes") }}<br />
-                      <input
-                        type="checkbox"
-                        class="form-check-input"
-                        @change="filterBy(filterName, false)"
-                        :checked="getFilter(filterName) && getFilter(filterName).value == 'false'"
-                      />&nbsp;{{ $t("No") }}
+                      <div class="form-check">
+                        <input
+                          type="radio"
+                          class="form-check-input"
+                          @change="filterBy(filterName, true)"
+                          :checked="getFilter(filterName) && getFilter(filterName).value == 'true'"
+                        />
+                        <label class="form-check-label">
+                          {{ $t("Yes") }}
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          type="radio"
+                          class="form-check-input"
+                          @change="filterBy(filterName, false)"
+                          :checked="getFilter(filterName) && getFilter(filterName).value == 'false'"
+                        />
+                        <label class="form-check-label">
+                          {{ $t("No") }}
+                        </label>
+                      </div>
                     </template>
                     <select
                       v-else
@@ -235,9 +253,29 @@
           </template>
           <template v-else>
             <template v-for="item of items" :key="item.id">
-              <PreviewMosaic v-if="displayMode == 'mosaic'" :item="item" />
-              <PreviewShop v-else-if="displayMode == 'shop'" :item="item" />
-              <PreviewList v-else :item="item" />
+              <template v-if="!search || itemTitle(item).toLowerCase().includes(search.toLowerCase())">
+                <PreviewList
+                  v-if="displayMode == 'list'"
+                  :item="item"
+                  :title="itemTitle(item)"
+                  :cover="itemCover(item)"
+                  :id="'item-' + item.id"
+                />
+                <PreviewMosaic
+                  v-else-if="displayMode == 'mosaic'"
+                  :item="item"
+                  :title="itemTitle(item)"
+                  :cover="itemCover(item)"
+                  :id="'item-' + item.id"
+                />
+                <PreviewShop
+                  v-else
+                  :item="item"
+                  :title="itemTitle(item)"
+                  :cover="itemCover(item)"
+                  :id="'item-' + item.id"
+                />
+              </template>
             </template>
           </template>
         </div>
@@ -457,6 +495,31 @@ export default {
           this.error = this.$apiErrorStatus(e)
         })
     },
+
+    itemTitle(item) {
+      if (item.properties[this.collection.titleProperty]) {
+        return item.properties[this.collection.titleProperty]
+      } else {
+        return "Item " + item.id
+      }
+    },
+
+    itemCover(item) {
+      if (item.properties[this.collection.coverProperty]) {
+        if (item.thumbnail.normal) {
+          return item.thumbnail.normal
+        } else {
+          return item.properties[this.collection.coverProperty]
+        }
+      } else {
+        if (this.collection.thumbnail.normal) {
+          return this.collection.thumbnail.normal
+        } else {
+          return this.collection.cover
+        }
+      }
+    },
+
     getFilter(name) {
       let filter = this.filters.filter((f) => f.name == name)
       if (filter.length == 0) {

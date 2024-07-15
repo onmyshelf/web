@@ -236,7 +236,7 @@
           {{ $t("Items") }}: <span class="items-count">{{ nbOfItems }}</span>
         </p>
         <div v-if="isMine" class="collection-dates">
-          {{ $t("Last changes:") }} {{ collection.updated }}
+          {{ $t("Last changes") }}: {{ collection.updated }}
         </div>
 
         <p v-if="isMine" id="manageButtons">

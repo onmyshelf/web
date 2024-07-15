@@ -7,7 +7,8 @@
           :href="(this.$route.params.id ? '../../' : '') + '#item-' + id"
           @click="$parent.item = null"
         >
-          <i class="bi-arrow-left me-3" />{{ $t("Return to collection") }} {{ collection.name }}
+          <i class="bi-arrow-left me-3" />{{ $t("Return to collection") }}
+          <strong>{{ collection.name }}</strong>
         </a>
       </div>
 
@@ -149,10 +150,10 @@
             </template>
 
             <div v-if="isMine" class="item-dates">
-              {{ $t("Item added on:") }} {{ item.created }}
+              {{ $t("Item added on") }}: {{ item.created }}
               <template v-if="item.updated != item.created">
                 <br />
-                {{ $t("Last changes:") }} {{ item.updated }}
+                {{ $t("Last changes") }}: {{ item.updated }}
               </template>
             </div>
           </div>

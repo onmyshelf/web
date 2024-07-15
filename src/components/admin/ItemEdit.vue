@@ -2,6 +2,11 @@
   <div class="container">
     <Error v-if="error" :status="error" />
     <template v-else>
+      <div class="mt-2 mb-3">
+        <a href=".">
+          <i class="bi-arrow-left me-3" />{{ $t("Return to item") }}
+        </a>
+      </div>
       <h1>
         {{ id ? $t("Edit item") : $t("New item") }}
       </h1>

@@ -211,9 +211,9 @@
     "en_US": "No",
     "fr_FR": "Non"
   },
-  "Last changes:": {
-    "en_US": "Last changes:",
-    "fr_FR": "Dernières modifications:"
+  "Last changes": {
+    "en_US": "Last changes",
+    "fr_FR": "Dernières modifications"
   },
   "Items per page": {
     "en_US": "Items per page",
@@ -595,9 +595,17 @@
     "en_US": "Custom ",
     "fr_FR": "Valeur personnalisée"
   },
-  "Item added on:": {
-    "en_US": "Item added on:",
-    "fr_FR": "Objet ajouté le:"
+  "Return to collection": {
+    "en_US": "Return to collection",
+    "fr_FR": "Retour à la collection"
+  },
+  "Return to item": {
+    "en_US": "Return to item",
+    "fr_FR": "Retour à l'objet"
+  },
+  "Item added on": {
+    "en_US": "Item added on",
+    "fr_FR": "Objet ajouté le"
   },
   "Lent": {
     "en_US": "Lent",

@@ -161,6 +161,39 @@
                   </div>
                 </div>
               </template>
+
+              <div class="filter">
+                {{ $t("Lent") }}:
+                <a
+                  v-if="filterLent !== null"
+                  title="Clear filter"
+                  @click="filterLent = null"
+                >
+                  <i class="bi bi-x-circle" />
+                </a>
+                <div class="form-check">
+                  <input
+                    type="radio"
+                    class="form-check-input"
+                    @change="filterLent = true"
+                    :checked="filterLent === true"
+                  />
+                  <label class="form-check-label">
+                    {{ $t("Yes") }}
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    type="radio"
+                    class="form-check-input"
+                    @change="filterLent = false"
+                    :checked="filterLent === false"
+                  />
+                  <label class="form-check-label">
+                    {{ $t("No") }}
+                  </label>
+                </div>
+              </div>
             </div>
             <!-- end of filters -->
           </div>
@@ -253,7 +286,9 @@
           </template>
           <template v-else>
             <template v-for="item of items" :key="item.id">
-              <template v-if="!search || itemTitle(item).toLowerCase().includes(search.toLowerCase())">
+              <template
+                v-if="(!search || itemTitle(item).toLowerCase().includes(search.toLowerCase())) && (filterLent === null || filterLent == item.lent)"
+              >
                 <PreviewList
                   v-if="displayMode == 'list'"
                   :item="item"
@@ -369,6 +404,7 @@ export default {
       filters: [],
       sorting: "",
       search: "",
+      filterLent: null,
       loading: true,
     }
   },

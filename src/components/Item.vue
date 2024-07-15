@@ -4,7 +4,7 @@
     <template v-else>
       <div v-if="collection" class="mt-2">
         <a
-          :href="'/collection/' + collection.id + '/#item-' + id"
+          :href="(this.$route.params.id ? '../../' : '') + '#item-' + id"
           @click="$parent.item = null"
         >
           <i class="bi-arrow-left me-3" />{{ $t("Return to collection") }} {{ collection.name }}

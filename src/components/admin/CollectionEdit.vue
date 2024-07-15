@@ -103,7 +103,7 @@ export default {
     return {
       loading: true,
       id: this.$route.params.cid,
-      edit: { type: null, visibility: 0, borrowable: 0 },
+      edit: { type: null, visibility: 3, borrowable: 3 },
       templates: null,
       changedName: false,
       placeholderName: "",

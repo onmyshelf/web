@@ -1,22 +1,34 @@
 <template>
-  <select v-model="level" class="form-select" :aria-label="$t('Visibility')">
-    <template v-for="(name, key) in $visibilityLevels" :key="key">
-      <option v-if="key >= min && key <= max" :value="key">
+  <input v-model="level" type="hidden" />
+  <template v-for="(name, key) in $visibilityLevels" :key="key">
+    <div v-if="key >= min && key <= max" class="form-check">
+      <input
+        type="radio"
+        class="form-check-input"
+        @change="level = key"
+        :checked="level == key"
+        :disabled="disabled != false"
+      />
+      <label class="form-check-label">
+        <i :class="'bi-' + $visibilityLevels[key].icon" />
         {{ $translate(name.label) }}
-      </option>
-    </template>
-  </select>
+      </label>
+    </div>
+  </template>
 </template>
 
 <script>
 export default {
   props: {
     modelValue: {},
+    min: {
+      default: 0,
+    },
     max: {
       default: 4,
     },
-    min: {
-      default: 0,
+    disabled: {
+      default: false,
     },
   },
   computed: {

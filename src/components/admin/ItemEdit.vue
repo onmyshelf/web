@@ -82,14 +82,14 @@
               <label class="form-check-label mb-2">
                 {{ customVisibility ? $t("Custom item config") : $t("Default collection config") }}
               </label>
-              <VisibilitySelector
-                v-model="edit.visibility"
-                :min="collection.visibility"
-                max="3"
-                :disabled="!customVisibility"
-                @change="changeBorrowable()"
-              />
             </div>
+            <VisibilitySelector
+              v-model="edit.visibility"
+              :min="collection.visibility"
+              max="3"
+              :disabled="!customVisibility"
+              @change="changeBorrowable()"
+            />
 
             <label class="form-label">{{ $t("Who can borrow item") }}</label>
             <div class="form-check form-switch mb-2">
@@ -102,13 +102,13 @@
               <label class="form-check-label mb-2">
                 {{ customBorrowable ? $t("Custom item config") : $t("Default collection config") }}
               </label>
-              <VisibilitySelector
-                v-model="edit.borrowable"
-                :min="collection.borrowable"
-                max="3"
-                :disabled="!customBorrowable"
-              />
             </div>
+            <VisibilitySelector
+              v-model="edit.borrowable"
+              :min="collection.borrowable"
+              max="3"
+              :disabled="!customBorrowable"
+            />
           </div>
         </div>
 

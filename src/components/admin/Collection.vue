@@ -7,11 +7,16 @@
     </h1>
     <p v-if="description">{{ $translate(description) }}</p>
     <p v-if="visibility !== null">
-      {{ $t("Visibility") }}: <VisibilityIcon :level="visibility" />
+      {{ $t("Visibility") }}:
+      <VisibilityIcon :level="visibility" />
+      {{ $translate($visibilityLevels[visibility].label) }}
     </p>
     <p>
-      <router-link to="edit" class="btn btn-primary">
+      <router-link to="edit" class="btn btn-primary me-3">
         <i class="bi-pencil me-2" />{{ $t("Edit collection details") }}
+      </router-link>
+      <router-link to="../" class="btn btn-outline-secondary">
+        <i class="bi-eye me-1" />{{ $t("Show collection") }}
       </router-link>
     </p>
 
@@ -99,15 +104,6 @@
         </table>
       </template>
       <Loading v-else />
-    </div>
-
-    <div v-if="properties && Object.keys(properties).length > 0" class="mb-3">
-      <h2>{{ $t("Items") }}</h2>
-      <p>
-        <router-link to="../" class="btn btn-outline-secondary">
-          <i class="bi-eye me-1" />{{ $t("Show collection") }}
-        </router-link>
-      </p>
     </div>
 
     <div class="mb-3">

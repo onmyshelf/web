@@ -58,7 +58,17 @@ const router = createRouter({
         },
         {
           path: "item/:id",
-          component: () => import("../components/Item.vue"),
+          component: () => import("../views/Item.vue"),
+          children: [
+            {
+              path: "",
+              component: () => import("../components/Item.vue"),
+            },
+          ],
+        },
+        {
+          path: "item/:id/borrow",
+          component: () => import("../components/loans/BorrowRequest.vue"),
         },
         {
           path: "item/:id/edit",

@@ -1,17 +1,21 @@
 <template>
-  <div v-if="!$parent.search || title.toLowerCase().includes($parent.search.toLowerCase())" class="row">
+  <div
+    v-if="!$parent.search || title.toLowerCase().includes($parent.search.toLowerCase())"
+    :id="'item-' + item.id"
+    class="row"
+  >
     <div class="col-4 item-cover">
-      <router-link :to="'item/' + item.id + '/'">
+      <a :href="'#item-' + item.id" @click="$parent.getItem(item.id)">
         <ImageView :url="coverUrl" cover="true" />
-      </router-link>
+      </a>
     </div>
     <div class="col">
-      <router-link :to="'item/' + item.id + '/'">
+      <a :href="'#item-' + item.id" @click="$parent.getItem(item.id)">
         <h1>{{ title }}</h1>
         <h2 v-if="collection.subTitleProperty && item.properties[collection.subTitleProperty]">
           {{ item.properties[collection.subTitleProperty] }}
         </h2>
-      </router-link>
+      </a>
 
       <LoanBadge v-if="item.lent" state="lent" />
       <LoanBadge v-if="$parent.isMine && item.pendingLoans" state="accepted" />

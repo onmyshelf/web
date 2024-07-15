@@ -1,14 +1,15 @@
 <template>
-  <router-link
+  <a
     v-if="!$parent.search || title.toLowerCase().includes($parent.search.toLowerCase())"
-    :to="'item/' + item.id + '/'"
+    :href="'#item-' + item.id"
+    @click="$parent.getItem(item.id)"
   >
     <ImageView
       :url="coverUrl"
       :title="item.properties[collection.titleProperty]"
       cover="true"
     />
-  </router-link>
+  </a>
 </template>
 
 <script>

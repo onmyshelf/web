@@ -1,5 +1,6 @@
 <template>
   <Error v-if="error" :status="error" />
+  <Item v-else-if="item" />
   <div v-else class="container-fluid">
     <button class="navbar-toggler" type="button" @click="toggleSidebar()">
       <i class="bi bi-list" style="font-size: 2em"></i>
@@ -291,6 +292,7 @@ import PropertyLabel from "./PropertyLabel.vue"
 import Breadcrumbs from "@/components/Breadcrumbs.vue"
 import Empty from "@/components/Empty.vue"
 import Error from "@/components/Error.vue"
+import Item from "@/components/Item.vue"
 import Loading from "@/components/Loading.vue"
 
 export default {
@@ -298,6 +300,7 @@ export default {
     Breadcrumbs,
     Empty,
     Error,
+    Item,
     Loading,
     PreviewList,
     PreviewMosaic,
@@ -323,6 +326,7 @@ export default {
       displayMode: "shop",
       itemsPerPage: 100,
       page: 1,
+      item: null,
       error: false,
       filters: [],
       sorting: "",
@@ -444,6 +448,15 @@ export default {
   },
 
   methods: {
+    getItem(itemId) {
+      this.$apiGet("collections/" + this.collection.id + "/items/" + itemId)
+        .then((response) => {
+          this.item = response.data
+        })
+        .catch((e) => {
+          this.error = this.$apiErrorStatus(e)
+        })
+    },
     getFilter(name) {
       let filter = this.filters.filter((f) => f.name == name)
       if (filter.length == 0) {

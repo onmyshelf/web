@@ -2,11 +2,14 @@
   <div class="container">
     <Error v-if="error" :status="error" />
     <template v-else>
-      <Breadcrumbs
-        v-if="collection && item"
-        :parents="breadcrumbs"
-        :current="title"
-      />
+      <div v-if="collection" class="mt-2">
+        <a
+          :href="'/collection/' + collection.id + '/#item-' + id"
+          @click="$parent.item = null"
+        >
+          <i class="bi-arrow-left me-3" />{{ $t("Return to collection") }} {{ collection.name }}
+        </a>
+      </div>
 
       <div v-if="item && collection && collection.properties" class="row item">
         <div class="col-4 item-cover">
@@ -302,6 +305,7 @@ export default {
       ],
       tabs: ["Properties"],
       currentTab: "Properties",
+      id: null,
       collection: null,
       item: null,
       properties: null,
@@ -325,6 +329,14 @@ export default {
     }
   },
   created() {
+    this.id = this.$route.params.id
+    if (!this.id) {
+      const hash = window.location.hash
+      if (hash.substring(0, 6) == "#item-") {
+        this.id = hash.split("-")[1]
+      }
+    }
+
     // get collection
     this.$apiGet("collections/" + this.$route.params.cid)
       .then((response) => {
@@ -375,7 +387,7 @@ export default {
       })
 
     // get item
-    this.$apiGet("collections/" + this.$route.params.cid + "/items/" + this.$route.params.id)
+    this.$apiGet("collections/" + this.$route.params.cid + "/items/" + this.id)
       .then((response) => {
         this.item = response.data
         this.loadItemCopy(0)
@@ -414,7 +426,7 @@ export default {
     },
     getLoans() {
       // get loans history from API
-      this.$apiGet("collections/" + this.$route.params.cid + "/items/" + this.$route.params.id + "/loans")
+      this.$apiGet("collections/" + this.$route.params.cid + "/items/" + this.id + "/loans")
         .then((response) => {
           this.loans = response.data
 

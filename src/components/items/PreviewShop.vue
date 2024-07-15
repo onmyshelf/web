@@ -1,14 +1,13 @@
 <template>
   <div
     v-if="!$parent.search || title.toLowerCase().includes($parent.search.toLowerCase())"
+    :id="'item-' + item.id"
     class="item col-lg-3 col-md-6 col-sm-12 mb-3"
   >
-    <router-link :to="'item/' + item.id + '/'">
+    <a :href="'#item-' + item.id" @click="$parent.getItem(item.id)">
       <ImageView :url="coverUrl" cover="true" />
-    </router-link>
-    <router-link :to="'item/' + item.id + '/'">
       <h1>{{ title }}</h1>
-    </router-link>
+    </a>
 
     <LoanBadge v-if="item.lent" state="lent" />
     <LoanBadge v-if="$parent.isMine && item.pendingLoans" state="accepted" />

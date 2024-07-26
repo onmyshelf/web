@@ -203,8 +203,8 @@ export default {
                     continue
                   }
 
-                  if (this.collection.type && module.tags) {
-                    if (!module.tags.includes(this.collection.type)) {
+                  if (this.collection.tags.length > 0 && module.tags) {
+                    if (!module.tags.some(tag => this.collection.tags.includes(tag))) {
                       continue
                     }
                   }
@@ -259,6 +259,9 @@ export default {
           module: this.search.module,
           source: this.search.source,
           search: this.search.search,
+          options: {
+            tags: this.collection.tags,
+          },
         },
       }
 

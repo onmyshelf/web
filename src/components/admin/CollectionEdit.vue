@@ -148,7 +148,7 @@ export default {
     return {
       loading: true,
       id: this.$route.params.cid,
-      edit: { type: null, tags: [], visibility: 3, borrowable: 3 },
+      edit: { type: null, tags: [""], visibility: 3, borrowable: 3 },
       templates: null,
       changedName: false,
       oldType: '',
@@ -183,6 +183,10 @@ export default {
         this.edit.type = ""
       }
       this.oldType = this.edit.type
+
+      if (!this.edit.tags) {
+        this.edit.tags = [this.edit.type]
+      }
 
       // reload borrowable
       this.changeBorrowable()

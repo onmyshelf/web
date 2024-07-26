@@ -67,10 +67,6 @@ const router = createRouter({
           ],
         },
         {
-          path: "item/:id/borrow",
-          component: () => import("../components/loans/BorrowRequest.vue"),
-        },
-        {
           path: "item/:id/edit",
           component: () => import("../components/admin/ItemEdit.vue"),
         },

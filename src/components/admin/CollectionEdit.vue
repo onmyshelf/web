@@ -12,10 +12,14 @@
           v-model="edit.type"
           class="form-select"
           :aria-label="$t('Collection type')"
-          @change="defaultName()"
+          @change="changeType()"
           required
         >
-          <option v-for="(template, key) in templates" :key="key" :value="template.type">
+          <option
+            v-for="(template, key) in templates"
+            :key="key"
+            :value="template.type"
+          >
             {{ $translate(template.name) }}
           </option>
           <option value="">{{ $t("Other collection type") }}</option>
@@ -54,6 +58,47 @@
       </div>
 
       <div class="mb-3">
+        <label class="form-label">
+          {{ $t("Tags") }}
+        </label>
+
+        <div>
+          <div
+            v-for="(tag, key) in edit.tags"
+            :key="key"
+            class="input-group mb-1"
+          >
+            <input
+              v-model="edit.tags[key]"
+              name="tags"
+              type="text"
+              class="form-control"
+              :placeholder="$t('Collection tag example')"
+              :disabled="edit.tags[key] != '' && edit.tags[key] == edit.type"
+            />
+            <button
+              v-if="edit.tags[key] != edit.type"
+              type="button"
+              class="input-group-text"
+              :title="$t('Remove tag')"
+              @click="edit.tags.splice(key, 1)"
+            >
+              <i class="bi bi-x-lg" />
+            </button>
+          </div>
+        </div>
+
+
+        <button
+          type="button"
+          class="btn btn-outline-success"
+          @click="edit.tags.push('')"
+        >
+          + {{ $t("Add new tag") }}
+        </button>
+      </div>
+
+      <div class="mb-3">
         <label class="form-label">{{ $t("Who can see collection") }}</label>
         <VisibilitySelector
           v-model="edit.visibility"
@@ -71,7 +116,7 @@
         />
       </div>
 
-      <div class="mt-3">
+      <div class="mb-3">
         <button
           type="submit"
           class="btn btn-primary me-3"
@@ -103,9 +148,10 @@ export default {
     return {
       loading: true,
       id: this.$route.params.cid,
-      edit: { type: null, visibility: 3, borrowable: 3 },
+      edit: { type: null, tags: [], visibility: 3, borrowable: 3 },
       templates: null,
       changedName: false,
+      oldType: '',
       placeholderName: "",
     }
   },
@@ -136,6 +182,7 @@ export default {
       if (!this.edit.type) {
         this.edit.type = ""
       }
+      this.oldType = this.edit.type
 
       // reload borrowable
       this.changeBorrowable()
@@ -192,7 +239,19 @@ export default {
       }
     },
 
-    defaultName() {
+    changeType() {
+      if (this.oldType != "") {
+        for (let i = 0; i < this.edit.tags.length; i++) {
+          if (this.edit.tags[i] == this.oldType) {
+            this.edit.tags[i] = this.edit.type
+          }
+        }
+      } else {
+        this.edit.tags.push(this.edit.type)
+      }
+
+      this.oldType = this.edit.type
+
       if (this.id || this.changedName) {
         return
       }

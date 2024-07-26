@@ -359,6 +359,18 @@
     "en_US": "None",
     "fr_FR": "Aucun"
   },
+  "Add new tag": {
+    "en_US": "Add a new tag",
+    "fr_FR": "Ajouter un nouveau tag"
+  },
+  "Remove tag": {
+    "en_US": "Remove this tag",
+    "fr_FR": "Supprimer ce tag"
+  },
+  "Collection tag example": {
+    "en_US": "e.g. books",
+    "fr_FR": "ex: livres"
+  },
   "Who can see collection": {
     "en_US": "Who can see this collection?",
     "fr_FR": "Qui peut voir cette collection ?"

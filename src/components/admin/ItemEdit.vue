@@ -24,7 +24,11 @@
         <div class="card mb-3">
           <div class="card-header">{{ $t("Properties") }}</div>
           <div class="card-body">
-            <div v-for="(property, name) in collection.properties" :key="name" class="item-preview mb-3">
+            <div
+              v-for="(property, name) in collection.properties"
+              :key="name"
+              class="item-preview mb-3"
+            >
               <label :for="name" class="form-label">
                 {{ label(property.label, name) }}:
                 <span v-if="helpProperty(property)">
@@ -38,7 +42,11 @@
                   >
                     <i class="bi bi-info-circle"></i>
                   </a>
-                  <div :id="'help-' + name" class="card card-body bg-light" style="display:none">
+                  <div
+                    :id="'help-' + name"
+                    class="card card-body bg-light"
+                    style="display: none"
+                  >
                     <i class="bi bi-info-circle"></i> {{ $translate(property.description) }}
                   </div>
                 </span>

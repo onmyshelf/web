@@ -7,7 +7,7 @@
       rows="4"
       class="form-control"
       :required="property.required"
-    ></textarea>
+    />
 
     <textarea
       v-else-if="property.type == 'json'"
@@ -17,14 +17,16 @@
       class="form-control"
       placeholder="{...}"
       :required="property.required"
-    ></textarea>
+    />
 
     <input
       v-else-if="property.type == 'rating'"
       :name="'c' + $parent.collection.id + '-' + name"
       v-model="value"
       type="number"
-      min="0" max="5" step="0.5"
+      min="0"
+      max="5"
+      step="0.5"
       class="form-control"
       :required="property.required"
     />
@@ -70,7 +72,13 @@
         :placeholder="$t('URL example')"
         :required="property.required"
       />
-      <a v-if="value" :href="value" class="btn btn-secondary" :title="$t('Open in new tab')" target="_blank">
+      <a
+        v-if="value"
+        :href="value"
+        class="btn btn-secondary"
+        :title="$t('Open in new tab')"
+        target="_blank"
+      >
         <i class="bi bi-box-arrow-up-right"></i>
       </a>
     </div>

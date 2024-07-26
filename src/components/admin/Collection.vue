@@ -48,6 +48,12 @@
           <tbody>
             <tr v-for="(property, name) of properties" :key="name">
               <td scope="row">
+                <a
+                  v-if="property.isTitle || property.isSubTitle || property.isCover || property.preview"
+                  :title="$t('In item summary')"
+                >
+                  <i class="bi-bookmark-fill" />
+                </a>
                 {{ $translate(property.label) ? $translate(property.label) : name }}
               </td>
               <td scope="row">
@@ -72,17 +78,27 @@
                   v-else
                   :level="property.visibility > visibility ? property.visibility : visibility"
                 />
-                <a v-if="property.preview" :title="$t('In item summary')">
-                  <i class="bi-bookmark-fill" />
-                </a>
               </td>
               <td>
-                <a title="Move up" @click="orderProperty(name)" class="me-3">
-                  <i class="bi bi-arrow-up-circle-fill"></i>
+                <a
+                  v-if="reloadOrder"
+                  href="."
+                  class="btn btn-sm btn-outline-success"
+                >
+                  <i class="bi bi-arrow-clockwise" /> {{ $t("Reload") }}
                 </a>
-                <a title="Move down" @click="orderProperty(name, -1)">
-                  <i class="bi bi-arrow-down-circle"></i>
-                </a>
+                <template v-else>
+                  <a
+                    :title="$t('Move up')"
+                    @click="orderProperty(name)"
+                    class="me-3"
+                  >
+                    <i class="bi bi-arrow-up-circle-fill"></i>
+                  </a>
+                  <a :title="$t('Move down')" @click="orderProperty(name, -1)">
+                    <i class="bi bi-arrow-down-circle"></i>
+                  </a>
+                </template>
               </td>
               <td>
                 <router-link
@@ -188,6 +204,7 @@ export default {
       titleProperty: null,
       loading: true,
       exportStatus: null,
+      reloadOrder: false,
     }
   },
   created() {
@@ -235,57 +252,38 @@ export default {
         return
       }
 
+      const swapElements = (array, index1, index2) => {
+        let temp = array[index1]
+        array[index1] = array[index2]
+        array[index2] = temp
+      }
+
       for (let i = 0; i < keys.length; i++) {
-        if (keys[i] != name) {
-          continue
+        if (keys[i] == name) {
+          if (increment > 0) {
+            if (i == 0) {
+              return
+            }
+            swapElements(keys, i, i - 1)
+          } else {
+            if (i == keys.length - 1) {
+              return
+            }
+            swapElements(keys, i + 1, i)
+          }
+          break
         }
+      }
 
-        let data = {}
-        let otherProperty = null
-        let otherData = null
-
-        // increment
-        if (increment > 0) {
-          // max: do nothing
-          if (i == 0) {
-            return
-          }
-
-          otherProperty = keys[i-1]
-          if (this.properties[otherProperty].order > this.properties[name].order) {
-            otherData = { order: this.properties[name].order }
-          }
-          data = { order: this.properties[name].order + 1 }
-        } else {
-          // decrement
-          // min: do nothing
-          if (i >= keys.length - 1) {
-            return
-          }
-
-          otherProperty = keys[i + 1]
-          if (this.properties[otherProperty].order < this.properties[name].order) {
-            otherData = { order: this.properties[name].order }
-          }
-          data = { order: this.properties[name].order - 1 }
-        }
-
-        // API call to update property
-        this.$apiPatch("collections/" + this.id + "/properties/" + name, data)
-        .then(() => {
-          document.location.reload()
-        })
-
-        if (otherData) {
-          // API call to update other property
-          this.$apiPatch("collections/" + this.id + "/properties/" + otherProperty, otherData)
+      for (let i = 0; i < keys.length; i++) {
+        let order = keys.length - i - 1
+        if (this.properties[keys[i]].order != order) {
+          // API call to update property
+          this.$apiPatch("collections/" + this.id + "/properties/" + keys[i], {order: order})
           .then(() => {
-            document.location.reload()
+            this.reloadOrder = true
           })
         }
-
-        // quit loop
-        return
       }
     },
 

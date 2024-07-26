@@ -399,6 +399,22 @@
     "en_US": "Property",
     "fr_FR": "Propriété"
   },
+  "Item cover": {
+    "en_US": "Cover image",
+    "fr_FR": "Image de couverture"
+  },
+  "Item title": {
+    "en_US": "Item title",
+    "fr_FR": "Titre de l'objet"
+  },
+  "Item subtitle": {
+    "en_US": "Item subtitle",
+    "fr_FR": "Sous-titre de l'objet"
+  },
+  "In item summary": {
+    "en_US": "In item summary",
+    "fr_FR": "Dans le résumé de l'objet"
+  },
   "Visibility": {
     "en_US": "Visibility",
     "fr_FR": "Visibilité"
@@ -406,6 +422,18 @@
   "Display order": {
     "en_US": "Display order",
     "fr_FR": "Ordre d'affichage"
+  },
+  "Move up": {
+    "en_US": "Move up",
+    "fr_FR": "Déplacer plus haut"
+  },
+  "Move down": {
+    "en_US": "Move down",
+    "fr_FR": "Déplacer plus bas"
+  },
+  "Reload": {
+    "en_US": "Reload",
+    "fr_FR": "Rafraîchir"
   },
   "New property": {
     "en_US": "New property",

@@ -1,5 +1,19 @@
 # Changelog for OnMyShelf web interface
 
+# 1.3.0 RC 1 (2024-07-26)
+## New features
+- Users can choose who is able to borrow an item
+- New pending loans badges
+- New "lent" filter in collection sidebar
+- New collection tags used by import modules
+## Improvements
+- Faster items navigation
+- Not loosing filters when go back to collection
+- And many more!
+## Bugfixes
+- Fixed properties order tool
+- Added missing translations
+
 # 1.3.0 BETA 1 (2024-07-12)
 ## New features
 - Edit user firstname & lastname

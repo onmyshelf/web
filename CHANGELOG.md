@@ -1,5 +1,11 @@
 # Changelog for OnMyShelf web interface
 
+# 1.3.0 (2024-07-29)
+## New features
+- Support for item quantity
+## Bugfixes
+- Fixed regressive bug introduced in RC 1
+
 # 1.3.0 RC 1 (2024-07-26)
 ## New features
 - Users can choose who is able to borrow an item

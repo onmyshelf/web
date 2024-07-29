@@ -60,6 +60,7 @@
           </h2>
 
           <div class="mb-3">
+            <QuantityBadge :quantity="item.quantity" />
             <LoanBadge v-if="item.lent" state="lent" />
             <LoanBadge v-if="isMine && item.pendingLoans" state="accepted" />
             <LoanBadge v-if="isMine && item.askingLoans" state="asked" />
@@ -298,6 +299,7 @@ import LoanBadge from "./loans/LoanBadge.vue"
 import LoanItemButton from "./loans/LoanItemButton.vue"
 import Error from "./Error.vue"
 import Property from "./Property.vue"
+import QuantityBadge from "./items/QuantityBadge.vue"
 import TabsView from "./TabsView.vue"
 import VisibilityIcon from "./properties/VisibilityIcon.vue"
 
@@ -311,6 +313,7 @@ export default {
     LoanItemButton,
     Error,
     Property,
+    QuantityBadge,
     TabsView,
     VisibilityIcon,
   },

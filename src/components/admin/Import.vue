@@ -32,13 +32,22 @@
 
       <div class="mb-3">
         <button
-          class="btn btn-primary" type="submit" :disabled="$demoMode() || ! data.source || loading">Import</button>&nbsp;
+          type="submit"
+          class="btn btn-primary"
+          :disabled="$demoMode() || ! data.source || loading"
+        >
+          {{ $t("Import collection") }}
+        </button>&nbsp;
         <a href="." class="btn btn-outline-secondary" :disabled="loading">
           {{ $t("Cancel") }}
         </a>
       </div>
 
-      <div v-if="result" :class="'alert alert-' + (result.success ? 'success' : 'danger')" role="alert">
+      <div
+        v-if="result"
+        :class="'alert alert-' + (result.success ? 'success' : 'danger')"
+        role="alert"
+      >
         {{ result.text }}<br />
         <router-link :to="'/collection/' + this.collectionId + '/'">
           {{ $t("View collection") }}

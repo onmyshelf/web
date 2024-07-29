@@ -82,6 +82,21 @@
         </div>
 
         <div class="card mb-3">
+          <div class="card-header">{{ $t("Quantity") }}</div>
+          <div class="card-body">
+            <label class="form-label">{{ $t("Item quantity") }}</label>
+            <input
+              name="quantity"
+              v-model="edit.quantity"
+              type="number"
+              min="0"
+              class="form-control"
+              required="true"
+            />
+          </div>
+        </div>
+
+        <div class="card mb-3">
           <div class="card-header">{{ $t("Display") }}</div>
           <div class="card-body">
             <label class="form-label">{{ $t("Who can see item") }}</label>
@@ -104,7 +119,7 @@
               @change="changeBorrowable()"
             />
 
-            <label class="form-label">{{ $t("Who can borrow item") }}</label>
+            <label class="form-label mt-3">{{ $t("Who can borrow item") }}</label>
             <div class="form-check form-switch mb-2">
               <input
                 v-model="customBorrowable"

@@ -475,6 +475,14 @@
     "en_US": "Type of content",
     "fr_FR": "Type de contenu"
   },
+  "Quantity": {
+    "en_US": "Quantity",
+    "fr_FR": "Quantité"
+  },
+  "Item quantity": {
+    "en_US": "Number of copies of this item",
+    "fr_FR": "Nombre d'exemplaires de cet objet"
+  },
   "Display": {
     "en_US": "Display",
     "fr_FR": "Affichage"
@@ -646,6 +654,10 @@
   "Item added on": {
     "en_US": "Item added on",
     "fr_FR": "Objet ajouté le"
+  },
+  "Out of stock": {
+    "en_US": "Out of stock",
+    "fr_FR": "Pas en stock"
   },
   "Lent": {
     "en_US": "Lent",

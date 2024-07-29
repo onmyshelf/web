@@ -13,6 +13,7 @@
         </h2>
       </a>
 
+      <QuantityBadge :quantity="item.quantity" />
       <LoanBadge v-if="item.lent" state="lent" />
       <LoanBadge v-if="$parent.isMine && item.pendingLoans" state="accepted" />
       <LoanBadge v-if="$parent.isMine && item.askingLoans" state="asked" />
@@ -58,6 +59,7 @@ import ImageView from "@/components/properties/ImageView.vue"
 import LoanBadge from "@/components/loans/LoanBadge.vue"
 import LoanItemButton from "@/components/loans/LoanItemButton.vue"
 import Property from "@/components/Property.vue"
+import QuantityBadge from "./QuantityBadge.vue"
 import VisibilityIcon from "@/components/properties/VisibilityIcon.vue"
 
 export default {
@@ -67,6 +69,7 @@ export default {
     LoanBadge,
     LoanItemButton,
     Property,
+    QuantityBadge,
     VisibilityIcon,
   },
   props: {

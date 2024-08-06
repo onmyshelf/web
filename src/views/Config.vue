@@ -22,6 +22,15 @@
       </li>
       <li class="nav-item">
         <a
+          href="/config/emails/"
+          :class="'nav-link ' + ($route.path.startsWith('/config/emails/') ? 'active' : '')"
+          aria-current="page"
+        >
+          {{ $t("Emails") }}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
           href="/config/modules/"
           :class="'nav-link ' + ($route.path.startsWith('/config/modules/') ? 'active' : '')"
           aria-current="page"

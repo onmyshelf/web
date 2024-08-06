@@ -101,6 +101,10 @@ const router = createRouter({
           component: () => import("../components/admin/configuration/ServerConfig.vue"),
         },
         {
+          path: "emails",
+          component: () => import("../components/admin/configuration/EmailConfig.vue"),
+        },
+        {
           path: "modules",
           component: () => import("../components/admin/configuration/ModulesConfig.vue"),
         },

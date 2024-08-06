@@ -1,6 +1,9 @@
 # Changelog for OnMyShelf web interface
 
 # 1.3.1 (2024-08-06)
+## New features
+- New configuation page to list installed modules
+- New configuation page to test email
 ## Improvements
 - Permit to import multiple items
 

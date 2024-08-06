@@ -20,6 +20,15 @@
           {{ $t("Users") }}
         </a>
       </li>
+      <li class="nav-item">
+        <a
+          href="/config/modules/"
+          :class="'nav-link ' + ($route.path.startsWith('/config/modules/') ? 'active' : '')"
+          aria-current="page"
+        >
+          {{ $t("Modules") }}
+        </a>
+      </li>
     </ul>
     <div class="mt-3">
       <router-view></router-view>

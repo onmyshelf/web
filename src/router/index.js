@@ -101,6 +101,10 @@ const router = createRouter({
           component: () => import("../components/admin/configuration/ServerConfig.vue"),
         },
         {
+          path: "modules",
+          component: () => import("../components/admin/configuration/ModulesConfig.vue"),
+        },
+        {
           path: "users",
           children: [
             {

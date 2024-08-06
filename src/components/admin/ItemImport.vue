@@ -4,7 +4,18 @@
       <i class="bi-arrow-left me-3" />{{ $t("Return to collection") }}
     </a>
     <h1>{{ $t("Import item from sources") }}</h1>
-    <form @submit="validate">
+    <Empty
+      v-if="Object.keys(search.modules).length == 0"
+      :label="$t('No import modules found')"
+    >
+      <template v-if="$currentUser().username == 'onmyshelf'">
+        {{ $t("Install modules") }}
+      </template>
+      <template v-else>
+        {{ $t("Contact your administrator to install new modules") }}
+      </template>
+    </Empty>
+    <form v-else @submit="validate">
       <div class="mb-3">
         <label class="form-label">Source</label>
         <select
@@ -12,11 +23,8 @@
           name="import-source"
           class="form-select"
           aria-label="Import module"
-          :required="importType != 'search'"
+          required="true"
         >
-          <option v-if="importType == 'search'" value="" default>
-            {{ $t("All import sources") }}
-          </option>
           <template v-for="(importModule, name) in search.modules" :key="name">
             <option :value="name">
               {{ importModule.name }}
@@ -115,8 +123,13 @@
 
     <Loading v-if="loading" />
     <div v-if="items" class="container items">
-      <div v-for="(error, index) in errors" :key="index" class="alert alert-danger" role="alert">
-        {{ search.modules[error.module].name + ": " + error.text }}
+      <div
+        v-for="error in errors"
+        :key="error"
+        class="alert alert-danger"
+        role="alert"
+      >
+        {{ error.text }}
       </div>
       <template v-if="items.length == 0">
         <Empty :label="$t('Nothing found')" />
@@ -224,6 +237,17 @@ export default {
                 }
               }
 
+              let modules = Object.keys(this.search.modules)
+
+              if (modules.length > 0) {
+                this.search.module = modules[0]
+
+                let lastModule = localStorage.getItem("onmyshelf_module_" + this.$route.params.cid)
+                if (lastModule) {
+                  this.search.module = lastModule
+                }
+              }
+
               this.loading = false
             })
             .catch(() => {
@@ -255,6 +279,9 @@ export default {
     validate(e) {
       // prevent form to reload page
       e.preventDefault()
+
+      // save last used module
+      localStorage.setItem("onmyshelf_module_" + this.$route.params.cid, this.search.module)
 
       // if url source mode, import item
       if (this.importType == "url") {

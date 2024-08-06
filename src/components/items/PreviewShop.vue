@@ -67,10 +67,7 @@ export default {
       type: String,
       required: true,
     },
-    cover: {
-      type: String,
-      required: true,
-    },
+    cover: {},
   },
   computed: {
     collection() {

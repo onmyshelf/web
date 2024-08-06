@@ -6,6 +6,8 @@
 - New configuation page to test email
 ## Improvements
 - Permit to import multiple items
+## Bugfixes
+- Minor fix to prevent console warns when no item cover
 
 # 1.3.0 (2024-07-29)
 ## New features

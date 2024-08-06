@@ -8,12 +8,10 @@
       v-if="Object.keys(search.modules).length == 0"
       :label="$t('No import modules found')"
     >
-      <template v-if="$currentUser().username == 'onmyshelf'">
-        {{ $t("Install modules") }}
-      </template>
-      <template v-else>
-        {{ $t("Contact your administrator to install new modules") }}
-      </template>
+      <a :href="'../manage/edit'">
+        {{ $t("Edit your collection tags") }}
+      </a>
+      {{ $t("or ask to install modules") }}
     </Empty>
     <form v-else @submit="validate">
       <div class="mb-3">

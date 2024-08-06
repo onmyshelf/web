@@ -11,14 +11,14 @@
             v-model="profile.firstname"
             name="firstname"
             type="text"
-            :placeholder="$t('First name')"
+            :placeholder="$t('Firstname')"
             class="form-control"
           />
           <input
             v-model="profile.lastname"
             name="lastname"
             type="text"
-            :placeholder="$t('Last name')"
+            :placeholder="$t('Lastname')"
             class="form-control"
           />
         </div>

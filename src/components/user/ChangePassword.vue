@@ -36,7 +36,11 @@
       <label for="confirmPassword">{{ $t("Confirm new password") }}</label>
     </div>
 
-    <button class="w-100 btn btn-lg btn-primary" type="submit" :disabled="$demoMode()">
+    <button
+      type="submit"
+      class="w-100 btn btn-lg btn-primary"
+      :disabled="$demoMode()"
+    >
       {{ $t("Change password") }}
     </button>
 

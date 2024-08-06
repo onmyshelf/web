@@ -5,18 +5,19 @@
     </h1>
     <Loading v-if="loading" />
     <form v-else @submit="validate">
-      <template v-if="!id">
-        <div class="mb-3">
-          <label class="form-label">{{ $t("Username") }}</label>
-          <input
-            v-model="edit.username"
-            name="username"
-            type="text"
-            class="form-control"
-            required
-          />
-        </div>
+      <div class="mb-3">
+        <label class="form-label">{{ $t("Username") }}</label>
+        <input
+          v-model="edit.username"
+          name="username"
+          type="text"
+          class="form-control"
+          required
+          :disabled="id"
+        />
+      </div>
 
+      <template v-if="!id">
         <div class="mb-3">
           <label class="form-label">{{ $t("New password") }}</label>
           <input
@@ -71,7 +72,7 @@
 
       <YesNo
         v-model="edit.enabled"
-        :label="$t('Account is ' + (edit.enabled ? 'enabled' : 'disabled'))"
+        :label="edit.enabled ? $t('Account is enabled') : $t('Account is disabled')"
         class="mb-3"
       />
 

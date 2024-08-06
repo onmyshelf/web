@@ -163,6 +163,18 @@
     "en_US": "Import item(s) from external sources",
     "fr_FR": "Importer des objets depuis des sources externes"
   },
+  "No import modules found": {
+    "en_US": "No import modules found for this type of collection",
+    "fr_FR": "Aucun module d'import trouvé pour ce type de collection"
+  },
+  "Edit your collection tags": {
+    "en_US": "Edit your collection tags",
+    "fr_FR": "Modifiez vos tags de collection"
+  },
+  "or ask to install modules": {
+    "en_US": "or ask your administrator to install modules",
+    "fr_FR": "ou demanez à votre administrateur d'installer des modules"
+  },
   "Search": {
     "en_US": "Search",
     "fr_FR": "Rechercher"
@@ -795,8 +807,12 @@
     "en_US": "Password changed",
     "fr_FR": "Mot de passe changé"
   },
-  "Password not equals": {
-    "en_US": "Password not equals!",
+  "Failed": {
+    "en_US": "Failed",
+    "fr_FR": "Échec"
+  },
+  "Passwords not equals": {
+    "en_US": "Passwords are not equals!",
     "fr_FR": "Les mots de passe ne correspondent pas !"
   },
   "Server configuration": {
@@ -819,9 +835,17 @@
     "en_US": "Users",
     "fr_FR": "Utilisateurs"
   },
+  "Enabled": {
+    "en_US": "Enabled",
+    "fr_FR": "Activé"
+  },
   "Create new user": {
     "en_US": "Create a new user",
     "fr_FR": "Créer un utilisateur"
+  },
+  "Edit user": {
+    "en_US": "Edit user",
+    "fr_FR": "Modifier l'utilisateur"
   },
   "Firstname/Lastname": {
     "en_US": "Firstname/Lastname",

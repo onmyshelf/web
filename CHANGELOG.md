@@ -1,5 +1,9 @@
 # Changelog for OnMyShelf web interface
 
+# 1.3.1 (2024-08-06)
+## Improvements
+- Permit to import multiple items
+
 # 1.3.0 (2024-07-29)
 ## New features
 - Support for item quantity

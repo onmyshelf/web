@@ -1,5 +1,8 @@
 <template>
   <div class="container">
+    <a href="../">
+      <i class="bi-arrow-left me-3" />{{ $t("Return to collection") }}
+    </a>
     <h1>{{ $t("Import item from sources") }}</h1>
     <form @submit="validate">
       <div class="mb-3">
@@ -18,7 +21,7 @@
             <option :value="name">
               {{ importModule.name }}
               <template v-if="importModule.tags">
-                (tags: {{ importModule.tags.join(", ") }})
+                ({{ $t("tags") }}: {{ importModule.tags.join(", ") }})
               </template>
             </option>
           </template>
@@ -94,7 +97,7 @@
         <button
           type="submit"
           class="btn btn-primary"
-          :disabled="$demoMode() || (importType == 'url' && !search.source)"
+          :disabled="$demoMode() || loading || (importType == 'url' && !search.source)"
         >
           <template v-if="importType == 'url'">
             {{ $t("Import item") }}
@@ -103,10 +106,6 @@
             {{ $t("Search item") }}
           </template>
         </button>
-        &nbsp;
-        <a href=".." class="btn btn-outline-secondary">
-          {{ $t("Cancel") }}
-        </a>
       </div>
 
       <div v-if="$demoMode()" class="alert alert-warning">
@@ -137,17 +136,29 @@
                   :href="item.source"
                   target="_blank"
                 >
-                  Source ({{ search.modules[item.importModule].name }}) <i class="bi bi-box-arrow-up-right"></i>
+                  {{ $t("Source") }} ({{ search.modules[item.importModule].name }}) <i class="bi bi-box-arrow-up-right" />
                 </a>
               </p>
               <p>
+                <Loading
+                  v-if="item.load"
+                  :info="$t('Importing item') + '...'"
+                />
                 <button
-                  class="btn btn-primary"
-                  :disabled="$demoMode()"
-                  @click="importItem(item.importModule, item.source)"
+                  v-else
+                  class="btn btn-primary me-2"
+                  :disabled="$demoMode() || item.itemId"
+                  @click="importItem(item.importModule, item.source, index)"
                 >
-                  {{ $t("Import item") }}
+                  {{ item.itemId ? $t("Imported") : $t("Import item") }}
                 </button>
+                <a
+                  v-if="item.itemId"
+                  :href="'../item/' + item.itemId + '/'"
+                  class="btn btn-outline-secondary me-2"
+                >
+                  <i class="bi bi-eye me-1" /> {{ $t("See item") }}
+                </a>
               </p>
             </div>
           </div>
@@ -299,8 +310,15 @@ export default {
       });
     },
 
-    importItem(module, source) {
-      this.loading = true
+    importItem(module, source, index = null) {
+      let redirection = null
+
+      if (index === null) {
+        this.loading = true
+        redirection = "../"
+      } else {
+        this.items[index].load = true
+      }
 
       let data = {
         module: module,
@@ -310,17 +328,25 @@ export default {
       // import
       this.$apiPost("collections/" + this.$route.params.cid + "/import", data)
         .then((response) => {
-          let redirection = "../"
-
           if (response.data) {
             // if imported item id is defined, redirect to item page
             if (response.data.imported && response.data.imported.items.length > 0) {
-              redirection += "item/" + response.data.imported.items[0] + "/"
+              // get imported item ID
+              let itemId = response.data.imported.items[0]
+
+              if (index === null) {
+                redirection += "item/" + itemId + "/"
+              } else {
+                this.items[index].itemId = itemId
+                this.items[index].load = false
+              }
             }
           }
 
           // redirect to item page or collection
-          document.location.href = redirection
+          if (redirection) {
+            document.location.href = redirection
+          }
         })
         .catch(() => {
           this.result = {

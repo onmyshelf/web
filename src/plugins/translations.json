@@ -191,6 +191,14 @@
     "en_US": "Import this item",
     "fr_FR": "Importer cet objet"
   },
+  "Imported": {
+    "en_US": "Imported",
+    "fr_FR": "Importé"
+  },
+  "See item": {
+    "en_US": "See item",
+    "fr_FR": "Voir l'objet"
+  },
   "Sort by": {
     "en_US": "Sort by",
     "fr_FR": "Trier par"

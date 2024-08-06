@@ -4,6 +4,7 @@
       <span class="visually-hidden">Loading...</span>
     </div>
     <h3 v-if="info">{{ info }}</h3>
+    <slot />
   </div>
 </template>
 

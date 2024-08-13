@@ -1,5 +1,9 @@
 # Changelog for OnMyShelf web interface
 
+# 1.3.2 (2024-08-13)
+- Upgrade axios for security
+- Minor code improvements
+
 # 1.3.1 (2024-08-07)
 ## New features
 - New configuation page to list installed modules

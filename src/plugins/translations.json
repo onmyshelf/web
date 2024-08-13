@@ -311,6 +311,10 @@
     "en_US": "Media URL:",
     "fr_FR": "URL du média :"
   },
+  "Open file": {
+    "en_US": "Open file",
+    "fr_FR": "Ouvrir le fichier"
+  },
   "Open link": {
     "en_US": "Open link",
     "fr_FR": "Ouvrir le lien"

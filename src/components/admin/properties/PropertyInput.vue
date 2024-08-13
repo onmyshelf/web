@@ -56,7 +56,7 @@
     />
 
     <MediaSelector
-      v-else-if="property.type == 'image' || property.type == 'video'"
+      v-else-if="property.type == 'file' || property.type == 'image' || property.type == 'video'"
       :name="'c' + $parent.collection.id + '-' + name"
       v-model="value"
       :type="property.type"

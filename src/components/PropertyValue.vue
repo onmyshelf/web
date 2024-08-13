@@ -14,6 +14,13 @@
 
     <JsonView v-else-if="property.type == 'json'" :obj="jsonDecode(value)" />
 
+    <a
+      v-else-if="property.type == 'file'"
+      :href="$mediaUrl(value)"
+      target="_blank"
+    >
+      {{ $t("Open file") }} &nbsp;<i class="bi bi-box-arrow-up-right" />
+    </a>
     <a v-else-if="property.type == 'url'" :href="value">
       {{ $t("Open link") }} &nbsp;<i class="bi bi-box-arrow-up-right" />
     </a>

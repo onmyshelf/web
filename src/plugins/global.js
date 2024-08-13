@@ -74,8 +74,7 @@ export default {
           fr_FR: "Fichier",
         },
         description: {
-          en_US: "URI file://...",
-          fr_FR: "lien file://...",
+          en_US: "PDF, DOC, ...",
         },
       },
       color: {

@@ -1,5 +1,5 @@
 <template>
-  <div 
+  <div
     :style="'background:' + value"
     class="property-color-view"
     :data-color-value="value"

@@ -4,7 +4,7 @@
     <div v-else>
       <Loading v-if="loading" />
       <div v-else class="mb-3">
-        <h2>{{ $t("Email config")}}</h2>
+        <h2>{{ $t("Email config") }}</h2>
         <p>
           {{ $t("SMTP server") }}:
           {{ config.smtp_server ? $t("Yes") : $t("No") }}

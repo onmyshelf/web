@@ -62,27 +62,54 @@
             />
           </div>
 
-          <div v-if="collection && Object.keys(collection.properties).length > 0" class="position-sticky pt-3">
+          <div
+            v-if="collection && Object.keys(collection.properties).length > 0"
+            class="position-sticky pt-3"
+          >
             <h4>{{ $t("Sort by") }}</h4>
-            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+            <div
+              class="btn-group"
+              role="group"
+              aria-label="Button group with nested dropdown"
+            >
               <select @change="sortBy($event.target.value)" class="form-select">
-                <template v-for="(property, name) of collection.properties" :key="name">
-                  <option v-if="property.isTitle || property.sortable" :value="name" :selected="sorting == name || sorting == '-' + name">
+                <template
+                  v-for="(property, name) of collection.properties"
+                  :key="name"
+                >
+                  <option
+                    v-if="property.isTitle || property.sortable"
+                    :value="name"
+                    :selected="sorting == name || sorting == '-' + name"
+                  >
                     {{ $translate(property.label) ? $translate(property.label) : name }}
                   </option>
                 </template>
-                <option value="created" :selected="sorting.match(/^-*created$/)">
-                  {{ $t('Creation date') }}
+                <option
+                  value="created"
+                  :selected="sorting.match(/^-*created$/)"
+                >
+                  {{ $t("Creation date") }}
                 </option>
               </select>
-              <button type="button" :class="'btn ' + (sorting.substring(0, 1) != '-' ? 'btn-secondary' : 'btn-outline-secondary')">
-                <a :href="sorting.substring(0, 1) == '-' ? reloadUrl(filters, sorting.substring(1)) : '#'">
-                  <i class="bi bi-sort-down-alt"></i>
+              <button
+                type="button"
+                :class="'btn ' + (sorting.substring(0, 1) != '-' ? 'btn-secondary' : 'btn-outline-secondary')"
+              >
+                <a
+                  :href="sorting.substring(0, 1) == '-' ? reloadUrl(filters, sorting.substring(1)) : '#'"
+                >
+                  <i class="bi bi-sort-down-alt" />
                 </a>
               </button>
-              <button type="button" :class="'btn ' + (sorting.substring(0, 1) == '-' ? 'btn-secondary' : 'btn-outline-secondary')">
-                <a :href="sorting.substring(0, 1) != '-' ? reloadUrl(filters, '-' + sorting) : '#'">
-                  <i class="bi bi-sort-up"></i>
+              <button
+                type="button"
+                :class="'btn ' + (sorting.substring(0, 1) == '-' ? 'btn-secondary' : 'btn-outline-secondary')"
+              >
+                <a
+                  :href="sorting.substring(0, 1) != '-' ? reloadUrl(filters, '-' + sorting) : '#'"
+                >
+                  <i class="bi bi-sort-up" />
                 </a>
               </button>
             </div>
@@ -90,8 +117,14 @@
 
             <div class="position-sticky pt-3">
               <h4>{{ $t("Filter by") }}</h4>
-              <template v-for="(property, filterName) of collection.properties" :key="filterName">
-                <div v-if="property.filterable && property.values.length > 0" class="filter">
+              <template
+                v-for="(property, filterName) of collection.properties"
+                :key="filterName"
+              >
+                <div
+                  v-if="property.filterable && property.values.length > 0"
+                  class="filter"
+                >
                   <PropertyLabel
                     :name="filterName"
                     :property="collection.properties[filterName]"
@@ -119,7 +152,9 @@
                         </option>
                       </template>
                     </select>
-                    <template v-else-if="collection.properties[filterName].type == 'yesno'">
+                    <template
+                      v-else-if="collection.properties[filterName].type == 'yesno'"
+                    >
                       <div class="form-check">
                         <input
                           type="radio"
@@ -314,7 +349,8 @@
         >
           <ul class="pagination pagination-lg justify-content-center">
             <li
-              v-for="p in rangePages()" :key="p"
+              v-for="p in rangePages()"
+              :key="p"
               :class="'page-item' + (p == page ? ' active' : '')"
             >
               <span v-if="p == '...'" class="page-link">...</span>

@@ -2,7 +2,7 @@
   <DeleteConfirm
     obj="property"
     :id="$route.params.id"
-    :url="'collections/' + $route.params.cid + '/properties/' + $route.params.id"
+    :url="'collections/' + $route.params.cid + '/properties'"
     cancelUrl="../.."
   >
     <p>{{ $t("Delete property consequences") }}</p>

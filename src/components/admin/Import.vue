@@ -33,11 +33,11 @@
       <div class="mb-3">
         <button
           type="submit"
-          class="btn btn-primary"
-          :disabled="$demoMode() || ! data.source || loading"
+          class="btn btn-primary me-2"
+          :disabled="$demoMode() || !data.source || loading"
         >
           {{ $t("Import collection") }}
-        </button>&nbsp;
+        </button>
         <a href="." class="btn btn-outline-secondary" :disabled="loading">
           {{ $t("Cancel") }}
         </a>

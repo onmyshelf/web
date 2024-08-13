@@ -40,14 +40,15 @@
                     aria-expanded="false"
                     :aria-controls="'help-' + name"
                   >
-                    <i class="bi bi-info-circle"></i>
+                    <i class="bi bi-info-circle" />
                   </a>
                   <div
                     :id="'help-' + name"
                     class="card card-body bg-light"
                     style="display: none"
                   >
-                    <i class="bi bi-info-circle"></i> {{ $translate(property.description) }}
+                    <i class="bi bi-info-circle" />
+                    {{ $translate(property.description) }}
                   </div>
                 </span>
                 <span v-if="property.suffix">({{ property.suffix }})</span>
@@ -119,7 +120,9 @@
               @change="changeBorrowable()"
             />
 
-            <label class="form-label mt-3">{{ $t("Who can borrow item") }}</label>
+            <label class="form-label mt-3">
+              {{ $t("Who can borrow item") }}
+            </label>
             <div class="form-check form-switch mb-2">
               <input
                 v-model="customBorrowable"

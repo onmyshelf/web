@@ -1,23 +1,41 @@
 <template>
   <div class="">
     <div class="btn-group card-body" role="group">
-      <input type="radio" :name="'mediaSource-' + cptId" class="btn-check" :id="'mediaLibrary-' + cptId" autocomplete="off"
-        @change="toggleSource('media')" :checked="source == 'media'"
+      <input
+        type="radio"
+        :name="'mediaSource-' + cptId"
+        :id="'mediaLibrary-' + cptId"
+        class="btn-check"
+        autocomplete="off"
+        :checked="source == 'media'"
+        @change="toggleSource('media')"
       />
       <label class="btn btn-outline-primary" :for="'mediaLibrary-' + cptId">
         {{ $t("Media library") }}
       </label>
 
-      <input type="radio" :name="'mediaSource-'+cptId" class="btn-check" :id="'mediaUrl-' + cptId" autocomplete="off"
-        @change="toggleSource('url')" :checked="source == 'url'"
+      <input
+        type="radio"
+        :name="'mediaSource-' + cptId"
+        :id="'mediaUrl-' + cptId"
+        class="btn-check"
+        autocomplete="off"
+        @change="toggleSource('url')"
+        :checked="source == 'url'"
       />
       <label class="btn btn-outline-primary" :for="'mediaUrl-' + cptId">
         {{ $t("External URL") }}
       </label>
 
       <template v-if="!mandatory">
-        <input type="radio" :name="'mediaSource-'+cptId" class="btn-check" :id="'mediaNone-' + cptId" autocomplete="off"
-          @change="toggleSource('none')" :checked="source == 'none'"
+        <input
+          type="radio"
+          :name="'mediaSource-' + cptId"
+          :id="'mediaNone-' + cptId"
+          class="btn-check"
+          autocomplete="off"
+          @change="toggleSource('none')"
+          :checked="source == 'none'"
         />
         <label class="btn btn-outline-primary" :for="'mediaNone-' + cptId">
           {{ $t("No media") }}
@@ -32,10 +50,19 @@
         <span class="input-group-text" :id="'mediaInfo-' + cptId">
           {{ $t("Media URL") }}
         </span>
-        <input v-model="mediaUrl" type="text" disabled
-          class="form-control" :aria-describedby="'mediaInfo-' + cptId"
+        <input
+          v-model="mediaUrl"
+          type="text"
+          class="form-control"
+          :aria-describedby="'mediaInfo-' + cptId"
+          disabled
         />
-        <a :href="$mediaUrl(mediaUrl)" class="btn btn-secondary" :title="$t('Open in new tab')" target="_blank">
+        <a
+          :href="$mediaUrl(mediaUrl)"
+          class="btn btn-secondary"
+          :title="$t('Open in new tab')"
+          target="_blank"
+        >
           <i class="bi bi-box-arrow-up-right"></i>
         </a>
       </div>
@@ -47,9 +74,13 @@
       <div v-if="uploadField" class="mt-3">
         <label class="form-label">{{ $t("Drag n drop or choose file") }}</label>
         <div class="input-group mb-3">
-          <input type="file" :id="'uploadFile-' + cptId" 
-            class="form-control" placeholder="" @change="upload"
+          <input
+            type="file"
+            :id="'uploadFile-' + cptId"
+            class="form-control"
+            placeholder=""
             :disabled="$demoMode() || loading"
+            @change="upload"
           />
         </div>
       </div>
@@ -63,14 +94,32 @@
     </div>
 
     <div v-else-if="source == 'url'" class="input-group card-body">
-      <span class="input-group-text" :id="'mediaInfo-' + cptId">{{ $t("Enter valid URL") }}</span>
-      <input type="text" class="form-control" :aria-describedby="'mediaInfo-' + cptId" :placeholder="exampleUrl"
-        v-model="externalUrl" @input="chosenUrl = externalUrl"
+      <span class="input-group-text" :id="'mediaInfo-' + cptId">
+        {{ $t("Enter valid URL") }}
+      </span>
+      <input
+        v-model="externalUrl"
+        type="text"
+        class="form-control"
+        :aria-describedby="'mediaInfo-' + cptId"
+        :placeholder="exampleUrl"
+        @input="chosenUrl = externalUrl"
       />
-      <a v-if="externalUrl" :href="externalUrl" class="btn btn-secondary" :title="$t('Open in new tab')" target="_blank">
+      <a
+        v-if="externalUrl"
+        :href="externalUrl"
+        class="btn btn-secondary"
+        :title="$t('Open in new tab')"
+        target="_blank"
+      >
         <i class="bi bi-box-arrow-up-right"></i>
       </a>
-      <a v-if="externalUrl" class="btn btn-primary" @click="download" :title="$t('Store into media library')">
+      <a
+        v-if="externalUrl"
+        class="btn btn-primary"
+        :title="$t('Store into media library')"
+        @click="download"
+      >
         <i class="bi bi-cloud-arrow-down"></i>
       </a>
     </div>

@@ -2,7 +2,11 @@
   <template
     v-if="!property.hidden && !property.isCover && !property.isTitle && !property.isSubTitle"
   >
-    <PropertyLabel v-if="!property.hideLabel" :name="name" :property="property" />
+    <PropertyLabel
+      v-if="!property.hideLabel"
+      :name="name"
+      :property="property"
+    />
     <template v-if="value">
       <ul v-if="Array.isArray(value)">
         <li v-for="(v, k) in value" :key="k">
@@ -11,7 +15,12 @@
       </ul>
       <PropertyValue v-else :name="name" :property="property" :value="value" />
     </template>
-    <PropertyValue v-else-if="property.default" :name="name" :property="property" :value="property.default" />
+    <PropertyValue
+      v-else-if="property.default"
+      :name="name"
+      :property="property"
+      :value="property.default"
+    />
   </template>
 </template>
 

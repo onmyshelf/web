@@ -74,7 +74,11 @@
             required
             @change="changedType = true"
           >
-            <option v-for="(obj, key) in $propertyTypes" :key="key" :value="key">
+            <option
+              v-for="(obj, key) in $propertyTypes"
+              :key="key"
+              :value="key"
+            >
               {{ $translate(obj.label) }} <template v-if="obj.description">({{ $translate(obj.description) }})</template>
             </option>
           </select>

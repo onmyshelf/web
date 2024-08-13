@@ -7,8 +7,11 @@
       aria-label="Text input with dropdown button"
     />
 
-    <button type="button" data-bs-toggle="dropdown" aria-expanded="false"
+    <button
+      type="button"
       class="btn btn-outline-secondary dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
     >
       {{ $languages[lang] }}
     </button>

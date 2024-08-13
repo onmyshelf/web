@@ -12,13 +12,12 @@
       <button
         type="button"
         id="deleteButton"
-        class="btn btn-danger"
+        class="btn btn-danger me-2"
         @click="clickConfirm"
         :disabled="$demoMode() || loading"
       >
         {{ $t("Delete " + obj) }}
       </button>
-      &nbsp;
       <a :href="cancelUrl" id="cancelButton" class="btn btn-outline-secondary">
         {{ $t("Cancel") }}
       </a>
@@ -79,7 +78,7 @@ export default {
       this.success = null
 
       // API call
-      this.$apiDelete(this.url)
+      this.$apiDelete(this.url + "/" + this.id)
         .then(() => {
           document.location.href = this.successUrl
         })

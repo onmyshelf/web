@@ -8,7 +8,9 @@
     <div class="col">
       <a :href="'#item-' + item.id" @click="$parent.getItem(item.id)">
         <h1>{{ title }}</h1>
-        <h2 v-if="collection.subTitleProperty && item.properties[collection.subTitleProperty]">
+        <h2
+          v-if="collection.subTitleProperty && item.properties[collection.subTitleProperty]"
+        >
           {{ item.properties[collection.subTitleProperty] }}
         </h2>
       </a>

@@ -2,7 +2,7 @@
   <DeleteConfirm
     obj="item"
     :id="$route.params.id"
-    :url="'collections/' + $route.params.cid + '/items/' + $route.params.id"
+    :url="'collections/' + $route.params.cid + '/items'"
   />
 </template>
 

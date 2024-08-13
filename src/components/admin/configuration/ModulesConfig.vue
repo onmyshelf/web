@@ -4,7 +4,7 @@
     <div v-else>
       <Loading v-if="loading" />
       <div v-else class="mb-3">
-        <h2>{{ $t("Import modules")}}</h2>
+        <h2>{{ $t("Import modules") }}</h2>
         <Empty v-if="!modules" :label="$t('No modules found')" />
         <template v-else>
           <div v-for="(module, name) of modules" :key="name" class="card mb-3">

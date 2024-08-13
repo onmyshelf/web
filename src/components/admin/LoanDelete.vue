@@ -2,7 +2,7 @@
   <DeleteConfirm
     obj="loan"
     :id="$route.params.id"
-    :url="'collections/' + $route.params.cid + '/items/' + $route.params.iid + '/loans/' + $route.params.id"
+    :url="'collections/' + $route.params.cid + '/items/' + $route.params.iid + '/loans'"
     cancelUrl="../.."
   />
 </template>

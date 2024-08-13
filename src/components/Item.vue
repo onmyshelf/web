@@ -30,10 +30,13 @@
 
           <div v-if="gallery.length > 0" class="gallery">
             <template v-for="property in gallery" :key="property">
-              <template v-if="properties[property] && !collection.properties[property].isCover">
+              <template
+                v-if="properties[property] && !collection.properties[property].isCover"
+              >
                 <template v-if="Array.isArray(properties[property])">
                   <ImageView
-                    v-for="(img, i) in properties[property]" :key="i"
+                    v-for="(img, i) in properties[property]"
+                    :key="i"
                     :url="img"
                     linked="true"
                     :id="'property-' + property + '-' + i"

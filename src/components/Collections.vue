@@ -3,19 +3,29 @@
   <div v-else class="collections">
     <p v-if="$isLoggedIn()" class="mt-3">
       <router-link to="/collection/new" class="btn btn-outline-success">
-        <i class="bi-plus"></i> {{ $t("Create a collection") }}
+        <i class="bi-plus" /> {{ $t("Create a collection") }}
       </router-link>
     </p>
-    <Loading v-if="loading"/>
+    <Loading v-if="loading" />
     <template v-if="collections">
       <template v-if="collections.length == 0">
-        <Empty v-if="$isLoggedIn()" :label="$t('No collections') + ' ' + $t('Create first collection')" />
-        <Empty v-else :label="$t('No collections') + ' ' + $t('Login to create first collection')" />
+        <Empty
+          v-if="$isLoggedIn()"
+          :label="$t('No collections') + ' ' + $t('Create first collection')"
+        />
+        <Empty
+          v-else
+          :label="$t('No collections') + ' ' + $t('Login to create first collection')"
+        />
       </template>
       <template v-else>
         <div v-if="$isLoggedIn()">
           <div class="form-check">
-            <input v-model="filterMine" class="form-check-input" type="checkbox">
+            <input
+              v-model="filterMine"
+              type="checkbox"
+              class="form-check-input"
+            />
             <label class="form-check-label">
               {{ $t("Show only my collections") }}
             </label>
@@ -23,7 +33,10 @@
         </div>
 
         <template v-for="collection of collections" :key="collection.id">
-          <div v-if="!filterMine || collection.owner == currentUser.id" class="row">
+          <div
+            v-if="!filterMine || collection.owner == currentUser.id"
+            class="row"
+          >
             <div class="col-4 item-cover">
               <router-link :to="'/collection/' + collection.id + '/'">
                 <ImageView

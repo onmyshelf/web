@@ -52,23 +52,13 @@
           </div>
           <!-- end of select display mode -->
 
-          <div class="position-sticky pt-3">
-            <h4>{{ $t("Search") }}</h4>
-            <input
-              v-model="search"
-              type="text"
-              class="form-control"
-              :placeholder="$t('Search item')"
-            />
-          </div>
-
           <div
             v-if="collection && Object.keys(collection.properties).length > 0"
             class="position-sticky pt-3"
           >
             <h4>{{ $t("Sort by") }}</h4>
             <div
-              class="btn-group"
+              class="input-group"
               role="group"
               aria-label="Button group with nested dropdown"
             >
@@ -117,13 +107,29 @@
 
             <div class="position-sticky pt-3">
               <h4>{{ $t("Filter by") }}</h4>
+              <label>{{ $t("Item title") }}:</label>
+              <a
+                v-if="titleSearch"
+                href="#"
+                class="ms-2"
+                :title="$t('Clear filter')"
+                @click="titleSearch = ''"
+              >
+                <i class="bi bi-x-circle"></i>
+              </a>
+              <input
+                v-model="titleSearch"
+                type="text"
+                class="form-control"
+                :placeholder="$t('Search')"
+              />
               <template
                 v-for="(property, filterName) of collection.properties"
                 :key="filterName"
               >
                 <div
                   v-if="property.filterable && property.values.length > 0"
-                  class="filter"
+                  class="filter mt-2"
                 >
                   <PropertyLabel
                     :name="filterName"
@@ -131,7 +137,7 @@
                   />
                   <a
                     v-if="getFilter(filterName)"
-                    :href="reloadUrl(filters.filter(f => f.name != filterName), sorting)"
+                    :href="reloadUrl(filters.filter(f => f.name != filterName), sorting, 1)"
                     title="Clear filter"
                   >
                     <i class="bi bi-x-circle"></i>
@@ -197,7 +203,7 @@
                 </div>
               </template>
 
-              <div class="filter">
+              <div class="filter mt-2">
                 {{ $t("Lent") }}:
                 <a
                   v-if="filterLent !== null"
@@ -267,14 +273,42 @@
         <p v-if="collection.description" id="collectionDescription">
           {{ collection.description }}
         </p>
-        <p id="itemsCount">
-          {{ $t("Items") }}: <span class="items-count">{{ nbOfItems }}</span>
+        <p>
+          {{ $t("Items") }}:
+          <span id="itemsCount" class="items-count">{{ nbOfItems }}</span>
         </p>
-        <div v-if="isMine" class="collection-dates">
+        <p v-if="isMine" class="collection-dates">
           {{ $t("Last changes") }}: {{ collection.updated }}
-        </div>
+        </p>
 
-        <p v-if="isMine" id="manageButtons">
+        <form @submit="searchItems">
+          <div class="input-group mb-3" role="group">
+            <button
+              v-if="$route.query.search"
+              type="button"
+              class="btn btn-outline-secondary"
+              :title="$t('Clean search')"
+              @click="cleanSearch()"
+            >
+              <i class="bi bi-x-lg" />
+            </button>
+            <input
+              v-model="search"
+              type="text"
+              class="form-control"
+              :placeholder="$t('Search item')"
+            />
+            <button
+              type="submit"
+              class="btn btn-outline-secondary"
+              :disabled="!search"
+            >
+              <i class="bi bi-search me-2" />{{ $t("Search") }}
+            </button>
+          </div>
+        </form>
+
+        <div v-if="isMine" id="manageButtons">
           <router-link
             v-if="collection && Object.keys(collection.properties).length > 0"
             to="item/new"
@@ -298,7 +332,7 @@
           >
             <i class="bi-gear-fill" /> {{ $t("Manage") }}
           </router-link>
-        </p>
+        </div>
 
         <div
           v-if="items"
@@ -314,7 +348,7 @@
           <template v-else>
             <template v-for="item of items" :key="item.id">
               <template
-                v-if="(!search || itemTitle(item).toLowerCase().includes(search.toLowerCase())) && (filterLent === null || filterLent == item.lent)"
+                v-if="(!titleSearch || itemTitle(item).toLowerCase().includes(titleSearch.toLowerCase())) && (filterLent === null || filterLent == item.lent)"
               >
                 <PreviewList
                   v-if="displayMode == 'list'"
@@ -432,6 +466,7 @@ export default {
       filters: [],
       sorting: "",
       search: "",
+      titleSearch: "",
       filterLent: null,
       loading: true,
     }
@@ -459,6 +494,12 @@ export default {
         value: decodeURIComponent(this.$route.query[prop]),
       })
     });
+
+    // get search
+    if (this.$route.query.search) {
+      options.params.search = this.$route.query.search
+      this.search = decodeURIComponent(this.$route.query.search)
+    }
 
     // get sorting
     if (this.$route.query.sort) {
@@ -605,8 +646,15 @@ export default {
         query.push("sort=" + sorting)
       }
 
+      // append search
+      if (this.search) {
+        query.push("search=" + encodeURIComponent(this.search))
+      }
+
       // append page
-      query.push("page=" + page)
+      if (page > 1) {
+        query.push("page=" + page)
+      }
 
       return "?" + query.join("&")
     },
@@ -620,15 +668,27 @@ export default {
       // save config
       localStorage.setItem("onmyshelf_itemsPerPage", nb)
 
-      // reset page
+      // reset page & reload
       this.page = 1
+      document.location = this.reloadUrl()
+    },
 
-      // reload collection
+    searchItems(e) {
+      // prevent form to reload page
+      e.preventDefault()
+
+      // reset page & reload
+      this.page = 1
+      document.location = this.reloadUrl()
+    },
+
+    cleanSearch() {
+      this.page = 1
+      this.search = ""
       document.location = this.reloadUrl()
     },
 
     sortBy(property) {
-      // reload collection
       document.location = this.reloadUrl(this.filters, property)
     },
 
@@ -641,7 +701,8 @@ export default {
         value: value
       })
 
-      // reload collection
+      // reset page & reload
+      this.page = 1
       document.location = this.reloadUrl(filters)
     },
 

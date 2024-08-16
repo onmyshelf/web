@@ -81,7 +81,7 @@ export default {
   },
   created() {
     // get import modules
-    this.$apiGet("import/modules")
+    this.$apiGet("modules/import")
       .then((response) => {
         if (response.data) {
           this.importModules = response.data

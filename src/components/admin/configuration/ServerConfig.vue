@@ -4,8 +4,6 @@
     <template v-else>
       <Loading v-if="loading" />
       <form v-else @submit="validate">
-        <h3>{{ $t("Server configuration") }}</h3>
-
         <template v-for="(value, param) in config" :key="param">
           <div class="item-preview mb-3">
             <template v-if="param == 'loans'">
@@ -15,7 +13,20 @@
 
             <template v-else>
               <label class="form-label">{{ $t(param) }}:</label>
-              <input v-model="config[param]" type="text" class="form-control" />
+              <div class="input-group">
+                <input
+                  v-model="config[param]"
+                  type="text"
+                  class="form-control"
+                />
+                <button
+                  class="btn btn-outline-danger"
+                  type="button"
+                  @click="delete config[param]"
+                >
+                  {{ $t("Delete") }}
+                </button>
+              </div>
             </template>
           </div>
         </template>
@@ -34,8 +45,6 @@
             type="text"
             class="form-control"
             :placeholder="$t('Config key exemple')"
-            aria-label="Example text with button addon"
-            aria-describedby="newKey"
           />
         </div>
 
@@ -87,7 +96,7 @@ export default {
   },
   methods: {
     addConfig() {
-      if (this.newKey) {
+      if (this.newKey && !(this.newKey in this.config)) {
         this.config[this.newKey] = ""
         this.newKey = null
       }

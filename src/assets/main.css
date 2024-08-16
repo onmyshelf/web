@@ -24,13 +24,13 @@ a {
 }
 
 .items h1 {
-  font-size: 1.3em;
+  font-size: 1.2em;
 }
 .items-list h1 {
-  font-size: 1.8em;
+  font-size: 1.5em;
 }
 .items h2 {
-  font-size: 1.5em;
+  font-size: 1.3em;
 }
 
 .list-empty {
@@ -65,4 +65,8 @@ a {
   .navbar-toggler {
     display: block;
   }
+}
+
+#sidebarMenu h4 {
+  font-size: 1.2em;
 }

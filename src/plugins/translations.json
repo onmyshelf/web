@@ -890,5 +890,33 @@
   "Delete user": {
     "en_US": "Delete user",
     "fr_FR": "Supprimer l'utilisateur"
+  },
+  "Email configuration": {
+    "en_US": "Email configuration",
+    "fr_FR": "Configuration des emails"
+  },
+  "SMTP server": {
+    "en_US": "SMTP server",
+    "fr_FR": "Serveur SMTP"
+  },
+  "Email from": {
+    "en_US": "Email are send from",
+    "fr_FR": "Emails envoyés depuis"
+  },
+  "Send me a test email": {
+    "en_US": "Send me a test email",
+    "fr_FR": "M'envoyer un email de test"
+  },
+  "Import modules": {
+    "en_US": "Import modules",
+    "fr_FR": "Modules d'import"
+  },
+  "Upgrade all modules": {
+    "en_US": "Upgrade all modules",
+    "fr_FR": "Mettre à jour tous les modules"
+  },
+  "Features": {
+    "en_US": "Features",
+    "fr_FR": "Fonctionnalités"
   }
 }

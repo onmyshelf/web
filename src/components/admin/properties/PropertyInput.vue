@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mb-1">
     <textarea
       v-if="property.type == 'longtext'"
       :name="'c' + $parent.collection.id + '-' + name"

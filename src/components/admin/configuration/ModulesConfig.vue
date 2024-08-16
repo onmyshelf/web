@@ -5,41 +5,31 @@
       <Loading v-if="loading" />
       <div v-else class="mb-3">
         <h2>{{ $t("Import modules") }}</h2>
+
+        <div v-if="upgradable" class="mb-3 text-end">
+          <button
+            class="btn btn-success"
+            :disabled="$demoMode() || upgrade"
+            @click="upgradeModule()"
+          >
+            <span
+              v-if="upgrade"
+              class="spinner-border spinner-border-sm"
+              aria-hidden="true"
+            />
+            <i v-else class="bi bi-cloud-arrow-down" />
+            <span class="ms-2">{{ $t("Upgrade all modules") }}</span>
+          </button>
+        </div>
+
         <Empty v-if="!modules" :label="$t('No modules found')" />
         <template v-else>
-          <div v-for="(module, name) of modules" :key="name" class="card mb-3">
-            <div :id="'module-' + name" class="card-body">
-              <h4 class="card-title">{{ module.name }}</h4>
-              <p v-if="module.description" class="card-text">
-                {{ module.description }}
-              </p>
-              <p v-if="module.version" class="card-text">
-                {{ $t("Version") }}: {{ module.version }}
-              </p>
-              <p class="card-text">
-                {{ $t("Features") }}:
-                <span v-if="module.search" class="badge text-bg-primary ms-2">
-                  search
-                </span>
-                <span
-                  v-if="module.importCollection"
-                  class="badge text-bg-secondary ms-2"
-                >
-                  collection import
-                </span>
-              </p>
-              <p v-if="module.tags" class="card-text">
-                {{ $t("Tags") }}:
-                <span
-                  v-for="tag in module.tags"
-                  :key="tag"
-                  class="badge rounded-pill text-bg-light ms-2"
-                >
-                  {{ tag }}
-                </span>
-              </p>
-            </div>
-          </div>
+          <ModuleCard
+            v-for="(module, name) of modules"
+            :key="name"
+            :name="name"
+            :module="module"
+          />
         </template>
       </div>
     </div>
@@ -50,26 +40,36 @@
 import Empty from "@/components/Empty.vue"
 import Error from "@/components/Error.vue"
 import Loading from "@/components/Loading.vue"
+import ModuleCard from "./modules/ModuleCard.vue"
 
 export default {
   components: {
     Empty,
     Error,
     Loading,
+    ModuleCard,
   },
   data() {
     return {
       modules: null,
+      upgradable: false,
       error: false,
       loading: true,
+      upgrade: false,
     }
   },
   created() {
-    // get import modules
-    this.$apiGet("import/modules")
+    // get installed modules
+    this.$apiGet("modules/import")
       .then((response) => {
         if (response.data) {
           this.modules = response.data
+          Object.keys(this.modules).forEach((name) => {
+            if (this.modules[name].external) {
+              this.upgradable = true
+              return
+            }
+          })
         }
 
         this.loading = false
@@ -80,6 +80,24 @@ export default {
           text: "Internal error. Please retry.",
         }
       })
+  },
+  methods: {
+    upgradeModule() {
+      this.upgrade = true
+
+      this.$apiGet("modules/upgrade")
+        .then((response) => {
+          if (response.data) {
+            location.reload()
+          }
+        })
+        .catch(() => {
+          this.result = {
+            error: true,
+            text: "Internal error. Please retry.",
+          }
+        })
+    }
   },
 }
 </script>

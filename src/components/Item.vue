@@ -203,7 +203,9 @@
                   </td>
 
                   <td class="loan-borrower">
-                    {{ loan.borrower }}
+                    <a :href="'/borrowers/' + loan.borrowerId + '/edit'">
+                      {{ loan.borrower }}
+                    </a>
                   </td>
 
                   <td class="loan-actions text-end">

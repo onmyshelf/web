@@ -4,7 +4,7 @@
     <div v-else>
       <Loading v-if="loading" />
       <div v-else class="mb-3">
-        <h2>{{ $t("Email config") }}</h2>
+        <h2>{{ $t("Email configuration") }}</h2>
         <p>
           {{ $t("SMTP server") }}:
           {{ config.smtp_server ? $t("Yes") : $t("No") }}
@@ -18,7 +18,7 @@
           @click="sendEmail()"
           :disabled="$demoMode()"
         >
-          {{ $t("Send test email") }}
+          <i class="bi bi-send me-1" /> {{ $t("Send me a test email") }}
         </button>
       </div>
     </div>
@@ -65,7 +65,6 @@ export default {
       this.$apiGet("config/email/test")
         .then(() => {
           this.success = true
-
           this.loading = false
         })
         .catch(() => {

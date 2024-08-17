@@ -66,15 +66,28 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label">{{ $t("Borrower name") }}</label>
-          <input
-            v-model="edit.borrower"
-            name="borrower"
-            type="text"
-            class="form-control"
-            :placeholder="$t('Borrower name example')"
+          <label class="form-label">{{ $t("Borrower") }}</label>
+          <select
+            v-model="edit.borrowerId"
+            class="form-select"
+            :aria-label="$t('Borrower')"
             required
-          />
+          >
+            <option
+              v-for="borrower in borrowers"
+              :key="borrower"
+              :value="borrower.id"
+            >
+              {{ borrower.firstname }} {{ borrower.lastname }}
+              <template v-if="borrower.email">({{ borrower.email }})</template>
+            </option>
+          </select>
+          <a
+            href="/borrowers/new"
+            class="btn btn-outline-primary mt-3"
+          >
+            <i class="bi bi-plus-lg me-2" />{{ $t("Create borrower") }}
+          </a>
         </div>
 
         <div class="mb-3">
@@ -119,6 +132,7 @@ export default {
   },
   data() {
     return {
+      borrowers: [],
       loading: true,
       error: false,
       id: this.$route.params.id,
@@ -134,6 +148,15 @@ export default {
     }
   },
   created() {
+    // get borrowers
+    this.$apiGet("borrowers")
+      .then((response) => {
+        this.borrowers = response.data
+      })
+      .catch((e) => {
+        this.error = this.$apiErrorStatus(e)
+      })
+
     // new loan: do not load data
     if (!this.id) {
       this.loading = false

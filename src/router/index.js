@@ -9,6 +9,28 @@ const router = createRouter({
       component: () => import("../views/Home.vue"),
     },
     {
+      path: "/borrowers",
+      component: () => import("../views/Borrowers.vue"),
+      children: [
+        {
+          path: "",
+          component: () => import("../components/admin/borrowers/BorrowersList.vue"),
+        },
+        {
+          path: "new",
+          component: () => import("../components/admin/borrowers/BorrowerEdit.vue"),
+        },
+        {
+          path: ":id/edit",
+          component: () => import("../components/admin/borrowers/BorrowerEdit.vue"),
+        },
+        {
+          path: ":id/delete",
+          component: () => import("../components/admin/borrowers/BorrowerDelete.vue"),
+        },
+      ],
+    },
+    {
       path: "/collection/new",
       component: () => import("../components/admin/CollectionEdit.vue"),
     },

@@ -1,39 +1,38 @@
 <template>
   <Error v-if="error" :status="error" />
   <div v-else>
+    <h1>{{ $t("Borrowers") }}</h1>
     <div class="mb-3">
       <router-link to="new" class="btn btn-success mb-3">
-        <i class="bi-plus-lg"></i> {{ $t("Create new user") }}
+        <i class="bi-plus-lg"></i> {{ $t("Create new borrower") }}
       </router-link>
 
-      <template v-if="users">
+      <template v-if="borrowers">
         <table class="table">
           <thead>
             <tr>
               <th scope="col">{{ $t("ID") }}</th>
-              <th scope="col">{{ $t("Username") }}</th>
+              <th scope="col">{{ $t("Firstname") }}</th>
+              <th scope="col">{{ $t("Lastname") }}</th>
               <th scope="col">{{ $t("Email") }}</th>
-              <th scope="col">{{ $t("Enabled") }}</th>
               <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(user, key) in users" :key="key">
-              <td scope="row">{{ user.id }}</td>
-              <td scope="row">{{ user.username }}</td>
-              <td scope="row">{{ user.email }}</td>
-              <td>
-                <i :class="'bi bi-' + (user.enabled ? 'check-lg' : 'ban')"></i>
-              </td>
+            <tr v-for="(borrower, key) in borrowers" :key="key">
+              <td scope="row">{{ borrower.id }}</td>
+              <td scope="row">{{ borrower.firstname }}</td>
+              <td scope="row">{{ borrower.lastname }}</td>
+              <td scope="row">{{ borrower.email }}</td>
               <td>
                 <router-link
-                  :to="'' + user.id"
+                  :to="'' + borrower.id"
                   :title="$t('Edit')"
                   class="me-3"
                 >
                   <i class="bi bi-pencil" />
                 </router-link>
-                <router-link :to="user.id + '/delete'" :title="$t('Delete')">
+                <router-link :to="borrower.id + '/delete'" :title="$t('Delete')">
                   <i class="bi bi-x-lg" />
                 </router-link>
               </td>
@@ -57,16 +56,15 @@ export default {
   },
   data() {
     return {
-      users: null,
+      borrowers: null,
       error: false,
       loading: true,
     }
   },
   created() {
-    // get all users
-    this.$apiGet("users")
+    this.$apiGet("borrowers")
       .then((response) => {
-        this.users = response.data
+        this.borrowers = response.data
 
         this.loading = false
       })

@@ -114,9 +114,18 @@ export default {
     }
   },
   created() {
+    let lang = "en_US"
+
     // set default if not exists
     if (!localStorage.getItem("onmyshelf_lang")) {
-      localStorage.setItem("onmyshelf_lang", "en_US")
+      switch (navigator.language.substring(0, 2)) {
+        case "fr":
+          lang = "fr_FR"
+          break;
+      }
+
+      localStorage.setItem("onmyshelf_lang", lang)
+
       // refresh page
       location.reload()
     }

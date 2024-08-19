@@ -72,6 +72,7 @@
             class="form-select"
             :aria-label="$t('Borrower')"
             required
+            :disabled="$route.query.state == 'returned'"
           >
             <option
               v-for="borrower in borrowers"
@@ -82,10 +83,7 @@
               <template v-if="borrower.email">({{ borrower.email }})</template>
             </option>
           </select>
-          <a
-            href="/borrowers/new"
-            class="btn btn-outline-primary mt-3"
-          >
+          <a href="/borrowers/new" class="btn btn-outline-primary mt-3">
             <i class="bi bi-plus-lg me-2" />{{ $t("Create borrower") }}
           </a>
         </div>

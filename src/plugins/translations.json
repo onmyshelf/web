@@ -103,6 +103,26 @@
     "en_US": "Please retry.",
     "fr_FR": "Veuillez réessayer."
   },
+  "Borrowers": {
+    "en_US": "Borrowers",
+    "fr_FR": "Emprunteurs"
+  },
+  "Create new borrower": {
+    "en_US": "Create a borrower",
+    "fr_FR": "Créer un emprunteur"
+  },
+  "Create borrower": {
+    "en_US": "Create borrower",
+    "fr_FR": "Créer l'emprunteur"
+  },
+  "Confirm delete borrower": {
+    "en_US": "Are you sure to delete borrower",
+    "fr_FR": "Êtes-vous sûr de supprimer l'emprunteur"
+  },
+  "Delete borrower": {
+    "en_US": "Delete borrower",
+    "fr_FR": "Supprimer l'emprunteur"
+  },
   "No collections": {
     "en_US": "No collections.",
     "fr_FR": "Aucune collection."

@@ -57,7 +57,7 @@ export default {
   },
   data() {
     return {
-      username: null,
+      login: null,
       password: null,
       success: null,
     }

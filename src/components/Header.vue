@@ -2,7 +2,7 @@
   <header>
     <nav class="navbar navbar-expand navbar-light bg-light">
       <div class="container container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/">
           <img src="/assets/images/logo.svg" /> OnMyShelf
         </a>
         <button
@@ -23,8 +23,20 @@
               <span class="badge text-bg-warning">{{ $t("DEMO") }}</span>
             </li>
             <li class="nav-item">
-              <router-link to="/" class="nav-link active">
-                {{ $t("Home") }}
+              <router-link
+                to="/"
+                :class="'nav-link' + ($route.path.startsWith('/borrowers') ? '' : ' active')"
+              >
+                {{ $t("Collections") }}
+              </router-link>
+            </li>
+            <li v-if="$isLoggedIn()" class="nav-item">
+              <router-link
+                to="/borrowers/"
+                class="nav-link"
+                :class="'nav-link' + ($route.path.startsWith('/borrowers') ? ' active' : '')"
+              >
+                {{ $t("Borrowers") }}
               </router-link>
             </li>
             <li class="nav-item">

@@ -1,7 +1,10 @@
 <template>
-  <DeleteConfirm obj="borrower" :id="$route.params.id" url="borrowers">
-    <p>{{ $t("Delete borrower consequences") }}</p>
-  </DeleteConfirm>
+  <DeleteConfirm
+    obj="borrower"
+    :id="$route.params.id"
+    url="borrowers"
+    cancelUrl="../"
+  />
 </template>
 
 <script>

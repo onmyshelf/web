@@ -23,14 +23,16 @@
           aria-label="Import module"
           required="true"
         >
-          <template v-for="(importModule, name) in search.modules" :key="name">
-            <option :value="name">
-              {{ importModule.name }}
-              <template v-if="importModule.tags">
-                ({{ $t("tags") }}: {{ importModule.tags.join(", ") }})
-              </template>
-            </option>
-          </template>
+          <option
+            v-for="(module, name) in search.modules"
+            :key="name"
+            :value="name"
+          >
+            {{ module.name }}
+            <template v-if="module.tags">
+              ({{ $t("tags") }}: {{ module.tags.join(", ") }})
+            </template>
+          </option>
         </select>
       </div>
 
@@ -147,7 +149,7 @@
                   :href="item.source"
                   target="_blank"
                 >
-                  {{ $t("Source") }} ({{ search.modules[item.importModule].name }}) <i class="bi bi-box-arrow-up-right" />
+                  {{ $t("Source") }} <i class="bi bi-box-arrow-up-right" />
                 </a>
               </p>
               <p>
@@ -159,7 +161,7 @@
                   v-else
                   class="btn btn-primary me-2"
                   :disabled="$demoMode() || item.itemId"
-                  @click="importItem(item.importModule, item.source, index)"
+                  @click="importItem(item.source, index)"
                 >
                   {{ item.itemId ? $t("Imported") : $t("Import item") }}
                 </button>
@@ -217,7 +219,7 @@ export default {
           this.collection = response.data
 
           // get import modules
-          this.$apiGet("import/modules")
+          this.$apiGet("modules/import")
             .then((response) => {
               if (response.data) {
                 for (const [name, module] of Object.entries(response.data)) {
@@ -319,10 +321,7 @@ export default {
             }
 
             if (response.data) {
-              response.data.forEach((item) => {
-                item.importModule = module
-              });
-              this.items.push(...response.data)
+              this.items = response.data
               this.loading = false
             }
           })
@@ -335,7 +334,7 @@ export default {
       });
     },
 
-    importItem(module, source, index = null) {
+    importItem(source, index = null) {
       let redirection = null
 
       if (index === null) {
@@ -346,7 +345,7 @@ export default {
       }
 
       let data = {
-        module: module,
+        module: this.search.module,
         source: source,
       }
 

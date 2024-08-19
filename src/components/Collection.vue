@@ -281,33 +281,6 @@
           {{ $t("Last changes") }}: {{ collection.updated }}
         </p>
 
-        <form @submit="searchItems">
-          <div class="input-group mb-3" role="group">
-            <button
-              v-if="$route.query.search"
-              type="button"
-              class="btn btn-outline-secondary"
-              :title="$t('Clean search')"
-              @click="cleanSearch()"
-            >
-              <i class="bi bi-x-lg" />
-            </button>
-            <input
-              v-model="search"
-              type="text"
-              class="form-control"
-              :placeholder="$t('Search item')"
-            />
-            <button
-              type="submit"
-              class="btn btn-outline-secondary"
-              :disabled="!search"
-            >
-              <i class="bi bi-search me-2" />{{ $t("Search") }}
-            </button>
-          </div>
-        </form>
-
         <div v-if="isMine" id="manageButtons">
           <router-link
             v-if="collection && Object.keys(collection.properties).length > 0"
@@ -333,6 +306,33 @@
             <i class="bi-gear-fill" /> {{ $t("Manage") }}
           </router-link>
         </div>
+
+        <form @submit="searchItems">
+          <div class="input-group mt-3" role="group">
+            <button
+              v-if="$route.query.search"
+              type="button"
+              class="btn btn-outline-secondary"
+              :title="$t('Clean search')"
+              @click="cleanSearch()"
+            >
+              <i class="bi bi-x-lg" />
+            </button>
+            <input
+              v-model="search"
+              type="text"
+              class="form-control"
+              :placeholder="$t('Search item')"
+            />
+            <button
+              type="submit"
+              class="btn btn-outline-secondary"
+              :disabled="!search"
+            >
+              <i class="bi bi-search me-2" />{{ $t("Search") }}
+            </button>
+          </div>
+        </form>
 
         <div
           v-if="items"

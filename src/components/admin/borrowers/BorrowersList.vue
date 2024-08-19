@@ -7,7 +7,9 @@
         <i class="bi-plus-lg"></i> {{ $t("Create new borrower") }}
       </router-link>
 
-      <template v-if="borrowers">
+      <Loading v-if="loading" />
+      
+      <template v-if="borrowers && borrowers.length > 0">
         <table class="table">
           <thead>
             <tr>
@@ -26,13 +28,18 @@
               <td scope="row">{{ borrower.email }}</td>
               <td>
                 <router-link
-                  :to="'' + borrower.id"
+                  v-if="$matchUserId(borrower.owner)"
+                  :to="'' + borrower.id + '/edit'"
                   :title="$t('Edit')"
                   class="me-3"
                 >
                   <i class="bi bi-pencil" />
                 </router-link>
-                <router-link :to="borrower.id + '/delete'" :title="$t('Delete')">
+                <router-link
+                  v-if="$matchUserId(borrower.owner)"
+                  :to="borrower.id + '/delete'"
+                  :title="$t('Delete')"
+                >
                   <i class="bi bi-x-lg" />
                 </router-link>
               </td>
@@ -40,7 +47,6 @@
           </tbody>
         </table>
       </template>
-      <Loading v-else />
     </div>
   </div>
 </template>
@@ -56,7 +62,7 @@ export default {
   },
   data() {
     return {
-      borrowers: null,
+      borrowers: [],
       error: false,
       loading: true,
     }
@@ -65,7 +71,6 @@ export default {
     this.$apiGet("borrowers")
       .then((response) => {
         this.borrowers = response.data
-
         this.loading = false
       })
       .catch((e) => {

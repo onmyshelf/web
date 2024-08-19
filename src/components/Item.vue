@@ -239,6 +239,14 @@
                       iconStyle="success"
                       :label="$t('Loan item')"
                     />
+                    <a
+                      v-if="loan.state == 'lent' && loan.email"
+                      :href="'mailto:' + loan.email"
+                      class="me-3"
+                      :title="$t('Send email to borrower')"
+                    >
+                      <i class="bi bi-send text-primary" />
+                    </a>
                     <ActionLoanIcon
                       v-if="loan.state == 'lent'"
                       :collection="collection.id"

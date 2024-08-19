@@ -1,5 +1,5 @@
 <template>
-  <DeleteConfirm obj="user" :id="$route.params.id" url="users">
+  <DeleteConfirm obj="user" :id="$route.params.id" url="users" cancelUrl="../">
     <p>{{ $t("Delete user consequences") }}</p>
   </DeleteConfirm>
 </template>

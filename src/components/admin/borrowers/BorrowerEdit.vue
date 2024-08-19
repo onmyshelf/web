@@ -7,7 +7,7 @@
     <form v-else @submit="validate">
       <div class="mb-3">
         <label class="form-label">
-          {{ $t("Firstname/Lastname") }}
+          {{ $t("Firstname") }}
         </label>
         <input
           v-model="edit.firstname"
@@ -17,6 +17,11 @@
           class="form-control"
           required
         />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">
+          {{ $t("Lastname") }} ({{ $t("optional") }})
+        </label>
         <input
           v-model="edit.lastname"
           name="lastname"
@@ -47,7 +52,7 @@
         >
           {{ id ? $t("Save changes") : $t("Create borrower") }}
         </button>
-        <a href="." class="btn btn-outline-secondary">
+        <a :href="id ? '../' : './'" class="btn btn-outline-secondary">
           {{ $t("Cancel") }}
         </a>
       </div>
@@ -103,7 +108,7 @@ export default {
           document.location.href = "/borrowers/"
         })
       } else {
-        // create new user
+        // create new borrower
         this.$apiPost("borrowers", data).then(() => {
           document.location.href = "/borrowers/"
         })

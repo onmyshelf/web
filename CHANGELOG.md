@@ -1,5 +1,15 @@
 # Changelog for OnMyShelf web interface
 
+# 1.4.0 (2024-08-16)
+## New features
+- New items search feature
+- New borrowers management system
+- New modules page in server config
+## Improvements
+- Autodetect browser language
+## Bugfixes
+- Fix bad use of the file property
+
 # 1.3.2 (2024-08-13)
 - Upgrade axios for security
 - Minor code improvements

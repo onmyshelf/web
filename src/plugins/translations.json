@@ -199,10 +199,6 @@
     "en_US": "Search",
     "fr_FR": "Rechercher"
   },
-  "All import sources": {
-    "en_US": "All",
-    "fr_FR": "Toutes"
-  },
   "Search item here": {
     "en_US": "Search an item here",
     "fr_FR": "Rechercher un objet ici"
@@ -222,6 +218,10 @@
   "Import item": {
     "en_US": "Import this item",
     "fr_FR": "Importer cet objet"
+  },
+  "Importing item": {
+    "en_US": "Importing item",
+    "fr_FR": "Importation de l'objet"
   },
   "Imported": {
     "en_US": "Imported",

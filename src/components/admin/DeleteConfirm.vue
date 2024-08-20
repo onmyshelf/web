@@ -1,7 +1,8 @@
 <template>
   <div class="container delete-confirm">
     <h5>
-      {{ $t("Confirm delete " + obj) }} <span class="object-id">{{ id }}</span> ?
+      {{ $t("Confirm delete " + obj) }}
+      <span class="object-id">{{ id }}</span> ?
     </h5>
 
     <slot></slot>

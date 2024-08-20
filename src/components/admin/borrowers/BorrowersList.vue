@@ -8,12 +8,11 @@
       </router-link>
 
       <Loading v-if="loading" />
-      
+
       <template v-if="borrowers && borrowers.length > 0">
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">{{ $t("ID") }}</th>
               <th scope="col">{{ $t("Firstname") }}</th>
               <th scope="col">{{ $t("Lastname") }}</th>
               <th scope="col">{{ $t("Email") }}</th>
@@ -22,7 +21,6 @@
           </thead>
           <tbody>
             <tr v-for="(borrower, key) in borrowers" :key="key">
-              <td scope="row">{{ borrower.id }}</td>
               <td scope="row">{{ borrower.firstname }}</td>
               <td scope="row">{{ borrower.lastname }}</td>
               <td scope="row">{{ borrower.email }}</td>

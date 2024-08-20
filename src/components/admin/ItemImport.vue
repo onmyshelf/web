@@ -30,7 +30,7 @@
           >
             {{ module.name }}
             <template v-if="module.tags">
-              ({{ $t("tags") }}: {{ module.tags.join(", ") }})
+              ({{ $t("Tags") }}: {{ module.tags.join(", ") }})
             </template>
           </option>
         </select>

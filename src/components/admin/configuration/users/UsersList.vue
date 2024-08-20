@@ -6,11 +6,12 @@
         <i class="bi-plus-lg"></i> {{ $t("Create new user") }}
       </router-link>
 
+      <Loading v-if="loading" />
+
       <template v-if="users">
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">{{ $t("ID") }}</th>
               <th scope="col">{{ $t("Username") }}</th>
               <th scope="col">{{ $t("Email") }}</th>
               <th scope="col">{{ $t("Enabled") }}</th>
@@ -19,8 +20,14 @@
           </thead>
           <tbody>
             <tr v-for="(user, key) in users" :key="key">
-              <td scope="row">{{ user.id }}</td>
-              <td scope="row">{{ user.username }}</td>
+              <td scope="row">
+                {{ user.username }}
+                <i
+                  v-if="user.role == 'admin'"
+                  class="bi bi-star-fill ms-2"
+                  :title="$t('Administrator')"
+                />
+              </td>
               <td scope="row">{{ user.email }}</td>
               <td>
                 <i :class="'bi bi-' + (user.enabled ? 'check-lg' : 'ban')"></i>
@@ -41,7 +48,6 @@
           </tbody>
         </table>
       </template>
-      <Loading v-else />
     </div>
   </div>
 </template>

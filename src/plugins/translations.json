@@ -3,9 +3,8 @@
     "en_US": "e.g.",
     "fr_FR": "ex:"
   },
-  "Home": {
-    "en_US": "Home",
-    "fr_FR": "Accueil"
+  "DEMO": {
+    "en_US": "DEMO"
   },
   "About": {
     "en_US": "About",
@@ -107,6 +106,9 @@
     "en_US": "Borrowers",
     "fr_FR": "Emprunteurs"
   },
+  "Email": {
+    "en_US": "Email"
+  },
   "Create new borrower": {
     "en_US": "Create a borrower",
     "fr_FR": "Créer un emprunteur"
@@ -115,6 +117,10 @@
     "en_US": "Create borrower",
     "fr_FR": "Créer l'emprunteur"
   },
+  "Edit borrower": {
+    "en_US": "Edit borrower",
+    "fr_FR": "Modifier l'emprunteur"
+  },
   "Confirm delete borrower": {
     "en_US": "Are you sure to delete borrower",
     "fr_FR": "Êtes-vous sûr de supprimer l'emprunteur"
@@ -122,6 +128,12 @@
   "Delete borrower": {
     "en_US": "Delete borrower",
     "fr_FR": "Supprimer l'emprunteur"
+  },
+  "Collections": {
+    "en_US": "Collections"
+  },
+  "Collection": {
+    "en_US": "Collection"
   },
   "No collections": {
     "en_US": "No collections.",
@@ -215,6 +227,9 @@
     "en_US": "Nothing found",
     "fr_FR": "Rien n'a été trouvé"
   },
+  "Source": {
+    "en_US": "Source"
+  },
   "Import item": {
     "en_US": "Import this item",
     "fr_FR": "Importer cet objet"
@@ -243,6 +258,10 @@
     "en_US": "Filter by",
     "fr_FR": "Filtrer par"
   },
+  "Delete filter": {
+    "en_US": "Delete filter",
+    "fr_FR": "Supprimer le filtre"
+  },
   "Yes": {
     "en_US": "Yes",
     "fr_FR": "Oui"
@@ -262,6 +281,10 @@
   "Unlimited": {
     "en_US": "Unlimited",
     "fr_FR": "Illimité"
+  },
+  "Delete search": {
+    "en_US": "Delete search",
+    "fr_FR": "Supprimer la recherche"
   },
   "Create an item": {
     "en_US": "Create an item",
@@ -403,6 +426,9 @@
     "en_US": "None",
     "fr_FR": "Aucun"
   },
+  "Tags": {
+    "en_US": "Tags"
+  },
   "Add new tag": {
     "en_US": "Add a new tag",
     "fr_FR": "Ajouter un nouveau tag"
@@ -442,6 +468,15 @@
   "Property": {
     "en_US": "Property",
     "fr_FR": "Propriété"
+  },
+  "Type": {
+    "en_US": "Type"
+  },
+  "Label": {
+    "en_US": "Label"
+  },
+  "Description": {
+    "en_US": "Description"
   },
   "Item cover": {
     "en_US": "Cover image",
@@ -559,6 +594,10 @@
     "en_US": "Values",
     "fr_FR": "Valeurs"
   },
+  "Use property as item reference": {
+    "en_US": "Use this property as item reference (e.g. series number, ISBN, ...)",
+    "fr_FR": "Utiliser cette propriété comme référence pour l'objet (ex: numéro de série, ISBN, ...)"
+  },
   "Property has multiple values": {
     "en_US": "This property can contain multiple values",
     "fr_FR": "Cette propriété peut contenir plusieurs valeurs"
@@ -626,6 +665,10 @@
   "Import collection from": {
     "en_US": "Import collection from CSV, GCstar, Tellico, ...",
     "fr_FR": "Importer une collection depuis un CSV, GCstar, Tellico, ..."
+  },
+  "View collection": {
+    "en_US": "View my collection",
+    "fr_FR": "Voir ma collection"
   },
   "Export collection": {
     "en_US": "Export collection",
@@ -727,9 +770,21 @@
     "en_US": "Create a new loan",
     "fr_FR": "Créer un nouveau prêt"
   },
+  "Accept": {
+    "en_US": "Accept",
+    "fr_FR": "Accepter"
+  },
+  "Reject": {
+    "en_US": "Reject",
+    "fr_FR": "Refuser"
+  },
   "Loan item": {
     "en_US": "Loan",
     "fr_FR": "Prêter"
+  },
+  "Send email to borrower": {
+    "en_US": "Send an email to borrower",
+    "fr_FR": "Envoyer un email à l'emprunteur"
   },
   "Get back item": {
     "en_US": "Get back",
@@ -762,6 +817,9 @@
   "Borrower name example": {
     "en_US": "e.g. John Doe",
     "fr_FR": "ex: Jean Dupont"
+  },
+  "Notes": {
+    "en_US": "Notes"
   },
   "Loan notes example": {
     "en_US": "e.g. Item is a few damaged",
@@ -839,6 +897,9 @@
     "en_US": "Passwords are not equals!",
     "fr_FR": "Les mots de passe ne correspondent pas !"
   },
+  "Configuration": {
+    "en_US": "Configuration"
+  },
   "Server configuration": {
     "en_US": "Server configuration",
     "fr_FR": "Configuration serveur"
@@ -858,6 +919,10 @@
   "Users": {
     "en_US": "Users",
     "fr_FR": "Utilisateurs"
+  },
+  "Administrator": {
+    "en_US": "Administrator",
+    "fr_FR": "Administrateur"
   },
   "Enabled": {
     "en_US": "Enabled",
@@ -887,6 +952,9 @@
     "en_US": "e.g. my@email.com",
     "fr_FR": "ex: mon@email.com"
   },
+  "Avatar": {
+    "en_US": "Avatar"
+  },
   "Account is enabled": {
     "en_US": "User account is enabled",
     "fr_FR": "Le compte utilisateur est activé"
@@ -911,6 +979,9 @@
     "en_US": "Delete user",
     "fr_FR": "Supprimer l'utilisateur"
   },
+  "Emails": {
+    "en_US": "Emails"
+  },
   "Email configuration": {
     "en_US": "Email configuration",
     "fr_FR": "Configuration des emails"
@@ -927,16 +998,30 @@
     "en_US": "Send me a test email",
     "fr_FR": "M'envoyer un email de test"
   },
+  "Modules": {
+    "en_US": "Modules"
+  },
   "Import modules": {
     "en_US": "Import modules",
     "fr_FR": "Modules d'import"
+  },
+  "No modules found": {
+    "en_US": "No modules found",
+    "fr_FR": "Aucun module trouvé"
   },
   "Upgrade all modules": {
     "en_US": "Upgrade all modules",
     "fr_FR": "Mettre à jour tous les modules"
   },
+  "External": {
+    "en_US": "External",
+    "fr_FR": "Externe"
+  },
   "Features": {
     "en_US": "Features",
     "fr_FR": "Fonctionnalités"
+  },
+  "Version": {
+    "en_US": "Version"
   }
 }

@@ -112,7 +112,7 @@
                 v-if="titleSearch"
                 href="#"
                 class="ms-2"
-                :title="$t('Clear filter')"
+                :title="$t('Delete filter')"
                 @click="titleSearch = ''"
               >
                 <i class="bi bi-x-circle"></i>
@@ -138,7 +138,7 @@
                   <a
                     v-if="getFilter(filterName)"
                     :href="reloadUrl(filters.filter(f => f.name != filterName), sorting, 1)"
-                    title="Clear filter"
+                    :title="$t('Delete filter')"
                   >
                     <i class="bi bi-x-circle"></i>
                   </a>
@@ -313,7 +313,7 @@
               v-if="$route.query.search"
               type="button"
               class="btn btn-outline-secondary"
-              :title="$t('Clean search')"
+              :title="$t('Delete search')"
               @click="cleanSearch()"
             >
               <i class="bi bi-x-lg" />

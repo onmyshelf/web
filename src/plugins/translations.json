@@ -1,4 +1,8 @@
 {
+  "Details": {
+    "en_US": "Details",
+    "fr_FR": "Détails"
+  },
   "e.g.": {
     "en_US": "e.g.",
     "fr_FR": "ex:"
@@ -322,9 +326,17 @@
     "en_US": "Collection name",
     "fr_FR": "Nom de la collection"
   },
+  "Collection name example for board_games": {
+    "en_US": "My board games",
+    "fr_FR": "Mes jeux de société"
+  },
   "Collection name example for books": {
     "en_US": "My books",
     "fr_FR": "Mes livres"
+  },
+  "Collection name example for comics": {
+    "en_US": "My comics",
+    "fr_FR": "Mes BDs"
   },
   "Collection name example for movies": {
     "en_US": "My movies",
@@ -754,13 +766,12 @@
     "en_US": "Loans",
     "fr_FR": "Prêts"
   },
-  "Create a loan": {
-    "en_US": "Create a loan",
-    "fr_FR": "Créer un prêt"
-  },
   "Loan state": {
     "en_US": "State",
     "fr_FR": "État"
+  },
+  "Date": {
+    "en_US": "Date"
   },
   "Borrower": {
     "en_US": "Borrower",
@@ -810,14 +821,6 @@
     "en_US": "Returned",
     "fr_FR": "Rendu"
   },
-  "Borrower name": {
-    "en_US": "Borrower's name",
-    "fr_FR": "Nom de l'emprunteur"
-  },
-  "Borrower name example": {
-    "en_US": "e.g. John Doe",
-    "fr_FR": "ex: Jean Dupont"
-  },
   "Notes": {
     "en_US": "Notes"
   },
@@ -840,10 +843,6 @@
   "Cancel": {
     "en_US": "Cancel",
     "fr_FR": "Annuler"
-  },
-  "Failed!": {
-    "en_US": "Failed!",
-    "fr_FR": "Échec !"
   },
   "Delete item": {
     "en_US": "Delete item",

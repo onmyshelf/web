@@ -1,6 +1,6 @@
 # Changelog for OnMyShelf web interface
 
-# 1.4.0 (2024-08-16)
+# 1.4.0 (2024-08-23)
 ## New features
 - New items search feature
 - New borrowers management system

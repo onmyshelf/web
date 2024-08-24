@@ -22,7 +22,7 @@
 
       <div v-if="item.properties" class="item-preview">
         <div v-for="(property, name) of collection.properties" :key="name">
-          <Property
+          <PropertyView
             v-if="property.preview"
             :name="name"
             :property="property"
@@ -60,7 +60,7 @@ import EditItemButton from "./EditItemButton.vue"
 import ImageView from "@/components/properties/ImageView.vue"
 import LoanBadge from "@/components/loans/LoanBadge.vue"
 import LoanItemButton from "@/components/loans/LoanItemButton.vue"
-import Property from "@/components/Property.vue"
+import PropertyView from "@/components/properties/PropertyView.vue"
 import QuantityBadge from "./QuantityBadge.vue"
 import VisibilityIcon from "@/components/properties/VisibilityIcon.vue"
 
@@ -70,7 +70,7 @@ export default {
     ImageView,
     LoanBadge,
     LoanItemButton,
-    Property,
+    PropertyView,
     QuantityBadge,
     VisibilityIcon,
   },

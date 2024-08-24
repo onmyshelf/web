@@ -66,12 +66,12 @@
 </style>
 
 <script>
-import ColorView from "./properties/ColorView.vue"
-import ImageView from "./properties/ImageView.vue"
-import JsonView from "./properties/JsonView.vue"
-import RatingView from "./properties/RatingView.vue"
-import VideoPlayer from "./properties/video/VideoPlayer.vue"
-import YesNo from "./properties/YesNo.vue"
+import ColorView from "./ColorView.vue"
+import ImageView from "./ImageView.vue"
+import JsonView from "./JsonView.vue"
+import RatingView from "./RatingView.vue"
+import VideoPlayer from "./video/VideoPlayer.vue"
+import YesNo from "./YesNo.vue"
 
 export default {
   components: {

@@ -144,7 +144,7 @@
                   :id="'property-' + name"
                   class="item-preview"
                 >
-                  <Property
+                  <PropertyView
                     :name="name"
                     :property="property"
                     :value="properties[name]"
@@ -304,17 +304,17 @@
 </style>
 
 <script>
-import ActionItemButton from "./items/ActionItemButton.vue"
-import ActionLoanIcon from "./loans/ActionLoanIcon.vue"
-import EditItemButton from "./items/EditItemButton.vue"
-import ImageView from "./properties/ImageView.vue"
-import LoanBadge from "./loans/LoanBadge.vue"
-import LoanItemButton from "./loans/LoanItemButton.vue"
-import Error from "./Error.vue"
-import Property from "./Property.vue"
-import QuantityBadge from "./items/QuantityBadge.vue"
-import TabsView from "./TabsView.vue"
-import VisibilityIcon from "./properties/VisibilityIcon.vue"
+import ActionItemButton from "./ActionItemButton.vue"
+import ActionLoanIcon from "@/components/loans/ActionLoanIcon.vue"
+import EditItemButton from "./EditItemButton.vue"
+import ImageView from "@/components/properties/ImageView.vue"
+import LoanBadge from "@/components/loans/LoanBadge.vue"
+import LoanItemButton from "@/components/loans/LoanItemButton.vue"
+import Error from "@/components/Error.vue"
+import PropertyView from "@/components/properties/PropertyView.vue"
+import QuantityBadge from "./QuantityBadge.vue"
+import TabsView from "@/components/TabsView.vue"
+import VisibilityIcon from "@/components/properties/VisibilityIcon.vue"
 
 export default {
   components: {
@@ -325,7 +325,7 @@ export default {
     LoanBadge,
     LoanItemButton,
     Error,
-    Property,
+    PropertyView,
     QuantityBadge,
     TabsView,
     VisibilityIcon,

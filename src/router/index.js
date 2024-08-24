@@ -84,7 +84,7 @@ const router = createRouter({
           children: [
             {
               path: "",
-              component: () => import("../components/Item.vue"),
+              component: () => import("../components/items/ItemView.vue"),
             },
           ],
         },

@@ -259,11 +259,12 @@ export default {
         return
       }
 
+      // default collection name: get translation
       let translationKey = "Collection name example for " + this.edit.type
       let translation = this.$t(translationKey)
 
-      // default translation
       if (translation == translationKey) {
+        // translation not found: empty
         this.edit.name = ""
         translation = this.$t("Collection name example")
       } else {

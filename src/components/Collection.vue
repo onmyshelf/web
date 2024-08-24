@@ -1,6 +1,8 @@
 <template>
   <Error v-if="error" :status="error" />
-  <Item v-else-if="item" />
+
+  <ItemView v-else-if="item" />
+
   <div v-else class="container-fluid">
     <button class="navbar-toggler" type="button" @click="toggleSidebar()">
       <i class="bi bi-list" style="font-size: 2em"></i>
@@ -420,22 +422,22 @@
 </style>
 
 <script>
-import PreviewList from "./items/PreviewList.vue"
-import PreviewMosaic from "./items/PreviewMosaic.vue"
-import PreviewShop from "./items/PreviewShop.vue"
-import PropertyLabel from "./PropertyLabel.vue"
 import Breadcrumbs from "@/components/Breadcrumbs.vue"
 import Empty from "@/components/Empty.vue"
 import Error from "@/components/Error.vue"
-import Item from "@/components/Item.vue"
+import ItemView from "@/components/items/ItemView.vue"
 import Loading from "@/components/Loading.vue"
+import PreviewList from "./items/PreviewList.vue"
+import PreviewMosaic from "./items/PreviewMosaic.vue"
+import PreviewShop from "./items/PreviewShop.vue"
+import PropertyLabel from "./properties/PropertyLabel.vue"
 
 export default {
   components: {
     Breadcrumbs,
     Empty,
     Error,
-    Item,
+    ItemView,
     Loading,
     PreviewList,
     PreviewMosaic,

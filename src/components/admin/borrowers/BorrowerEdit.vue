@@ -52,7 +52,7 @@
         >
           {{ id ? $t("Save changes") : $t("Create borrower") }}
         </button>
-        <a :href="id ? '../' : './'" class="btn btn-outline-secondary">
+        <a href="./" class="btn btn-outline-secondary">
           {{ $t("Cancel") }}
         </a>
       </div>
@@ -105,12 +105,12 @@ export default {
       if (this.id) {
         // modify borrower
         this.$apiPatch("borrowers/" + this.id, data).then(() => {
-          document.location.href = "/borrowers/"
+          document.location.href = "./"
         })
       } else {
         // create new borrower
         this.$apiPost("borrowers", data).then(() => {
-          document.location.href = "/borrowers/"
+          document.location.href = "./"
         })
       }
     },

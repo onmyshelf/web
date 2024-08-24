@@ -84,7 +84,7 @@
             </option>
           </select>
           <a href="/borrowers/new" class="btn btn-outline-primary mt-3">
-            <i class="bi bi-plus-lg me-2" />{{ $t("Create borrower") }}
+            <i class="bi bi-plus-lg me-2" />{{ $t("Create new borrower") }}
           </a>
         </div>
 

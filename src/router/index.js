@@ -21,6 +21,10 @@ const router = createRouter({
           component: () => import("../components/admin/borrowers/BorrowerEdit.vue"),
         },
         {
+          path: ":id",
+          component: () => import("../components/admin/borrowers/BorrowerView.vue"),
+        },
+        {
           path: ":id/edit",
           component: () => import("../components/admin/borrowers/BorrowerEdit.vue"),
         },

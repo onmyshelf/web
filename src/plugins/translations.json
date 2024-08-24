@@ -171,6 +171,10 @@
     "en_US": "Items",
     "fr_FR": "Objets"
   },
+  "Item": {
+    "en_US": "Item",
+    "fr_FR": "Objet"
+  },
   "Mine": {
     "en_US": "Mine",
     "fr_FR": "À moi"

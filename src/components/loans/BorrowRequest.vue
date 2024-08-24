@@ -13,47 +13,45 @@
 
     <div v-else>
       <form @submit="validate">
-        <div v-if="!$isLoggedIn()">
-          <div class="mb-3">
-            <label class="form-label">
-              {{ $t("Firstname") }}
-            </label>
-            <input
-              v-model="form.firstname"
-              name="firstname"
-              type="text"
-              :placeholder="$t('Firstname')"
-              class="form-control"
-              required
-            />
-          </div>
-          <div class="mb-3">
-            <label class="form-label">
-              {{ $t("Lastname") }}
-            </label>
-            <input
-              v-model="form.lastname"
-              name="lastname"
-              type="text"
-              :placeholder="$t('Lastname')"
-              class="form-control"
-              required
-            />
-          </div>
+        <div class="mb-3">
+          <label class="form-label">
+            {{ $t("Firstname") }}
+          </label>
+          <input
+            v-model="form.firstname"
+            name="firstname"
+            type="text"
+            :placeholder="$t('Firstname')"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">
+            {{ $t("Lastname") }}
+          </label>
+          <input
+            v-model="form.lastname"
+            name="lastname"
+            type="text"
+            :placeholder="$t('Lastname')"
+            class="form-control"
+            required
+          />
+        </div>
 
-          <div class="mb-3">
-            <label class="form-label">
-              {{ $t("Email address") }}
-            </label>
-            <input
-              v-model="form.email"
-              name="email"
-              type="email"
-              class="form-control"
-              :placeholder="$t('Email example')"
-              required
-            />
-          </div>
+        <div class="mb-3">
+          <label class="form-label">
+            {{ $t("Email address") }}
+          </label>
+          <input
+            v-model="form.email"
+            name="email"
+            type="email"
+            class="form-control"
+            :placeholder="$t('Email example')"
+            required
+          />
         </div>
 
         <div class="mb-3">
@@ -97,6 +95,18 @@ export default {
       loading: false,
       success: null,
     }
+  },
+  created() {
+    // if not logged in, stop here
+    if (!this.$isLoggedIn()) {
+      return
+    }
+
+    // fill form with user profile
+    this.$apiGet("users/" + this.$currentUser().id)
+    .then((response) => {
+      this.form = response.data
+    })
   },
   methods: {
     validate(e) {

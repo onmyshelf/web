@@ -13,18 +13,30 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">{{ $t("Firstname") }}</th>
-              <th scope="col">{{ $t("Lastname") }}</th>
+              <th scope="col">{{ $t("Firstname") }}/{{ $t("Lastname") }}</th>
               <th scope="col">{{ $t("Email") }}</th>
               <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(borrower, key) in borrowers" :key="key">
-              <td scope="row">{{ borrower.firstname }}</td>
-              <td scope="row">{{ borrower.lastname }}</td>
-              <td scope="row">{{ borrower.email }}</td>
+              <td scope="row">
+                <a :href="borrower.id + '/'">
+                  {{ borrower.firstname }} {{ borrower.lastname }}
+                </a>
+              </td>
+              <td scope="row">
+                <a :href="borrower.id + '/'">{{ borrower.email }}</a>
+              </td>
               <td>
+                <router-link
+                  v-if="$matchUserId(borrower.owner)"
+                  :to="'' + borrower.id + '/'"
+                  :title="$t('View')"
+                  class="me-3"
+                >
+                  <i class="bi bi-eye" />
+                </router-link>
                 <router-link
                   v-if="$matchUserId(borrower.owner)"
                   :to="'' + borrower.id + '/edit'"
@@ -32,13 +44,6 @@
                   class="me-3"
                 >
                   <i class="bi bi-pencil" />
-                </router-link>
-                <router-link
-                  v-if="$matchUserId(borrower.owner)"
-                  :to="borrower.id + '/delete'"
-                  :title="$t('Delete')"
-                >
-                  <i class="bi bi-x-lg" />
                 </router-link>
               </td>
             </tr>

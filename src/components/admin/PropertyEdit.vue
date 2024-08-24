@@ -2,11 +2,6 @@
   <div class="container">
     <Error v-if="error" :status="error" />
     <template v-else>
-      <Breadcrumbs
-        v-if="collection"
-        :parents="breadcrumbs"
-        :current="id ? $t('Property') + ' ' + id : $t('New property')"
-      />
       <h1>
         {{ id ? $t("Edit property") + " " + id : $t("New property") }}
       </h1>
@@ -271,28 +266,16 @@
 </template>
 
 <script>
-import Breadcrumbs from "@/components/Breadcrumbs.vue"
 import Error from "@/components/Error.vue"
 import VisibilitySelector from "./properties/VisibilitySelector.vue"
 
 export default {
   components: {
-    Breadcrumbs,
     Error,
     VisibilitySelector,
   },
   data() {
     return {
-      breadcrumbs: [
-        {
-          url: "/collection/" + this.$route.params.cid + "/",
-          label: "Collection " + this.$route.params.cid,
-        },
-        {
-          url: "/collection/" + this.$route.params.cid + "/manage/",
-          label: this.$t("Manage"),
-        },
-      ],
       id: this.$route.params.id,
       collection: null,
       // default form values
@@ -323,7 +306,6 @@ export default {
         } else {
           this.collection.name = "Collection " + this.id
         }
-        this.breadcrumbs[0].label = this.collection.name
 
         // check if collection is mine; if not, quit
         if (!this.$matchUserId(this.collection.owner)) {

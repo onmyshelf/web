@@ -332,12 +332,6 @@ export default {
   },
   data() {
     return {
-      breadcrumbs: [
-        {
-          url: "/collection/" + this.$route.params.cid + "/",
-          label: "Collection " + this.$route.params.cid,
-        },
-      ],
       tabs: ["Properties"],
       currentTab: "Properties",
       id: null,
@@ -383,7 +377,6 @@ export default {
         } else {
           this.collection.name = "Collection " + this.$route.params.cid
         }
-        this.breadcrumbs[0].label = this.collection.name
 
         // parse properties
         if (response.data.properties) {

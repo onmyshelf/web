@@ -270,7 +270,6 @@
         v-if="!loading"
         class="collection col-md-9 ms-sm-auto col-lg-10 px-md-4"
       >
-        <Breadcrumbs v-if="collection.name" :current="title" />
         <h1 id="collectionTitle">{{ title }}</h1>
         <p v-if="collection.description" id="collectionDescription">
           {{ collection.description }}
@@ -422,7 +421,6 @@
 </style>
 
 <script>
-import Breadcrumbs from "@/components/Breadcrumbs.vue"
 import Empty from "@/components/Empty.vue"
 import Error from "@/components/Error.vue"
 import ItemView from "@/components/items/ItemView.vue"
@@ -434,7 +432,6 @@ import PropertyLabel from "./properties/PropertyLabel.vue"
 
 export default {
   components: {
-    Breadcrumbs,
     Empty,
     Error,
     ItemView,

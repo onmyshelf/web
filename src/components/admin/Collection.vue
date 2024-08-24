@@ -1,9 +1,12 @@
 <template>
   <Error v-if="error" :status="error" />
+
   <div v-else class="container">
-    <Breadcrumbs v-if="name" :parents="breadcrumbs" :current="$t('Manage')" />
+    <a href="../">
+      <i class="bi-arrow-left me-3" />{{ $t("Return to collection") }}
+    </a>
     <h1>
-      {{ name ? $translate(name) : $t("Collection") + " " + $route.params.cid }}
+      {{ $t("Manage") + " " + (name ? $translate(name) : $t("Collection") + " " + $route.params.cid) }}
     </h1>
     <p v-if="description">{{ $translate(description) }}</p>
     <p v-if="visibility !== null">
@@ -14,9 +17,6 @@
     <p>
       <router-link to="edit" class="btn btn-primary me-3">
         <i class="bi-pencil me-2" />{{ $t("Edit collection details") }}
-      </router-link>
-      <router-link to="../" class="btn btn-outline-secondary">
-        <i class="bi-eye me-1" />{{ $t("Show collection") }}
       </router-link>
     </p>
 
@@ -172,7 +172,6 @@
 </template>
 
 <script>
-import Breadcrumbs from "@/components/Breadcrumbs.vue"
 import Error from "@/components/Error.vue"
 import Loading from "@/components/Loading.vue"
 import SuccessMessage from "@/components/SuccessMessage.vue"
@@ -180,7 +179,6 @@ import VisibilityIcon from "@/components/properties/VisibilityIcon.vue"
 
 export default {
   components: {
-    Breadcrumbs,
     Error,
     Loading,
     SuccessMessage,
@@ -188,12 +186,6 @@ export default {
   },
   data() {
     return {
-      breadcrumbs: [
-        {
-          url: "/collection/" + this.$route.params.cid + "/",
-          label: "Collection " + this.$route.params.cid,
-        },
-      ],
       id: this.$route.params.cid,
       name: null,
       description: null,
@@ -220,8 +212,6 @@ export default {
         if (response.data.description) {
           this.description = this.$translate(response.data.description)
         }
-
-        this.breadcrumbs[0].label = this.name
 
         this.cover = response.data.cover
         this.visibility = response.data.visibility

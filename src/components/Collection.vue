@@ -531,7 +531,7 @@ export default {
 
         // other properties
         this.collection.cover = response.data.cover
-        this.collection.thumbnail = response.data.thumbnail
+        this.collection.thumbnails = response.data.thumbnails
         this.collection.owner = response.data.owner
         this.collection.properties = response.data.properties
         this.collection.visibility = response.data.visibility
@@ -611,14 +611,14 @@ export default {
 
     itemCover(item) {
       if (item.properties[this.collection.coverProperty]) {
-        if (item.thumbnail.normal) {
-          return item.thumbnail.normal
+        if (item.thumbnails.normal) {
+          return item.thumbnails.normal
         } else {
           return item.properties[this.collection.coverProperty]
         }
       } else {
-        if (this.collection.thumbnail.normal) {
-          return this.collection.thumbnail.normal
+        if (this.collection.thumbnails.normal) {
+          return this.collection.thumbnails.normal
         } else {
           return this.collection.cover
         }

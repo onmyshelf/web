@@ -113,6 +113,9 @@
                 icon="x-lg"
               />
             </template>
+            <template v-else>
+              <BorrowItemButton v-if="borrowable" :item="item.id" />
+            </template>
           </div>
 
           <TabsView :tabs="tabs" v-model="currentTab" class="mb-3" />
@@ -268,7 +271,7 @@
                       :collection="collection.id"
                       :item="item.id"
                       :loan="loan.id"
-                      action="delete"
+                      action="/delete"
                       icon="x-lg"
                       :label="$t('Delete')"
                     />
@@ -306,6 +309,7 @@
 <script>
 import ActionItemButton from "./ActionItemButton.vue"
 import ActionLoanIcon from "@/components/loans/ActionLoanIcon.vue"
+import BorrowItemButton from "@/components/loans/BorrowItemButton.vue"
 import EditItemButton from "./EditItemButton.vue"
 import ImageView from "@/components/properties/ImageView.vue"
 import LoanBadge from "@/components/loans/LoanBadge.vue"
@@ -320,6 +324,7 @@ export default {
   components: {
     ActionItemButton,
     ActionLoanIcon,
+    BorrowItemButton,
     EditItemButton,
     ImageView,
     LoanBadge,
@@ -440,6 +445,27 @@ export default {
       } else {
         return "Item " + this.item.id
       }
+    },
+    borrowable() {
+      var level = this.item.borrowable
+
+      if (level < this.collection.borrowable) {
+        level = this.collection.borrowable
+      }
+
+      if (level == 0) {
+        return true
+      }
+
+      if (!this.$isLoggedIn()) {
+        return false
+      }
+
+      if (!this.isMine && level > 2) {
+        return false
+      }
+
+      return true
     },
   },
   methods: {

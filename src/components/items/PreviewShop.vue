@@ -37,11 +37,15 @@
           </router-link>
         </div>
       </template>
+      <template v-else>
+        <BorrowItemButton v-if="borrowable" :item="item.id" />
+      </template>
     </div>
   </div>
 </template>
 
 <script>
+import BorrowItemButton from "@/components/loans/BorrowItemButton.vue"
 import EditItemButton from "./EditItemButton.vue"
 import ImageView from "@/components/properties/ImageView.vue"
 import LoanBadge from "@/components/loans/LoanBadge.vue"
@@ -51,6 +55,7 @@ import VisibilityIcon from "@/components/properties/VisibilityIcon.vue"
 
 export default {
   components: {
+    BorrowItemButton,
     EditItemButton,
     ImageView,
     LoanBadge,
@@ -72,6 +77,27 @@ export default {
   computed: {
     collection() {
       return this.$parent.collection
+    },
+    borrowable() {
+      var level = this.item.borrowable
+
+      if (level < this.$parent.collection.borrowable) {
+        level = this.$parent.collection.borrowable
+      }
+
+      if (level == 0) {
+        return true
+      }
+
+      if (!this.$isLoggedIn()) {
+        return false
+      }
+
+      if (!this.$parent.isMine && level > 2) {
+        return false
+      }
+
+      return true
     },
   },
 }

@@ -762,6 +762,26 @@
     "en_US": "Lent",
     "fr_FR": "Prêté"
   },
+  "Borrow": {
+    "en_US": "Borrow",
+    "fr_FR": "Emprunter"
+  },
+  "Ask for borrowing": {
+    "en_US": "Ask for borrowing",
+    "fr_FR": "Demande d'emprunt"
+  },
+  "Borrow request message": {
+    "en_US": "Message",
+    "fr_FR": "Message"
+  },
+  "Ask to borrow this item": {
+    "en_US": "Ask to borrow this item",
+    "fr_FR": "Demander à emprunter cet objet"
+  },
+  "Your borrow request has been sent": {
+    "en_US": "Your borrow request has been sent",
+    "fr_FR": "Votre demande d'emprunt a été envoyée"
+  },
   "Loans": {
     "en_US": "Loans",
     "fr_FR": "Prêts"

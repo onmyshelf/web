@@ -63,12 +63,12 @@
           :title="$t('Open in new tab')"
           target="_blank"
         >
-          <i class="bi bi-box-arrow-up-right"></i>
+          <i class="bi bi-box-arrow-up-right" />
         </a>
       </div>
 
       <a class="btn btn-primary" @click="uploadField = !uploadField">
-        <i class="bi bi-cloud-arrow-up"></i> {{ $t("Upload file") }}
+        <i class="bi bi-cloud-arrow-up" /> {{ $t("Upload file") }}
       </a>
 
       <div v-if="uploadField" class="mt-3">
@@ -112,7 +112,7 @@
         :title="$t('Open in new tab')"
         target="_blank"
       >
-        <i class="bi bi-box-arrow-up-right"></i>
+        <i class="bi bi-box-arrow-up-right" />
       </a>
       <a
         v-if="externalUrl"
@@ -120,7 +120,7 @@
         :title="$t('Store into media library')"
         @click="download"
       >
-        <i class="bi bi-cloud-arrow-down"></i>
+        <i class="bi bi-cloud-arrow-down" />
       </a>
     </div>
     <div v-if="downloadError" class="alert alert-danger mt-3" role="alert">

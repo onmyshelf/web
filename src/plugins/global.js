@@ -95,75 +95,27 @@ export default {
       },
     }
 
-    app.config.globalProperties.$loanStates = {
-      asked: {
-        label: {
-          en_US: "Loan request",
-          fr_FR: "Demande de prêt",
-        },
-      },
-      rejected: {
-        label: {
-          en_US: "Loan rejected",
-          fr_FR: "Prêt refusé",
-        },
-      },
-      accepted: {
-        label: {
-          en_US: "Loan accepted",
-          fr_FR: "Prêt accepté",
-        },
-      },
-      lent: {
-        label: {
-          en_US: "Lent",
-          fr_FR: "Prêté",
-        },
-      },
-      returned: {
-        label: {
-          en_US: "Returned",
-          fr_FR: "Rendu",
-        },
-      },
-    }
-
     app.config.globalProperties.$visibilityLevels = {
       0: {
-        label: {
-          en_US: "Everyone",
-          fr_FR: "Tout le monde",
-        },
+        label: "Everyone",
         icon: "globe",
       },
       1: {
-        label: {
-          en_US: "Logged in users",
-          fr_FR: "Utilisateurs connectés",
-        },
+        label: "Logged in",
         icon: "unlock",
       },
       /* TODO
       2: {
-        label: {
-          en_US: "Shared users",
-          fr_FR: "Utilisateurs partagés",
-        },
+        label: "Shared",
         icon: "lock",
       },
       */
       3: {
-        label: {
-          en_US: "Only me",
-          fr_FR: "Moi seulement",
-        },
+        label: "Only me",
         icon: "person-circle",
       },
       4: {
-        label: {
-          en_US: "Nobody",
-          fr_FR: "Personne",
-        },
+        label: "Nobody",
         icon: "eye-slash-fill",
       },
     }

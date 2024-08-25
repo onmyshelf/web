@@ -8,14 +8,14 @@
     </p>
     <div class="mb-3">
       <router-link to="edit" class="btn btn-primary me-3">
-        <i class="bi-pencil"></i> {{ $t("Edit borrower") }}
+        <i class="bi-pencil" /> {{ $t("Edit borrower") }}
       </router-link>
       <router-link
         v-if="!loans || loans.length == 0"
         to="delete"
         class="btn btn-danger"
       >
-        <i class="bi-x-lg"></i> {{ $t("Delete borrower") }}
+        <i class="bi-x-lg" /> {{ $t("Delete borrower") }}
       </router-link>
 
       <Loading v-if="loading" />

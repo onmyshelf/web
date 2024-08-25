@@ -48,7 +48,7 @@
         :href="'/collection/' + this.$parent.collection.id + '/?p_' + name + '=' + encodeURIComponent(value)"
         :title="$t('Filter by') + ' ' + value"
       >
-        <i class="bi-filter-square-fill"></i>
+        <i class="bi-filter-square-fill" />
       </a>
     </span>
   </div>

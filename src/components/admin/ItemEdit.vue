@@ -12,10 +12,10 @@
       </h1>
       <div v-if="id" class="mt-3 mb-3">
         <button class="btn btn-outline-success" @click="duplicate()">
-          <i class="bi bi-copy"></i> {{ $t("Duplicate item") }}
+          <i class="bi bi-copy" /> {{ $t("Duplicate item") }}
         </button>
         <a class="btn btn-outline-danger ms-3" href="delete">
-          <i class="bi bi-x-lg"></i> {{ $t("Delete item") }}
+          <i class="bi bi-x-lg" /> {{ $t("Delete item") }}
         </a>
       </div>
 
@@ -35,7 +35,7 @@
                   <a
                     href="#"
                     @click="toggleHelp(name)"
-                    title="Informations about this property"
+                    :title="$t('Information about this property')"
                     data-bs-toggle="collapse"
                     aria-expanded="false"
                     :aria-controls="'help-' + name"

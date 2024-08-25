@@ -5,7 +5,7 @@
 
   <div v-else class="container-fluid">
     <button class="navbar-toggler" type="button" @click="toggleSidebar()">
-      <i class="bi bi-list" style="font-size: 2em"></i>
+      <i class="bi bi-list" style="font-size: 2em" />
     </button>
     <div class="row">
       <Loading v-if="loading" />
@@ -25,7 +25,7 @@
               :checked="displayMode == 'shop'"
             />
             <label class="btn btn-outline-secondary" for="displaymode-shop">
-              <i class="bi bi-grid" :title="$t('Shop style')"></i>
+              <i class="bi bi-grid" :title="$t('Shop style')" />
             </label>
 
             <input
@@ -37,7 +37,7 @@
               :checked="displayMode == 'list'"
             />
             <label class="btn btn-outline-secondary" for="displaymode-list">
-              <i class="bi bi-list" :title="$t('List')"></i>
+              <i class="bi bi-list" :title="$t('List')" />
             </label>
 
             <input
@@ -49,7 +49,7 @@
               :checked="displayMode == 'mosaic'"
             />
             <label class="btn btn-outline-secondary" for="displaymode-mosaic">
-              <i class="bi bi-grid-3x3" :title="$t('Mosaic')"></i>
+              <i class="bi bi-grid-3x3" :title="$t('Mosaic')" />
             </label>
           </div>
           <!-- end of select display mode -->
@@ -117,7 +117,7 @@
                 :title="$t('Delete filter')"
                 @click="titleSearch = ''"
               >
-                <i class="bi bi-x-circle"></i>
+                <i class="bi bi-x-circle" />
               </a>
               <input
                 v-model="titleSearch"
@@ -142,7 +142,7 @@
                     :href="reloadUrl(filters.filter(f => f.name != filterName), sorting, 1)"
                     :title="$t('Delete filter')"
                   >
-                    <i class="bi bi-x-circle"></i>
+                    <i class="bi bi-x-circle" />
                   </a>
                   <div class="filter-value">
                     <select
@@ -209,7 +209,7 @@
                 {{ $t("Lent") }}:
                 <a
                   v-if="filterLent !== null"
-                  title="Clear filter"
+                  :title="$t('Delete filter')"
                   @click="filterLent = null"
                 >
                   <i class="bi bi-x-circle" />

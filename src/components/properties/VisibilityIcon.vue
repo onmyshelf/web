@@ -1,11 +1,9 @@
 <template>
-  <a
-    :title="$t('Visibility') + ': ' + $translate($visibilityLevels[level].label)"
+  <i
+    :class="'bi-' + $visibilityLevels[level].icon + ' me-3'"
     :data-visibility-level="level"
-    class="me-3"
-  >
-    <i :class="'bi-' + $visibilityLevels[level].icon"></i>
-  </a>
+    :title="$t('Visibility') + ': ' + $t('Visibility level ' + $visibilityLevels[level].label)"
+  />
 </template>
 
 <script>

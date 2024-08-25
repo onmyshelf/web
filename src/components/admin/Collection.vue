@@ -11,8 +11,7 @@
     <p v-if="description">{{ $translate(description) }}</p>
     <p v-if="visibility !== null">
       {{ $t("Visibility") }}:
-      <VisibilityIcon :level="visibility" />
-      {{ $translate($visibilityLevels[visibility].label) }}
+      {{ $t("Visibility level " + $visibilityLevels[visibility].label) }}
     </p>
     <p>
       <router-link to="edit" class="btn btn-primary me-3">
@@ -48,32 +47,35 @@
           <tbody>
             <tr v-for="(property, name) of properties" :key="name">
               <td scope="row">
-                <a
+                <i
                   v-if="property.isTitle || property.isSubTitle || property.isCover || property.preview"
+                  class="bi-bookmark-fill"
                   :title="$t('In item summary')"
-                >
-                  <i class="bi-bookmark-fill" />
-                </a>
+                />
                 {{ $translate(property.label) ? $translate(property.label) : name }}
               </td>
               <td scope="row">
-                <template v-if="$propertyTypes[property.type]">
-                  <strong v-if="property.isTitle">
-                    {{ $t("Item title") }}
-                  </strong>
-                  <strong v-else-if="property.isSubTitle">
-                    {{ $t("Item subtitle") }}
-                  </strong>
-                  <strong v-else-if="property.isCover">
-                    {{ $t("Item cover") }}
-                  </strong>
-                  <template v-else>
+                <strong v-if="property.isTitle">
+                  {{ $t("Item title") }}
+                </strong>
+                <strong v-else-if="property.isSubTitle">
+                  {{ $t("Item subtitle") }}
+                </strong>
+                <strong v-else-if="property.isCover">
+                  {{ $t("Item cover") }}
+                </strong>
+                <template v-else>
+                  <template v-if="$propertyTypes[property.type]">
                     {{ $translate($propertyTypes[property.type].label) }}
                   </template>
                 </template>
               </td>
               <td>
-                <i v-if="property.hidden" class="bi bi-eye-slash"></i>
+                <i
+                  v-if="property.hidden"
+                  class="bi bi-eye-slash"
+                  :title="$t('Visibility') + ': ' + $t('Visibility level Nobody')"
+                />
                 <VisibilityIcon
                   v-else
                   :level="property.visibility > visibility ? property.visibility : visibility"
@@ -93,10 +95,10 @@
                     @click="orderProperty(name)"
                     class="me-3"
                   >
-                    <i class="bi bi-arrow-up-circle-fill"></i>
+                    <i class="bi bi-arrow-up-circle-fill" />
                   </a>
                   <a :title="$t('Move down')" @click="orderProperty(name, -1)">
-                    <i class="bi bi-arrow-down-circle"></i>
+                    <i class="bi bi-arrow-down-circle" />
                   </a>
                 </template>
               </td>

@@ -3,7 +3,7 @@
   <div v-else>
     <div class="mb-3">
       <router-link to="new" class="btn btn-success mb-3">
-        <i class="bi-plus-lg"></i> {{ $t("Create new user") }}
+        <i class="bi-plus-lg" /> {{ $t("Create new user") }}
       </router-link>
 
       <Loading v-if="loading" />
@@ -30,7 +30,7 @@
               </td>
               <td scope="row">{{ user.email }}</td>
               <td>
-                <i :class="'bi bi-' + (user.enabled ? 'check-lg' : 'ban')"></i>
+                <i :class="'bi bi-' + (user.enabled ? 'check-lg' : 'ban')" />
               </td>
               <td>
                 <router-link

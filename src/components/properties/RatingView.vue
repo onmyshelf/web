@@ -7,9 +7,9 @@
     :data-rating-max="max"
   >
     <span :title="stars.label" class="stars">
-      <i v-for="i in stars.full" :key="i" class="bi-star-fill"></i>
-      <i v-if="stars.mid == 1" class="bi-star-half"></i>
-      <i v-for="i in stars.empty" :key="i" class="bi-star"></i>
+      <i v-for="i in stars.full" :key="i" class="bi-star-fill" />
+      <i v-if="stars.mid == 1" class="bi-star-half" />
+      <i v-for="i in stars.empty" :key="i" class="bi-star" />
     </span>
     <span class="rating-label">{{ stars.label }}</span>
   </div>

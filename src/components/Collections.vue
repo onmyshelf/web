@@ -67,7 +67,7 @@
                     :to="'/collection/' + collection.id + '/manage/'"
                     class="btn btn-outline-secondary"
                   >
-                    <i class="bi-gear-fill"></i> {{ $t("Manage") }}
+                    <i class="bi-gear-fill" /> {{ $t("Manage") }}
                   </router-link>
                 </p>
               </div>

@@ -4,7 +4,7 @@
     :class="'btn btn-outline-primary' + (small ? '' : ' me-3')"
     :title="small ? $t('Borrow') : ''"
   >
-    <i class="bi-cart-plus"></i> {{ small ? "" : $t("Borrow") }}
+    <i class="bi-cart-plus" /> {{ small ? "" : $t("Borrow") }}
   </router-link>
 </template>
 

@@ -1,20 +1,6 @@
 <template>
-  <span class="me-2">
-    <span v-if="state == 'asked'" class="badge text-bg-warning">
-      {{ $translate($loanStates[state].label) }}
-    </span>
-    <span v-else-if="state == 'rejected'" class="badge text-bg-secondary">
-      {{ $translate($loanStates[state].label) }}
-    </span>
-    <span v-else-if="state == 'accepted'" class="badge text-bg-info">
-      {{ $translate($loanStates[state].label) }}
-    </span>
-    <span v-else-if="state == 'lent'" class="badge text-bg-danger">
-      {{ $translate($loanStates[state].label) }}
-    </span>
-    <span v-else-if="state == 'returned'" class="badge text-bg-success">
-      {{ $translate($loanStates[state].label) }}
-    </span>
+  <span :class="'badge text-bg-' + style() + ' me-2'">
+    {{ $t("Loan state " + state) }}
   </span>
 </template>
 
@@ -25,6 +11,26 @@ export default {
       type: String,
       required: true,
     },
+  },
+  methods: {
+    style() {
+      switch (this.state) {
+        case "asked":
+          return "warning"
+
+        case "rejected":
+          return "secondary"
+
+        case "accepted":
+          return "info"
+
+        case "lent":
+          return "danger"
+
+        case "returned":
+          return "success"
+      }
+    }
   },
 }
 </script>

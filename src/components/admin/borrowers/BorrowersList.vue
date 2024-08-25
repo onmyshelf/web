@@ -4,7 +4,7 @@
     <h1>{{ $t("Borrowers") }}</h1>
     <div class="mb-3">
       <router-link to="new" class="btn btn-success mb-3">
-        <i class="bi-plus-lg"></i> {{ $t("Create new borrower") }}
+        <i class="bi-plus-lg" /> {{ $t("Create new borrower") }}
       </router-link>
 
       <Loading v-if="loading" />

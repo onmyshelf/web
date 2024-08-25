@@ -1,8 +1,8 @@
 <template>
-  <select v-model="state" class="form-select" :aria-label="$t('Loan state')">
-    <template v-for="(name, key) in $loanStates" :key="key">
-      <option v-if="key != 'asked'" :value="key">
-        {{ $translate(name.label) }}
+  <select v-model="state" class="form-select" aria-label="Loan state">
+    <template v-for="s in states" :key="s">
+      <option :value="s">
+        {{ $t("Loan state " + s) }}
       </option>
     </template>
   </select>
@@ -12,6 +12,11 @@
 export default {
   props: {
     modelValue: {},
+  },
+  data() {
+    return {
+      states: ["rejected", "accepted", "lent", "returned"],
+    }
   },
   computed: {
     state: {

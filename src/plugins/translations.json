@@ -514,6 +514,26 @@
     "en_US": "Visibility",
     "fr_FR": "Visibilité"
   },
+  "Visibility level Everyone": {
+    "en_US": "Everyone",
+    "fr_FR": "Tout le monde"
+  },
+  "Visibility level Logged in": {
+    "en_US": "Logged in users",
+    "fr_FR": "Utilisateurs connectés"
+  },
+  "Visibility level Shared": {
+    "en_US": "Shared users",
+    "fr_FR": "Utilisateurs partagés"
+  },
+  "Visibility level Only me": {
+    "en_US": "Only me",
+    "fr_FR": "Moi seulement"
+  },
+  "Visibility level Nobody": {
+    "en_US": "Nobody",
+    "fr_FR": "Personne"
+  },
   "Display order": {
     "en_US": "Display order",
     "fr_FR": "Ordre d'affichage"
@@ -793,6 +813,26 @@
   "Loan state": {
     "en_US": "State",
     "fr_FR": "État"
+  },
+  "Loan state asked": {
+    "en_US": "Loan request",
+    "fr_FR": "Demande de prêt"
+  },
+  "Loan state rejected": {
+    "en_US": "Loan rejected",
+    "fr_FR": "Prêt refusé"
+  },
+  "Loan state accepted": {
+    "en_US": "Loan accepted",
+    "fr_FR": "Prêt accepté"
+  },
+  "Loan state lent": {
+    "en_US": "Lent",
+    "fr_FR": "Prêté"
+  },
+  "Loan state returned": {
+    "en_US": "Returned",
+    "fr_FR": "Rendu"
   },
   "Date": {
     "en_US": "Date"

@@ -11,7 +11,7 @@
       />
       <label class="form-check-label">
         <i :class="'bi-' + $visibilityLevels[key].icon" />
-        {{ $translate(name.label) }}
+        {{ $t("Visibility level " + name.label) }}
       </label>
     </div>
   </template>

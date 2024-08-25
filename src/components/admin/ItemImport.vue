@@ -96,7 +96,7 @@
             :title="$t('Open in new tab')"
             target="_blank"
           >
-            <i class="bi bi-box-arrow-up-right"></i>
+            <i class="bi bi-box-arrow-up-right" />
           </a>
         </div>
       </div>

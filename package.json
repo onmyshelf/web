@@ -1,6 +1,6 @@
 {
   "name": "onmyshelf",
-  "version": "1.5.0-beta.1+2024082401",
+  "version": "1.5.0-beta.1+2024082501",
   "private": true,
   "type": "module",
   "scripts": {
@@ -14,7 +14,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "axios": "^1.7.4",
+    "axios": "^1.7.5",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "pinia": "^2.1.7",

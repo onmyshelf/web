@@ -293,45 +293,34 @@ export default {
       this.loading = true
 
       let data = {
-        params: {
-          module: this.search.module,
-          source: this.search.source,
-          search: this.search.search,
-          options: {
-            tags: this.collection.tags,
-          },
+        module: this.search.module,
+        source: this.search.source,
+        search: this.search.search,
+        options: {
+          tags: this.collection.tags,
         },
-      }
-
-      let modules = [this.search.module]
-      if (this.search.module == "") {
-        modules = Object.keys(this.search.modules)
       }
 
       this.items = false
       this.errors = []
 
       // search
-      modules.forEach((module) => {
-        data.params.module = module
-        this.$apiGet("collections/" + this.$route.params.cid + "/import/search", data)
-          .then((response) => {
-            if (this.items === false) {
-              this.items = []
-            }
+      this.$apiPost("collections/" + this.$route.params.cid + "/import/search", data)
+        .then((response) => {
+          if (this.items === false) {
+            this.items = []
+          }
 
-            if (response.data) {
-              this.items = response.data
-              this.loading = false
-            }
+          if (response.data) {
+            this.items = response.data
+            this.loading = false
+          }
+        })
+        .catch(() => {
+          this.errors.push({
+            text: this.$t("An error occured") + " " + this.$t("Please retry")
           })
-          .catch(() => {
-            this.errors.push({
-              module: module,
-              text: this.$t("An error occured") + " " + this.$t("Please retry")
-            })
-          })
-      });
+        })
     },
 
     importItem(source, index = null) {
@@ -350,7 +339,7 @@ export default {
       }
 
       // import
-      this.$apiPost("collections/" + this.$route.params.cid + "/import", data)
+      this.$apiPost("collections/" + this.$route.params.cid + "/import/item", data)
         .then((response) => {
           if (response.data) {
             // if imported item id is defined, redirect to item page

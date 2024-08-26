@@ -285,7 +285,7 @@ export default {
 
       // if url source mode, import item
       if (this.importType == "url") {
-        this.importItem(this.search.module, this.search.source)
+        this.importItem(this.search.source)
         return
       }
 

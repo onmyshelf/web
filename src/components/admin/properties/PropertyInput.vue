@@ -83,14 +83,28 @@
       </a>
     </div>
 
-    <input
-      v-else
-      :name="'c' + $parent.collection.id + '-' + name"
-      v-model="value"
-      :type="property.type"
-      class="form-control"
-      :required="property.required"
-    />
+    <div v-else>
+      <input
+        v-model="value"
+        :type="property.type"
+        class="form-control dropdown-toggle"
+        :required="property.required"
+        autocomplete="false"
+        @keyup="getValues(value)"
+      />
+      <ul v-if="values.length > 0" class="dropdown-menu" style="display: block">
+        <li v-for="v in values" :key="v">
+          <a class="dropdown-item" @click="chooseValue(v)">
+            {{ v }}
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item text-danger" @click="values = []">
+            {{ $t("Cancel") }}
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -112,6 +126,12 @@ export default {
     },
     modelValue: {},
   },
+  data() {
+    return {
+      search: "",
+      values: [],
+    }
+  },
   computed: {
     value: {
       get() {
@@ -121,6 +141,30 @@ export default {
         this.$emit("update:modelValue", value)
       },
     },
+  },
+  methods: {
+    getValues(value) {
+      if (this.$demoMode()) {
+        return
+      }
+      if (!value || value.length < 3) {
+        return
+      }
+      if (value == this.search) {
+        return
+      }
+
+      this.search = value
+
+      this.$apiPost("collections/" + this.$route.params.cid + "/properties/" + this.name + "/values", {search: value})
+      .then((response) => {
+        this.values = response.data
+      })
+    },
+    chooseValue(value) {
+      this.value = value
+      this.values = []
+    }
   },
 }
 </script>

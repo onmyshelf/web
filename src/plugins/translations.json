@@ -110,8 +110,20 @@
     "en_US": "Borrowers",
     "fr_FR": "Emprunteurs"
   },
+  "No borrowers": {
+    "en_US": "No borrowers.",
+    "fr_FR": "Aucun emprunteur."
+  },
+  "Create first borrower": {
+    "en_US": "Create your first borrower!",
+    "fr_FR": "Créez votre premier emprunteur !"
+  },
   "Email": {
     "en_US": "Email"
+  },
+  "View": {
+    "en_US": "View",
+    "fr_FR": "Voir"
   },
   "Create new borrower": {
     "en_US": "Create a borrower",

@@ -1,5 +1,12 @@
 # Changelog for OnMyShelf web interface
 
+# 1.5.0 (2024-09-07)
+## New features
+- Autocompletion in item editor
+- New page titles
+## Improvements
+- Code refactoring
+
 # 1.4.0 (2024-08-23)
 ## New features
 - New items search feature

@@ -157,11 +157,21 @@
             </template>
 
             <div v-if="isMine" class="item-dates">
-              {{ $t("Item added on") }}: {{ item.created }}
-              <template v-if="item.updated != item.created">
-                <br />
-                {{ $t("Last changes") }}: {{ item.updated }}
-              </template>
+              <p>
+                {{ $t("Item added on") }}: {{ item.created }}
+                <template v-if="item.updated != item.created">
+                  <br />
+                  {{ $t("Last changes") }}: {{ item.updated }}
+                </template>
+              </p>
+            </div>
+            <div v-if="isMine">
+              <a
+                :href="'/collection/' + $route.params.cid + '/item/' + id + '/print'"
+                class="btn btn-outline-secondary me-3"
+              >
+                <i class="bi-qr-code" /> {{ $t("Print barcode") }}
+              </a>
             </div>
           </div>
 

@@ -174,6 +174,13 @@ const router = createRouter({
           },
         },
         {
+          path: "item/:id/print",
+          component: () => import("../components/items/BarcodePrint.vue"),
+          meta: {
+            title: "Print item barcode",
+          },
+        },
+        {
           path: "item/:iid/loan/new",
           component: () => import("../components/admin/LoanEdit.vue"),
           meta: {

@@ -172,6 +172,20 @@
                 >
                   <i class="bi bi-eye me-1" /> {{ $t("See item") }}
                 </a>
+                <a
+                  v-if="item.itemId"
+                  :href="'../item/' + item.itemId + '/edit'"
+                  class="btn btn-outline-primary me-2"
+                >
+                  <i class="bi bi-pencil me-1" /> {{ $t("Edit item") }}
+                </a>
+                <a
+                  v-if="item.itemId"
+                  :href="'../item/' + item.itemId + '/delete'"
+                  class="btn btn-outline-danger me-2"
+                >
+                  <i class="bi bi-x-lg me-1" /> {{ $t("Delete item") }}
+                </a>
               </p>
             </div>
           </div>

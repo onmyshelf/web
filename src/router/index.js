@@ -117,14 +117,14 @@ const router = createRouter({
         },
         {
           path: "manage/import",
-          component: () => import("../components/admin/Import.vue"),
+          component: () => import("../components/admin/import/ImportCollection.vue"),
           meta: {
             title: "Import collection",
           },
         },
         {
           path: "import/item",
-          component: () => import("../components/admin/ItemImport.vue"),
+          component: () => import("../components/admin/import/SearchAndImport.vue"),
           meta: {
             title: "Import items",
           },

@@ -60,7 +60,7 @@
 
 <script>
 import Loading from "@/components/Loading.vue"
-import MediaSelector from "./properties/MediaSelector.vue"
+import MediaSelector from "@/components/admin/properties/MediaSelector.vue"
 
 export default {
   components: {

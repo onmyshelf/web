@@ -1,5 +1,9 @@
 # Changelog for OnMyShelf web interface
 
+# 1.5.1 (2024-10-12)
+- New buttons on import page
+- Updated libraries
+
 # 1.5.0 (2024-09-07)
 ## New features
 - Autocompletion in item editor

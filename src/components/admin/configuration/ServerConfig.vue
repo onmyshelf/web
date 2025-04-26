@@ -11,14 +11,6 @@
                 {{ $t(knownConfig[param].label) }}:
               </template>
               <template v-else>{{ $t(param) }}:</template>
-              <button
-                v-if="! knownConfig[param] || ! knownConfig[param].protected"
-                class="btn btn-danger ms-2"
-                type="button"
-                @click="delete config[param]"
-              >
-                <i class="bi bi-x-lg" /> {{ $t("Delete") }}
-              </button>
             </label>
             <template
               v-if="knownConfig[param] && knownConfig[param].type == 'boolean'"
@@ -93,7 +85,6 @@ export default {
         loans: {
           type: "boolean",
           label: "Enable loans",
-          protected: true,
         },
       },
       newKey: null,

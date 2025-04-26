@@ -1,5 +1,9 @@
 # Changelog for OnMyShelf web interface
 
+# 1.5.3 (2025-xx-xx)
+- Minor improvements on server config page
+- Updated libraries
+
 # 1.5.2 (2025-03-15)
 - Fixed bad component path
 - Updated libraries

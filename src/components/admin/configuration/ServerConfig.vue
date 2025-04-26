@@ -6,28 +6,39 @@
       <form v-else @submit="validate">
         <template v-for="(value, param) in config" :key="param">
           <div class="item-preview mb-3">
-            <template v-if="param == 'loans'">
-              <label class="form-label">{{ $t("Enable loans") }}:</label>
+            <label class="form-label">
+              <template v-if="knownConfig[param]">
+                {{ $t(knownConfig[param].label) }}:
+              </template>
+              <template v-else>{{ $t(param) }}:</template>
+              <button
+                v-if="! knownConfig[param] || ! knownConfig[param].protected"
+                class="btn btn-danger ms-2"
+                type="button"
+                @click="delete config[param]"
+              >
+                <i class="bi bi-x-lg" /> {{ $t("Delete") }}
+              </button>
+            </label>
+            <template
+              v-if="knownConfig[param] && knownConfig[param].type == 'boolean'"
+            >
               <YesNo v-model="config[param]" />
             </template>
-
-            <template v-else>
-              <label class="form-label">{{ $t(param) }}:</label>
-              <div class="input-group">
-                <input
-                  v-model="config[param]"
-                  type="text"
-                  class="form-control"
-                />
-                <button
-                  class="btn btn-outline-danger"
-                  type="button"
-                  @click="delete config[param]"
-                >
-                  {{ $t("Delete") }}
-                </button>
-              </div>
-            </template>
+            <div class="input-group" v-else>
+              <PasswordEdit
+                v-if="param.includes('password') || param.includes('apikey')"
+                v-model="config[param]"
+                showButton="true"
+              />
+              <input
+                v-else
+                v-model="config[param]"
+                type="text"
+                :placeholder="$t('Value')"
+                class="form-control"
+              />
+            </div>
           </div>
         </template>
 
@@ -63,6 +74,7 @@
 <script>
 import Error from "@/components/Error.vue"
 import Loading from "@/components/Loading.vue"
+import PasswordEdit from "@/components/admin/properties/PasswordEdit.vue"
 import SuccessMessage from "@/components/SuccessMessage.vue"
 import YesNo from "@/components/admin/properties/YesNo.vue"
 
@@ -70,12 +82,20 @@ export default {
   components: {
     Error,
     Loading,
+    PasswordEdit,
     SuccessMessage,
     YesNo,
   },
   data() {
     return {
       config: {},
+      knownConfig: {
+        loans: {
+          type: "boolean",
+          label: "Enable loans",
+          protected: true,
+        },
+      },
       newKey: null,
       success: null,
       error: false,

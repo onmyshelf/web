@@ -12,25 +12,22 @@
               </template>
               <template v-else>{{ $t(param) }}:</template>
             </label>
-            <template
+            <YesNo
               v-if="knownConfig[param] && knownConfig[param].type == 'boolean'"
-            >
-              <YesNo v-model="config[param]" />
-            </template>
-            <div class="input-group" v-else>
-              <PasswordEdit
-                v-if="param.includes('password') || param.includes('apikey')"
-                v-model="config[param]"
-                showButton="true"
-              />
-              <input
-                v-else
-                v-model="config[param]"
-                type="text"
-                :placeholder="$t('Value')"
-                class="form-control"
-              />
-            </div>
+              v-model="config[param]"
+            />
+            <PasswordEdit
+              v-else-if="param.includes('password') || param.includes('apikey')"
+              v-model="config[param]"
+              showButton="true"
+            />
+            <input
+              v-else
+              v-model="config[param]"
+              type="text"
+              :placeholder="$t('Value')"
+              class="form-control"
+            />
           </div>
         </template>
 

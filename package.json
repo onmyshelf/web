@@ -1,6 +1,6 @@
 {
   "name": "onmyshelf",
-  "version": "1.5.3-rc.2",
+  "version": "1.5.3",
   "private": true,
   "type": "module",
   "scripts": {

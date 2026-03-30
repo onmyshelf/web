@@ -1,6 +1,6 @@
 {
   "name": "onmyshelf",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,11 +12,11 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "axios": "^1.10.0",
-    "bootstrap": "^5.3.7",
+    "axios": "^1.14.0",
+    "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
-    "vue": "^3.5.17",
-    "vue-router": "^4.5.1"
+    "vue": "^3.5.31",
+    "vue-router": "^5.0.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
